@@ -138,6 +138,19 @@ imputer_factory: dict[str, _BaseImputer] = {
     "iterative": IterativeImputer(sample_posterior=True),
 }
 
+unrolling_factory: dict[str, Callable] = {#"solvent":             unroll_solvent_descriptors,
+                                          #"solvent additive":    unroll_solvent_descriptors,
+                                          "ECFP":                 unroll_fingerprints,
+                                          #"mordred":             get_mordred_descriptors,
+                                          #"BRICS":               unroll_tokens,
+                                          #"SELFIES":             unroll_tokens,
+                                          #"SMILES":              unroll_tokens,
+                                          #"OHE":                 get_ohe_structures,
+                                          #"material properties": get_material_properties,
+                                          #"graph embeddings":    get_gnn_embeddings,
+                                          #"PUFp":                unroll_pufp,
+                                          }
+
 
 def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
                  mw: str  , mn: str  , pdi: str   # Column names for Mw, Mn & PDI
