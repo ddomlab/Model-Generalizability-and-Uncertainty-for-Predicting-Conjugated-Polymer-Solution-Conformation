@@ -339,19 +339,19 @@ class StructureProcessor:
     #     return bigsmiles_series
 
     @staticmethod
-    def assign_brics(mol_series: pd.Series) -> pd.Series:
-        """
-        Assigns BRICS fragments to the dataset.
+    # def assign_brics(mol_series: pd.Series) -> pd.Series:
+    #     """
+    #     Assigns BRICS fragments to the dataset.
 
-        Args:
-            mol_series: Series of RDKit Mol objects
+    #     Args:
+    #         mol_series: Series of RDKit Mol objects
 
-        Returns:
-            Series of BRICS fragments
-        """
-        brics_series: pd.Series = mol_series.map(lambda mol: generate_brics(mol))
-        print("Done assigning BRICS fragments.")
-        return brics_series
+    #     Returns:
+    #         Series of BRICS fragments
+    #     """
+    #     brics_series: pd.Series = mol_series.map(lambda mol: generate_brics(mol))
+    #     print("Done assigning BRICS fragments.")
+    #     return brics_series
 
     def assign_fingerprints(self, material: str, radius: int = 3, nbits: int = 1024) -> None:
         """
@@ -361,17 +361,17 @@ class StructureProcessor:
             lambda mol: generate_fingerprint(mol, radius, nbits))
         print(f"Done assigning {material} ECFP{2 * radius} fingerprints with {nbits} bits.")
 
-    def assign_pufp(self, material: str) -> pd.Series:
-        """
-        Assigns Polymer Unit Fingerprints to the dataset. Uses fingerprints generated in
-        https://doi.org/10.1021/acsami.3c03298
-        """
-        source_pufp: pd.DataFrame = pd.read_csv(f"{material}_PUFps.csv", index_col="Name")
-        pufp_map: pd.Series = source_pufp.apply(lambda row: row.tolist(), axis=1).to_dict()
+    # def assign_pufp(self, material: str) -> pd.Series:
+    #     """
+    #     Assigns Polymer Unit Fingerprints to the dataset. Uses fingerprints generated in
+    #     https://doi.org/10.1021/acsami.3c03298
+    #     """
+    #     source_pufp: pd.DataFrame = pd.read_csv(f"{material}_PUFps.csv", index_col="Name")
+    #     pufp_map: pd.Series = source_pufp.apply(lambda row: row.tolist(), axis=1).to_dict()
 
-        pufp_col: pd.Series = self.dataset[material].map(pufp_map)
-        print(f"Done assigning PUFp for {material}s.")
-        return pufp_col
+    #     pufp_col: pd.Series = self.dataset[material].map(pufp_map)
+    #     print(f"Done assigning PUFp for {material}s.")
+    #     return pufp_col
 
     @staticmethod
     def assign_mol(smiles_series: pd.Series) -> pd.Series:
@@ -389,21 +389,22 @@ class StructureProcessor:
         return mol_series
 
     @staticmethod
-    def assign_selfies(smiles_series: pd.Series) -> pd.Series:
-        """
-        Converts SMILES to SELFIES.
+    # def assign_selfies(smiles_series: pd.Series) -> pd.Series:
+    #     """
+    #     Converts SMILES to SELFIES.
 
-        Args:
-            smiles_series: Series of SMILES strings
+    #     Args:
+    #         smiles_series: Series of SMILES strings
 
-        Returns:
-            Series of SELFIES strings
-        """
-        selfies_series: pd.Series = smiles_series.map(lambda smiles: selfies.encoder(smiles))
-        print("Done assigning SELFIES.")
-        return selfies_series
+    #     Returns:
+    #         Series of SELFIES strings
+    #     """
+    #     selfies_series: pd.Series = smiles_series.map(lambda smiles: selfies.encoder(smiles))
+    #     print("Done assigning SELFIES.")
+    #     return selfies_series
 
     def assign_smiles(self, material: str, mapping: pd.DataFrame) -> pd.Series:
+        # To-Do: modify to your df
         """
         Assigns SMILES to the dataset.
         """
@@ -411,50 +412,52 @@ class StructureProcessor:
         mapped_smiles: pd.Series = self.dataset[material].map(mapping)
         print(f"Done assigning {material} SMILES.")
         return mapped_smiles
+        
+    # def tokenize(self, representation: str) -> None:
+    #     """
+    #     Tokenizes the dataset.
 
-    def tokenize(self, representation: str) -> None:
-        """
-        Tokenizes the dataset.
+    #     Args:
+    #         representation: SMILES, SELFIES, or BRICS
+    #     """
+    #     all_representation: pd.Series = pd.concat(
+    #         [self.dataset[f"{material} {representation}"] for material in ["Donor", "Acceptor"]],
+    #         ignore_index=True)
 
-        Args:
-            representation: SMILES, SELFIES, or BRICS
-        """
-        all_representation: pd.Series = pd.concat(
-            [self.dataset[f"{material} {representation}"] for material in ["Donor", "Acceptor"]],
-            ignore_index=True)
+    #     for material in ["Donor", "Acceptor"]:
+    #         self.dataset[f"{material} {representation} token"], self.tokens[representation] = tokenizer_factory[
+    #             representation](self.dataset[f"{material} {representation}"], all_representation)
 
-        for material in ["Donor", "Acceptor"]:
-            self.dataset[f"{material} {representation} token"], self.tokens[representation] = tokenizer_factory[
-                representation](self.dataset[f"{material} {representation}"], all_representation)
+    #     print(f"Done tokenizing {representation}.")
 
-        print(f"Done tokenizing {representation}.")
+# no class below
 
-
-def assign_datatypes(dataset: pd.DataFrame, feature_types: dict) -> pd.DataFrame:
-    """
-    Assigns dtypes to columns in the dataset.
-    """
-    dataset: pd.DataFrame = dataset.infer_objects()
-    for feature, dtype in feature_types.items():
-        dataset[feature] = dataset[feature].astype(dtype)
-    return dataset
+# def assign_datatypes(dataset: pd.DataFrame, feature_types: dict) -> pd.DataFrame:
+#     """
+#     Assigns dtypes to columns in the dataset.
+#     """
+#     dataset: pd.DataFrame = dataset.infer_objects()
+#     for feature, dtype in feature_types.items():
+#         dataset[feature] = dataset[feature].astype(dtype)
+#     return dataset
 
 
-def get_readable_only(dataset: pd.DataFrame) -> pd.DataFrame:
-    """
-    Excludes non-human readable columns from the dataset.
+# def get_readable_only(dataset: pd.DataFrame) -> pd.DataFrame:
+#     """
+#     Excludes non-human readable columns from the dataset.
 
-    Args:
-        dataset: DataFrame of dataset
+#     Args:
+#         dataset: DataFrame of dataset
 
-    Returns:
-        DataFrame of readable columns
-    """
-    remove: list[str] = ["descriptors", "Mol", "ECFP", "BRICS", "token", "PUFp"]
-    df = dataset.loc[:, ~dataset.columns.str.contains('|'.join(remove))]
-    print(df.dtypes)
-    return df
+#     Returns:
+#         DataFrame of readable columns
+#     """
+#     remove: list[str] = ["descriptors", "Mol", "ECFP", "BRICS", "token", "PUFp"]
+#     df = dataset.loc[:, ~dataset.columns.str.contains('|'.join(remove))]
+#     print(df.dtypes)
+#     return df
 
+# To-Do: change the below:
 
 def pre_main(fp_radii: list[int], fp_bits: list[int], solv_props_as_nan: bool):
     min_dir: Path = DATASETS / "Min_2020_n558"
