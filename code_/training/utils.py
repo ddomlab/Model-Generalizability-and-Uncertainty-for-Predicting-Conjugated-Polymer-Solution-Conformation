@@ -114,3 +114,7 @@ def calculate_metric(metric, y_pred, y_true):
         return np.mean(np.abs(y_true.ravel() - y_pred.ravel()))
     else:
         raise ValueError('Invalid metric')
+
+
+def drop_columns(df:pd.DataFrame, columns_to_drop: List):
+    return df.drop(columns=columns_to_drop)
