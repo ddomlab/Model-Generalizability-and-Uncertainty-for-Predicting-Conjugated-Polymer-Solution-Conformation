@@ -76,10 +76,10 @@ N_FOLDS: int = 5 if not TEST else 2
 BO_ITER: int = 42 if not TEST else 1
 
 # Path to config for Pytorch model
-CONFIG_PATH: Path = HERE / "ANN_config.json"
+# CONFIG_PATH: Path = HERE / "ANN_config.json"
 
 # Set seed for PyTorch model
-torch.manual_seed(0)
+# torch.manual_seed(0)
 
 def train_regressor(
     dataset: pd.DataFrame,
