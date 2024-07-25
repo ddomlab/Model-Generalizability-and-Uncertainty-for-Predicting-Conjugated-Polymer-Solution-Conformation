@@ -36,6 +36,7 @@ from sklearn.preprocessing import (
     FunctionTransformer,
 )
 
+from utills import drop_columns
 import selfies as sf
 
 from ml_for_opvs import utils
