@@ -74,8 +74,8 @@ if __name__ == "__main__":
     dataset_file: Path = min_dir / "cleaned_dataset.pkl"
     dataset: pd.DataFrame = pd.read_pickle(dataset_file)
 
-    test_tanimoto_similarity(dataset)
-    # test_has_smiles(dataset)
-    # test_has_solvent_descriptors(dataset)
-    # last_label: str = "IFT-ECA"
-    # test_correct_structures(dataset, last_label)
+    # test_tanimoto_similarity(dataset)
+    # # test_has_smiles(dataset)
+    # # test_has_solvent_descriptors(dataset)
+    # # last_label: str = "IFT-ECA"
+    # # test_correct_structures(dataset, last_label)
