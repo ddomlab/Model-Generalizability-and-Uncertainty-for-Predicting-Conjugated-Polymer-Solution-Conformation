@@ -118,9 +118,9 @@ def train_regressor(
                               imputer=imputer,
                               hyperparameter_optimization=hyperparameter_optimization,
                               )
-      scores ,averag_r22,stdev_rr2 = process_scores(scores)
-
-      return scores, averag_r22,stdev_rr2, predictions
+      scores = process_scores(scores)
+      # edit to save results
+      return scores
 
 
 def _prepare_data(
