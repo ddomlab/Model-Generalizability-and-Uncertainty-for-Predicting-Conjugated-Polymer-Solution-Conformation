@@ -290,6 +290,22 @@ class FeatureProcessor:
         log_col: pd.Series = np.log10(col)
         return log_col
 
+correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L', 'PPFOH-H'],
+                                 'P3HT': ['rr-P3HT', 'P3DT-d21','P3HT (high Mw)','P3HT_a','P3HT_b','P3HT'],
+                                 'PQT-12': ['PQT12','PQT-12'],
+                                 'PTHS': ['PTHS1','PTHS2','PTHS3','PTHS'],
+                                 'PBTTT-C14' : ['pBTTT-C14','PBTTT-C14','PBTTT_C14_1','PBTTT_C14_2','PBTTT_C14_3', 'PBTTT_C14_4'],
+                                 'PBTTT-C16' : ['PBTTT-C16','pBTTTC16',],
+                                 'PFO' : ['PFO', 'PF8'],
+                                 'DTVI-TVB' : ['DTVI1-TVB99', 'DTVI5-TVB95', 'DTVI10-TVB90', 'DTVI25-TVB75', 'DTVI50-TVB50', 'DTVI-TVB'],
+                                 'DPPDTT' : ['DPPDTT1', 'DPPDTT2', 'DPPDTT3', 'DPPDTT'],
+                                 'PII-2T' : ['PII-2T', 'High MW PII-2T'],
+                                 'MEH-PPV' : ['MEH-PPV', 'MEH-PPV-100', 'MEH-PPV-30', 'MEH-PPV-70',],
+                                 'PFO' : ['PFO', 'PF8', 'PFO-d34'],
+                                 'PFT3' : ['S_PFT', 'PFT3'],
+                                 'P(NDI2OD-T2)': ['P(NDI2OD-T2)', 'PNDI-C0', 'NDI-C0', 'NDI-2T-2OD'],
+                                 'PCDTPT-ODD' : ['PCPDTPT-ene-ODD','PCDTPT-ODD']
+                                 }
 
 class StructureProcessor:
 
@@ -403,16 +419,39 @@ class StructureProcessor:
     #     print("Done assigning SELFIES.")
     #     return selfies_series
 
-    def assign_smiles(self, material: str, mapping: pd.DataFrame) -> pd.Series:
+    # def assign_smiles(self, material: str, mapping: pd.DataFrame) -> pd.Series:
+    #     # To-Do: modify to your df
+    #     """
+    #     Assigns SMILES to the dataset.
+    #     """
+    #     mapping: dict[str, str] = mapping["SMILES"].to_dict()
+    #     mapped_smiles: pd.Series = self.dataset[material].map(mapping)
+    #     print(f"Done assigning {material} SMILES.")
+    #     return mapped_smiles
+    
+    def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.DataFrame:
+        """Canonicalize SMILES."""
+        data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
+
+    def assign_canonical_smiles(main_df: pd.DataFrame, main_df_col: str, smiles_df: pd.DataFrame, smiles_df_col: str, mapping: dict) -> pd.DataFrame:
         # To-Do: modify to your df
+
         """
         Assigns SMILES to the dataset.
         """
-        mapping: dict[str, str] = mapping["SMILES"].to_dict()
-        mapped_smiles: pd.Series = self.dataset[material].map(mapping)
-        print(f"Done assigning {material} SMILES.")
-        return mapped_smiles
-        
+        structure_correct_name = {v: k for k, values in mapping.items() for v in values}
+    
+        def map_to_canonical_nam(name):
+            return structure_correct_name.get(name, name)
+    
+        main_df['Canonical_Name'] = main_df[main_df_col].apply(map_to_canonical_nam)
+        canonicalize_column(smiles_df,smiles_column=smiles_df_col)
+    
+        working_structure = smiles_df.set_index('Name', inplace=False)
+    
+        # Map the SMILES strings to the first dataset based on the canonical names
+        main_df['SMILES'] = main_df['Canonical_Name'].map(working_structure[smiles_df_col])
+
     # def tokenize(self, representation: str) -> None:
     #     """
     #     Tokenizes the dataset.
