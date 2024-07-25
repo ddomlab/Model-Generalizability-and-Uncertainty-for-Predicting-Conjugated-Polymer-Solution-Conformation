@@ -158,20 +158,21 @@
 #     return brics_frags
 
 
-# def generate_fingerprint(mol: Mol, radius: int = 3, nbits: int = 1024) -> np.array:
-#     """
-#     Generate ECFP fingerprint.
+def generate_fingerprint(mol, radius: int = 3, nbits: int = 1024) -> np.array:
+    """
+    Generate ECFP fingerprint.
 
-#     Args:
-#         mol: RDKit Mol object
-#         radius: Fingerprint radius
-#         nbits: Number of bits in fingerprint
+    Args:
+        mol: RDKit Mol object
+        radius: Fingerprint radius
+        nbits: Number of bits in fingerprint
 
-#     Returns:
-#         ECFP fingerprint as numpy array
-#     """
-#     fingerprint: np.array = np.asarray(AllChem.GetMorganFingerprintAsBitVect(mol, radius=radius, nBits=nbits))
-#     return fingerprint
+    Returns:
+        ECFP fingerprint as numpy array
+    """
+    fingerprint: np.array = np.asarray(AllChem.GetMorganFingerprintAsBitVect(mol, radius=radius, nBits=nbits))  # Refactor with MorganGenerator
+    return fingerprint
+
 
 
 # def convert_to_bigsmiles(smiles: str) -> str:
