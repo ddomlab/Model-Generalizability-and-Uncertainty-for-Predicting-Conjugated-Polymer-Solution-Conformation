@@ -44,43 +44,11 @@ def get_feature_ids(feat_filter: str) -> list[str]:
     return feature_ids
 
 
-# def filter_features(df: pd.DataFrame, feat_filter: str, **kwargs) -> pd.DataFrame:
-#     """
-#     Get a subset of columns from a DataFrame.
-#
-#     Args:
-#         df: DataFrame to filter.
-#         feat_filter: List of subsets with which to filter the DataFrame.
-#         **kwargs: Keyword arguments to pass to get_subset.
-#
-#     Returns:
-#         DataFrame with subset of columns.
-#     """
-#     feature_ids = get_feature_ids(feat_filter)
-#     return get_subset(df, feature_ids, **kwargs)
-
-
-# def get_subset(df: pd.DataFrame, feature_ids: list[str]) -> pd.DataFrame:
-#     """
-#     Get a subset of columns from a DataFrame.
-#
-#     Args:
-#         df: DataFrame to filter.
-#         feature_ids: List of columns to get (from a subsets.json file).
-#         dropna: Whether to drop rows with NaN values.
-#
-#     Returns:
-#         DataFrame with subset of columns.
-#     """
-#     subset_df: pd.DataFrame = df[feature_ids]
-#     return subset_df
-
-
 def sanitize_dataset(
     training_features: pd.DataFrame, targets: pd.DataFrame, dropna: bool, **kwargs
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Sanitize the training features and targets in case the unrolled training features contain NaN values.
+    Sanitize the training features and targets in case the target features contain NaN values.
 
     Args:
         training_features: Training features.
@@ -92,8 +60,9 @@ def sanitize_dataset(
         Sanitized training features and targets.
     """
     if dropna:
-        training_features: pd.DataFrame = training_features.dropna()
-        targets: pd.DataFrame = targets.loc[training_features.index]
+        targets: pd.DataFrame = targets.dropna()
+        training_features: pd.DataFrame =training_features.loc[targets.index]
+
         return training_features, targets
     else:
         return training_features, targets
@@ -101,9 +70,9 @@ def sanitize_dataset(
 
 def filter_dataset(
     raw_dataset: pd.DataFrame,
-    structure_feats: list[str],
-    scalar_feats: list[str],
-    target_feats: list[str],
+    structure_feats: Optional[list[str]], # can be None
+    scalar_feats: Optional[list[str]], # like conc, temp
+    target_feats: list[str], # lp
     dropna: bool = True,
     unroll: Union[dict, list, None] = None,
     **kwargs,
@@ -127,16 +96,15 @@ def filter_dataset(
         if feat_list
         for feat in feat_list
     ]
+
     dataset: pd.DataFrame = raw_dataset[all_feats]
 
-    if dropna:
-        dataset: pd.DataFrame = dataset.dropna()
+
 
     if unroll:
         if isinstance(unroll, dict):
             structure_features: pd.DataFrame = unrolling_factory[
-                unroll["representation"]
-            ](dataset[structure_feats], **unroll)
+                unroll["representation"]](dataset[structure_feats], **unroll)
         elif isinstance(unroll, list):
             multiple_unrolled_structure_feats: list[pd.DataFrame] = []
             for unroll_dict in unroll:
@@ -161,17 +129,11 @@ def filter_dataset(
     else:
         structure_features: pd.DataFrame = dataset[[]]
 
-    scalar_features: pd.DataFrame = dataset[scalar_feats]
+    if scalar_feats:
+      scalar_features: pd.DataFrame = dataset[scalar_feats]
+    else:
+      scalar_features: pd.DataFrame = dataset[[]]
 
-    # scalars_available, struct_available = not scalar_features.columns.empty, not structure_features.columns.empty
-    # if struct_available and not scalars_available:
-    #     training_features: pd.DataFrame = structure_features
-    # elif scalars_available and not struct_available:
-    #     training_features: pd.DataFrame = scalar_features
-    # else:
-    #     # scalar_features: pd.DataFrame = scalar_features.reset_index(drop=True)
-    #     training_features: pd.DataFrame = pd.concat([structure_features, scalar_features], axis=1)
-    # print(structure_features.loc[[369, 370, 371, 372, 379, 380, 381], :])
     training_features: pd.DataFrame = pd.concat(
         [structure_features, scalar_features], axis=1
     )
