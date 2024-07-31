@@ -17,91 +17,94 @@ else:
    DATASETS: Path = Path(__file__).parent.parent.parent / "datasets"
 
 
-def get_mordred_dict(mol: Mol) -> dict[str, float]:
-    """
-    Get Mordred descriptors for a given molecule.
+# def get_mordred_dict(mol: Mol) -> dict[str, float]:
+#     """
+#     Get Mordred descriptors for a given molecule.
 
-    Args:
-        mol: RDKit molecule
+#     Args:
+#         mol: RDKit molecule
 
-    Returns:
-        Mordred descriptors as dictionary
-    """
-    calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
-    descriptors: dict[str, float] = calc(mol).asdict()
-    return descriptors
-
-
-def get_mordred_descriptors(mordred_descriptors: pd.DataFrame, label: str) -> np.ndarray:
-    """
-    Get Mordred descriptors for a given label.
-
-    Args:
-        mordred_descriptors: DataFrame of Mordred descriptors
-        label: Donor or Acceptor
-
-    Returns:
-        Mordred descriptors as numpy array
-    """
-    descriptors: np.ndarray = mordred_descriptors.loc[label].tolist()
-    return descriptors
+#     Returns:
+#         Mordred descriptors as dictionary
+#     """
+#     calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
+#     descriptors: dict[str, float] = calc(mol).asdict()
+#     return descriptors
 
 
-def generate_mordred_descriptors(donor_structures: pd.DataFrame, acceptor_structures: pd.DataFrame) -> pd.DataFrame:
-    """
-    Generate Mordred descriptors from "Donor Mol" and "Acceptor Mol" columns in the dataset.
-    Remove all columns with nan values, and remove all columns with zero variance.
+# def get_mordred_descriptors(mordred_descriptors: pd.DataFrame, label: str) -> np.ndarray:
+#     """
+#     Get Mordred descriptors for a given label.
 
-    Returns:
-        DataFrame of filtered Mordred descriptors
-    """
-    material_smiles: dict[str, pd.DataFrame] = {"Donor":    donor_structures.set_index("Donor"),
-                                                "Acceptor": acceptor_structures.set_index("Acceptor")
-                                                }
-    donor_mols: pd.Series = material_smiles["Donor"]["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
-    acceptor_mols: pd.Series = material_smiles["Acceptor"]["SMILES"].map(
-        lambda smiles: Chem.MolFromSmiles(smiles))
-    all_mols: pd.Series = pd.concat([donor_mols, acceptor_mols])
+#     Args:
+#         mordred_descriptors: DataFrame of Mordred descriptors
+#         label: Donor or Acceptor
 
-    # BUG: Get numpy "RuntimeWarning: overflow encountered in reduce"
-    # Generate Mordred descriptors
-    print("Generating mordred descriptors...")
-    calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
-    descriptors: pd.Series = all_mols.apply(get_mordred_dict)
-    mordred_descriptors: pd.DataFrame = pd.DataFrame.from_records(descriptors, index=all_mols.index)
-    # Remove any columns with calculation errors
-    mordred_descriptors = mordred_descriptors.infer_objects()
-    mordred_descriptors = mordred_descriptors.select_dtypes(exclude=["object"])
-    # Remove any columns with nan values
-    mordred_descriptors.dropna(axis=1, how='any', inplace=True)
-    # Remove any columns with zero variance
-    # mordred_descriptors.dropna(axis=1, how='any', inplace=True)
-    descriptor_variances: pd.Series = mordred_descriptors.var(numeric_only=True)
-    variance_mask: pd.Series = descriptor_variances.eq(0)
-    zero_variance: pd.Series = variance_mask[variance_mask == True]
-    invariant_descriptors: list[str] = zero_variance.index.to_list()
-    mordred_descriptors: pd.DataFrame = mordred_descriptors.drop(invariant_descriptors, axis=1)
-    print("Done generating Mordred descriptors.")
-    return mordred_descriptors
+#     Returns:
+#         Mordred descriptors as numpy array
+#     """
+#     descriptors: np.ndarray = mordred_descriptors.loc[label].tolist()
+#     return descriptors
 
 
-def assign_mordred(labels: pd.Series, mordred_descriptors: pd.DataFrame) -> pd.Series:
-    """
-    Assigns Mordred descriptors to the dataset.
-    """
-    labels = labels
-    mordred_series: pd.Series = labels.map(lambda lbl: get_mordred_descriptors(mordred_descriptors, lbl))
-    print("Done assigning Mordred descriptors.")
-    return mordred_series
+# def generate_mordred_descriptors(donor_structures: pd.DataFrame, acceptor_structures: pd.DataFrame) -> pd.DataFrame:
+#     """
+#     Generate Mordred descriptors from "Donor Mol" and "Acceptor Mol" columns in the dataset.
+#     Remove all columns with nan values, and remove all columns with zero variance.
+
+#     Returns:
+#         DataFrame of filtered Mordred descriptors
+#     """
+#     material_smiles: dict[str, pd.DataFrame] = {"Donor":    donor_structures.set_index("Donor"),
+#                                                 "Acceptor": acceptor_structures.set_index("Acceptor")
+#                                                 }
+#     donor_mols: pd.Series = material_smiles["Donor"]["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
+#     acceptor_mols: pd.Series = material_smiles["Acceptor"]["SMILES"].map(
+#         lambda smiles: Chem.MolFromSmiles(smiles))
+#     all_mols: pd.Series = pd.concat([donor_mols, acceptor_mols])
+
+#     # BUG: Get numpy "RuntimeWarning: overflow encountered in reduce"
+#     # Generate Mordred descriptors
+#     print("Generating mordred descriptors...")
+#     calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
+#     descriptors: pd.Series = all_mols.apply(get_mordred_dict)
+#     mordred_descriptors: pd.DataFrame = pd.DataFrame.from_records(descriptors, index=all_mols.index)
+#     # Remove any columns with calculation errors
+#     mordred_descriptors = mordred_descriptors.infer_objects()
+#     mordred_descriptors = mordred_descriptors.select_dtypes(exclude=["object"])
+#     # Remove any columns with nan values
+#     mordred_descriptors.dropna(axis=1, how='any', inplace=True)
+#     # Remove any columns with zero variance
+#     # mordred_descriptors.dropna(axis=1, how='any', inplace=True)
+#     descriptor_variances: pd.Series = mordred_descriptors.var(numeric_only=True)
+#     variance_mask: pd.Series = descriptor_variances.eq(0)
+#     zero_variance: pd.Series = variance_mask[variance_mask == True]
+#     invariant_descriptors: list[str] = zero_variance.index.to_list()
+#     mordred_descriptors: pd.DataFrame = mordred_descriptors.drop(invariant_descriptors, axis=1)
+#     print("Done generating Mordred descriptors.")
+#     return mordred_descriptors
 
 
+# def assign_mordred(labels: pd.Series, mordred_descriptors: pd.DataFrame) -> pd.Series:
+#     """
+#     Assigns Mordred descriptors to the dataset.
+#     """
+#     labels = labels
+#     mordred_series: pd.Series = labels.map(lambda lbl: get_mordred_descriptors(mordred_descriptors, lbl))
+#     print("Done assigning Mordred descriptors.")
+#     return mordred_series
+
+def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.DataFrame:
+        """Canonicalize SMILES."""
+        data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
+
+#map in separate file
 class MordredCalculator:
-    def __init__(self, donor_structures: pd.DataFrame, acceptor_structures: pd.DataFrame,) -> None:
-        donor_structures.set_index("Donor", inplace=True)
-        acceptor_structures.set_index("Acceptor", inplace=True)
-        donor_mols: pd.Series = donor_structures["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
-        acceptor_mols: pd.Series = acceptor_structures["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
-        self.all_mols: pd.Series = pd.concat([donor_mols, acceptor_mols])
+    def __init__(self, smile_source: pd.DataFrame) -> None:
+        smile_source.set_index("Name", inplace=True)
+        canonicalize_column()
+        mols: pd.Series = smile_source["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
+        self.all_mols: pd.Series = mols
         self.mordred_descriptors_unique: pd.DataFrame = self.generate_mordred_descriptors()
 
     @property
