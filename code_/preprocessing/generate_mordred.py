@@ -101,9 +101,9 @@ def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.D
 #map in separate file
 class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame) -> None:
-        smile_source.set_index("Name", inplace=True)
-        canonicalize_column()
-        mols: pd.Series = smile_source["SMILES"].map(lambda smiles: Chem.MolFromSmiles(smiles))
+        self.smile_source = smile_source
+        canonicalize_column(self.smile_source)
+        mols: pd.Series = self.smile_source["SMILES"].map(lambda smiles: MolFromSmiles(smiles))
         self.all_mols: pd.Series = mols
         self.mordred_descriptors_unique: pd.DataFrame = self.generate_mordred_descriptors()
 
@@ -134,17 +134,12 @@ class MordredCalculator:
         print("Done generating Mordred descriptors.")
         return mordred_descriptors
 
-    def assign_descriptors(self, labels: pd.Series) -> pd.DataFrame:
+    def assign_descriptors(self) -> pd.DataFrame:
         """
         Assigns Mordred descriptors to the dataset.
         """
-        # descriptors: list[pd.Series] = [self.mordred_descriptors_unique.loc[l] for l in labels]
-        descriptors = []
-        for l in labels:
-            d = self.mordred_descriptors_unique.loc[l]
-            descriptors.append(d)
-        descriptor_df: pd.DataFrame = pd.concat(descriptors, axis=1).transpose().reset_index(drop=True)
-        # mordred_series: pd.Series = labels.map(lambda lbl: get_mordred_descriptors(mordred_descriptors, lbl))
+         
+        descriptor_df: pd.DataFrame = pd.concat([self.smile_source['Name'], self.mordred_descriptors_unique], axis=1)
         print("Done assigning Mordred descriptors.")
         return descriptor_df
 
