@@ -1,1 +1,112 @@
+import numpy as np
+from typing import Callable, Optional, Union
+from types import NoneType
 
+import rdkit.Chem as Chem
+from rdkit.Chem import AllChem
+from rdkit.Chem.Draw import IPythonConsole
+from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
+from rdkit.Chem import Mol
+
+
+
+
+
+def monomer_propagation(monomer_SMILES,n_unit, termination_oo:bool = True,Regioregularity:bool=True):
+    new_monomer_smiles = monomer_SMILES
+    for i in range(n_unit-1):
+        new_monomer_smiles = attach_molecule(new_monomer_smiles,monomer_SMILES,Regioregularity=Regioregularity)
+    if termination_oo:
+        new_monomer_smiles = termination_with_asterisk(new_monomer_smiles,['[Zr]', '[Pd]'])
+    return new_monomer_smiles
+
+
+def replace_asterisk(smiles, replacement:list[str]):
+  mol = MolFromSmiles(smiles)
+  for rep in replacement:
+      mol = Chem.ReplaceSubstructs(mol, Chem.MolFromSmiles('*'), Chem.MolFromSmiles(rep))[0]
+  Chem.SanitizeMol(mol)
+  smiles = MolToSmiles(mol)
+  return smiles
+
+
+def termination_with_asterisk(smiles, replacement:list[str]):
+    mol = MolFromSmiles(smiles)
+    for rep in replacement:
+      mol = Chem.ReplaceSubstructs(mol,Chem.MolFromSmiles(rep), Chem.MolFromSmiles('*'), replaceAll=True)[0]
+    Chem.SanitizeMol(mol)
+    smiles = MolToSmiles(mol)
+    return smiles
+
+
+def atomic_number_calculator(atom_str):
+  mol = Chem.MolFromSmiles(atom_str)
+  atom = mol.GetAtomWithIdx(0)
+  atomic_number = atom.GetAtomicNum()
+  return int(atomic_number)
+
+
+def replace_attachment_point(mol, dumi_smiles,replacement_smiles):
+    dumi_atn = atomic_number_calculator(dumi_smiles)
+    replacement_atn = atomic_number_calculator(replacement_smiles)
+    mol_r = Chem.RWMol(mol)
+    for atom in mol_r.GetAtoms():
+        if atom.GetAtomicNum() == dumi_atn:
+                mol_r.ReplaceAtom(atom.GetIdx(), Chem.Atom(replacement_atn))
+    return mol_r
+
+
+def close_ring(smiles):
+  editeable_mol = Chem.RWMol(MolFromSmiles(smiles))
+  Pd_idx = [atom.GetIdx() for atom in editeable_mol.GetAtoms() if atom.GetSymbol() == '*']
+  print(Pd_idx)
+  # Zr_idx = [atom.GetIdx() for atom in editeable_mol.GetAtoms() if atom.GetSymbol() == '*'][0]
+  editeable_mol.AddBond(Pd_idx[0], Pd_idx[1], Chem.BondType.SINGLE)
+  final_mol = editeable_mol.GetMol()
+  Chem.SanitizeMol(final_mol)
+  final_smiles = MolToSmiles(final_mol)
+  final_smiles = final_smiles.replace('**','')                    #if you want no new bonding between two monomers
+  return final_smiles
+
+
+def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
+    # substituted with Br and Cl
+    new_smiles1 = replace_asterisk(smiles1, ['[Zr]', '[Pd]'])
+    new_smiles2 = replace_asterisk(smiles2, ['[Zr]', '[Pd]'])
+    # Convert SMILES to RDKit molecule objects
+    mol1 = Chem.MolFromSmiles(new_smiles1)
+    mol2 = Chem.MolFromSmiles(new_smiles2)
+
+    # Replace Br and Cl with a wildcard (*) in the first molecule
+    # mol1_no_br = Chem.ReplaceSubstructs(mol1, Chem.MolFromSmiles('[Zr]'), Chem.MolFromSmiles('*'), replaceAll=True)[0]
+    # mol2_no_cl = Chem.ReplaceSubstructs(mol2, Chem.MolFromSmiles('[Pd]'), Chem.MolFromSmiles('*'), replaceAll=True)[0]
+    # Combine the two molecules
+    combined_mol = Chem.CombineMols(mol1, mol2)
+    # Create an editable molecule object from the combined molecule
+    editable_combined_mol = Chem.RWMol(combined_mol)
+    # Find the indices of the wildcard atoms (*) to form a bond between them
+    pd_idx = [atom.GetIdx() for atom in combined_mol.GetAtoms() if atom.GetSymbol() == 'Pd']
+    zr_idx = [atom.GetIdx() for atom in combined_mol.GetAtoms() if atom.GetSymbol() == 'Zr']
+    # Add a single bond between the two wildcard atoms
+    if Regioregularity:
+        editable_combined_mol.AddBond(pd_idx[0], zr_idx[1], Chem.BondType.SINGLE)
+    else:
+        # do something!!!!!
+        if len(pd_idx)==2:
+          editable_combined_mol.AddBond(zr_idx[0], zr_idx[1], Chem.BondType.SINGLE)
+        elif len(pd_idx)==3:
+          editable_combined_mol.AddBond(pd_idx[1], pd_idx[2], Chem.BondType.SINGLE)
+
+    final_mol = editable_combined_mol.GetMol()
+    Chem.SanitizeMol(final_mol)
+    #final_mol = replace_attachment_point(final_mol, '*', 'C')        if you wanna include a bond between two monomers
+    final_smiles = Chem.MolToSmiles(final_mol)
+    if Regioregularity:
+        for i in ['[Pd][Zr]','[Zr][Pd]']:
+          if i in final_smiles:
+            final_smiles=final_smiles.replace(i,'')
+    else:
+      for i in ['[Pd][Pd]','[Zr][Zr]']:
+          if i in final_smiles:
+            final_smiles=final_smiles.replace(i,'')
+    return final_smiles
