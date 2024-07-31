@@ -91,7 +91,6 @@ def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
     if Regioregularity:
         editable_combined_mol.AddBond(pd_idx[0], zr_idx[1], Chem.BondType.SINGLE)
     else:
-        # do something!!!!!
         if len(pd_idx)==2:
           editable_combined_mol.AddBond(zr_idx[0], zr_idx[1], Chem.BondType.SINGLE)
         elif len(pd_idx)==3:
