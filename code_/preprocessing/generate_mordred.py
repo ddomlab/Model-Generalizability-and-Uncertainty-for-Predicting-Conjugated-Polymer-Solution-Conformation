@@ -22,6 +22,7 @@ def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.D
         data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
 
 #map in separate file
+#Change 'SMILES' to coumn of monomor and dimer and trimmer and rings
 class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame) -> None:
         self.smile_source = smile_source
