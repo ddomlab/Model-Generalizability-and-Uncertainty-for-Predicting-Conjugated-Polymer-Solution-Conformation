@@ -8,7 +8,8 @@ from rdkit.Chem.Draw import IPythonConsole
 from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
 from rdkit.Chem import Mol
 
-
+HERE: Path = Path(__file__).resolve().parent
+DATASETS: Path = HERE.parent.parent / "datasets"
 
 
 
@@ -18,6 +19,8 @@ def monomer_propagation(monomer_SMILES,n_unit, termination_oo:bool = True,Regior
         new_monomer_smiles = attach_molecule(new_monomer_smiles,monomer_SMILES,Regioregularity=Regioregularity)
     if termination_oo:
         new_monomer_smiles = termination_with_asterisk(new_monomer_smiles,['[Zr]', '[Pd]'])
+    # img = Draw.MolToImage(MolFromSmiles(new_monomer_smiles), size=(1000, 1000))
+    # display(img)
     return new_monomer_smiles
 
 
@@ -57,26 +60,63 @@ def replace_attachment_point(mol, dumi_smiles,replacement_smiles):
 
 
 def close_ring(smiles):
+  # print(smiles)
+  bond_type=get_bond_type(smiles)
+  # print(bond_type)
   editeable_mol = Chem.RWMol(MolFromSmiles(smiles))
   Pd_idx = [atom.GetIdx() for atom in editeable_mol.GetAtoms() if atom.GetSymbol() == '*']
-  print(Pd_idx)
+  # print(Pd_idx)
   # Zr_idx = [atom.GetIdx() for atom in editeable_mol.GetAtoms() if atom.GetSymbol() == '*'][0]
-  editeable_mol.AddBond(Pd_idx[0], Pd_idx[1], Chem.BondType.SINGLE)
+  if bond_type == {2}:
+    editeable_mol.AddBond(Pd_idx[0], Pd_idx[1], Chem.BondType.DOUBLE)
+  else:
+    editeable_mol.AddBond(Pd_idx[0], Pd_idx[1], Chem.BondType.SINGLE)
+  
   final_mol = editeable_mol.GetMol()
   Chem.SanitizeMol(final_mol)
   final_smiles = MolToSmiles(final_mol)
-  final_smiles = final_smiles.replace('**','')                    #if you want no new bonding between two monomers
+  if bond_type == {2}:
+    print('yes')
+    final_smiles=final_smiles.replace('=*=*','')
+  else:
+    final_smiles = final_smiles.replace('**','')                    
+  img = Draw.MolToImage(MolFromSmiles(final_smiles), size=(1000, 1000))
+  display(img)
   return final_smiles
 
 
+def get_bond_type(smiles):
+    mol = MolFromSmiles(smiles)
+    star_atoms = [atom.GetIdx() for atom in mol.GetAtoms() if atom.GetSymbol() == '*']
+    bond_set = set()
+    for star_atom_idx in star_atoms:
+      star_atom = mol.GetAtomWithIdx(star_atom_idx)
+
+      # Get bonds connected to this atom
+      bonds = star_atom.GetBonds()
+
+      for star_atom_idx in star_atoms:
+          star_atom = mol.GetAtomWithIdx(star_atom_idx)
+
+          # Get bonds connected to this atom
+          bonds = star_atom.GetBonds()
+          bond_type = [bond.GetBondTypeAsDouble() for bond in bonds]
+          bond_set.add(bond_type[0])
+
+    return bond_set
+
+
 def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
-    # substituted with Br and Cl
+    bond_type = get_bond_type(smiles2)
+    # print(bond_type)
+    # print(smiles1)
     new_smiles1 = replace_asterisk(smiles1, ['[Zr]', '[Pd]'])
     new_smiles2 = replace_asterisk(smiles2, ['[Zr]', '[Pd]'])
     # Convert SMILES to RDKit molecule objects
     mol1 = Chem.MolFromSmiles(new_smiles1)
     mol2 = Chem.MolFromSmiles(new_smiles2)
-
+    # img = Draw.MolToImage(mol2, size=(500, 500))
+    # display(img)
     # Replace Br and Cl with a wildcard (*) in the first molecule
     # mol1_no_br = Chem.ReplaceSubstructs(mol1, Chem.MolFromSmiles('[Zr]'), Chem.MolFromSmiles('*'), replaceAll=True)[0]
     # mol2_no_cl = Chem.ReplaceSubstructs(mol2, Chem.MolFromSmiles('[Pd]'), Chem.MolFromSmiles('*'), replaceAll=True)[0]
@@ -88,8 +128,14 @@ def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
     pd_idx = [atom.GetIdx() for atom in combined_mol.GetAtoms() if atom.GetSymbol() == 'Pd']
     zr_idx = [atom.GetIdx() for atom in combined_mol.GetAtoms() if atom.GetSymbol() == 'Zr']
     # Add a single bond between the two wildcard atoms
+
     if Regioregularity:
-        editable_combined_mol.AddBond(pd_idx[0], zr_idx[1], Chem.BondType.SINGLE)
+        if bond_type== {2}:
+            editable_combined_mol.AddBond(pd_idx[0], zr_idx[1], Chem.BondType.DOUBLE)
+        else: 
+            editable_combined_mol.AddBond(pd_idx[0], zr_idx[1], Chem.BondType.SINGLE)
+
+          # print(smiles1)
     else:
         if len(pd_idx)==2:
           editable_combined_mol.AddBond(zr_idx[0], zr_idx[1], Chem.BondType.SINGLE)
@@ -101,11 +147,39 @@ def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
     #final_mol = replace_attachment_point(final_mol, '*', 'C')        if you wanna include a bond between two monomers
     final_smiles = Chem.MolToSmiles(final_mol)
     if Regioregularity:
-        for i in ['[Pd][Zr]','[Zr][Pd]']:
-          if i in final_smiles:
-            final_smiles=final_smiles.replace(i,'')
+
+        if bond_type== {2}:
+            for i in ['=[Pd]=[Zr]','=[Zr]=[Pd]']:
+              if i in final_smiles:
+                final_smiles=final_smiles.replace(i,'')
+
+        else:
+            for i in ['[Pd][Zr]','[Zr][Pd]']:
+              if i in final_smiles:
+                final_smiles=final_smiles.replace(i,'')
     else:
       for i in ['[Pd][Pd]','[Zr][Zr]']:
           if i in final_smiles:
             final_smiles=final_smiles.replace(i,'')
     return final_smiles
+
+
+#generate RU, dimer, trimer
+
+def main():
+    # Load cleaned donor and acceptor structures
+    dataset_dir: Path = DATASETS / "raw_SMILES"
+    raw_smiles: pd.DataFrame = pd.read_csv(dataset_dir)
+
+
+    # Load dataset
+    dataset_pkl = dataset_dir / "cleaned_dataset.pkl"
+    dataset: pd.DataFrame = pd.read_pickle(dataset_pkl)
+
+    # Save mordred descriptor IDs
+    mordred_json = dataset_dir / "mordred_descriptors.json"
+
+    # Save dataset
+    mordred_pkl = dataset_dir / "cleaned_dataset_mordred.pkl"
+
+    run(donor_structures, acceptor_structures, dataset, mordred_json, mordred_pkl)
