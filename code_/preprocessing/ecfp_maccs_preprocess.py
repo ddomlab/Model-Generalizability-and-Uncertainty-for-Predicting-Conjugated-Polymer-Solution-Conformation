@@ -48,21 +48,6 @@ def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,countSimul
     return fingerprint
 
 
-def get_mordred_dict(mol: Mol) -> dict[str, float]:
-    """
-    Get Mordred descriptors for a given molecule.
-
-    Args:
-        mol: RDKit molecule
-
-    Returns:
-        Mordred descriptors as dictionary
-    """
-    calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
-    descriptors: dict[str, float] = calc(mol).asdict()
-    return descriptors
-
-
 def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.DataFrame:
         """Canonicalize SMILES."""
         data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
@@ -108,7 +93,35 @@ class ECFP_Processor:
 
         return self.smile_source
 
-    
+
+
+# maccs is here!
+
+def generate_MACCS_fingerprint(mol, radius: int = 3, nbits: int = 1024,countSimulation:bool=False) -> np.array:
+    """
+    Generate ECFP fingerprint.
+
+    Args:
+        mol: RDKit Mol object
+        radius: Fingerprint radius
+        nbits: Number of bits in fingerprint
+
+    Returns:
+        ECFP fingerprint as numpy array
+    """
+    mol = Chem.MolFromSmiles('COC')
+    fps = MACCSkeys.GenMACCSKeys(mol)
+    fingerprint: np.array = np.asarray(rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits, includeChirality=False,countSimulation=countSimulation).GetFingerprint(mol))  # Refactor with MorganGenerator
+    return fingerprint
+
+
+class MACCS_Processor:
+    def __init__(self, smile_source: pd.DataFrame,
+                 oligomer_represenation:str='SMILES') -> None:
+        self.smile_source = smile_source.copy()
+        self.oligomer_represenation =oligomer_represenation
+        canonicalize_column(self.smile_source)
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
 
