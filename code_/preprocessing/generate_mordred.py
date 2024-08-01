@@ -17,9 +17,26 @@ else:
    DATASETS: Path = Path(__file__).parent.parent.parent / "datasets"
 
 
+
+def get_mordred_dict(mol: Mol) -> dict[str, float]:
+    """
+    Get Mordred descriptors for a given molecule.
+
+    Args:
+        mol: RDKit molecule
+
+    Returns:
+        Mordred descriptors as dictionary
+    """
+    calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
+    descriptors: dict[str, float] = calc(mol).asdict()
+    return descriptors
+
+
 def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.DataFrame:
         """Canonicalize SMILES."""
         data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
+
 
 #map in separate file
 #Change 'SMILES' to coumn of monomor and dimer and trimmer and rings
