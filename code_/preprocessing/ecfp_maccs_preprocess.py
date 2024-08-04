@@ -93,28 +93,14 @@ class ECFP_Processor:
 
         return self.smile_source
 
+# example:
+# fp_rad: list[int] = [3,4]
+# fp_bi: list[int] = [512,1024]
+# df_clean = ECFP_Processor(structural_features_test,oligomer_represenation='SMILES').main_ecfp(fp_rad, fp_bi,count_sim=False)
+# df_clean
 
 
 # maccs is here!
-
-def generate_MACCS_fingerprint(mol, radius: int = 3, nbits: int = 1024,countSimulation:bool=False) -> np.array:
-    """
-    Generate ECFP fingerprint.
-
-    Args:
-        mol: RDKit Mol object
-        radius: Fingerprint radius
-        nbits: Number of bits in fingerprint
-
-    Returns:
-        ECFP fingerprint as numpy array
-    """
-    mol = Chem.MolFromSmiles('COC')
-    fps = MACCSkeys.GenMACCSKeys(mol)
-    fingerprint: np.array = np.asarray(rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits, includeChirality=False,countSimulation=countSimulation).GetFingerprint(mol))  # Refactor with MorganGenerator
-    return fingerprint
-
-
 class MACCS_Processor:
     def __init__(self, smile_source: pd.DataFrame,
                  oligomer_represenation:str='SMILES') -> None:
@@ -124,8 +110,26 @@ class MACCS_Processor:
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
+    def assign_MACCS(self):
+        self.smile_source[f"MACCS_{self.oligomer_represenation}"] = self.all_mols.map(
+            lambda mol: MACCSkeys.GenMACCSKeys(mol))
+        print(f"Done assigning MACCS_{self.oligomer_represenation}_fingerprints")
+        
+        return self.smile_source
 
-  
+# example:
+# maccs = MACCS_Processor(structural_features_test,oligomer_represenation='SMILES').assign_MACCS()
+
+# unrolling maccs:
+# def compute_MACCS(self):
+#     MACCS_list = []
+#     header = ['bit' + str(i) for i in range(167)]
+#     for mol in self.all_mols:
+#         ds = list(MACCSkeys.GenMACCSKeys(mol)
+#         MACCS_list.append(ds)
+#     df = pd.DataFrame(MACCS_list,columns=header)
+
+#     return df
 
 
 # To-Do: change the below:
