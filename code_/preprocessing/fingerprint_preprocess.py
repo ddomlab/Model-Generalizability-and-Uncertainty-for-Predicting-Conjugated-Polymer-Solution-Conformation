@@ -126,6 +126,20 @@ class MACCS_Processor:
 
 
 
+def get_mordred_dict(mol: Mol) -> dict[str, float]:
+    """
+    Get Mordred descriptors for a given molecule.
+
+    Args:
+        mol: RDKit molecule
+
+    Returns:
+        Mordred descriptors as dictionary
+    """
+    calc: Calculator = Calculator(mordred.descriptors, ignore_3D=True)
+    descriptors: dict[str, float] = calc(mol).asdict()
+    return descriptors
+
 
 class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame, oligomer_represenation:str ='SMILES') -> None:
