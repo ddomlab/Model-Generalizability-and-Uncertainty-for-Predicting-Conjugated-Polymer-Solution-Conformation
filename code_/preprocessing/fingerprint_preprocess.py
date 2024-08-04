@@ -32,7 +32,7 @@ correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L', 'PPF
                                  }
 
 
-def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,countSimulation:bool=False) -> np.array:
+def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,count_vector:bool=True) -> np.array:
     """
     Generate ECFP fingerprint.
 
@@ -44,7 +44,11 @@ def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,countSimul
     Returns:
         ECFP fingerprint as numpy array
     """
-    fingerprint: np.array = np.asarray(rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits, includeChirality=False,countSimulation=countSimulation).GetFingerprint(mol))  # Refactor with MorganGenerator
+    if count_vector:
+      fingerprint: np.array = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits, includeChirality=False,countSimulation=False).GetCountFingerprintAsNumPy(mol)
+    else:
+      fingerprint: np.array = rdFingerprintGenerator.GetMorganGenerator(radius=radius, fpSize=nbits, includeChirality=False,countSimulation=False).GetFingerprintAsNumPy(mol)
+    
     return fingerprint
 
 
@@ -54,6 +58,7 @@ def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.D
 
 
 class ECFP_Processor:
+
     def __init__(self, smile_source: pd.DataFrame,
                  oligomer_represenation:str='SMILES') -> None:
         self.smile_source = smile_source.copy()
@@ -62,41 +67,29 @@ class ECFP_Processor:
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
-    def assign_fingerprints(self, radius: int = 3, nbits: int = 1024,count_sim:bool=False) -> None:
+
+    def assign_ECFP(self, radius: int = 3, nbits: int = 1024,count_vector:bool=True) -> None:
         """
         Assigns ECFP fingerprints to the dataset.
         """
-        if count_sim:
-          self.smile_source[f"C_ECFP_{self.oligomer_represenation}_{2 * radius}_{nbits}"] = self.all_mols.map(
-              lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, countSimulation=count_sim))
-          print(f"Done assigning C_ECFP_{self.oligomer_represenation}_{2 * radius} fingerprints with {nbits} bits.")
-        else:
-          self.smile_source[f"B_ECFP_{self.oligomer_represenation}_{2 * radius}_{nbits}"] = self.all_mols.map(
-              lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, countSimulation=count_sim))
-          print(f"Done assigning B_ECFP_{self.oligomer_represenation}_{2 * radius} fingerprints with {nbits} bits.")
+        self.smile_source[f"CV_{count_vector}_ECFP_{2 * radius}_{nbits}_{self.oligomer_represenation}"] = self.all_mols.map(
+                          lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, count_vector=count_vector))
+        print(f"Done assigning CV_{count_vector}_ECFP_{2 * radius} fingerprints with {nbits} bits on {self.oligomer_represenation}.")
 
 
-    def main_ecfp(self, fp_radii: list[int], fp_bits: list[int],count_sim:bool=False) -> pd.DataFrame:
+    def main_ecfp(self, fp_radii: list[int], fp_bits: list[int],count_vector:bool=True) -> pd.DataFrame:
 
         # # self.dataset[f"{material} BigSMILES"] = self.assign_bigsmiles(material, self.dataset[f"{material} SMILES"])
         # self.dataset[f"{material} BRICS"] = self.assign_brics(self.dataset[f"{material} Mol"])
-        if count_sim:
-          for r in fp_radii:
-            for b in fp_bits:
-              self.assign_fingerprints(radius=r, nbits=b, count_sim=count_sim)
-        else:
-          for r, b in zip(fp_radii, fp_bits):
-            self.assign_fingerprints(radius=r, nbits=b, count_sim=count_sim)
-
-
-        # self.dataset=self.mapping_from_external(source = self.smile_source, to_main = self.dataset)
-
+        for r, b in zip(fp_radii,fp_bits):
+            self.assign_ECFP(radius=r, nbits=b, count_vector=count_vector)
         return self.smile_source
+      
 
 # example:
 # fp_rad: list[int] = [3,4]
 # fp_bi: list[int] = [512,1024]
-# df_clean = ECFP_Processor(structural_features_test,oligomer_represenation='SMILES').main_ecfp(fp_rad, fp_bi,count_sim=False)
+# df_clean = ECFP_Processor(structural_features_test,oligomer_represenation='SMILES').main_ecfp(fp_rad, fp_bi,count_vector=True)
 # df_clean
 
 
@@ -131,6 +124,28 @@ class MACCS_Processor:
 
 #     return df
 
+
+
+
+class MordredCalculator:
+    def __init__(self, smile_source: pd.DataFrame, oligomer_represenation:str ='SMILES') -> None:
+        self.smile_source = smile_source
+        self.oligomer_represenation = oligomer_represenation
+        canonicalize_column(self.smile_source)
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
+
+        
+    def assign_Mordred(self):
+        self.smile_source[f"Mordred_{self.oligomer_represenation}"] = self.all_mols.map(
+                    lambda mol: get_mordred_dict(mol))
+        
+        print(f"Done assigning Mordred_{self.oligomer_represenation}_fingerprints")
+                
+        return self.smile_source
+
+# example:
+# mordred_calc: MordredCalculator = MordredCalculator(structural_features.iloc[:3])
+# mordred_calc.assign_Mordred()
 
 # To-Do: change the below:
 
