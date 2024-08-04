@@ -231,7 +231,15 @@ def close_ring(smiles):
 
     return final_smiles2
 
-
+# example:
+# raw_smiles['Trimer'] = raw_smiles.apply(
+#     lambda row: monomer_propagation(
+#         row['SMILES'],
+#         n_unit=3,
+#         termination_oo=True,
+#         Regioregularity=(row['Name'] != 'rra-P3HT')
+#     ), axis=1
+# )
 
 #generate RU, dimer, trimer
 
