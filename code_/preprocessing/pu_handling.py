@@ -1,4 +1,5 @@
-from typing import Callable, Optional, Union,List, Union, Dict
+import numpy as np
+from typing import Callable, Optional, Union
 from types import NoneType
 
 import rdkit.Chem as Chem
@@ -7,12 +8,8 @@ from rdkit.Chem.Draw import IPythonConsole
 from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
 from rdkit.Chem import Mol
 
-from pathlib import Path
-import pandas as pd
-import numpy as np
-
 HERE: Path = Path(__file__).resolve().parent
-DATASETS: Path = HERE.parent.parent / "datasets"/"raw"
+DATASETS: Path = HERE.parent.parent / "datasets"
 
 
 def get_bond_type(smiles):
@@ -151,7 +148,7 @@ def attach_molecule(smiles1,smiles2, Regioregularity:bool=True):
           bond_information = bond_info(combined_mol,sub_elements)
           # group the elements with the same bond
           groped_elements = group_by_bond_type(bond_information)
-          # print(groped_elements)
+          print(groped_elements)
           # add bonding between the elements and replace the middle elements with specific patterns
           final_smiles=add_bonding(combined_mol,groped_elements)
 
@@ -165,6 +162,8 @@ def monomer_propagation(monomer_SMILES,n_unit, termination_oo:bool = True,Regior
         new_monomer_smiles,elements = attach_molecule(new_monomer_smiles,monomer_SMILES,Regioregularity=Regioregularity)
     if termination_oo:
         new_monomer_smiles = termination_with_asterisk(new_monomer_smiles,elements)
+    # img = Draw.MolToImage(MolFromSmiles(new_monomer_smiles), size=(1000, 1000))
+    # display(img)
     return new_monomer_smiles
 
 
@@ -203,6 +202,7 @@ def close_ring(smiles):
     # print(smiles)
     bond_type, idx =get_bond_type(smiles)
     editeable_mol = Chem.RWMol(MolFromSmiles(smiles))
+    print(idx)
     if len(bond_type)==1:
         # normal_ bond
         # print(idx)
@@ -232,55 +232,23 @@ def close_ring(smiles):
     return final_smiles2
 
 
-# raw_smiles['Trimer'] = raw_smiles.apply(
-#     lambda row: monomer_propagation(
-#         row['SMILES'],
-#         n_unit=3,
-#         termination_oo=True,
-#         Regioregularity=(row['Name'] != 'rra-P3HT')
-#     ), axis=1
-# )
-# raw_smiles['RRU_trimer'] = raw_smiles.apply(
-#     lambda row: close_ring(
-#         row['Trimer']
-#     ), axis=1
-# )
 
+#generate RU, dimer, trimer
 
-def run(oligomer_length:list[int], oligomer_name:list[str], rru_name:list[str]) -> None:
+def main():
     # Load cleaned donor and acceptor structures
-    dataset_dir: Path = DATASETS / "SMILES_to_BigSMILES_Conversion_wo_block_copolymer.xlsx"
-    raw_smiles: pd.DataFrame = pd.read_excel(dataset_dir)
-    raw_structure = raw_smiles[['Name', 'SMILES']].rename(columns={'SMILES': 'Monomer'})
+    dataset_dir: Path = DATASETS / "raw_SMILES"
+    raw_smiles: pd.DataFrame = pd.read_csv(dataset_dir)
 
-    #oligomer production
 
-    for ol_length, name in zip(oligomer_length,oligomer_name ):
-        raw_structure[name] = raw_structure.apply(
-                                    lambda row: monomer_propagation(
-                                        row['Monomer'],
-                                        n_unit=ol_length,
-                                        termination_oo=True,
-                                        Regioregularity=(row['Name'] != 'rra-P3HT')
-                                    ), axis=1
-                                )
+    # Load dataset
+    dataset_pkl = dataset_dir / "cleaned_dataset.pkl"
+    dataset: pd.DataFrame = pd.read_pickle(dataset_pkl)
 
-    # RRU production
+    # Save mordred descriptor IDs
+    mordred_json = dataset_dir / "mordred_descriptors.json"
 
-    for name in rru_name:
-            raw_structure[f'RRU_{name}'] = raw_structure.apply(
-                lambda row: close_ring(
-                    row[name]
-                ), axis=1
-            )
+    # Save dataset
+    mordred_pkl = dataset_dir / "cleaned_dataset_mordred.pkl"
 
-    pu_pkl = DATASETS/ 'pu_processed.pkl'
-    pu_csv = DATASETS/ 'pu_processed.csv'
-    raw_structure.to_pickle(pu_pkl)
-    raw_structure.to_csv(pu_csv)
-
-oligomer_length = [2,3]
-oligomer_name = ['Dimer', 'Trimer']
-rru_name = ['Monomer', 'Dimer', 'Trimer']
-
-run(oligomer_length, oligomer_name, rru_name)
+    run(donor_structures, acceptor_structures, dataset, mordred_json, mordred_pkl)
