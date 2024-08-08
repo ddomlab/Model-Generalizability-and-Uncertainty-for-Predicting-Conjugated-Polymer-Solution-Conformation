@@ -2,6 +2,7 @@ import numpy as np
 from typing import Callable, Optional, Union
 from typing import List, Union, Dict
 from types import NoneType
+import json
 
 import rdkit.Chem as Chem
 from rdkit.Chem import AllChem
@@ -84,8 +85,8 @@ def close_ring(smiles):
         final_smiles = final_smiles.replace('=*=*','')
         final_smiles2 = final_smiles.replace('**','')
 
-    img = Draw.MolToImage(MolFromSmiles(final_smiles2), size=(1000, 1000))
-    display(img)
+    # img = Draw.MolToImage(MolFromSmiles(final_smiles2), size=(1000, 1000))
+    # display(img)
     return final_smiles2
 
 
@@ -290,7 +291,7 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
             raw_structure[name]  = raw_structure.apply(
             lambda row: monomer_propagation(
                 row['Monomer'],
-                n_unit=2,
+                n_unit=length,
                 termination_oo=True,
                 Regioregularity=(row['Name'] != 'rra-P3HT')
             ), axis=1
@@ -306,10 +307,14 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
     # Load dataset
     pu_pkl = DATASETS / "pu_processed.pkl"
     pu_csv = DATASETS / "pu_processed.csv"
-
+    pu_used_json = DATASETS/ "pu_columns_used.json"
     raw_structure.to_pickle(pu_pkl)
     raw_structure.to_csv(pu_csv)
+    pu_columns_used: list[str] = [col for col in raw_structure.columns if col != 'Name']
 
+    # Save mordred descriptor IDs
+    with pu_used_json.open("w") as f:
+        json.dump(pu_columns_used, f)
 
 oligomer_length = [2,3]
 oligomer_name = ['Dimer','Trimer']
