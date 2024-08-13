@@ -1,13 +1,12 @@
 import json
 from pathlib import Path
-from typing import Optional
+# from typing import Optional
 
 import numpy as np
 import pandas as pd
-from rdkit import Chem
-from scipy.stats import norm
+# from rdkit import Chem
+# from scipy.stats import norm
 
-# from preprocess_utils import canonicalize_column, generate_brics, generate_fingerprint, tokenizer_factory
 
 from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
 from rdkit.Chem import Mol
