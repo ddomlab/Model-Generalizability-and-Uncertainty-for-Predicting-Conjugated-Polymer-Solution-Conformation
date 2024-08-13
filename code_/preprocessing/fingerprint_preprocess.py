@@ -4,11 +4,20 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
-import selfies
 from rdkit import Chem
 from scipy.stats import norm
 
-from preprocess_utils import canonicalize_column, generate_brics, generate_fingerprint, tokenizer_factory
+# from preprocess_utils import canonicalize_column, generate_brics, generate_fingerprint, tokenizer_factory
+
+from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
+from rdkit.Chem import Mol
+from rdkit.Chem import rdFingerprintGenerator
+from rdkit.Chem import rdMolDescriptors
+import mordred
+import mordred.descriptors
+from mordred import Calculator
+from rdkit.Chem import MACCSkeys
+
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -60,10 +69,10 @@ def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.D
 class ECFP_Processor:
 
     def __init__(self, smile_source: pd.DataFrame,
-                 oligomer_represenation:str='SMILES') -> None:
+                 oligomer_represenation:str) -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        canonicalize_column(self.smile_source)
+        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
@@ -99,7 +108,7 @@ class MACCS_Processor:
                  oligomer_represenation:str='SMILES') -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        canonicalize_column(self.smile_source)
+        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
@@ -145,7 +154,7 @@ class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame, oligomer_represenation:str ='SMILES') -> None:
         self.smile_source = smile_source
         self.oligomer_represenation = oligomer_represenation
-        canonicalize_column(self.smile_source)
+        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
         
@@ -163,78 +172,33 @@ class MordredCalculator:
 
 # To-Do: change the below:
 
-def pre_main(fp_radii: list[int], fp_bits: list[int], solv_props_as_nan: bool):
-    min_dir: Path = DATASETS / "Min_2020_n558"
-    min_raw_dir: Path = min_dir / "raw"
+def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
 
-    # Whether to treated missing solvent properties as NaN
-    if solv_props_as_nan:
-        solv_prop_fname = "solvent properties_nan.csv"
-        dataset_fname = "cleaned_dataset_nans.pkl"
-    else:
-        solv_prop_fname = "solvent properties.csv"
-        dataset_fname = "cleaned_dataset.pkl"
+    min_dir: Path = DATASETS / 'raw'
 
-    # Import raw dataset downloaded from Google Drive
-    raw_dataset_file = min_raw_dir / "raw dataset.csv"
-    raw_dataset: pd.DataFrame = pd.read_csv(raw_dataset_file, index_col="ref")
+    pu_file = min_dir / "pu_processed.csv"
+    transferred_dir: Path = DATASETS / 'fingerprint'
+    pu_dataset: pd.DataFrame = pd.read_csv(pu_file)
+    pu_used_dir = min_dir / 'pu_columns_used.json'
+    with open(pu_used_dir, 'r') as file:
+        pu_used: list[str] = json.load(file)
 
-    # Get list of duplicated Donor and Acceptor labels
-    duplicated_labels_file = min_raw_dir / "duplicate labels.csv"
-    duplicated_labels: pd.DataFrame = pd.read_csv(duplicated_labels_file, index_col="Name0")
+    fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
+    for polymer_unit in pu_used:
+        fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
+        fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
+        for c_b in count_v:
+            fp_dataset = pd.DataFrame = ECFP_Processor(fp_dataset, oligomer_represenation=polymer_unit).main_ecfp(fp_radii, fp_bits, count_vector= c_b)
 
-    # Get selected properties
-    selected_properties_file = min_dir / "selected_properties.json"
-    with selected_properties_file.open("r") as f:
-        selected_properties = json.load(f)
+    # save file
+    fp_dataset.to_csv(transferred_dir/'structural_features.csv')
+    fp_dataset.to_pickle(transferred_dir/'structural_features.pkl')
 
-    # Get solvent and solvent additive properties
-    solvent_properties_file = min_raw_dir / solv_prop_fname
-    solvent_properties: pd.DataFrame = pd.read_csv(solvent_properties_file, index_col="Name")
-    selected_solvent_properties: list[str] = selected_properties["solvent"]
 
-    # Get interlayer properties
-    interlayer_properties_file = min_raw_dir / "interlayer properties.csv"
-    interlayer_properties: pd.DataFrame = pd.read_csv(interlayer_properties_file, index_col="Name")
-    selected_interlayer_properties: list[str] = selected_properties["interlayer"]
-
-    # Clean features in the dataset
-    dataset: pd.DataFrame = FeatureProcessor(raw_dataset,
-                                             duplicated_labels,
-                                             solvent_properties,
-                                             interlayer_properties,
-                                             solvent_descriptors=selected_solvent_properties
-                                             ).main()
-
-    # Load cleaned donor and acceptor structures
-    donor_structures_file = min_dir / "cleaned donors.csv"
-    donor_structures: pd.DataFrame = pd.read_csv(donor_structures_file)
-    acceptor_structures_file = min_dir / "cleaned acceptors.csv"
-    acceptor_structures: pd.DataFrame = pd.read_csv(acceptor_structures_file)
-
-    # Add structural representations to the dataset
-    dataset: pd.DataFrame = StructureProcessor(dataset, donor_structures=donor_structures,
-                                               acceptor_structures=acceptor_structures).main(fp_radii, fp_bits)
-
-    # Get datatypes of categorical features
-    feature_types_file = min_dir / "feature_types.json"
-    with feature_types_file.open("r") as f:
-        feature_types: dict = json.load(f)
-    dataset: pd.DataFrame = assign_datatypes(dataset, feature_types)
-
-    # Specify paths for saving
-    dataset_csv = min_dir / "cleaned_dataset.csv"
-    dataset_pkl = min_dir / dataset_fname
-
-    # Save the dataset
-    dataset.to_pickle(dataset_pkl)
-    readable: pd.DataFrame = get_readable_only(dataset)
-    readable.to_csv(dataset_csv)
 
 
 if __name__ == "__main__":
     fp_radii: list[int] = [3, 4, 5, 6]
     fp_bits: list[int] = [512, 1024, 2048, 4096]
-    for solv_props_as_nan in [True, False]:
-        print(f"Running with solv_props_as_nan={solv_props_as_nan}")
-        pre_main(fp_radii=fp_radii, fp_bits=fp_bits, solv_props_as_nan=solv_props_as_nan)
+    count_v = [True,False]
+    pre_main(fp_radii=fp_radii, fp_bits=fp_bits, count_v=count_v)
