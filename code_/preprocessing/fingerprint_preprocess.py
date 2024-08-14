@@ -11,7 +11,6 @@ import pandas as pd
 from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
 from rdkit.Chem import Mol
 from rdkit.Chem import rdFingerprintGenerator
-from rdkit.Chem import rdMolDescriptors
 import mordred
 import mordred.descriptors
 from mordred import Calculator
