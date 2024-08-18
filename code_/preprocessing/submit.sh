@@ -1,6 +1,6 @@
 #!/bin/bash
-#BSUB -n 4
-#BSUB -W 10
+#BSUB -n 2
+#BSUB -W 20
 #BSUB -x
 #BSUB -J 
 #BSUB -o stdout.%J

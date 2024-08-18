@@ -181,7 +181,7 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     with open(pu_used_dir, 'r') as file:
         pu_used: list[str] = json.load(file)
 
-    fp_dataset: pd.DataFrame = pu_dataset
+    fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
         fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
