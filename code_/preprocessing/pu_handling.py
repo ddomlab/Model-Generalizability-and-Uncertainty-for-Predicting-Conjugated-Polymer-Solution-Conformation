@@ -304,12 +304,12 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
                     ), axis=1
                 )
 
-    # Load dataset
+    # Save dataset
     pu_pkl = DATASETS / "pu_processed.pkl"
     pu_csv = DATASETS / "pu_processed.csv"
     pu_used_json = DATASETS/ "pu_columns_used.json"
     raw_structure.to_pickle(pu_pkl)
-    raw_structure.to_csv(pu_csv)
+    raw_structure.to_csv(pu_csv, index=False)
     pu_columns_used: list[str] = [col for col in raw_structure.columns if col != 'Name']
 
     # Save mordred descriptor IDs

@@ -181,15 +181,15 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     with open(pu_used_dir, 'r') as file:
         pu_used: list[str] = json.load(file)
 
-    fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
+    fp_dataset: pd.DataFrame = pu_dataset
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
         fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
         for c_b in count_v:
             fp_dataset = pd.DataFrame = ECFP_Processor(fp_dataset, oligomer_represenation=polymer_unit).main_ecfp(fp_radii, fp_bits, count_vector= c_b)
 
-    # save file
-    fp_dataset.to_csv(transferred_dir/'structural_features.csv')
+    # save fie
+    fp_dataset.to_csv(transferred_dir/'structural_features.csv', index=False)
     fp_dataset.to_pickle(transferred_dir/'structural_features.pkl')
 
 
