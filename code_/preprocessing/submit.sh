@@ -1,8 +1,10 @@
 #!/bin/bash
-#BSUB -n 2
-#BSUB -W 20
+#BSUB -n 8
+#BSUB -W 40
+#BSUB -R span[ptile=4]
 #BSUB -x
-#BSUB -J 
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J finger 
 #BSUB -o stdout.%J
 #BSUB -e stderr.%J
 

@@ -19,7 +19,7 @@ from rdkit.Chem import MACCSkeys
 # Parallelization
 import time
 from pandarallel import pandarallel
-pandarallel.initialize(nb_workers=6)
+pandarallel.initialize(nb_workers=8)
 
 
 HERE: Path = Path(__file__).resolve().parent
@@ -191,7 +191,7 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
     # TODO: here add canono to all except the name
     canonicalize_dataset(pu_dataset)
-    fp_dataset: pd.DataFrame = pu_dataset.iloc[:20]
+    fp_dataset: pd.DataFrame = pu_dataset.copy()
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
         fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
