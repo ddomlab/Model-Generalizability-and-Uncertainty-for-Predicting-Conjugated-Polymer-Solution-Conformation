@@ -183,7 +183,7 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
 
     # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:5]
 
-    fp_dataset: pd.DataFrame = pu_dataset.iloc[:5]
+    fp_dataset: pd.DataFrame = pu_dataset.copy()
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
         fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
