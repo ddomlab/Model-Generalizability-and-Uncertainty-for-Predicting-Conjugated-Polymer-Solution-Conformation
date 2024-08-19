@@ -8,7 +8,6 @@ from sklearn.impute import IterativeImputer, KNNImputer, SimpleImputer
 from sklearn.impute._base import _BaseImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder, PowerTransformer, QuantileTransformer, StandardScaler
-
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 
@@ -34,23 +33,23 @@ def unroll_lists_to_columns(df: pd.DataFrame, unroll_cols: list[str], new_col_na
     return unrolled_df
 
 
-def unroll_fingerprints(df: pd.DataFrame, col_names: list[str] = [], radius: int = 0, n_bits: int = 0,
+def unroll_ECFP(df: pd.DataFrame, col_names: list[str] = [], radius: int = 0, n_bits: int = 0,
                         **kwargs) -> pd.DataFrame:
     new_ecfp_col_names: list[str] = [f"EFCP{2 * radius}_bit{i}" for i in range(n_bits)]
     new_df: pd.DataFrame = unroll_lists_to_columns(df, col_names, new_ecfp_col_names)
     return new_df
 
 
-def unroll_solvent_descriptors(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
-    with open(DATASETS / "Min_2020_n558" / "selected_properties.json", "r") as f:
-        solvent_descriptors: list[str] = json.load(f)["solvent"]
-
-    solvent_cols: list[str] = ["solvent descriptors", "solvent additive descriptors"]
-    solvent_descriptor_cols: list[str] = [*[f"solvent {d}" for d in solvent_descriptors],
-                                         *[f"solvent additive {d}" for d in solvent_descriptors]
-                                         ]
-    new_df: pd.DataFrame = unroll_lists_to_columns(df, solvent_cols, solvent_descriptor_cols)
-    return new_df
+# def unroll_solvent_descriptors(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
+#     with open(DATASETS / "Min_2020_n558" / "selected_properties.json", "r") as f:
+#         solvent_descriptors: list[str] = json.load(f)["solvent"]
+#
+#     solvent_cols: list[str] = ["solvent descriptors", "solvent additive descriptors"]
+#     solvent_descriptor_cols: list[str] = [*[f"solvent {d}" for d in solvent_descriptors],
+#                                          *[f"solvent additive {d}" for d in solvent_descriptors]
+#                                          ]
+#     new_df: pd.DataFrame = unroll_lists_to_columns(df, solvent_cols, solvent_descriptor_cols)
+#     return new_df
 
 
 # def unroll_pufp(df: pd.DataFrame, col_names: list[str] = [], **kwargs) -> pd.DataFrame:
@@ -96,7 +95,8 @@ def get_mordred_descriptors(*args, data_file: Optional[Path] = None, **kwargs) -
     mordred: pd.DataFrame = pd.read_pickle(mordred_file)
     return mordred
 
-
+# TODO: unroll MACCS keys
+def unroll_MACCS:
 # def get_gnn_embeddings(df: pd.DataFrame, **kwargs) -> pd.DataFrame:
 #     with open(DATASETS / "Min_2020_n558" / "cleaned_dataset_gnnembeddings.pkl", "rb") as f:
 #         graph_embeddings: pd.DataFrame = pd.read_pickle(f)
@@ -120,28 +120,20 @@ radius_to_bits: dict[int, int] = {3: 512, 4: 1024, 5: 2048, 6: 4096}
 # ]
 
 
-transforms: dict[str, Callable] = {
-    None:                None,
-    "MinMax":            MinMaxScaler,
-    "Standard":          StandardScaler,
-    "Power":             PowerTransformer,
-    "Uniform Quantile":  QuantileTransformer,
-}
-
-
-imputer_factory: dict[str, _BaseImputer] = {
-    "mean": SimpleImputer(strategy="mean"),
-    "median": SimpleImputer(strategy="median"),
-    "most-frequent": SimpleImputer(strategy="most_frequent"),
-    "uniform KNN": KNNImputer(weights="uniform"),
-    "distance KNN": KNNImputer(weights="distance"),
-    "iterative": IterativeImputer(sample_posterior=True),
-}
-
+# transforms: dict[str, Callable] = {
+#     None:                None,
+#     "MinMax":            MinMaxScaler,
+#     "Standard":          StandardScaler,
+#     "Power":             PowerTransformer,
+#     "Uniform Quantile":  QuantileTransformer,
+# }
+#
+#
 unrolling_factory: dict[str, Callable] = {#"solvent":             unroll_solvent_descriptors,
                                           #"solvent additive":    unroll_solvent_descriptors,
-                                          "ECFP":                 unroll_fingerprints,
-                                          #"mordred":             get_mordred_descriptors,
+                                          "ECFP":                 unroll_ECFP,
+                                          "mordred":              get_mordred_descriptors,
+                                          "MACCS":                unroll_MACCS,
                                           #"BRICS":               unroll_tokens,
                                           #"SELFIES":             unroll_tokens,
                                           #"SMILES":              unroll_tokens,
@@ -152,71 +144,11 @@ unrolling_factory: dict[str, Callable] = {#"solvent":             unroll_solvent
                                           }
 
 
-def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
-                 mw: str  , mn: str  , pdi: str   # Column names for Mw, Mn & PDI
-                 ) -> pd.DataFrame:
-
-  df.loc[df[mw].isna(), mw] = df[pdi] * df[mn]  # df.loc may give you some issues
-  return df
 
 
 
-def preprocessing_workflow(imputer:Optional[str],
-                            feat_to_impute:Optional[list[str]]=None,
-                            representation:Optional[str]=None,
-                            numerical_feat:Optional[list]=None,
-                            structural_feat:Optional[list]=None,
-                            special_column:Optional[str] = None,
-                            scaler: str= "Standard",
-                            ) -> Pipeline:
 
-      # structure_feats and scalar_feats for scaling
-      # all_columns = list(set(columns_to_impute)|set(special_column))
-      # imputation of columns
-      steps = []
-      if imputer:
 
-          steps=[
-            ("Impute feats", ColumnTransformer(
-                transformers=[
-                    (f'imputer_{imputer}', imputer_factory[imputer], feat_to_impute),
-                              ],
-                remainder="passthrough", verbose_feature_names_out=False
-            )),
-            # put if special column:
-            ("Calculate Mw", ColumnTransformer(
-                transformers=[
-                    (f'calculator_{special_column}',
-                    (FunctionTransformer(calculate_mw, kw_args={'mw':special_column , 'mn': 'Mn (g/mol)', 'pdi': 'PDI'}, validate=False)),['Mn (g/mol)',special_column,'PDI'])
-              ],
-                remainder="passthrough", verbose_feature_names_out=False
-                )),
 
-            ("Impute the rest of Mw values", ColumnTransformer(
-                transformers=[
-                    (f"imputer_{special_column}", imputer_factory[imputer], [special_column])
-                            ],
-                remainder="passthrough", verbose_feature_names_out=False
-                )),
-            ("drop Mn", ColumnTransformer(
-                transformers=[
-                  ("Drop Mn column", FunctionTransformer(drop_columns, kw_args={'columns_to_drop': ['Mn (g/mol)']}, validate=False), ['Mn (g/mol)'])
-              ], remainder="passthrough", verbose_feature_names_out=False))
-          ]
-          # scaler
-      transformers =[]
-      if numerical_feat:
-        transformers.append(
-            ("numerical_scaling", transforms[scaler], numerical_feat)
-        )
-      elif representation_scaling_factory[representation]['callable']:
-        transformers.append(
-            ("structural_scaling", representation_scaling_factory[representation]['callable'], structural_feat)
-        )
 
-      scaler = ("scaling features",
-                ColumnTransformer(transformers=[*transformers], remainder="passthrough", verbose_feature_names_out=False)
-                )
-      steps.append(scaler)
-      return Pipeline(steps)
 

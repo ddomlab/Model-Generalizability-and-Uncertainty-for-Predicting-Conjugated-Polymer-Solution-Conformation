@@ -4,7 +4,7 @@ from typing import Optional, Union
 
 import pandas as pd
 
-from pipeline_utils import unrolling_factory
+from unrolling_utils import unrolling_factory
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"

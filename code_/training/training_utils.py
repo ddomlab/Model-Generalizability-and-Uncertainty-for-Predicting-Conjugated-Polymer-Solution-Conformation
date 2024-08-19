@@ -8,20 +8,20 @@ import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.model_selection import KFold
-from sklearn.multioutput import MultiOutputRegressor
+# from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, QuantileTransformer, StandardScaler
 from skopt import BayesSearchCV
-from skorch.regressor import NeuralNetRegressor
+# from skorch.regressor import NeuralNetRegressor
 
-import torch
-import torch.nn as nn
-from pytorch_models import GNNPredictor, GPRegressor, NNModel
-from torch.utils.data import DataLoader
-# from _ml_for_opvs.ML_models.pytorch.data.data_utils import PolymerDataset
-from torch import optim
-from torch.optim.lr_scheduler import SequentialLR, LinearLR, ExponentialLR
-import time
+# import torch
+# import torch.nn as nn
+# from pytorch_models import GNNPredictor, GPRegressor, NNModel
+# from torch.utils.data import DataLoader
+# # from _ml_for_opvs.ML_models.pytorch.data.data_utils import PolymerDataset
+# from torch import optim
+# from torch.optim.lr_scheduler import SequentialLR, LinearLR, ExponentialLR
+# import time
 
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset, get_feature_ids
@@ -34,6 +34,8 @@ from models import (
     regressor_search_space,
     get_skorch_nn,
 )
+
+from imputation_normalization import preprocessing_workflow
 from pipeline_utils import (
     generate_feature_pipeline,
     get_feature_pipelines,
@@ -80,6 +82,17 @@ BO_ITER: int = 42 if not TEST else 1
 
 # Set seed for PyTorch model
 # torch.manual_seed(0)
+
+
+def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
+                 mw: str  , mn: str  , pdi: str   # Column names for Mw, Mn & PDI
+                 ) -> pd.DataFrame:
+
+  df.loc[df[mw].isna(), mw] = df[pdi] * df[mn]  # df.loc may give you some issues
+  return df
+
+
+
 
 def train_regressor(
     dataset: pd.DataFrame,

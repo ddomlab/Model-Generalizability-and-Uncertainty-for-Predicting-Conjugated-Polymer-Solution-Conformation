@@ -16,6 +16,11 @@ import mordred.descriptors
 from mordred import Calculator
 from rdkit.Chem import MACCSkeys
 
+# Parallelization
+import time
+from pandarallel import pandarallel
+pandarallel.initialize(nb_workers=6)
+
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -59,10 +64,17 @@ def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,count_vect
     return fingerprint
 
 
-def canonicalize_column(data = pd.DataFrame,smiles_column: str='SMILES') -> pd.DataFrame:
+def canonicalize_dataset(data = pd.DataFrame) -> pd.DataFrame:
         """Canonicalize SMILES."""
-        data[smiles_column]=data[smiles_column].apply(lambda smiles: CanonSmiles(smiles))
+        data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns!='Name'].applymap(lambda smiles: CanonSmiles(smiles))
 
+
+def canonicalize_dataset_parallel(data=pd.DataFrame) -> pd.DataFrame:
+    """Canonicalize SMILES."""
+    from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
+
+    data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns != 'Name'].parallel_applymap(
+        lambda smiles: CanonSmiles(smiles))
 
 class ECFP_Processor:
 
@@ -70,7 +82,6 @@ class ECFP_Processor:
                  oligomer_represenation:str) -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
@@ -106,7 +117,6 @@ class MACCS_Processor:
                  oligomer_represenation:str='SMILES') -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
         self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
@@ -152,16 +162,14 @@ class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame, oligomer_represenation:str ='SMILES') -> None:
         self.smile_source = smile_source
         self.oligomer_represenation = oligomer_represenation
-        canonicalize_column(self.smile_source,smiles_column=self.oligomer_represenation)
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
 
-        
+
     def assign_Mordred(self):
-        self.smile_source[f"Mordred_{self.oligomer_represenation}"] = self.all_mols.map(
+        self.smile_source[f"Mordred_{self.oligomer_represenation}"] = self.all_mols.parallel_map(
                     lambda mol: get_mordred_dict(mol))
-        
         print(f"Done assigning Mordred_{self.oligomer_represenation}_fingerprints")
-                
+
         return self.smile_source
 
 # example:
@@ -171,7 +179,6 @@ class MordredCalculator:
 # To-Do: change the below:
 
 def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
-
     min_dir: Path = DATASETS / 'raw'
 
     pu_file = min_dir / "pu_processed.csv"
@@ -181,9 +188,10 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     with open(pu_used_dir, 'r') as file:
         pu_used: list[str] = json.load(file)
 
-    # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:5]
-
-    fp_dataset: pd.DataFrame = pu_dataset.copy()
+    # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
+    # TODO: here add canono to all except the name
+    canonicalize_dataset(pu_dataset)
+    fp_dataset: pd.DataFrame = pu_dataset.iloc[:20]
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
         fp_dataset: pd.DataFrame = MACCS_Processor(fp_dataset, oligomer_represenation=polymer_unit).assign_MACCS()
@@ -201,4 +209,9 @@ if __name__ == "__main__":
     fp_radii: list[int] = [3, 4, 5, 6]
     fp_bits: list[int] = [512, 1024, 2048, 4096]
     count_v = [True,False]
+    start_time = time.time()
+
     pre_main(fp_radii=fp_radii, fp_bits=fp_bits, count_v=count_v)
+    end_time = time.time()
+    runing_rime = end_time-start_time
+    print(f"runing time = {runing_rime}")
