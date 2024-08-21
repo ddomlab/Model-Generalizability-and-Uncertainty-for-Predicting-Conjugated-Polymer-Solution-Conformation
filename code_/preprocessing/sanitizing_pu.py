@@ -12,6 +12,8 @@ import pandas as pd
 import numpy as np
 import pickle
 
+from collections import Counter
+
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 
@@ -33,8 +35,8 @@ def count_aromatic_rings(smiles: str) -> int:
     return num_aromatic_rings
 
 
-def validate_pu(df,row, index):
-    results = {col: [] for col in df.columns if col != 'Monomer'}
+def check_aromatic_ring(df,row, index) -> dict:
+    results: dict[str,list]  = {col: [] for col in df.columns if col != 'Monomer'}
     
     try:
         monomer_rings = count_aromatic_rings(row["Monomer"])
@@ -55,27 +57,86 @@ def validate_pu(df,row, index):
     
     return results
 
-# Applying the validation
+# validate RRUs
 
-def validate_oligomor():
+def get_atom_counts(smiles) -> dict:
+    mol = Chem.MolFromSmiles(smiles)
+    if mol:
+        return Counter(atom.GetSymbol() for atom in 
+                       mol.GetAtoms() if atom.GetSymbol() !="*")
+    else:
+        raise ValueError(f"Invalid SMILES: {smiles}")
+    
+
+
+def check_formula(df, row, index) -> dict:
+    results: dict[str,list] = {col: [] for col in df.columns if col != 'Monomer'}
+
+    try:
+        monomer_atoms = get_atom_counts(row["Monomer"])
+        for col in results.keys():
+            pu_atoms = get_atom_counts(row[col])
+            if 'Monomer' in col and pu_atoms != monomer_atoms:
+                results[col].append([index,row[col]])
+            # Compare atom counts instead of ring counts
+            if 'Dimer' in col and pu_atoms != {atom: 2 * count for atom, count in monomer_atoms.items()}:
+                results[col].append([index, row[col]])
+
+            if 'Trimer' in col and pu_atoms != {atom: 3 * count for atom, count in monomer_atoms.items()}:
+                results[col].append([index, row[col]])
+
+    except ValueError as e:
+        print(f"Error in row {index}: {e}")
+
+    return results
+
+
+# runing
+# apply used instead of iteritme() for parallelization!
+def validate_formula() -> None:
     min_dir: Path = DATASETS / 'raw'
-    file_path = min_dir/ 'pu_processed.pkl'
+    file_path: Path = min_dir/ 'pu_processed.pkl'
 
     with open(file_path, 'rb') as file:
         pu_data = pd.read_pickle(file)
     
     pu_data.set_index('Name', inplace=True)
-    oligomers_data = pu_data[['Monomer','Dimer', 'Trimer']]
+    oligomers_data: pd.DataFrame = pu_data.copy()
 
-    invalid_smiles = oligomers_data.apply(lambda row: validate_pu(oligomers_data,row, row.name), axis=1)
+    invalid_smiles: pd.Series = oligomers_data.apply(lambda row: check_formula(oligomers_data,row, row.name), axis=1)
 
     # Consolidating the final results
-    final_results = {col: [] for col in oligomers_data.columns if col != 'Monomer'}
+    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer'}
     for res in invalid_smiles:
         for col in res:
             final_results[col].extend(res[col])
     print(final_results)
 
 
+#### Applying the validation
 
-# validate_oligomor()
+def validate_aromaticity() -> None:
+    # check number of aromatic ring in oligomers
+
+    min_dir: Path = DATASETS / 'raw'
+    file_path: Path = min_dir/ 'pu_processed.pkl'
+
+    with open(file_path, 'rb') as file:
+        pu_data = pd.read_pickle(file)
+    
+    oligomers_data = pu_data.set_index('Name', inplace=False)
+    oligomers_data: pd.DataFrame = oligomers_data[['Monomer','Dimer', 'Trimer']]
+
+    invalid_smiles: pd.Series = oligomers_data.apply(lambda row: check_aromatic_ring(oligomers_data,row, row.name), axis=1)
+    
+    # Consolidating the final results
+    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer'}
+    for res in invalid_smiles:
+        for col in res:
+            final_results[col].extend(res[col])
+    print(final_results)
+
+
+if __name__ == "__main__":
+    validate_aromaticity()
+    validate_formula()
