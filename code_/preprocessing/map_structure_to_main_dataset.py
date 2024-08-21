@@ -14,16 +14,26 @@ correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L', 'PPF
                                  'P(NDI2OD-T2)': ['P(NDI2OD-T2)', 'PNDI-C0', 'NDI-C0', 'NDI-2T-2OD'],
                                  }
 
-#     def mapping_from_external(source, to_main):
-#         working_main= to_main.copy()
-#         working_structure = source.set_index('Name', inplace=False)
 
-#         # Map combined tuples to the main dataset
-#         combined_series = working_structure.apply(lambda row: tuple(row.values), axis=1)
-#         mapped_data = working_main['Canonical_Name'].map(combined_series)
-#         unpacked_data = list(zip(*mapped_data))
-#         print('yes')
-#         # Assign the unpacked data to the corresponding columns in the dataset
-#         for idx, col in enumerate(working_structure.columns.tolist()):
-#             working_main[col] = unpacked_data[idx]
-#         return working_main
+
+def mapping_from_external(source, to_main):
+        working_main= to_main.copy()
+        working_structure = source.set_index('Name', inplace=False)
+
+        # Map combined tuples to the main dataset
+        combined_series = working_structure.apply(lambda row: tuple(row.values), axis=1)
+        mapped_data = working_main['canonical_name'].map(combined_series)
+        unpacked_data = list(zip(*mapped_data))
+        print('yes')
+        # Assign the unpacked data to the corresponding columns in the dataset
+        for idx, col in enumerate(working_structure.columns.tolist()):
+            working_main[col] = unpacked_data[idx]
+        return working_main
+
+
+fp_data = m_data.copy()
+structural_features = structure_raw_data[['Name', 'SMILES']]    
+all_poly_name = set(fp_data['name'])
+poly_smiles_name = set(structural_features['Name'])
+sym_diff2 = all_poly_name-poly_smiles_name
+(sym_diff2)
