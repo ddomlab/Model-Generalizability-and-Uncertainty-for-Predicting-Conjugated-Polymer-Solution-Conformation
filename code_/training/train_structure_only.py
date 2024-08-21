@@ -12,80 +12,6 @@ from training_utils import run_graphs_only, train_regressor
 # DATASETS: Path = HERE.parent.parent / "datasets"
 
 
-# def _structure_only(representation: str,
-#                     structural_features: list[str],
-#                     unroll: dict[str, str],
-#                     regressor_type: str,
-#                     target_features: list[str],
-#                     hyperparameter_optimization: bool,
-#                     # subdir_ids: list[Union[str, int]]
-#                     ) -> None:
-#     dataset = DATASETS / "Min_2020_n558" / "cleaned_dataset_nans.pkl"
-#     opv_dataset: pd.DataFrame = pd.read_pickle(dataset)
-#
-#     if regressor_type == "GNN":
-#         scores, predictions = run_graphs_only(opv_dataset,
-#                                              structural_features=structural_features,
-#                                              target_features=target_features,
-#                                              regressor_type=regressor_type,
-#                                              unroll=unroll,
-#                                              hyperparameter_optimization=hyperparameter_optimization,
-#                                              )
-# elif regressor_type == "GP":
-#     scores, predictions = run_structure_only(opv_dataset,
-#                                             representation=representation,
-#                                             structural_features=structural_features,
-#                                             target_features=target_features,
-#                                             regressor_type=regressor_type,
-#                                             unroll=unroll,
-#                                             hyperparameter_optimization=hyperparameter_optimization,
-#                                             kernel="tanimoto" if "ECFP" in representation else "rbf"
-#                                             )
-# else:
-#     scores, predictions = run_structure_only(opv_dataset,
-#                                             representation=representation,
-#                                             structural_features=structural_features,
-#                                             target_features=target_features,
-#                                             regressor_type=regressor_type,
-#                                             unroll=unroll,
-#                                             hyperparameter_optimization=hyperparameter_optimization,
-#                                             )
-
-
-def main_graphs_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    hyperparameter_optimization: bool,
-) -> None:
-    """
-    Only acceptable for GNNPredictor
-    """
-    representation: str = "SMILES"
-    structural_features: list[str] = [f"Donor SMILES", "Acceptor SMILES"]
-    unroll = None
-
-    scores, predictions = run_graphs_only(
-        dataset=dataset,
-        structural_features=structural_features,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        unroll=unroll,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-    scores = process_scores(scores)
-
-    save_results(
-        scores=scores,
-        predictions=predictions,
-        representation=representation,
-        scalar_filter=None,
-        subspace_filter=None,
-        regressor_type=regressor_type,
-        target_features=target_features,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
 
 
 def main_ecfp_only(
@@ -123,57 +49,57 @@ def main_ecfp_only(
     )
 
 
-def main_tokenized_only(
-    dataset: pd.DataFrame,
-    representation: str,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    structural_features: list[str] = [
-        f"Donor {representation} token",
-        f"Acceptor {representation} token",
-    ]
-    unroll_single_feat = {"representation": representation}
+# def main_tokenized_only(
+#     dataset: pd.DataFrame,
+#     representation: str,
+#     regressor_type: str,
+#     target_features: list[str],
+#     transform_type: str,
+#     hyperparameter_optimization: bool,
+# ) -> None:
+#     structural_features: list[str] = [
+#         f"Donor {representation} token",
+#         f"Acceptor {representation} token",
+#     ]
+#     unroll_single_feat = {"representation": representation}
 
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
+#     train_regressor(
+#         dataset=dataset,
+#         representation=representation,
+#         structural_features=structural_features,
+#         unroll=unroll_single_feat,
+#         scalar_filter=None,
+#         subspace_filter=None,
+#         target_features=target_features,
+#         regressor_type=regressor_type,
+#         transform_type=transform_type,
+#         hyperparameter_optimization=hyperparameter_optimization,
+#     )
 
 
-def main_ohe_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    representation: str = "OHE"
-    structural_features: list[str] = ["Donor", "Acceptor"]
-    unroll_single_feat = {"representation": representation}
+# def main_ohe_only(
+#     dataset: pd.DataFrame,
+#     regressor_type: str,
+#     target_features: list[str],
+#     transform_type: str,
+#     hyperparameter_optimization: bool,
+# ) -> None:
+#     representation: str = "OHE"
+#     structural_features: list[str] = ["Donor", "Acceptor"]
+#     unroll_single_feat = {"representation": representation}
 
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
+#     train_regressor(
+#         dataset=dataset,
+#         representation=representation,
+#         structural_features=structural_features,
+#         unroll=unroll_single_feat,
+#         scalar_filter=None,
+#         subspace_filter=None,
+#         target_features=target_features,
+#         regressor_type=regressor_type,
+#         transform_type=transform_type,
+#         hyperparameter_optimization=hyperparameter_optimization,
+#     )
 
 
 def main_mordred_only(
@@ -284,37 +210,6 @@ def main_processing_only(
     )
 
 
-def main_pufp_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-    radius: int = 5,
-) -> None:
-    representation: str = "PUFp"
-    structural_features: list[str] = [
-        f"Donor PUFp",
-        f"Acceptor PUFp",
-    ]
-    unroll_single_feat = {
-        "representation": representation,
-        # "col_names": structural_features,
-    }
-
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
 
 def main_representation_model_grid(
     target_feats: list[str], hyperopt: bool = False
@@ -400,13 +295,6 @@ def main_representation_model_grid(
             # )
             #
             #PUFp
-            main_pufp_only(
-                dataset=opv_dataset,
-                regressor_type=model,
-                target_features=target_feats,
-                transform_type=transform_type,
-                hyperparameter_optimization=hyperopt,
-            )
 
 
 if __name__ == "__main__":

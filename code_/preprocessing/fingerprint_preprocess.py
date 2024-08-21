@@ -19,29 +19,12 @@ from rdkit.Chem import MACCSkeys
 # Parallelization
 import time
 from pandarallel import pandarallel
-pandarallel.initialize(nb_workers=8)
+from argparse import ArgumentParser
 
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 
-
-
-correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L', 'PPFOH-H'],
-                                 'P3HT': ['rr-P3HT', 'P3DT-d21','P3HT (high Mw)','P3HT_a','P3HT_b','P3HT'],
-                                 'PQT-12': ['PQT12','PQT-12'],
-                                 'PTHS': ['PTHS1','PTHS2','PTHS3','PTHS'],
-                                 'PBTTT-C14' : ['pBTTT-C14','PBTTT-C14','PBTTT_C14_1','PBTTT_C14_2','PBTTT_C14_3', 'PBTTT_C14_4'],
-                                 'PBTTT-C16' : ['PBTTT-C16','pBTTTC16',],
-                                 'PFO' : ['PFO', 'PF8'],
-                                 'DTVI-TVB' : ['DTVI1-TVB99', 'DTVI5-TVB95', 'DTVI10-TVB90', 'DTVI25-TVB75', 'DTVI50-TVB50', 'DTVI-TVB'],
-                                 'DPPDTT' : ['DPPDTT1', 'DPPDTT2', 'DPPDTT3', 'DPPDTT'],
-                                 'PII-2T' : ['PII-2T', 'High MW PII-2T'],
-                                 'MEH-PPV' : ['MEH-PPV', 'MEH-PPV-100', 'MEH-PPV-30', 'MEH-PPV-70',],
-                                 'PFO' : ['PFO', 'PF8', 'PFO-d34'],
-                                 'PFT3' : ['S_PFT', 'PFT3'],
-                                 'P(NDI2OD-T2)': ['P(NDI2OD-T2)', 'PNDI-C0', 'NDI-C0', 'NDI-2T-2OD'],
-                                 }
 
 
 def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,count_vector:bool=True) -> np.array:
@@ -206,11 +189,22 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
 
 
 if __name__ == "__main__":
+    parser = ArgumentParser()
+    parser.add_argument(
+        '-- nb_workers',
+        action='store',
+        default=1,
+        type=int,
+        help= 'insert number of cores'
+    )
+    
+    FLAGS = parser.parse_args()
+    pandarallel.initialize(nb_workers=FLAGS.nb_workers)
+    
     fp_radii: list[int] = [3, 4, 5, 6]
     fp_bits: list[int] = [512, 1024, 2048, 4096]
     count_v = [True,False]
     start_time = time.time()
-
     pre_main(fp_radii=fp_radii, fp_bits=fp_bits, count_v=count_v)
     end_time = time.time()
     runing_rime = end_time-start_time
