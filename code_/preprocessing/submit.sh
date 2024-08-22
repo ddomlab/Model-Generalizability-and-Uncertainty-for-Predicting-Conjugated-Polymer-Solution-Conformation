@@ -12,6 +12,8 @@
 source ~/.bashrc
 conda activate /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/env-pls
 
-python /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/preprocessing/fingerprint_preprocess.py --num_workers 8
+#python /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/preprocessing/fingerprint_preprocess.py --num_workers 8
+
+python fingerprint_preprocess.py --num_workers 8
 
 conda deactivate
