@@ -47,14 +47,8 @@ def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,count_vect
     return fingerprint
 
 
-def canonicalize_dataset(data = pd.DataFrame) -> pd.DataFrame:
-        """Canonicalize SMILES."""
-        data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns!='Name'].applymap(lambda smiles: CanonSmiles(smiles))
-
-
 def canonicalize_dataset_parallel(data=pd.DataFrame) -> pd.DataFrame:
     """Canonicalize SMILES."""
-    from rdkit.Chem import Draw, MolFromSmiles, CanonSmiles, MolToSmiles
 
     data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns != 'Name'].parallel_applymap(
         lambda smiles: CanonSmiles(smiles))
@@ -65,7 +59,7 @@ class ECFP_Processor:
                  oligomer_represenation:str) -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
 
 
 
@@ -73,9 +67,14 @@ class ECFP_Processor:
         """
         Assigns ECFP fingerprints to the dataset.
         """
-        self.smile_source[f"CV_{count_vector}_ECFP_{2 * radius}_{nbits}_{self.oligomer_represenation}"] = self.all_mols.map(
+        if count_vector:
+            vector_type = 'count'
+        else:
+            vector_type = 'binary'
+
+        self.smile_source[f"{self.oligomer_represenation.split()[0]}_ECFP{2 * radius}_{vector_type}_{nbits}bits"] = self.all_mols.parallel_map(
                           lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, count_vector=count_vector))
-        print(f"Done assigning CV_{count_vector}_ECFP_{2 * radius} fingerprints with {nbits} bits on {self.oligomer_represenation}.")
+        print(f"Done with generating {self.oligomer_represenation.split()[0]}_ECFP{2 * radius}_{vector_type}_{nbits}bits")
 
 
     def main_ecfp(self, fp_radii: list[int], fp_bits: list[int],count_vector:bool=True) -> pd.DataFrame:
@@ -87,43 +86,20 @@ class ECFP_Processor:
         return self.smile_source
       
 
-# example:
-# fp_rad: list[int] = [3,4]
-# fp_bi: list[int] = [512,1024]
-# df_clean = ECFP_Processor(structural_features_test,oligomer_represenation='SMILES').main_ecfp(fp_rad, fp_bi,count_vector=True)
-# df_clean
-
-
-# maccs is here!
 class MACCS_Processor:
     def __init__(self, smile_source: pd.DataFrame,
                  oligomer_represenation:str='SMILES') -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
 
 
     def assign_MACCS(self):
-        self.smile_source[f"MACCS_{self.oligomer_represenation}"] = self.all_mols.map(
+        self.smile_source[f"{self.oligomer_represenation.split()[0]}_MACCS"] = self.all_mols.parallel_map(
             lambda mol: MACCSkeys.GenMACCSKeys(mol))
-        print(f"Done assigning MACCS_{self.oligomer_represenation}_fingerprints")
+        print(f"Done assigning {self.oligomer_represenation.split()[0]}_MACCS representation")
         
         return self.smile_source
-
-# example:
-# maccs = MACCS_Processor(structural_features_test,oligomer_represenation='SMILES').assign_MACCS()
-
-# unrolling maccs:
-# def compute_MACCS(self):
-#     MACCS_list = []
-#     header = ['bit' + str(i) for i in range(167)]
-#     for mol in self.all_mols:
-#         ds = list(MACCSkeys.GenMACCSKeys(mol)
-#         MACCS_list.append(ds)
-#     df = pd.DataFrame(MACCS_list,columns=header)
-
-#     return df
-
 
 
 def get_mordred_dict(mol: Mol) -> dict[str, float]:
@@ -149,10 +125,24 @@ class MordredCalculator:
 
 
     def assign_Mordred(self):
-        self.smile_source[f"Mordred_{self.oligomer_represenation}"] = self.all_mols.parallel_map(
-                    lambda mol: get_mordred_dict(mol))
-        print(f"Done assigning Mordred_{self.oligomer_represenation}_fingerprints")
-
+        
+        descriptors: pd.Series = self.all_mols.parallel_map(lambda mol: get_mordred_dict(mol))
+        #unpacking the descriptors
+        mordred_descriptors: pd.DataFrame = pd.DataFrame.from_records(descriptors, index=self.all_mols.index)
+        # Remove any columns with calculation errors
+        mordred_descriptors = mordred_descriptors.infer_objects()
+        mordred_descriptors = mordred_descriptors.select_dtypes(exclude=["object"])
+        # Remove any columns with nan values
+        mordred_descriptors.dropna(axis=1, how='any', inplace=True)
+        # Remove any columns with zero variance
+        descriptor_variances: pd.Series = mordred_descriptors.var(numeric_only=True)
+        variance_mask: pd.Series = descriptor_variances.eq(0)
+        zero_variance: pd.Series = variance_mask[variance_mask == True]
+        invariant_descriptors: list[str] = zero_variance.index.to_list()
+        mordred_descriptors: pd.DataFrame = mordred_descriptors.drop(invariant_descriptors, axis=1)
+        print("Done generating Mordred descriptors.")
+        self.smile_source[f"{self.oligomer_represenation.split()[0]}_Mordred"] = mordred_descriptors.to_dict(orient='records')    
+        print(f"Done assigning {self.oligomer_represenation.split()[0]}_Mordred representation")
         return self.smile_source
 
 # example:
@@ -172,8 +162,8 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
         pu_used: list[str] = json.load(file)
 
     # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
-    # TODO: here add canono to all except the name
-    canonicalize_dataset(pu_dataset)
+    
+    canonicalize_dataset_parallel(pu_dataset)
     fp_dataset: pd.DataFrame = pu_dataset.copy()
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()
