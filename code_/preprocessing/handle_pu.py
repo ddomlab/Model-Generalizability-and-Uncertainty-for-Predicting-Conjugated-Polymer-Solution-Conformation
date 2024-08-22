@@ -285,12 +285,12 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
     # Load cleaned donor and acceptor structures
     dataset_dir: Path = DATASETS / "SMILES_to_BigSMILES_Conversion_wo_block_copolymer.xlsx"
     raw_smiles: pd.DataFrame = pd.read_excel(dataset_dir)
-    raw_structure = raw_smiles[['Name', 'SMILES']].rename(columns={'SMILES': 'Monomer'})
+    raw_structure = raw_smiles[['Name', 'SMILES']].rename(columns={'SMILES': 'Monomer SMILES'})
 
     for length, name in zip(oligomer_length,oligomer_name):
             raw_structure[name]  = raw_structure.apply(
             lambda row: monomer_propagation(
-                row['Monomer'],
+                row['Monomer SMILES'],
                 n_unit=length,
                 termination_oo=True,
                 Regioregularity=(row['Name'] != 'rra-P3HT')
@@ -298,7 +298,7 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
             )
 
     for name in rru_name:
-            raw_structure[f'RRU_{name}'] = raw_structure.apply(
+            raw_structure[f'RRU {name}'] = raw_structure.apply(
                 lambda row: close_ring(
                     row[name]
                     ), axis=1
@@ -317,7 +317,7 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
         json.dump(pu_columns_used, f)
 
 oligomer_length = [2,3]
-oligomer_name = ['Dimer','Trimer']
-rru_name = ['Monomer', 'Dimer', 'Trimer']
+oligomer_name = ['Dimer SMILES','Trimer SMILES']
+rru_name = ['Monomer SMILES', 'Dimer SMILES', 'Trimer SMILES']
 
 run(oligomer_length, oligomer_name,rru_name)
