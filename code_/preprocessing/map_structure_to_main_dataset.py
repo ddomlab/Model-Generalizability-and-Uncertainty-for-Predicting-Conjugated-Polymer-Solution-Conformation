@@ -1,20 +1,18 @@
-correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L', 'PPFOH-H'],
-                                 'P3HT': ['rr-P3HT', 'P3DT-d21','P3HT (high Mw)','P3HT_a','P3HT_b','P3HT'],
-                                 'PQT-12': ['PQT12','PQT-12'],
-                                 'PTHS': ['PTHS1','PTHS2','PTHS3','PTHS'],
-                                 'PBTTT-C14' : ['pBTTT-C14','PBTTT-C14','PBTTT_C14_1','PBTTT_C14_2','PBTTT_C14_3', 'PBTTT_C14_4'],
-                                 'PBTTT-C16' : ['PBTTT-C16','pBTTTC16',],
-                                 'PFO' : ['PFO', 'PF8'],
-                                 'DTVI-TVB' : ['DTVI1-TVB99', 'DTVI5-TVB95', 'DTVI10-TVB90', 'DTVI25-TVB75', 'DTVI50-TVB50', 'DTVI-TVB'],
-                                 'DPPDTT' : ['DPPDTT1', 'DPPDTT2', 'DPPDTT3', 'DPPDTT'],
-                                 'PII-2T' : ['PII-2T', 'High MW PII-2T'],
-                                 'MEH-PPV' : ['MEH-PPV', 'MEH-PPV-100', 'MEH-PPV-30', 'MEH-PPV-70',],
-                                 'PFO' : ['PFO', 'PF8', 'PFO-d34'],
-                                 'PFT3' : ['S_PFT', 'PFT3'],
-                                 'P(NDI2OD-T2)': ['P(NDI2OD-T2)', 'PNDI-C0', 'NDI-C0', 'NDI-2T-2OD'],
-                                 }
+import json
+from pathlib import Path
+import pandas as pd
+import os, sys
+sys.path.append(os.path.abspath("../cleaning"))
+
+from clean_dataset import open_json
+
+HERE: Path = Path(__file__).resolve().parent
+DATASETS: Path = HERE.parent.parent / 'datasets'
+JSONS: Path = DATASETS/ 'json_resources'
 
 
+corrected_name_dir = JSONS/'canonicalized_name.json'
+unified_poly_name = open_json(corrected_name_dir)
 
 def mapping_from_external(source, to_main):
         working_main= to_main.copy()
@@ -31,9 +29,4 @@ def mapping_from_external(source, to_main):
         return working_main
 
 
-fp_data = m_data.copy()
-structural_features = structure_raw_data[['Name', 'SMILES']]    
-all_poly_name = set(fp_data['name'])
-poly_smiles_name = set(structural_features['Name'])
-sym_diff2 = all_poly_name-poly_smiles_name
-(sym_diff2)
+print(unified_poly_name)
