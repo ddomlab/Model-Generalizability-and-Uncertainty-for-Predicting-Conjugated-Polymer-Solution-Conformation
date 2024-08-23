@@ -45,29 +45,30 @@ class NumpyArrayEncoder(json.JSONEncoder):
 
 
 def _save(scores: Dict[int, Dict[str, float]],
-          predictions: pd.DataFrame,
+          predictions: Optional[pd.DataFrame],
           results_dir: Path,
           regressor_type: str,
-          hyperparameter_optimization: bool,
-          imputer: Optional[str] = None,
+          hyperparameter_optimization: Optional[bool],
+          imputer: Optional[str],
+          representation: str
           ) -> None:
-    results_dir.mkdir(parents=True, exist_ok=True)
+    # results_dir.mkdir(parents=True, exist_ok=True)
 
-    fname_root = f"{regressor_type}_{imputer} imputer" if imputer else regressor_type
-    fname_root = f"{fname_root}_hyperopt" if hyperparameter_optimization else fname_root
+    # fname_root = f"{regressor_type}_{imputer} imputer" if imputer else regressor_type
+    # fname_root = f"{fname_root}_hyperopt" if hyperparameter_optimization else fname_root
 
     # fname_root: str = f"{regressor_type}_hyperopt" if hyperparameter_optimization else regressor_type
-    print("Filename:", fname_root)
+    # print("Filename:", fname_root)
 
-    scores_file: Path = results_dir / f"{fname_root}_scores.json"
+    scores_file: Path = results_dir / f"{representation}_{regressor_type}_scores.json"
     with open(scores_file, "w") as f:
         json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
 
-    predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
-    predictions.to_csv(predictions_file, index=False)
+    # predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
+    # predictions.to_csv(predictions_file, index=False)
     print("Saved results to:")
     print(scores_file)
-    print(predictions_file)
+    # print(predictions_file)
 
 
 def save_results(scores: dict,

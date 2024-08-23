@@ -14,6 +14,17 @@ from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
 
 
+
+def pearson(y_true: pd.Series, y_pred: np.ndarray) -> float:
+    if isinstance(y_true, pd.Series) or isinstance(y_true, pd.DataFrame):
+        y_true = y_true.to_numpy()
+    y_true = y_true.flatten()
+    y_pred = y_pred.flatten()
+    r = pearsonr(y_true, y_pred)[0]
+    return r
+r_scorer = make_scorer(pearson, greater_is_better=True)
+
+
 # from training_utils import N_FOLDS, SEEDS
 
 
@@ -82,23 +93,20 @@ def process_scores(
         score_types: list[str] = [
             key for key in scores[first_key].keys() if key.startswith("test_")
         ]
-        # score_types: list[str] = [score.replace("test_", "") for score in score_types]
         avgs: list[float] = [
             np.mean([seed[score] for seed in scores.values()]) for score in score_types
         ]
         stdevs: list[float] = [
             np.std([seed[score] for seed in scores.values()]) for score in score_types
         ]
-        std_errs: list[float] = [stdev / np.sqrt(sample_size) for stdev in stdevs]
 
 
         score_types: list[str] = [score.replace("test_", "") for score in score_types]
-    for score, avg, stdev, stderr in zip(score_types, avgs, stdevs, std_errs):
-        scores[f"{score}_avg"] = abs(avg) if score in ["rmse", "mae"] else avg
-        scores[f"{score}_stdev"] = stdev
-        scores[f"{score}_stderr"] = stderr
-        
-    return scores
+        for score, avg, stdev in zip(score_types, avgs, stdevs ):
+            scores[f"{score}_avg"] = abs(avg) if score in ["rmse", "mae"] else avg
+            scores[f"{score}_stdev"] = stdev
+            
+        return scores
 
 def cross_validate_regressor(
     regressor, X, y, cv
@@ -111,6 +119,7 @@ def cross_validate_regressor(
           cv=cv,
           scoring={
               #r pearson is added
+              "r": r_scorer,
               "r2": r2_scorer,
               "rmse": rmse_scorer,
               "mae": mae_scorer,

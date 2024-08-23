@@ -14,9 +14,9 @@ sys.path.append("code_/cleaning")
 from clean_dataset import open_json
 
 
-def open_json(dir):
-    with open(dir,'r') as file:
-         return json.load(file)
+# def open_json(dir):
+#     with open(dir,'r') as file:
+#          return json.load(file)
     
 
 

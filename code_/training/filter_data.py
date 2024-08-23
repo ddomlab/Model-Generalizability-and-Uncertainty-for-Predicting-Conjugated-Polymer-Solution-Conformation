@@ -6,42 +6,17 @@ import pandas as pd
 
 from unrolling_utils import unrolling_factory
 
-HERE: Path = Path(__file__).resolve().parent
-DATASETS: Path = HERE.parent.parent / "datasets"
+# HERE: Path = Path(__file__).resolve().parent
+# DATASETS: Path = HERE.parent.parent / "datasets"
 
-with open(HERE / "filters.json", "r") as f:
-    FILTERS: dict[str, list[str]] = json.load(f)
+# with open(HERE / "filters.json", "r") as f:
+#     FILTERS: dict[str, list[str]] = json.load(f)
 
-with open(HERE / "subsets.json", "r") as f:
-    SUBSETS: dict[str, list[str]] = json.load(f)
-
-
-def get_appropriate_dataset(model: str, imputer: Optional[str] = None) -> pd.DataFrame:
-    if model == "HGB" or imputer:
-        dataset = DATASETS / "Min_2020_n558" / "cleaned_dataset_nans.pkl"
-        print("Using dataset with NaNs")
-    else:
-        dataset = DATASETS / "Min_2020_n558" / "cleaned_dataset.pkl"
-
-    opv_dataset: pd.DataFrame = pd.read_pickle(dataset).reset_index(drop=True)
-    return opv_dataset
+# with open(HERE / "subsets.json", "r") as f:
+#     SUBSETS: dict[str, list[str]] = json.load(f)
 
 
-def get_feature_ids(feat_filter: str) -> list[str]:
-    """
-    Get a subset of columns from a DataFrame.
 
-    Args:
-        feat_filter: List of subsets with which to filter the DataFrame.
-
-    Returns:
-        List of feature names.
-    """
-    filters: list[str] = FILTERS[feat_filter]
-    feature_ids: list[str] = []
-    for subset_id in filters:
-        feature_ids.extend(SUBSETS[subset_id])
-    return feature_ids
 
 
 def sanitize_dataset(

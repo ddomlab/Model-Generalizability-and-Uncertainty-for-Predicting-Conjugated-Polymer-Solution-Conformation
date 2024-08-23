@@ -36,10 +36,10 @@ def count_aromatic_rings(smiles: str) -> int:
 
 
 def check_aromatic_ring(df,row, index) -> dict:
-    results: dict[str,list]  = {col: [] for col in df.columns if col != 'Monomer'}
+    results: dict[str,list]  = {col: [] for col in df.columns if col != 'Monomer SMILES'}
     
     try:
-        monomer_rings = count_aromatic_rings(row["Monomer"])
+        monomer_rings = count_aromatic_rings(row["Monomer SMILES"])
         for col in results.keys():
             pu_rings = count_aromatic_rings(row[col])
             
@@ -70,10 +70,10 @@ def get_atom_counts(smiles) -> dict:
 
 
 def check_formula(df, row, index) -> dict:
-    results: dict[str,list] = {col: [] for col in df.columns if col != 'Monomer'}
+    results: dict[str,list] = {col: [] for col in df.columns if col != 'Monomer SMILES'}
 
     try:
-        monomer_atoms = get_atom_counts(row["Monomer"])
+        monomer_atoms = get_atom_counts(row["Monomer SMILES"])
         for col in results.keys():
             pu_atoms = get_atom_counts(row[col])
             if 'Monomer' in col and pu_atoms != monomer_atoms:
@@ -106,7 +106,7 @@ def validate_formula() -> None:
     invalid_smiles: pd.Series = oligomers_data.apply(lambda row: check_formula(oligomers_data,row, row.name), axis=1)
 
     # Consolidating the final results
-    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer'}
+    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer SMILES'}
     for res in invalid_smiles:
         for col in res:
             final_results[col].extend(res[col])
@@ -125,12 +125,12 @@ def validate_aromaticity() -> None:
         pu_data = pd.read_pickle(file)
     
     oligomers_data = pu_data.set_index('Name', inplace=False)
-    oligomers_data: pd.DataFrame = oligomers_data[['Monomer','Dimer', 'Trimer']]
+    oligomers_data: pd.DataFrame = oligomers_data[['Monomer SMILES','Dimer SMILES', 'Trimer SMILES']]
 
     invalid_smiles: pd.Series = oligomers_data.apply(lambda row: check_aromatic_ring(oligomers_data,row, row.name), axis=1)
     
     # Consolidating the final results
-    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer'}
+    final_results: dict[str,list] = {col: [] for col in oligomers_data.columns if col != 'Monomer SMILES'}
     for res in invalid_smiles:
         for col in res:
             final_results[col].extend(res[col])

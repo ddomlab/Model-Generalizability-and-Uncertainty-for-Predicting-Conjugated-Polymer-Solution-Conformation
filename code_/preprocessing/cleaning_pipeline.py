@@ -10,13 +10,12 @@
 
 
 
-# TODO: here drop the blocks
 
-def pipe_main():
-    r_main()
-    man_main()
-    pre_main()
+# def pipe_main():
+#     r_main()
+#     man_main()
+#     pre_main()
 
 
-if __name__ == "__main__":
-    pipe_main()
+# if __name__ == "__main__":
+#     pipe_main()

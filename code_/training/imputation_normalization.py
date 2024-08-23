@@ -1,3 +1,27 @@
+from typing import Callable, Optional, Union, List
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import FunctionTransformer
+
+from sklearn.compose import ColumnTransformer
+# from sklearn.multioutput import MultiOutputRegressor
+from sklearn.pipeline import Pipeline
+from all_factories import (imputer_factory, 
+                           representation_scaling_factory)
+
+
+
+def drop_columns(df:pd.DataFrame, columns_to_drop: List):
+    return df.drop(columns=columns_to_drop)
+
+
+def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
+                 mw: str  , mn: str  , pdi: str   # Column names for Mw, Mn & PDI
+                 ) -> pd.DataFrame:
+
+  df.loc[df[mw].isna(), mw] = df[pdi] * df[mn]  # df.loc may give you some issues
+  return df
+
 def preprocessing_workflow(imputer: Optional[str],
                            feat_to_impute: Optional[list[str]] = None,
                            representation: Optional[str] = None,

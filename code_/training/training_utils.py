@@ -14,39 +14,24 @@ from sklearn.preprocessing import MinMaxScaler, QuantileTransformer, StandardSca
 from skopt import BayesSearchCV
 # from skorch.regressor import NeuralNetRegressor
 
-# import torch
-# import torch.nn as nn
-# from pytorch_models import GNNPredictor, GPRegressor, NNModel
-# from torch.utils.data import DataLoader
-# # from _ml_for_opvs.ML_models.pytorch.data.data_utils import PolymerDataset
-# from torch import optim
-# from torch.optim.lr_scheduler import SequentialLR, LinearLR, ExponentialLR
-# import time
+import time
 
 from data_handling import remove_unserializable_keys, save_results
-from filter_data import filter_dataset, get_feature_ids
-from models import (
-    ecfp_only_kernels,
-    get_ecfp_only_kernel,
-    hyperopt_by_default,
-    model_dropna,
+from filter_data import filter_dataset
+from all_factories import (
     regressor_factory,
-    regressor_search_space,
-    get_skorch_nn,
-)
+    regressor_search_space
+    )
 
 from imputation_normalization import preprocessing_workflow
-from pipeline_utils import (
-    generate_feature_pipeline,
-    get_feature_pipelines,
-    imputer_factory,
-)
+# from pipeline_utils import (
+#     generate_feature_pipeline,
+#     get_feature_pipelines,
+#     imputer_factory,
+# )
 from scoring import (
-    cross_validate_multioutput_regressor,
     cross_validate_regressor,
     process_scores,
-    multi_scorer,
-    score_lookup,
 )
 from scipy.stats import pearsonr
 
@@ -56,43 +41,31 @@ from sklearn.metrics import (
     r2_score,
 )
 
-# PyTorch TensorBoard support
-from torch.utils.tensorboard import SummaryWriter
-
-# from pipeline_utils import representation_scaling_factory
 
 HERE: Path = Path(__file__).resolve().parent
 
-os_type: str = platform.system().lower()
-TEST: bool = False if os_type == "linux" else True
+# os_type: str = platform.system().lower()
+TEST=True
 
 # Seeds for generating random states
-with open(HERE / "seeds.json", "r") as f:
-    SEEDS: list[int] = json.load(f)
-    SEEDS: list[int] = SEEDS if not TEST else SEEDS[:1]
-
-# Number of folds for cross-validation
+# SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+SEEDS = [42]
 N_FOLDS: int = 5 if not TEST else 2
 
 # Number of iterations for Bayesian optimization
 BO_ITER: int = 42 if not TEST else 1
+
+# Number of folds for cross-validation
+# N_FOLDS: int = 5 if not TEST else 2
+
+# # Number of iterations for Bayesian optimization
+# BO_ITER: int = 42 if not TEST else 1
 
 # Path to config for Pytorch model
 # CONFIG_PATH: Path = HERE / "ANN_config.json"
 
 # Set seed for PyTorch model
 # torch.manual_seed(0)
-
-
-def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
-                 mw: str  , mn: str  , pdi: str   # Column names for Mw, Mn & PDI
-                 ) -> pd.DataFrame:
-
-  df.loc[df[mw].isna(), mw] = df[pdi] * df[mn]  # df.loc may give you some issues
-  return df
-
-
-
 
 def train_regressor(
     dataset: pd.DataFrame,
@@ -111,29 +84,44 @@ def train_regressor(
     imputer: Optional[str] = None,
     # output_dir_name: str = "results",
     ) -> None:
-      """
-      you should change the name here for prepare
-      """
-        #seed scores and seed prediction
-      scores, predictions = _prepare_data(
-                              dataset=dataset,
-                              features_impute= features_impute,
-                              special_impute= special_impute,
-                              representation=representation,
-                              structural_features=structural_features,
-                              unroll=unroll,
-                              numerical_feats = numerical_feats,
-                              # scalar_filter=scalar_filter,
-                              # subspace_filter=subspace_filter,
-                              target_features=target_features,
-                              regressor_type=regressor_type,
-                              transform_type=transform_type,
-                              imputer=imputer,
-                              hyperparameter_optimization=hyperparameter_optimization,
-                              )
-      scores = process_scores(scores)
+        """
+        you should change the name here for prepare
+        """
+            #seed scores and seed prediction
+        scores, predictions = _prepare_data(
+                                dataset=dataset,
+                                features_impute= features_impute,
+                                special_impute= special_impute,
+                                representation=representation,
+                                structural_features=structural_features,
+                                unroll=unroll,
+                                numerical_feats = numerical_feats,
+                                # scalar_filter=scalar_filter,
+                                # subspace_filter=subspace_filter,
+                                target_features=target_features,
+                                regressor_type=regressor_type,
+                                transform_type=transform_type,
+                                imputer=imputer,
+                                hyperparameter_optimization=hyperparameter_optimization,
+                                )
+        scores = process_scores(scores)
+        # save_results(
+        # scores,
+        # predictions,
+        # representation=representation,
+        # scalar_filter=scalar_filter,
+        # subspace_filter=subspace_filter,
+        # target_features=target_features,
+        # regressor_type=regressor_type,
+        # imputer=imputer,
+        # hyperparameter_optimization=hyperparameter_optimization,
+        # output_dir_name=output_dir_name,
+        # )
+      
+      
+      
       # edit to save results
-      return scores
+        return scores
 
 
 def _prepare_data(
@@ -203,15 +191,7 @@ def run(
       y_transform = Pipeline(
                 steps=[("y scaler",StandardScaler()),
                       ])
-      #multi out regressor
-      # if y.shape[1] > 1:
-      #       y_transform_regressor: TransformedTargetRegressor = TransformedTargetRegressor(
-      #                               regressor=MultiOutputRegressor(
-      #                               estimator=regressor_factory[regressor_type]),
-      #                               transformer=y_transform,
-      #                               )
 
-      # else:
       y_transform_regressor: TransformedTargetRegressor = TransformedTargetRegressor(
             regressor=regressor_factory[regressor_type],
             transformer=y_transform,

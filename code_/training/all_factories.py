@@ -1,3 +1,24 @@
+from sklearn.linear_model import LinearRegression
+from sklearn.ensemble import RandomForestRegressor
+from xgboost import XGBRegressor
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.svm import SVR
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.linear_model import Lasso
+from sklearn.multioutput import MultiOutputRegressor
+
+from sklearn.preprocessing import (StandardScaler,
+                                   QuantileTransformer,
+                                   MinMaxScaler,
+                                   FunctionTransformer)
+from sklearn.base import TransformerMixin
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer, KNNImputer, SimpleImputer
+
+from typing import Callable, Optional, Union, Dict
+from types import NoneType
+from skopt.space import Integer, Real, Categorical
+
 imputer_factory: Dict[str, TransformerMixin] = {
     "mean": SimpleImputer(strategy="mean"),
     "median": SimpleImputer(strategy="median"),
@@ -11,11 +32,12 @@ transforms: dict[str, Callable] = {
     None:                None,
     "MinMax":            MinMaxScaler(),
     "Standard":          StandardScaler(),
-    "Power":             PowerTransformer(),
+    # "Power":             PowerTransformer(),
     "Uniform Quantile":  QuantileTransformer(),
 }
 
 
+radius_to_bits: dict[int, int] = {3: 512, 4: 1024, 5: 2048, 6: 4096}
 
 
 
