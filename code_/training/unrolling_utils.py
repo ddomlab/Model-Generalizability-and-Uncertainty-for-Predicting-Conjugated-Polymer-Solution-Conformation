@@ -28,6 +28,7 @@ def unroll_lists_to_columns(df: pd.DataFrame, unroll_cols: list[str], new_col_na
     """
     rolled_cols: pd.DataFrame = df[unroll_cols]
     # rolled_cols: pd.DataFrame = df
+    print(f"this is n\ {rolled_cols.loc[1]}")
     unrolled_df: pd.DataFrame = pd.concat([rolled_cols[col].apply(pd.Series) for col in rolled_cols.columns], axis=1)
     unrolled_df.columns = new_col_names
     return unrolled_df
@@ -35,6 +36,7 @@ def unroll_lists_to_columns(df: pd.DataFrame, unroll_cols: list[str], new_col_na
 
 def unroll_ECFP(df: pd.DataFrame, col_names: list[str], oligomer_representation:str ,
                 vector_type:str ,radius: int = 0, n_bits: int = 0,**kwargs) -> pd.DataFrame:
+    
     new_ecfp_col_names: list[str] = [f"{oligomer_representation}_ECFP{2 * radius}_{vector_type}_bit{i}" for i in range(n_bits)]
     new_df: pd.DataFrame = unroll_lists_to_columns(df, col_names, new_ecfp_col_names)
     return new_df

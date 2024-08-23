@@ -45,11 +45,11 @@ class NumpyArrayEncoder(json.JSONEncoder):
 
 
 def _save(scores: Dict[int, Dict[str, float]],
-          predictions: Optional[pd.DataFrame],
+        #   predictions: Optional[pd.DataFrame],
           results_dir: Path,
           regressor_type: str,
-          hyperparameter_optimization: Optional[bool],
-          imputer: Optional[str],
+        #   hyperparameter_optimization: Optional[bool],
+        #   imputer: Optional[str],
           representation: str
           ) -> None:
     # results_dir.mkdir(parents=True, exist_ok=True)

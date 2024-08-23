@@ -87,7 +87,7 @@ def main_MACCS_only(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
 
-    score  = train_regressor(
+    scores  = train_regressor(
                             dataset=dataset,
                             features_impute=None,
                             special_impute=None,
@@ -170,16 +170,28 @@ def perform_model_ecfp():
 
                 aggregated_scores[f'{oligo_type}_ECFP{2*radius}_{vector}'] = [scores]
 
-    scores_dir = RESULTS/'ecfp_RF_scores.json'
 
-    _save(aggregated_scores,scores_dir,regressor_type='RF',representation='ECFP')
+    _save(scores=aggregated_scores,results_dir=RESULTS,regressor_type='RF',representation='ECFP')
+
+def perform_model_MACCS():
+    aggregated_scores ={}
+    for oligo_type in edited_oligomer_list:
+        scores = main_MACCS_only(
+                                dataset=w_data,
+                                regressor_type= 'RF',
+                                target_features= ['Lp (nm)'],
+                                transform_type= "Standard",
+                                hyperparameter_optimization= True,
+                                oligomer_representation=oligo_type,
+                                )
+ 
+        aggregated_scores[f'{oligo_type}_MACCSS'] = [scores]
 
 
+    _save(scores=aggregated_scores,results_dir=RESULTS,regressor_type='RF',representation='MACCS')
 
-
-
-
-
+# perform_model_ecfp()
+perform_model_MACCS()
 #     def main_representation_model_grid(
 #     target_feats: list[str], hyperopt: bool = False
 # ) -> None:
