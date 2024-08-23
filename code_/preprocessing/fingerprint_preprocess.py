@@ -71,16 +71,15 @@ class ECFP_Processor:
             vector_type = 'count'
         else:
             vector_type = 'binary'
-
-        self.smile_source[f"{self.oligomer_represenation.split()[0]}_ECFP{2 * radius}_{vector_type}_{nbits}bits"] = self.all_mols.parallel_map(
+        
+        new_name: str = " ".join(self.oligomer_represenation.split()[:-1])
+        self.smile_source[f"{new_name}_ECFP{2 * radius}_{vector_type}_{nbits}bits"] = self.all_mols.parallel_map(
                           lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, count_vector=count_vector))
         print(f"Done with generating {self.oligomer_represenation.split()[0]}_ECFP{2 * radius}_{vector_type}_{nbits}bits")
 
 
     def main_ecfp(self, fp_radii: list[int], fp_bits: list[int],count_vector:bool=True) -> pd.DataFrame:
 
-        # # self.dataset[f"{material} BigSMILES"] = self.assign_bigsmiles(material, self.dataset[f"{material} SMILES"])
-        # self.dataset[f"{material} BRICS"] = self.assign_brics(self.dataset[f"{material} Mol"])
         for r, b in zip(fp_radii,fp_bits):
             self.assign_ECFP(radius=r, nbits=b, count_vector=count_vector)
         return self.smile_source
@@ -95,8 +94,10 @@ class MACCS_Processor:
 
 
     def assign_MACCS(self):
-        self.smile_source[f"{self.oligomer_represenation.split()[0]}_MACCS"] = self.all_mols.parallel_map(
-            lambda mol: MACCSkeys.GenMACCSKeys(mol))
+        new_name = " ".join(self.oligomer_represenation.split()[:-1])
+
+        self.smile_source[f"{new_name}_MACCS"] = self.all_mols.parallel_map(
+            lambda mol: list(MACCSkeys.GenMACCSKeys(mol).ToBitString()))
         print(f"Done assigning {self.oligomer_represenation.split()[0]}_MACCS representation")
         
         return self.smile_source
@@ -141,7 +142,8 @@ class MordredCalculator:
         invariant_descriptors: list[str] = zero_variance.index.to_list()
         mordred_descriptors: pd.DataFrame = mordred_descriptors.drop(invariant_descriptors, axis=1)
         print("Done generating Mordred descriptors.")
-        self.smile_source[f"{self.oligomer_represenation.split()[0]}_Mordred"] = mordred_descriptors.to_dict(orient='records')    
+        new_name = " ".join(self.oligomer_represenation.split()[:-1])
+        self.smile_source[f"{new_name}_Mordred"] = mordred_descriptors.to_dict(orient='records')    
         print(f"Done assigning {self.oligomer_represenation.split()[0]}_Mordred representation")
         return self.smile_source
 
@@ -149,7 +151,6 @@ class MordredCalculator:
 # mordred_calc: MordredCalculator = MordredCalculator(structural_features.iloc[:3])
 # mordred_calc.assign_Mordred()
 
-# To-Do: change the below:
 
 def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     min_dir: Path = DATASETS / 'raw'
@@ -164,6 +165,7 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
     
     canonicalize_dataset_parallel(pu_dataset)
+
     fp_dataset: pd.DataFrame = pu_dataset.copy()
     for polymer_unit in pu_used:
         fp_dataset: pd.DataFrame = MordredCalculator(fp_dataset, oligomer_represenation=polymer_unit).assign_Mordred()

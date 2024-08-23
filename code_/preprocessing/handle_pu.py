@@ -298,7 +298,7 @@ def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) ->
             )
 
     for name in rru_name:
-            raw_structure[f'RRU_{name}'] = raw_structure.apply(
+            raw_structure[f'RRU {name}'] = raw_structure.apply(
                 lambda row: close_ring(
                     row[name]
                     ), axis=1
