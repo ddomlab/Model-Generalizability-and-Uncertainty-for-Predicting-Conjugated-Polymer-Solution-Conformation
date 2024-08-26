@@ -84,6 +84,7 @@ def save_results(scores: dict,
                  predictions: pd.DataFrame,
                  target_features: str,
                  regressor_type: str,
+                 TEST : bool =True,
                 #  hyperparameter_optimization: bool,
                  representation: str=None,
                  pu_type : Optional[str]=None,
@@ -102,7 +103,9 @@ def save_results(scores: dict,
     else:
         feature_ids: list = [representation]
     features_dir: str = "-".join(feature_ids)
-    results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}" / f"features_{features_dir}"
+    results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}"
+    results_dir: Path = results_dir / "test" if TEST else results_dir
+    results_dir: Path = results_dir / f"{regressor_type} model" / f"features_{features_dir}"
     # if subspace_filter:
     #     results_dir = results_dir / f"subspace_{subspace_filter}"
 
