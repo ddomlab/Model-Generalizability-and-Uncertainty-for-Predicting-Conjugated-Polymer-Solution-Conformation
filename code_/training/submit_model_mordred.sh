@@ -1,6 +1,6 @@
 #!/bin/bash
 #BSUB -n 8
-#BSUB -W 40
+#BSUB -W 480
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"

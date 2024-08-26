@@ -1,10 +1,10 @@
 #!/bin/bash
 #BSUB -n 8
-#BSUB -W 40
+#BSUB -W 1440
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J finger 
+#BSUB -J ecfp 
 #BSUB -o ecfp_run.out
 #BSUB -e ecfp_err.out
 
