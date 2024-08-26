@@ -15,6 +15,12 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
+training_df_dir: Path = DATASETS/ "training_dataset"/ "structure_wo_block_cp_scaler_dataset.pkl"
+oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
+
+oligomer_list =open_json(oligo_dir)
+w_data = pd.read_pickle(training_df_dir)
+edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 TEST=False
 

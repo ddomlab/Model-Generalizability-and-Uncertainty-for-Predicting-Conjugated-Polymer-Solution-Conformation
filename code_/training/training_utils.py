@@ -147,16 +147,17 @@ def _prepare_data(
           dropna = True,
           unroll=unroll,
       )
-
+      
       # Pipline workflow here and preprocessor
       preprocessor: Pipeline = preprocessing_workflow(imputer=imputer,
-                                            feat_to_impute=features_impute,
-                                            representation = representation,
-                                            numerical_feat=numerical_feats,
-                                            structural_feat = unrolled_feats,
-                                            special_column=special_impute,
-                                            scaler=transform_type)
-
+                                                        feat_to_impute=features_impute,
+                                                        representation = representation,
+                                                        numerical_feat=numerical_feats,
+                                                        structural_feat = unrolled_feats,
+                                                        special_column=special_impute,
+                                                        scaler=transform_type)
+      
+      preprocessor.set_output(transform="pandas")
       return run(
               X,
               y,
@@ -241,7 +242,7 @@ def _optimize_hyperparams(
 
         X_train = split_for_training(X, train_index)
         y_train = split_for_training(y, train_index)
-
+        # print(X_train)
         # Splitting for inner hyperparameter optimization loop
         cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
         print("\n\n")

@@ -59,7 +59,7 @@ def _save(scores: Dict[int, Dict[str, float]],
           ) -> None:
     results_dir.mkdir(parents=True, exist_ok=True)
 
-    fname_root = f"{regressor_type}_{imputer} imputer" if imputer else regressor_type
+    fname_root = f"{regressor_type} model_{imputer} imputer" if imputer else regressor_type
     fname_root = f"{fname_root}_numerical_feats" if numerical_feats else fname_root
     if representation:
         fname_root = f"{fname_root}_{representation}" if representation else fname_root
@@ -85,28 +85,26 @@ def save_results(scores: dict,
                  target_features: str,
                  regressor_type: str,
                  TEST : bool =True,
-                #  hyperparameter_optimization: bool,
                  representation: str=None,
                  pu_type : Optional[str]=None,
                  radius : Optional[int]=None,
                  vector : Optional[str]=None,
-                #  scalar_filter: Optional[str],
                  numerical_feats: Optional[list[str]]=None,
-                #  subspace_filter: Optional[str],
                  imputer: Optional[str] = None,
                  output_dir_name: str = "results",
                  ) -> None:
     targets_dir: str = "-".join([target_abbrev[target] for target in target_features])
-
-    if representation != numerical_feats:
-        feature_ids: list = [feature for feature in [representation, numerical_feats] if feature is not None]
-    else:
-        feature_ids: list = [representation]
+    feature_ids = []
+    if representation:
+        feature_ids.append(representation)
+    if numerical_feats:
+        feature_ids.append('numerical')
+        print()
     features_dir: str = "-".join(feature_ids)
-    
+    print(features_dir)
     results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}"
     results_dir: Path = results_dir / "test" if TEST else results_dir
-    results_dir: Path = results_dir / f"{regressor_type} model" / f"features_{features_dir}"
+    results_dir: Path = results_dir / f"{regressor_type} model" / features_dir
     # if subspace_filter:
     #     results_dir = results_dir / f"subspace_{subspace_filter}"
 

@@ -71,6 +71,8 @@ def preprocessing_workflow(imputer: Optional[str],
     # Normalization
     transformers = []
     if numerical_feat:
+        if 'Mn (g/mol)' in numerical_feat:
+            numerical_feat.remove('Mn (g/mol)')
         transformers.append(
             ("numerical_scaling", transforms[scaler], numerical_feat)
             )
