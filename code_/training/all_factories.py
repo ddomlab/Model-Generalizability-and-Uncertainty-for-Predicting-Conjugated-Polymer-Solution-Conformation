@@ -42,22 +42,23 @@ radius_to_bits: dict[int, int] = {3: 512, 4: 1024, 5: 2048, 6: 4096}
 
 
 representation_scaling_factory: dict[str, dict[str, Union[Callable, str]]] = {
-    "solvent":             {"callable": StandardScaler,
+    "solvent":             {"callable": StandardScaler(),
                             "type":     "Standard"},
-    "ECFP":                {"callable": None, "type": "MinMax"},
-    "PUFp":                {"callable": MinMaxScaler, "type": "MinMax"},
-    "mordred":             {"callable": StandardScaler,
+    "ECFP":                {"callable": None, "type": None},
+    "MACCS":                {"callable": None, "type": None},
+    # "PUFp":                {"callable": MinMaxScaler, "type": "MinMax"},
+    "Mordred":             {"callable": StandardScaler(),
                             "type":     "Standard"},
-    "graph embeddings":    {"callable": MinMaxScaler,
-                            "type": "MinMax"},
-    "BRICS":               {"callable": MinMaxScaler, "type": "MinMax"},
-    "SELFIES":             {"callable": MinMaxScaler, "type": "MinMax"},
-    "SMILES":              {"callable": MinMaxScaler, "type": "MinMax"},
-    "OHE":                 {"callable": MinMaxScaler, "type": "MinMax"},
-    "material properties": {"callable": StandardScaler, "type": "Standard"},
-    "fabrication only":    {"callable": StandardScaler,
+    # "graph embeddings":    {"callable": MinMaxScaler,
+    #                         "type": "MinMax"},
+    # "BRICS":               {"callable": MinMaxScaler, "type": "MinMax"},
+    # "SELFIES":             {"callable": MinMaxScaler, "type": "MinMax"},
+    # "SMILES":              {"callable": MinMaxScaler, "type": "MinMax"},
+    # "OHE":                 {"callable": MinMaxScaler, "type": "MinMax"},
+    "material properties": {"callable": StandardScaler(), "type": "Standard"},
+    "fabrication only":    {"callable": StandardScaler(),
                             "type":     "Standard"},
-    "GNN":     {"callable": MinMaxScaler, "type": "MinMax"},
+    # "GNN":     {"callable": MinMaxScaler, "type": "MinMax"},
 }
 
 

@@ -20,8 +20,8 @@ from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
     regressor_factory,
-    regressor_search_space
-    )
+    regressor_search_space,
+    transforms)
 
 from imputation_normalization import preprocessing_workflow
 # from pipeline_utils import (
@@ -45,11 +45,11 @@ from sklearn.metrics import (
 HERE: Path = Path(__file__).resolve().parent
 
 # os_type: str = platform.system().lower()
-TEST=True
+TEST=False
 
 # Seeds for generating random states
-# SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
-SEEDS = [42]
+SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+# SEEDS = [42]
 N_FOLDS: int = 5 if not TEST else 2
 
 # Number of iterations for Bayesian optimization
@@ -105,23 +105,13 @@ def train_regressor(
                                 hyperparameter_optimization=hyperparameter_optimization,
                                 )
         scores = process_scores(scores)
-        # save_results(
-        # scores,
-        # predictions,
-        # representation=representation,
-        # scalar_filter=scalar_filter,
-        # subspace_filter=subspace_filter,
-        # target_features=target_features,
-        # regressor_type=regressor_type,
-        # imputer=imputer,
-        # hyperparameter_optimization=hyperparameter_optimization,
-        # output_dir_name=output_dir_name,
-        # )
+  
+        return scores, predictions
+        
+
       
       
       
-      # edit to save results
-        return scores
 
 
 def _prepare_data(
@@ -159,7 +149,7 @@ def _prepare_data(
       )
 
       # Pipline workflow here and preprocessor
-      preprocessor = preprocessing_workflow(imputer=imputer,
+      preprocessor: Pipeline = preprocessing_workflow(imputer=imputer,
                                             feat_to_impute=features_impute,
                                             representation = representation,
                                             numerical_feat=numerical_feats,
@@ -189,14 +179,14 @@ def run(
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = Pipeline(
-                steps=[("y scaler",StandardScaler()),
+                steps=[("y scaler",transforms[transform_type]),
                       ])
 
       y_transform_regressor: TransformedTargetRegressor = TransformedTargetRegressor(
             regressor=regressor_factory[regressor_type],
             transformer=y_transform,
             )
-
+    #   print('yes')
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", preprocessor),
                     ("regressor", y_transform_regressor),
@@ -230,7 +220,6 @@ def run(
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(
                       seed_predictions, orient="columns")
 
-    print('yes')
     return seed_scores, seed_predictions
 
 
@@ -260,7 +249,6 @@ def _optimize_hyperparams(
             "OPTIMIZING HYPERPARAMETERS FOR REGRESSOR", regressor_type, "\tSEED:", seed
         )
         # Bayesian hyperparameter optimization
-        print('yes')
         bayes = BayesSearchCV(
             regressor,
             regressor_search_space[regressor_type],

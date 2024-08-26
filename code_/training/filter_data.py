@@ -37,7 +37,6 @@ def sanitize_dataset(
     if dropna:
         targets: pd.DataFrame = targets.dropna()
         training_features: pd.DataFrame =training_features.loc[targets.index]
-
         return training_features, targets
     else:
         return training_features, targets

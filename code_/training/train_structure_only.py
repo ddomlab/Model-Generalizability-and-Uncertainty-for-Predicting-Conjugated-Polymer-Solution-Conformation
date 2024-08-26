@@ -1,315 +1,271 @@
 import pandas as pd
-
-from models import regressor_factory
+from pathlib import Path
 from data_handling import save_results
-from filter_data import get_appropriate_dataset
-from pipeline_utils import radius_to_bits
-from scoring import process_scores
-from training_utils import run_graphs_only, train_regressor
+# from filter_data import get_appropriate_dataset
+from all_factories import radius_to_bits
+from training_utils import train_regressor
+from all_factories import radius_to_bits
+import sys
+import json
+import numpy as np
+from data_handling import _save
+
+sys.path.append("code_/cleaning")
+from clean_dataset import open_json
+HERE: Path = Path(__file__).resolve().parent
+DATASETS: Path = HERE.parent.parent / "datasets"
+RESULTS = Path = HERE.parent.parent / "results"
+from argparse import ArgumentParser
+from data_handling import save_results
+# TEST=True
+# # Number of folds for cross-validation
+# N_FOLDS: int = 5 if not TEST else 2
+
+# # Number of iterations for Bayesian optimization
+# BO_ITER: int = 42 if not TEST else 1
+# SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+# Seeds for generating random states
 
 
-# HERE: Path = Path(__file__).resolve().parent
-# DATASETS: Path = HERE.parent.parent / "datasets"
 
 
 
 
-def main_ecfp_only(
+def main_ECFP_only(
     dataset: pd.DataFrame,
     regressor_type: str,
     target_features: list[str],
     transform_type: str,
     hyperparameter_optimization: bool,
-    radius: int = 5,
+    radius: int,
+    oligomer_representation: str,
+    vector_type: str
 ) -> None:
     representation: str = "ECFP"
     n_bits = radius_to_bits[radius]
     structural_features: list[str] = [
-        f"Donor ECFP{2 * radius}_{n_bits}",
-        f"Acceptor ECFP{2 * radius}_{n_bits}",
+        f"{oligomer_representation}_{representation}{2 * radius}_{vector_type}_{n_bits}bits"
     ]
     unroll_single_feat = {
         "representation": representation,
         "radius": radius,
         "n_bits": n_bits,
+        "vector_type": vector_type,
+        "oligomer_representation":oligomer_representation,
         "col_names": structural_features,
     }
 
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-
-# def main_tokenized_only(
-#     dataset: pd.DataFrame,
-#     representation: str,
-#     regressor_type: str,
-#     target_features: list[str],
-#     transform_type: str,
-#     hyperparameter_optimization: bool,
-# ) -> None:
-#     structural_features: list[str] = [
-#         f"Donor {representation} token",
-#         f"Acceptor {representation} token",
-#     ]
-#     unroll_single_feat = {"representation": representation}
-
-#     train_regressor(
-#         dataset=dataset,
-#         representation=representation,
-#         structural_features=structural_features,
-#         unroll=unroll_single_feat,
-#         scalar_filter=None,
-#         subspace_filter=None,
-#         target_features=target_features,
-#         regressor_type=regressor_type,
-#         transform_type=transform_type,
-#         hyperparameter_optimization=hyperparameter_optimization,
-#     )
-
-
-# def main_ohe_only(
-#     dataset: pd.DataFrame,
-#     regressor_type: str,
-#     target_features: list[str],
-#     transform_type: str,
-#     hyperparameter_optimization: bool,
-# ) -> None:
-#     representation: str = "OHE"
-#     structural_features: list[str] = ["Donor", "Acceptor"]
-#     unroll_single_feat = {"representation": representation}
-
-#     train_regressor(
-#         dataset=dataset,
-#         representation=representation,
-#         structural_features=structural_features,
-#         unroll=unroll_single_feat,
-#         scalar_filter=None,
-#         subspace_filter=None,
-#         target_features=target_features,
-#         regressor_type=regressor_type,
-#         transform_type=transform_type,
-#         hyperparameter_optimization=hyperparameter_optimization,
-#     )
-
-
-def main_mordred_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    representation: str = "mordred"
-    structural_features: list[str] = ["Donor", "Acceptor"]
-    unroll_single_feat = {"representation": representation}
-
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-
-def main_graph_embeddings_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    representation: str = "graph embeddings"
-    structural_features: list[str] = ["Donor", "Acceptor"]
-    unroll_single_feat = {"representation": representation}
-
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=None,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-
-def main_properties_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    representation: str = "material properties"
-    # mater_props: list[str] = ["HOMO", "LUMO", "Ehl", "Eg"]
-    # scalar_features: list[str] = [*[f"{p}_D (eV)" for p in mater_props],
-    #                               *[f"{p}_A (eV)" for p in mater_props]]
-    # unroll_single_feat = {"representation": representation}
-
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=None,
-        unroll=None,
-        scalar_filter=representation,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-
-def main_processing_only(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    representation: str = "fabrication only"
-    structural_features: list[str] = [
-        "solvent descriptors",
-        "solvent additive descriptors",
-    ]
-    unroll_single_feat: dict[str, str] = {
-        "representation": "solvent",
-    }
-    scalar_filter: str = "fabrication only"
-
-    train_regressor(
-        dataset=dataset,
-        representation=representation,
-        structural_features=structural_features,
-        unroll=unroll_single_feat,
-        scalar_filter=scalar_filter,
-        subspace_filter=None,
-        target_features=target_features,
-        regressor_type=regressor_type,
-        transform_type=transform_type,
-        hyperparameter_optimization=hyperparameter_optimization,
-    )
-
-
-
-def main_representation_model_grid(
-    target_feats: list[str], hyperopt: bool = False
-) -> None:
-    transform_type: str = "Standard"
-
-    for model in ["MLR", "KNN", "SVR", "KRR", "GP", "RF", "XGB", "HGB", "NGB", "NN"]:
-        opv_dataset: pd.DataFrame = get_appropriate_dataset(model)
-
-        if model == "GNN":
-            # import pdb; pdb.set_trace()
-            main_graphs_only(
-                dataset=opv_dataset,
-                regressor_type=model,
-                target_features=target_feats,
-                hyperparameter_optimization=hyperopt,
+    scores, predictions = train_regressor(
+                            dataset=dataset,
+                            features_impute=None,
+                            special_impute=None,
+                            representation=representation,
+                            structural_features=structural_features,
+                            unroll=unroll_single_feat,
+                            numerical_feats=None,
+                            target_features=target_features,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            imputer=None
+                        )
+    save_results(scores,
+            predictions=predictions,
+            representation= representation,
+            pu_type= oligomer_representation,
+            radius= radius,
+            vector =vector_type,
+            target_features=target_features,
+            regressor_type=regressor_type,
             )
 
-        else:
-            # # ECFP
-            # main_ecfp_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            # # mordred
-            # main_mordred_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            # # graph embeddings
-            # main_graph_embeddings_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            # # OHE
-            # main_ohe_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            # # tokenized
-            # for struct_repr in ["SELFIES", "SMILES"]:
-            #     main_tokenized_only(
-            #         dataset=opv_dataset,
-            #         representation=struct_repr,
-            #         regressor_type=model,
-            #         target_features=target_feats,
-            #         transform_type=transform_type,
-            #         hyperparameter_optimization=hyperopt,
-            #     )
-            #
-            # # material properties
-            # main_properties_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            # # processing only
-            # main_processing_only(
-            #     dataset=opv_dataset,
-            #     regressor_type=model,
-            #     target_features=target_feats,
-            #     transform_type=transform_type,
-            #     hyperparameter_optimization=hyperopt,
-            # )
-            #
-            #PUFp
 
+def main_MACCS_only(
+    dataset: pd.DataFrame,
+    regressor_type: str,
+    target_features: list[str],
+    transform_type: str,
+    hyperparameter_optimization: bool,
+    oligomer_representation: str
+) -> None:
+    representation: str = "MACCS"
+    structural_features: list[str] = [f"{oligomer_representation}_{representation}"]
+    unroll_single_feat = {"representation": representation,
+                          "oligomer_representation":oligomer_representation,
+                          "col_names": structural_features}
+
+    scores, predictions  = train_regressor(
+                            dataset=dataset,
+                            features_impute=None,
+                            special_impute=None,
+                            representation=representation,
+                            structural_features=structural_features,
+                            unroll=unroll_single_feat,
+                            numerical_feats=None,
+                            target_features=target_features,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            imputer=None
+                        )
+
+    save_results(scores,
+                predictions=predictions,
+                representation= representation,
+                pu_type= oligomer_representation,
+                target_features=target_features,
+                regressor_type=regressor_type,
+                )
+
+def main_Mordred_only(
+    dataset: pd.DataFrame,
+    regressor_type: str,
+    target_features: list[str],
+    transform_type: str,
+    hyperparameter_optimization: bool,
+    oligomer_representation: str
+) -> None:
+    representation: str = "Mordred"
+    structural_features: list[str] = [f"{oligomer_representation}_{representation}"]
+    unroll_single_feat = {"representation": representation,
+                          "oligomer_representation":oligomer_representation,
+                          "col_names": structural_features}
+
+    scores, predictions  = train_regressor(
+                            dataset=dataset,
+                            features_impute=None,
+                            special_impute=None,
+                            representation=representation,
+                            structural_features=structural_features,
+                            unroll=unroll_single_feat,
+                            numerical_feats=None,
+                            target_features=target_features,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            imputer=None
+                        )
+
+    save_results(scores,
+                predictions=predictions,
+                representation= representation,
+                pu_type= oligomer_representation,
+                target_features=target_features,
+                regressor_type=regressor_type,
+                )
+
+
+
+training_df_dir: Path = DATASETS/ "training_dataset"/ "structure_wo_block_cp_scaler_dataset.pkl"
+oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
+
+oligomer_list =open_json(oligo_dir)
+w_data = pd.read_pickle(training_df_dir)
+edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
+
+
+
+
+def perform_model_ecfp():
+    radii = [3, 4, 5, 6]
+    vectors = ['count', 'binary']
+    for oligo_type in edited_oligomer_list:
+        for radius in radii:
+            for vector in vectors:
+                print(f'polymer unit :{oligo_type} with rep of ECFP{radius} and {vector}')
+                main_ECFP_only(
+                                dataset=w_data,
+                                regressor_type= 'RF',
+                                target_features= ['Lp (nm)'],
+                                transform_type= "Standard",
+                                hyperparameter_optimization= True,
+                                radius = radius,
+                                oligomer_representation=oligo_type,
+                                vector_type=vector
+                                )
+
+
+
+
+def perform_model_maccs():
+    for oligo_type in edited_oligomer_list:
+            main_MACCS_only(
+                            dataset=w_data,
+                            regressor_type= 'RF',
+                            target_features= ['Lp (nm)'],
+                            transform_type= "Standard",
+                            hyperparameter_optimization= True,
+                            oligomer_representation=oligo_type,
+                            )
+ 
+
+
+
+def perform_model_mordred():
+    for oligo_type in edited_oligomer_list:
+                main_Mordred_only(
+                                dataset=w_data,
+                                regressor_type= 'RF',
+                                target_features= ['Lp (nm)'],
+                                transform_type= "Standard",
+                                hyperparameter_optimization= True,
+                                oligomer_representation=oligo_type,
+                                )
+
+
+
+# perform_model_ecfp()
+# perform_model_maccs()
+# perform_model_mordred()
+
+
+
+def main(model_type):
+    if model_type == "ecfp":
+        perform_model_ecfp()
+    elif model_type == "maccs":
+        perform_model_maccs()
+    elif model_type == "mordred":
+        perform_model_mordred()
+    else:
+        raise ValueError(f"Unknown model type: {model_type}")
 
 if __name__ == "__main__":
-    # for target in ["calculated PCE (%)", "Voc (V)", "Jsc (mA cm^-2)", "FF (%)"]:
-    #     for h_opt in [False, True]:
-    #         main_representation_model_grid(target_feats=[target], hyperopt=h_opt)
+    
+    parser = ArgumentParser(description="Run a specific model.")
+    parser.add_argument('--model', type=str, required=True, choices=['ecfp', 'maccs', 'mordred'], help="Type of model to run")
+    args = parser.parse_args()
+    main(args.model)
 
-    # for target in ["Voc (V)", "Jsc (mA cm^-2)", "FF (%)"]:
-    #     main_representation_model_grid(target_feats=[target], hyperopt=False)
 
-    # main_representation_model_grid(target_feats=["calculated PCE (%)"], hyperopt=False)
-    main_representation_model_grid(target_feats=["calculated PCE (%)"], hyperopt=False)
 
-    # # Run one model
-    # transform_type: str = "Standard"
-    # model = "ANN"
-    # opv_dataset: pd.DataFrame = get_appropriate_dataset(model)
-    # main_ecfp_only(dataset=opv_dataset, regressor_type=model, target_features=["calculated PCE (%)"], transform_type=transform_type, hyperparameter_optimization=False)
+    
+
+#     def main_representation_model_grid(
+#     target_feats: list[str], hyperopt: bool = False
+# ) -> None:
+#     transform_type: str = "Standard"
+
+#     for model in ["MLR", "KNN", "SVR", "KRR", "GP", "RF", "XGB", "HGB", "NGB", "NN"]:
+#         opv_dataset: pd.DataFrame = get_appropriate_dataset(model)
+
+
+
+#     else:
+#         # ECFP
+#         main_ecfp_only(
+#             dataset=opv_dataset,
+#             regressor_type=model,
+#             target_features=target_feats,
+#             transform_type=transform_type,
+#             hyperparameter_optimization=hyperopt,
+#         )
+        
+#         # mordred
+#         main_mordred_only(
+#             dataset=opv_dataset,
+#             regressor_type=model,
+#             target_features=target_feats,
+#             transform_type=transform_type,
+#             hyperparameter_optimization=hyperopt,
+#         )

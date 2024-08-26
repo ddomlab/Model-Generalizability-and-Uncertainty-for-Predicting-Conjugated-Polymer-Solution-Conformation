@@ -7,7 +7,8 @@ from sklearn.compose import ColumnTransformer
 # from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
 from all_factories import (imputer_factory, 
-                           representation_scaling_factory)
+                           representation_scaling_factory,
+                           transforms)
 
 
 
@@ -34,6 +35,7 @@ def preprocessing_workflow(imputer: Optional[str],
     # all_columns = list(set(columns_to_impute)|set(special_column))
     # imputation of columns
     steps = []
+    # imputation
     if imputer:
         steps = [
             ("Impute feats", ColumnTransformer(
@@ -66,19 +68,20 @@ def preprocessing_workflow(imputer: Optional[str],
                      ['Mn (g/mol)'])
                 ], remainder="passthrough", verbose_feature_names_out=False))
         ]
-        # scaler
+    # Normalization
     transformers = []
     if numerical_feat:
         transformers.append(
             ("numerical_scaling", transforms[scaler], numerical_feat)
-        )
-    elif representation_scaling_factory[representation]['callable']:
-        transformers.append(
+            )
+    # elif representation_scaling_factory[representation]['callable']:
+    elif representation_scaling_factory[representation]['callable']!=None:
+         transformers.append(
             ("structural_scaling", representation_scaling_factory[representation]['callable'], structural_feat)
-        )
-
-    scaler = ("scaling features",
+            )
+        
+    scaling = ("scaling features",
               ColumnTransformer(transformers=[*transformers], remainder="passthrough", verbose_feature_names_out=False)
               )
-    steps.append(scaler)
+    steps.append(scaling)
     return Pipeline(steps)
