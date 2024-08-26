@@ -214,11 +214,10 @@ def perform_model_mordred():
 
 
 
+
 # perform_model_ecfp()
 # perform_model_maccs()
 # perform_model_mordred()
-
-
 
 def main(model_type):
     if model_type == "ecfp":
