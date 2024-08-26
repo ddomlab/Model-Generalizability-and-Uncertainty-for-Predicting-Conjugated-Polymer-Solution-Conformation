@@ -1,35 +1,22 @@
 import pandas as pd
 from pathlib import Path
-from data_handling import save_results
-# from filter_data import get_appropriate_dataset
-from all_factories import radius_to_bits
 from training_utils import train_regressor
 from all_factories import radius_to_bits
 import sys
 import json
 import numpy as np
-from data_handling import _save
-
 sys.path.append("../cleaning")
 from clean_dataset import open_json
+from argparse import ArgumentParser
+from data_handling import save_results
+
+
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
-from argparse import ArgumentParser
-from data_handling import save_results
+
+
 # TEST=True
-# # Number of folds for cross-validation
-# N_FOLDS: int = 5 if not TEST else 2
-
-# # Number of iterations for Bayesian optimization
-# BO_ITER: int = 42 if not TEST else 1
-# SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
-# Seeds for generating random states
-
-
-
-
-
 
 def main_ECFP_only(
     dataset: pd.DataFrame,
