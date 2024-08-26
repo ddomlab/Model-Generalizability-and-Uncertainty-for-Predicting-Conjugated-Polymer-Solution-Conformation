@@ -10,7 +10,7 @@ import json
 import numpy as np
 from data_handling import _save
 
-sys.path.append("code_/cleaning")
+sys.path.append("../cleaning")
 from clean_dataset import open_json
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
