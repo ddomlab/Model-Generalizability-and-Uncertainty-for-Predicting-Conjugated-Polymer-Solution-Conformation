@@ -24,9 +24,11 @@ edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 
 
+columns_to_impute = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+special_column="Mw (g/mol)"
 
 
-def main_MACCS_only(
+def main_numerical_only(
     dataset: pd.DataFrame,
     regressor_type: str,
     target_features: list[str],

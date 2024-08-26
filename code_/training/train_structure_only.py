@@ -16,7 +16,7 @@ DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
 
-# TEST=True
+TEST=False
 
 def main_ECFP_only(
     dataset: pd.DataFrame,
@@ -64,6 +64,7 @@ def main_ECFP_only(
             vector =vector_type,
             target_features=target_features,
             regressor_type=regressor_type,
+            TEST=TEST
             )
 
 
@@ -102,6 +103,7 @@ def main_MACCS_only(
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                TEST=TEST
                 )
 
 def main_Mordred_only(
@@ -139,6 +141,7 @@ def main_Mordred_only(
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                TEST=TEST
                 )
 
 
