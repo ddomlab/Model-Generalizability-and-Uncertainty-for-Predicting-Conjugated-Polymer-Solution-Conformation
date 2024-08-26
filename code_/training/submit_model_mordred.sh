@@ -3,7 +3,7 @@
 #BSUB -W 40
 #BSUB -R span[ptile=4]
 ##BSUB -x
-#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "rusage[mem=32GB]"
 #BSUB -J finger 
 #BSUB -o mordred_run.out
 #BSUB -e mordred_err.out
