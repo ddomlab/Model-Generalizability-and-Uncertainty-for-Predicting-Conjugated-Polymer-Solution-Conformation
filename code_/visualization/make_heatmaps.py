@@ -398,28 +398,28 @@ def create_impute_grid_heatmap(root_dir: Path, score: str, var: str) -> None:
         )
 
 
-def create_multioutput_grid_heatmap(root_dir: Path, score: str, var: str) -> None:
-    x_labels: List[str] = ["RF", "HGB", "ANN"]
-    y_labels: List[str] = ["FF", "Voc", "Jsc", "PCE", "PCE_eqn"]
-    rep_labels: List[str] = ["ECFP"]
-    parent_dir_labels: list[str] = [f"features_{x}" for x in rep_labels]
-
-    target: str = ", ".join(root_dir.name.split("_")[1:])
-    score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    _create_heatmap(
-        root_dir,
-        score,
-        var,
-        x_labels=x_labels,
-        y_labels=y_labels,
-        parent_dir_labels=parent_dir_labels,
-        figsize=(12, 8),
-        fig_title=f"Average {score_txt} Scores for Models Predicting {target}",
-        x_title="Regression Model using ECFP Structural Representation",
-        y_title="Target Property",
-        fname=f"model-target search heatmap_{score}",
-        multioutput=y_labels,
-    )
+# def create_multioutput_grid_heatmap(root_dir: Path, score: str, var: str) -> None:
+#     x_labels: List[str] = ["RF", "HGB", "ANN"]
+#     y_labels: List[str] = ["FF", "Voc", "Jsc", "PCE", "PCE_eqn"]
+#     rep_labels: List[str] = ["ECFP"]
+#     parent_dir_labels: list[str] = [f"features_{x}" for x in rep_labels]
+#
+#     target: str = ", ".join(root_dir.name.split("_")[1:])
+#     score_txt: str = "$R^2$" if score == "r2" else score.upper()
+#     _create_heatmap(
+#         root_dir,
+#         score,
+#         var,
+#         x_labels=x_labels,
+#         y_labels=y_labels,
+#         parent_dir_labels=parent_dir_labels,
+#         figsize=(12, 8),
+#         fig_title=f"Average {score_txt} Scores for Models Predicting {target}",
+#         x_title="Regression Model using ECFP Structural Representation",
+#         y_title="Target Property",
+#         fname=f"model-target search heatmap_{score}",
+#         multioutput=y_labels,
+#     )
 
 
 if __name__ == "__main__":

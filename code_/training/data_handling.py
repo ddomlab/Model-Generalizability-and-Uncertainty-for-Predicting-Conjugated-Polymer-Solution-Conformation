@@ -99,7 +99,6 @@ def save_results(scores: dict,
         feature_ids.append(representation)
     if numerical_feats:
         feature_ids.append('numerical')
-        print()
     features_dir: str = "-".join(feature_ids)
     print(features_dir)
     results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}"
