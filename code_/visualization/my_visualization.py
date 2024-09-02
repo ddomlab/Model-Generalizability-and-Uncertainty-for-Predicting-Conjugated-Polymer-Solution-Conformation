@@ -32,36 +32,6 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 file = Path(r'C:\Users\sdehgha2\Desktop\PhD code\pls-dataset-project\PLS-Dataset\results\target_Lp\Trimer\(ECFP8)_count_1024_RF_scores.json')
 # print(file.name)
 
-def creat_polymer_unit_fingerprint() -> None:
-
-    pattern: str = "*_scores.json"
-
-    for representation in os.listdir(targer_dir):
-        
-        if representation != 'test' and 'scaler' not in representation:
-            representation_dir = os.path.join(targer_dir, representation)
-            score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
-            
-            for file_path in score_files:
-                print(file)
-                
-
-                features = file.parent.name.split("_")[-1]
-
-                with open(file, "r") as f:
-                    data = json.load(f)
-
-    
-    
-    # for parent in parent_dir_labels:
-    #     p = root_dir / parent
-    #     for feats, model, avg, std in get_results_from_file(p, score, var, **kwargs):
-    #         if model is None:
-    #             continue
-    #         if model not in annotations.index or feats not in annotations.columns:
-    #             continue
-    #         avg_scores.at[model, feats] = avg
-    #         std_scores.at[model, feats] = std
 
 def get_results_from_file(
     file_path: Path,
@@ -87,9 +57,7 @@ def get_results_from_file(
     else:
         if "imputer" in file_path.name:
             pass
-
-            # features = file.name.split("_")[-1]
-        # features =  if impute else file.parent.name.split("_")[-1]
+            # TODO: add this section for future
         else:
 
             model:str = file_path.name.split("_")[-2]
@@ -106,19 +74,11 @@ def get_results_from_file(
             std = data[f"{score}_stderr"]
         else:
             raise ValueError(f"Unknown variance type: {var}")
-        # se = data[f"{score}_stderr"]
-
-        # avg: float = np.nan if abs(avg) > score_bounds[score] else avg
-        # std: float = np.nan if abs(std) > score_bounds[score] else std
-        # se: float = np.nan if abs(se) > score_bounds[score] else se
 
         if score in ["mae", "rmse"]:
             avg, std = abs(avg), abs(std)
         return features, model, avg, std
 
-feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
-
-print(feat,model, av ,std)
 
 def generate_annotations(num: float) -> str:
     """
@@ -138,14 +98,15 @@ def generate_annotations(num: float) -> str:
 
 
 
-
 def _create_heatmap(
     root_dir: Path,
     score: str,
     var: str,
-    x_labels: list[str],
-    y_labels: list[str],
-    parent_dir_labels: list[str],
+    avg_scores:pd.DataFrame,
+    annotations:pd.DataFrame,
+    # x_labels: list[str],
+    # y_labels: list[str],
+    # parent_dir_labels: list[str],
     figsize: tuple[int, int],
     fig_title: str,
     x_title: str,
@@ -168,32 +129,6 @@ def _create_heatmap(
         y_title: Y-axis title
         fname: Filename to save figure
     """
-    # avg_scores: pd.DataFrame = pd.DataFrame(columns=x_labels, index=y_labels)
-    # std_scores: pd.DataFrame = pd.DataFrame(columns=x_labels, index=y_labels)
-    # annotations: pd.DataFrame = pd.DataFrame(columns=x_labels, index=y_labels)
-    # for parent, model in product(parent_dir_labels, y_labels):
-
-    
-    
-    
-    for parent in parent_dir_labels:
-        p = root_dir / parent
-        for feats, model, avg, std in get_results_from_file(p, score, var, **kwargs):
-            if model is None:
-                continue
-            if model not in annotations.index or feats not in annotations.columns:
-                continue
-            avg_scores.at[model, feats] = avg
-            std_scores.at[model, feats] = std
-    for x, y in product(x_labels, y_labels):
-        avg: float = avg_scores.loc[y, x]
-        std: float = std_scores.loc[y, x]
-        avg_txt: str = generate_annotations(avg)
-        std_txt: str = generate_annotations(std)
-        annotations.loc[y, x] = f"{avg_txt}\n±{std_txt}"
-
-    avg_scores = avg_scores.astype(float)
-    annotations = annotations.astype(str)
 
     # Create heatmap
     fig, ax = plt.subplots(figsize=figsize)
@@ -218,14 +153,12 @@ def _create_heatmap(
     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
     x_tick_labels: list[str] = [col for col in avg_scores.columns]
-    try:  # handles models as y-axis
-        y_tick_labels: list[str] = [model_abbrev_to_full[x] for x in avg_scores.index]
-    except:  # handles targets as y-axis
-        y_tick_labels: list[str] = [target_abbrev_to_full[x] for x in avg_scores.index]
-    if kwargs.get("multioutput"):
-        ax.set_xticklabels(x_tick_labels, rotation=0)
-    else:
-        ax.set_xticklabels(x_tick_labels, rotation=45, ha="right")
+    # try:  # handles models as y-axis
+    # except:  # handles targets as y-axis
+    #     y_tick_labels: list[str] = [target_abbrev_to_full[x] for x in avg_scores.index]
+    y_tick_labels: list[str] = avg_scores.index.to_list()
+
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right")
     ax.set_yticklabels(y_tick_labels, rotation=0, ha="right")
 
     # Set plot and axis titles
@@ -238,68 +171,87 @@ def _create_heatmap(
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles[var]}", rotation=270, labelpad=20
     )
-
-    # Adjust layout and save figure
+    visualization_folder_path =  root_dir/"heatmap"
+    os.makedirs(visualization_folder_path, exist_ok=True)    
     plt.tight_layout()
-    plt.savefig(root_dir / f"{fname}.png", dpi=600)
+    plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
 
     # Show the heatmap
     # plt.show()
     plt.close()
 
 
+
+def creat_polymer_unit_result_df(targer_dir: Path,
+                                  score: str,
+                                    var: str
+) -> tuple[pd.DataFrame,pd.DataFrame]:
     
+    avg_scores: pd.DataFrame = pd.DataFrame()
+    std_scores: pd.DataFrame = pd.DataFrame()
+    annotations: pd.DataFrame = pd.DataFrame()
+ 
+    pattern: str = "*_scores.json"
+    for representation in os.listdir(targer_dir):
+        
+        if representation != 'test' and 'scaler' not in representation:
+            representation_dir = os.path.join(targer_dir, representation)
+            score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
+            
+            for file_path in score_files:
+                fingerprint, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                if fingerprint not in avg_scores.columns:
+
+                    avg_scores.loc[representation,fingerprint] = av
+                    std_scores.loc[representation,fingerprint] = av
+                else:
+                    avg_scores.at[representation,fingerprint] = av
+                    std_scores.at[representation,fingerprint] = av
+
+    for x, y in product(avg_scores.columns.to_list(), avg_scores.index.to_list()):
+        avg: float = avg_scores.loc[y, x]
+        std: float = std_scores.loc[y, x]
+        avg_txt: str = generate_annotations(avg)
+        std_txt: str = generate_annotations(std)
+        annotations.loc[y, x] = f"{avg_txt}\n±{std_txt}"
+
+    avg_scores = avg_scores.astype(float)
+    annotations = annotations.astype(str)
+
+
+    return avg_scores, annotations
 
 
 
-
-def create_grid_search_heatmap(root_dir: Path, score: str, var: str) -> None:
-    """
-    Args:
-        root_dir: Root directory containing all results
-        score: Score to plot
-        var: Variance to plot
-    """
-    x_labels: List[str] = [
-        "fabrication only",
-        "OHE",
-        "material properties",
-        "SMILES",
-        "SELFIES",
-        "ECFP",
-        "mordred",
-        "graph embeddings",
-        "GNN",
-    ]
-    y_labels: List[str] = [
-        "MLR",
-        "KNN",
-        "SVR",
-        "KRR",
-        "GP",
-        "RF",
-        "HGB",
-        "XGB",
-        "NGB",
-        "NN",
-        # "ANN",
-        "GNN",
-    ][::-1]
-    parent_dir_labels: list[str] = [f"features_{x}" for x in x_labels]
-
-    target: str = ", ".join(root_dir.name.split("_")[1:])
+def creat_polymer_unit_result(target_dir:Path,
+                               score:str,
+                               var:str,
+                               ) -> None:
+    ave, anot = creat_polymer_unit_result_df(targer_dir=targer_dir,score=score, var=var)
+    traget = 'Lp (nm)'
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    _create_heatmap(root_dir=targer_dir,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(12, 8),
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget}",
+                    x_title="Fingerprint Representations",
+                    y_title="Polymer Unit Representation",
+                    fname=f"PolymerRepresentation-Fingerprint search heatmap_{score}")
 
-    _create_heatmap(
-        root_dir,
-        score,
-        var,
-        x_labels=x_labels,
-        y_labels=y_labels,
-        parent_dir_labels=parent_dir_labels,
-        figsize=(12, 8),
-        fig_title=f"Average {score_txt} Scores for Models Predicting {target}",
-        x_title="Structural Representations",
-        y_title="Regression Models",
-        fname=f"model-representation search heatmap_{score}",
-    )
+
+
+# score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
+var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
+
+creat_polymer_unit_result(target_dir=targer_dir,score='r2',var='stdev')
+creat_polymer_unit_result(target_dir=targer_dir,score='r',var='stdev')
+creat_polymer_unit_result(target_dir=targer_dir,score='mae',var='stdev')
+creat_polymer_unit_result(target_dir=targer_dir,score='rmse',var='stdev')
+
+
+# feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
+
+# print(feat,model, av ,std)
