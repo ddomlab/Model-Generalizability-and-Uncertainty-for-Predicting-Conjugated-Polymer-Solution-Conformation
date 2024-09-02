@@ -182,9 +182,10 @@ def _create_heatmap(
 
 
 
-def creat_polymer_unit_result_df(targer_dir: Path,
-                                  score: str,
-                                    var: str
+def creat_result_df(targer_dir: Path,
+                    score: str,
+                    var: str,
+                    data_type:str
 ) -> tuple[pd.DataFrame,pd.DataFrame]:
     
     avg_scores: pd.DataFrame = pd.DataFrame()
@@ -194,19 +195,34 @@ def creat_polymer_unit_result_df(targer_dir: Path,
     pattern: str = "*_scores.json"
     for representation in os.listdir(targer_dir):
         
-        if representation != 'test' and 'scaler' not in representation:
-            representation_dir = os.path.join(targer_dir, representation)
-            score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
-            
-            for file_path in score_files:
-                fingerprint, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-                if fingerprint not in avg_scores.columns:
+        if data_type == 'structural':
 
-                    avg_scores.loc[representation,fingerprint] = av
-                    std_scores.loc[representation,fingerprint] = av
-                else:
-                    avg_scores.at[representation,fingerprint] = av
-                    std_scores.at[representation,fingerprint] = av
+            if representation != 'test' and 'scaler' not in representation:
+                representation_dir = os.path.join(targer_dir, representation)
+                score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
+        elif data_type == 'scaler':
+            
+            if  'scaler' == representation:
+                representation_dir = os.path.join(targer_dir, representation)
+                score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
+        
+        elif data_type=='strucural_scaler':
+            if  'scaler' in representation and 'scaler' != representation:
+                            representation_dir = os.path.join(targer_dir, representation)
+                            score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
+
+
+        for file_path in score_files:
+            fingerprint, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+            if fingerprint not in avg_scores.columns:
+
+                avg_scores.loc[representation,fingerprint] = av
+                std_scores.loc[representation,fingerprint] = av
+            else:
+                avg_scores.at[representation,fingerprint] = av
+                std_scores.at[representation,fingerprint] = av
+        
+        
 
     for x, y in product(avg_scores.columns.to_list(), avg_scores.index.to_list()):
         avg: float = avg_scores.loc[y, x]
@@ -219,15 +235,16 @@ def creat_polymer_unit_result_df(targer_dir: Path,
     annotations = annotations.astype(str)
 
 
-    return avg_scores, annotations
+    return avg_scores, annotations, model
 
 
 
 def creat_polymer_unit_result(target_dir:Path,
                                score:str,
                                var:str,
+                               data_type:str
                                ) -> None:
-    ave, anot = creat_polymer_unit_result_df(targer_dir=targer_dir,score=score, var=var)
+    ave, anot, model = creat_result_df(targer_dir=targer_dir,score=score, var=var,data_type=data_type)
     traget = 'Lp (nm)'
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=targer_dir,
@@ -236,20 +253,18 @@ def creat_polymer_unit_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget}",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget} using {model} model",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation-Fingerprint search heatmap_{score}")
 
 
 
-# score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
+scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
+for i in scores_list:
+    creat_polymer_unit_result(target_dir=targer_dir,score=i,var='stdev',data_type='structural')
 
-creat_polymer_unit_result(target_dir=targer_dir,score='r2',var='stdev')
-creat_polymer_unit_result(target_dir=targer_dir,score='r',var='stdev')
-creat_polymer_unit_result(target_dir=targer_dir,score='mae',var='stdev')
-creat_polymer_unit_result(target_dir=targer_dir,score='rmse',var='stdev')
 
 
 # feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
