@@ -14,7 +14,7 @@ import seaborn as sns
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
 
-targer_dir: Path = Path(RESULTS/'target_Lp')
+target_dir: Path = Path(RESULTS/'target_Lp')
 
 
 # with open(filters, "r") as f:
@@ -50,19 +50,23 @@ def get_results_from_file(
     Returns:
         Average and variance of score
     """
-
     if not file_path.exists():
         features, model = None, None
         avg, std = np.nan, np.nan
     else:
-        if "imputer" in file_path.name:
-            pass
-            # TODO: add this section for future
+        # for just scaler features
+        if '(numerical)'== file_path.name.split("_")[0]:
+            model:str = file_path.name.split("_")[-3] 
+            features:str = file_path.name.split("_")[0]
         else:
-
-            model:str = file_path.name.split("_")[-2]
             features:str = "-".join(file_path.name.split("_")[:-2])
-            # above can be fingerprints
+            # for mixure of scaler and fingerprint
+            if "imputer" in file_path.name:
+                model:str = file_path.name.split("_")[-3] 
+            # for fingerprints only
+            else:   
+                model:str = file_path.name.split("_")[-2]
+       
         with open(file_path, "r") as f:
             data = json.load(f)
 
@@ -182,7 +186,7 @@ def _create_heatmap(
 
 
 
-def creat_result_df(targer_dir: Path,
+def creat_result_df(target_dir: Path,
                     score: str,
                     var: str,
                     data_type:str
@@ -191,38 +195,54 @@ def creat_result_df(targer_dir: Path,
     avg_scores: pd.DataFrame = pd.DataFrame()
     std_scores: pd.DataFrame = pd.DataFrame()
     annotations: pd.DataFrame = pd.DataFrame()
- 
+    models = set()
     pattern: str = "*_scores.json"
-    for representation in os.listdir(targer_dir):
-        
+    for representation in os.listdir(target_dir):
+        score_files = []
         if data_type == 'structural':
-
+            
             if representation != 'test' and 'scaler' not in representation:
-                representation_dir = os.path.join(targer_dir, representation)
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
                 score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
         elif data_type == 'scaler':
-            
+        
             if  'scaler' == representation:
-                representation_dir = os.path.join(targer_dir, representation)
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
                 score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
         
-        elif data_type=='strucural_scaler':
+        elif data_type=='structural_scaler':
+            
             if  'scaler' in representation and 'scaler' != representation:
-                            representation_dir = os.path.join(targer_dir, representation)
-                            score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
-
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
+                score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
 
         for file_path in score_files:
-            fingerprint, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-            if fingerprint not in avg_scores.columns:
+            
+            feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+            models.add(model)
+            # for scaler features only
+            if data_type=='scaler':
+                if feats not in avg_scores.columns:
 
-                avg_scores.loc[representation,fingerprint] = av
-                std_scores.loc[representation,fingerprint] = av
+                    avg_scores.loc[model,feats] = av
+                    std_scores.loc[model,feats] = std
+                else:
+                    avg_scores.at[model,feats] = av
+                    std_scores.at[model,feats] = std
+            # for mixtures and fingerprints 
             else:
-                avg_scores.at[representation,fingerprint] = av
-                std_scores.at[representation,fingerprint] = av
+                if feats not in avg_scores.columns:
+
+                    avg_scores.loc[filterd_rep,feats] = av
+                    std_scores.loc[filterd_rep,feats] = std
+                else:
+                    avg_scores.at[filterd_rep,feats] = av
+                    std_scores.at[filterd_rep,feats] = std
         
-        
+
 
     for x, y in product(avg_scores.columns.to_list(), avg_scores.index.to_list()):
         avg: float = avg_scores.loc[y, x]
@@ -235,38 +255,95 @@ def creat_result_df(targer_dir: Path,
     annotations = annotations.astype(str)
 
 
-    return avg_scores, annotations, model
+    return avg_scores, annotations, list(models)
 
 
 
-def creat_polymer_unit_result(target_dir:Path,
+def create_structural_result(target_dir:Path,
                                score:str,
                                var:str,
                                data_type:str
                                ) -> None:
-    ave, anot, model = creat_result_df(targer_dir=targer_dir,score=score, var=var,data_type=data_type)
-    traget = 'Lp (nm)'
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
+    model_in_title:str =  ",".join(model)
+    traget: str = 'Lp (nm)'
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    _create_heatmap(root_dir=targer_dir,
+    _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget} using {model} model",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget} using {model_in_title} model(s)",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
-                    fname=f"PolymerRepresentation-Fingerprint search heatmap_{score}")
-
+                    fname=f"PolymerRepresentation vs Fingerprint search heatmap_{score}")
 
 
 scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-for i in scores_list:
-    creat_polymer_unit_result(target_dir=targer_dir,score=i,var='stdev',data_type='structural')
+# for i in scores_list:
+#     create_structural_result(target_dir=target_dir,score=i,var='stdev',data_type='structural')
 
 
 
 # feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
 
 # print(feat,model, av ,std)
+
+# def create_structural_scaler_result() -> None:
+
+
+
+
+def create_structural_scaler_result(target_dir:Path,
+                                    score:str,
+                                    var:str,
+                                    data_type:str
+                                    ) -> None:
+
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
+    model_in_title:str =  ",".join(model)
+    traget: str = 'Lp (nm)'
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    _create_heatmap(root_dir=target_dir,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(12, 8),
+                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {traget} using {model_in_title} model",
+                    x_title="Fingerprint-numerical Representations",
+                    y_title="Polymer Unit Representation",
+                    fname=f"PolymerRepresentation vs (Fingerprint-numerical) search heatmap_{score}")
+    
+
+
+# for i in scores_list:
+#     create_structural_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='structural_scaler')
+
+
+def create_scaler_result(target_dir:Path,
+                        score:str,
+                        var:str,
+                        data_type:str
+                        )->None:
+
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
+    model_in_title:str =  ",".join(model)
+    traget: str = 'Lp (nm)'
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    _create_heatmap(root_dir=target_dir,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(12, 8),
+                    fig_title=f"Average {score_txt} Scores for numerical Predicting {traget} using {model_in_title} model",
+                    x_title="numerical Representations",
+                    y_title="Regression Models",
+                    fname=f"Regression Models vs numerical features search heatmap_{score}")
+    
+
+for i in scores_list:
+    create_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='scaler')
