@@ -1,12 +1,23 @@
 #!/bin/bash
+
+radii = (3 4 5 6)
+vectors = ('count' 'binary')
+
+for radius in "${radii[@]}"
+do
+    for vector in "${vectors[@]}"
+    do
+        bsub <<EOT
+
+
 #BSUB -n 8
-#BSUB -W 1440
+#BSUB -W 40
 #BSUB -R span[ptile=4]
-##BSUB -x
+#BSUB -x
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J ecfp 
-#BSUB -o ecfp_run.out
-#BSUB -e ecfp_err.out
+#BSUB -J finger_radius${radius}_vector${vector}
+#BSUB -o mordred_run_radius${radius}_vector${vector}.out
+#BSUB -e mordred_err_radius${radius}_vector${vector}.out
 
 
 source ~/.bashrc
@@ -14,6 +25,11 @@ conda activate /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/env-pls
 
 #python /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/preprocessing/fingerprint_preprocess.py --num_workers 8
 
-python train_structure_only.py --model ecfp
+python train_structure_only.py --radius $radius --vector $vector
 
 conda deactivate
+
+
+EOT
+    done
+done

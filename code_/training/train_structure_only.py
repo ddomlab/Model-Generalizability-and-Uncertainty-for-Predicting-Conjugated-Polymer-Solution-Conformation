@@ -160,14 +160,12 @@ w_data = pd.read_pickle(training_df_dir)
 edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 
-
-
-def perform_model_ecfp():
-    radii = [3, 4, 5, 6]
-    vectors = ['count', 'binary']
+# for radius in radii:
+# for vector in vectors:
+# radii = [3, 4, 5, 6]
+# vectors = ['count', 'binary']
+def perform_model_ecfp(radius,vector):
     for oligo_type in edited_oligomer_list:
-        for radius in radii:
-            for vector in vectors:
                 print(f'polymer unit :{oligo_type} with rep of ECFP{radius} and {vector}')
                 main_ECFP_only(
                                 dataset=w_data,
@@ -216,9 +214,9 @@ def perform_model_mordred():
 # perform_model_mordred()
 
 def main(model_type):
-    if model_type == "ecfp":
-        perform_model_ecfp()
-    elif model_type == "maccs":
+    # if model_type == "ecfp":
+    #     perform_model_ecfp()
+    if model_type == "maccs":
         perform_model_maccs()
     elif model_type == "mordred":
         perform_model_mordred()
@@ -228,13 +226,25 @@ def main(model_type):
 if __name__ == "__main__":
     
     parser = ArgumentParser(description="Run a specific model.")
-    parser.add_argument('--model', type=str, required=True, choices=['ecfp', 'maccs', 'mordred'], help="Type of model to run")
+    parser.add_argument('--model', type=str, required=True, choices=['maccs', 'mordred'], help="Type of model to run")
     args = parser.parse_args()
     main(args.model)
 
 
 
-    
+
+
+if __name__ == "__main__":
+    parser = ArgumentParser(description="Run ECFP")
+    parser.add_argument('--radius', type=int, required=True, help='Radius for ECFP')
+    parser.add_argument('--vector', type=str, required=True, help='Vector type')
+    args = parser.parse_args()
+
+    perform_model_ecfp(args.radius, args.vector)
+
+
+
+
 
 #     def main_representation_model_grid(
 #     target_feats: list[str], hyperopt: bool = False
