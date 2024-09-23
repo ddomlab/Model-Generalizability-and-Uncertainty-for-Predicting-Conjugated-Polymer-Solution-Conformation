@@ -48,8 +48,10 @@ HERE: Path = Path(__file__).resolve().parent
 TEST=False
 
 # Seeds for generating random states
-SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
-# SEEDS = [42]
+if TEST==False:
+    SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+else:    
+    SEEDS = [42]
 N_FOLDS: int = 5 if not TEST else 2
 
 # Number of iterations for Bayesian optimization

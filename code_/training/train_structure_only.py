@@ -172,7 +172,7 @@ def perform_model_ecfp():
                 main_ECFP_only(
                                 dataset=w_data,
                                 regressor_type= 'RF',
-                                target_features= ['Lp (nm)'],
+                                target_features= ['Rg1 (nm)'],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 radius = radius,
@@ -188,7 +188,7 @@ def perform_model_maccs():
             main_MACCS_only(
                             dataset=w_data,
                             regressor_type= 'RF',
-                            target_features= ['Lp (nm)'],
+                            target_features= ['Rg1 (nm)'],
                             transform_type= "Standard",
                             hyperparameter_optimization= True,
                             oligomer_representation=oligo_type,
@@ -196,13 +196,13 @@ def perform_model_maccs():
  
 
 
-
+# Rg1 (nm)
 def perform_model_mordred():
     for oligo_type in edited_oligomer_list:
                 main_Mordred_only(
                                 dataset=w_data,
                                 regressor_type= 'RF',
-                                target_features= ['Lp (nm)'],
+                                target_features= ['Rg1 (nm)'],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 oligomer_representation=oligo_type,

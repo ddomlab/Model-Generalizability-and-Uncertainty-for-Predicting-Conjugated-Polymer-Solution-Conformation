@@ -12,6 +12,7 @@ ROOT: Path = HERE.parent.parent
 
 target_abbrev: Dict[str, str] = {
     "Lp (nm)":          "Lp",
+    "Rg1 (nm)":         "Rg",
     "Voc (V)":            "Voc",
     "Jsc (mA cm^-2)":     "Jsc",
     "FF (%)":             "FF",
@@ -57,15 +58,27 @@ def _save(scores: Dict[int, Dict[str, float]],
           vector : Optional[str],
           numerical_feats: Optional[list[str]]
           ) -> None:
+    
     results_dir.mkdir(parents=True, exist_ok=True)
+    
+    if numerical_feats and pu_type==None:
+        fname_root = f"(numerical)_{regressor_type}"
+        fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
+    if numerical_feats and pu_type:
+        if radius:
+            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_numerical)_{regressor_type}"
+        
+        else:
+            fname_root = f"({representation}_numerical)_{regressor_type}"
+            fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
 
-    fname_root = f"{regressor_type} model_{imputer} imputer" if imputer else regressor_type
-    fname_root = f"{fname_root}_numerical_feats" if numerical_feats else fname_root
-    if representation:
-        fname_root = f"{fname_root}_{representation}" if representation else fname_root
-        fname_root = f"{fname_root}{radius}_{vector}_{radius_to_bits[radius]}bits" if representation=='ECFP' else fname_root
-        fname_root = f"{fname_root}_{pu_type}" if pu_type else fname_root
+    if numerical_feats==None and pu_type: 
+        if radius:
+            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_{regressor_type}"
 
+        else:
+            fname_root = f"({representation})_{regressor_type}"
+    
 
     print("Filename:", fname_root)
 
@@ -82,7 +95,7 @@ def _save(scores: Dict[int, Dict[str, float]],
 
 def save_results(scores: dict,
                  predictions: pd.DataFrame,
-                 target_features: str,
+                 target_features: list,
                  regressor_type: str,
                  TEST : bool =True,
                  representation: str=None,
@@ -95,15 +108,15 @@ def save_results(scores: dict,
                  ) -> None:
     targets_dir: str = "-".join([target_abbrev[target] for target in target_features])
     feature_ids = []
-    if representation:
-        feature_ids.append(representation)
+    if pu_type:
+        feature_ids.append(pu_type)
     if numerical_feats:
-        feature_ids.append('numerical')
-    features_dir: str = "-".join(feature_ids)
+        feature_ids.append('scaler')
+    features_dir: str = "_".join(feature_ids)
     print(features_dir)
     results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}"
     results_dir: Path = results_dir / "test" if TEST else results_dir
-    results_dir: Path = results_dir / f"{regressor_type} model" / features_dir
+    results_dir: Path = results_dir / features_dir
     # if subspace_filter:
     #     results_dir = results_dir / f"subspace_{subspace_filter}"
 

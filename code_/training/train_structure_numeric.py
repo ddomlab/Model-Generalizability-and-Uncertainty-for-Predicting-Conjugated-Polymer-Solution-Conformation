@@ -92,7 +92,7 @@ def perform_model_numerical(regressor_type:str):
                             regressor_type=regressor_type,
                             transform_type= "Standard",
                             hyperparameter_optimization= True,
-                            target_features= ['Lp (nm)'],
+                            target_features= ['Rg1 (nm)'],
                             )
 
 
@@ -194,7 +194,7 @@ def perform_model_numerical_maccs(regressor_type:str):
                                 regressor_type=regressor_type,
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
-                                target_features= ['Lp (nm)'],
+                                target_features= ['Rg1 (nm)'],
                                 oligomer_representation=oligo_type
                                 )
 
@@ -248,7 +248,7 @@ def main_ecfp_numerical(
 
 
 
-
+# perform_model_numerical_maccs('RF')
 
 
 
