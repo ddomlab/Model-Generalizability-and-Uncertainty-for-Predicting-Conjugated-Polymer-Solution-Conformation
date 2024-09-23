@@ -80,7 +80,6 @@ def transform_filename_location(old_filename,target_dir,old_file_path):
 
 
 
-
 # for item in os.listdir(targer_dir):
 #     if item != 'test':
 #         old_folder_path = os.path.join(targer_dir, item)
