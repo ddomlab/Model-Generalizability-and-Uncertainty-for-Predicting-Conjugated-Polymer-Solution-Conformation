@@ -213,64 +213,39 @@ def perform_model_mordred():
 # perform_model_maccs()
 # perform_model_mordred()
 
-def main(model_type):
-    # if model_type == "ecfp":
-    #     perform_model_ecfp()
-    if model_type == "maccs":
-        perform_model_maccs()
-    elif model_type == "mordred":
-        perform_model_mordred()
-    else:
-        raise ValueError(f"Unknown model type: {model_type}")
-
-if __name__ == "__main__":
+def main():
+    parser = ArgumentParser(description="Run different models")
     
-    parser = ArgumentParser(description="Run a specific model.")
-    parser.add_argument('--model', type=str, required=True, choices=['maccs', 'mordred'], help="Type of model to run")
+    parser.add_argument(
+        '--model',
+        choices=['mordred', 'maccs', 'ecfp'],
+        required=True,
+        help='Specify which model to run: mordred, maccs, or ecfp'
+    )
+    
+    parser.add_argument(
+        '--radius',
+        type=int,
+        help='Radius for ECFP (only used for ecfp model)'
+    )
+    
+    parser.add_argument(
+        '--vector',
+        choices=['count', 'binary'],
+        help='Vector type for ECFP (only used for ecfp model)'
+    )
+    
     args = parser.parse_args()
-    main(args.model)
 
+    if args.model == 'mordred':
+        perform_model_mordred()
+    elif args.model == 'maccs':
+        perform_model_maccs()
+    elif args.model == 'ecfp':
+        if args.radius is None or args.vector is None:
+            parser.error('--radius and --vector are required for the ecfp model')
+        perform_model_ecfp(args.radius, args.vector)
 
+if __name__ == '__main__':
+    main()
 
-
-
-if __name__ == "__main__":
-    parser = ArgumentParser(description="Run ECFP")
-    parser.add_argument('--radius', type=int, required=True, help='Radius for ECFP')
-    parser.add_argument('--vector', type=str, required=True, help='Vector type')
-    args = parser.parse_args()
-
-    perform_model_ecfp(args.radius, args.vector)
-
-
-
-
-
-#     def main_representation_model_grid(
-#     target_feats: list[str], hyperopt: bool = False
-# ) -> None:
-#     transform_type: str = "Standard"
-
-#     for model in ["MLR", "KNN", "SVR", "KRR", "GP", "RF", "XGB", "HGB", "NGB", "NN"]:
-#         opv_dataset: pd.DataFrame = get_appropriate_dataset(model)
-
-
-
-#     else:
-#         # ECFP
-#         main_ecfp_only(
-#             dataset=opv_dataset,
-#             regressor_type=model,
-#             target_features=target_feats,
-#             transform_type=transform_type,
-#             hyperparameter_optimization=hyperopt,
-#         )
-        
-#         # mordred
-#         main_mordred_only(
-#             dataset=opv_dataset,
-#             regressor_type=model,
-#             target_features=target_feats,
-#             transform_type=transform_type,
-#             hyperparameter_optimization=hyperopt,
-#         )

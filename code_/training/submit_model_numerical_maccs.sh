@@ -12,11 +12,11 @@ for model in "${models_to_run[@]}"; do
 
 
 #BSUB -n 8
-#BSUB -W 40
+#BSUB -W 30:01
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J finger 
+#BSUB -J finger_numerical_maccs
 #BSUB -o mordred_run.out
 #BSUB -e mordred_err.out
 
