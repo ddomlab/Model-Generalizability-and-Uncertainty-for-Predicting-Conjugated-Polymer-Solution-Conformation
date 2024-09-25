@@ -1,0 +1,514 @@
+{
+  "6": {
+    "fit_time": [
+      2.3870227336883545,
+      2.405182123184204,
+      2.422816276550293,
+      2.409799814224243,
+      2.4073328971862793
+    ],
+    "score_time": [
+      0.10919499397277832,
+      0.12529945373535156,
+      0.1106424331665039,
+      0.11208748817443848,
+      0.12117481231689453
+    ],
+    "test_r": [
+      0.6036779940534155,
+      0.5316699149778084,
+      0.5634558788616174,
+      0.023045057171275682,
+      0.2600762358552684
+    ],
+    "test_r2": [
+      0.06060688802835201,
+      0.184179971121336,
+      0.21675292797678614,
+      -0.04762207954686848,
+      0.05331412669419022
+    ],
+    "test_rmse": [
+      -62.22854864228253,
+      -64.5734104363276,
+      -74.3163315777488,
+      -198.19055779047045,
+      -131.24525663445502
+    ],
+    "test_mae": [
+      -52.33671370735046,
+      -53.54739033428694,
+      -58.51601104066754,
+      -94.78648614529189,
+      -70.45318394775694
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05,
+      "regressor__min_samples_split": 0.05,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 2000,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "13": {
+    "fit_time": [
+      0.34487366676330566,
+      0.5221757888793945,
+      0.45871567726135254,
+      0.46236252784729004,
+      0.45150065422058105
+    ],
+    "score_time": [
+      0.027924060821533203,
+      0.03903651237487793,
+      0.03124523162841797,
+      0.03201937675476074,
+      0.029920101165771484
+    ],
+    "test_r": [
+      0.4304466944896485,
+      0.13021023489732758,
+      0.48093732491107005,
+      0.7171474516732372,
+      0.15049999385249685
+    ],
+    "test_r2": [
+      -0.18965293386197035,
+      -0.006337808474231821,
+      0.17954156824134437,
+      0.16165394026640245,
+      -0.03771686198531721
+    ],
+    "test_rmse": [
+      -59.98573114348355,
+      -173.0025111900723,
+      -71.15104540345045,
+      -58.68012493641928,
+      -168.13013900406324
+    ],
+    "test_mae": [
+      -53.847779667282346,
+      -92.34954856895392,
+      -57.214595161790754,
+      -49.98050683525899,
+      -81.70266581733141
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.051621669425973835,
+      "regressor__min_samples_split": 0.05586957536472967,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 293,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "42": {
+    "fit_time": [
+      2.4085068702697754,
+      2.4425048828125,
+      2.3186075687408447,
+      2.387110948562622,
+      2.3893494606018066
+    ],
+    "score_time": [
+      0.1171419620513916,
+      0.11390089988708496,
+      0.11294341087341309,
+      0.1207435131072998,
+      0.12829327583312988
+    ],
+    "test_r": [
+      0.35013548480527107,
+      0.06890140562534598,
+      0.25403203325910106,
+      0.5804942392032145,
+      0.11616000245182063
+    ],
+    "test_r2": [
+      0.054705852884627926,
+      -0.017171150901279963,
+      0.05530394158734153,
+      0.18582399360459567,
+      0.003007656428336114
+    ],
+    "test_rmse": [
+      -122.23260957891844,
+      -130.92488401981646,
+      -125.93593450755213,
+      -86.30802990624873,
+      -118.5052474601933
+    ],
+    "test_mae": [
+      -69.38331583311235,
+      -65.29179896665721,
+      -66.1307430782593,
+      -70.03118001612494,
+      -61.97644112712859
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05,
+      "regressor__min_samples_split": 0.05,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 2000,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "69": {
+    "fit_time": [
+      0.07181167602539062,
+      0.17184972763061523,
+      0.14612030982971191,
+      0.14934086799621582,
+      0.1437358856201172
+    ],
+    "score_time": [
+      0.015656471252441406,
+      0.03532862663269043,
+      0.031466007232666016,
+      0.0236203670501709,
+      0.021611452102661133
+    ],
+    "test_r": [
+      0.180638900690104,
+      0.020464028943059247,
+      0.6907537056708946,
+      0.5494475230771517,
+      0.28266747612735826
+    ],
+    "test_r2": [
+      0.028192318999590626,
+      -0.02636937130114636,
+      0.235465963058617,
+      0.14400874544419184,
+      0.0681038415521199
+    ],
+    "test_rmse": [
+      -130.93890065512866,
+      -161.48710301738072,
+      -75.55639322049343,
+      -59.86936989102502,
+      -127.48084686543778
+    ],
+    "test_mae": [
+      -67.05176484593409,
+      -79.19740284068178,
+      -60.27364261418086,
+      -50.29370894713448,
+      -72.0939628197755
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05,
+      "regressor__min_samples_split": 0.05,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 50,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "420": {
+    "fit_time": [
+      0.7488391399383545,
+      0.7418489456176758,
+      0.7393472194671631,
+      0.7468163967132568,
+      0.8883333206176758
+    ],
+    "score_time": [
+      0.03806447982788086,
+      0.04127001762390137,
+      0.04113149642944336,
+      0.03993701934814453,
+      0.042902231216430664
+    ],
+    "test_r": [
+      0.6144016548128542,
+      0.061678065062129285,
+      0.15936410926449876,
+      0.5376306148458095,
+      0.5082078205463446
+    ],
+    "test_r2": [
+      0.2439473382504962,
+      -0.01038872160796589,
+      0.01286175521839572,
+      0.19894309442577107,
+      0.18323797695122956
+    ],
+    "test_rmse": [
+      -66.57085364447013,
+      -164.36326949761423,
+      -170.8792970242356,
+      -65.68553630221756,
+      -63.99473851170523
+    ],
+    "test_mae": [
+      -55.43629996910903,
+      -76.67884964066305,
+      -87.86542333114883,
+      -54.32917442847509,
+      -54.4490102148112
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05067466490310283,
+      "regressor__min_samples_split": 0.06900020993736006,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 525,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "1234567890": {
+    "fit_time": [
+      2.3838515281677246,
+      2.399784803390503,
+      2.426196813583374,
+      2.377091646194458,
+      2.3683173656463623
+    ],
+    "score_time": [
+      0.11268377304077148,
+      0.11696004867553711,
+      0.12448906898498535,
+      0.10905170440673828,
+      0.10405158996582031
+    ],
+    "test_r": [
+      0.17501856892173928,
+      0.7254096966990711,
+      0.08156043545001784,
+      0.1128057054211849,
+      0.6535929704297607
+    ],
+    "test_r2": [
+      0.023390228318306838,
+      0.21680157836464053,
+      -0.048782278959723646,
+      -0.010157515290494024,
+      0.1887420756088536
+    ],
+    "test_rmse": [
+      -136.5533066976267,
+      -55.72489764838558,
+      -161.787404435514,
+      -126.44515995873108,
+      -78.08688259557113
+    ],
+    "test_mae": [
+      -71.98365693029184,
+      -49.155261199323476,
+      -83.39469680255934,
+      -65.62687952959666,
+      -64.97206251702242
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05,
+      "regressor__min_samples_split": 0.10039995859788631,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 2000,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "473129": {
+    "fit_time": [
+      2.3790981769561768,
+      2.3321619033813477,
+      2.3588807582855225,
+      2.4235496520996094,
+      2.3679487705230713
+    ],
+    "score_time": [
+      0.11117959022521973,
+      0.10835599899291992,
+      0.10674881935119629,
+      0.11889314651489258,
+      0.10710620880126953
+    ],
+    "test_r": [
+      0.12429907553768216,
+      0.23426586029960786,
+      0.32995843602528396,
+      0.5557394830409688,
+      0.17991158847396915
+    ],
+    "test_r2": [
+      0.0018883461514663802,
+      0.046662655809434184,
+      0.07859792363291218,
+      0.20163701752937724,
+      0.025889218085728527
+    ],
+    "test_rmse": [
+      -128.5463151361623,
+      -115.58132103330188,
+      -125.86442518279236,
+      -75.90408013409677,
+      -131.3504124059039
+    ],
+    "test_mae": [
+      -63.196089990228245,
+      -59.39724742508378,
+      -74.2227729688126,
+      -62.45637628335852,
+      -70.89337795318417
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__bootstrap": true,
+      "regressor__ccp_alpha": 0.0,
+      "regressor__criterion": "squared_error",
+      "regressor__max_depth": null,
+      "regressor__max_features": "sqrt",
+      "regressor__max_leaf_nodes": null,
+      "regressor__max_samples": null,
+      "regressor__min_impurity_decrease": 0.0,
+      "regressor__min_samples_leaf": 0.05,
+      "regressor__min_samples_split": 0.05,
+      "regressor__min_weight_fraction_leaf": 0.0,
+      "regressor__monotonic_cst": null,
+      "regressor__n_estimators": 2000,
+      "regressor__n_jobs": null,
+      "regressor__oob_score": false,
+      "regressor__random_state": null,
+      "regressor__verbose": 0,
+      "regressor__warm_start": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "r_avg": 0.3439630190122117,
+  "r_stdev": 0.22516919213994122,
+  "r2_avg": 0.07597320635158418,
+  "r2_stdev": 0.10350236992462562,
+  "rmse_avg": 110.51659645969418,
+  "rmse_stdev": 41.0211668072336,
+  "mae_avg": 66.30045775710366,
+  "mae_stdev": 11.897184906120238
+}
