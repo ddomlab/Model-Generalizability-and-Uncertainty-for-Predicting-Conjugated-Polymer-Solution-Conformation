@@ -14,7 +14,7 @@ import seaborn as sns
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
 
-target_dir: Path = Path(RESULTS/'target_Lp')
+target_dir: Path = Path(RESULTS/'target_Rg')
 
 
 # with open(filters, "r") as f:
@@ -282,8 +282,8 @@ def create_structural_result(target_dir:Path,
 
 scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-# for i in scores_list:
-#     create_structural_result(target_dir=target_dir,score=i,var='stdev',data_type='structural')
+for i in scores_list:
+    create_structural_result(target_dir=target_dir,score=i,var='stdev',data_type='structural')
 
 
 
@@ -319,8 +319,8 @@ def create_structural_scaler_result(target_dir:Path,
     
 
 
-# for i in scores_list:
-#     create_structural_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='structural_scaler')
+for i in scores_list:
+    create_structural_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='structural_scaler')
 
 
 def create_scaler_result(target_dir:Path,
