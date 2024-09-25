@@ -260,13 +260,13 @@ def creat_result_df(target_dir: Path,
 
 
 def create_structural_result(target_dir:Path,
+                               target:str,
                                score:str,
                                var:str,
                                data_type:str
                                ) -> None:
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
     model_in_title:str =  ",".join(model)
-    traget: str = 'Lp (nm)'
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=target_dir,
                     score=score,
@@ -274,7 +274,7 @@ def create_structural_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {traget} using {model_in_title} model(s)",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s)",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation vs Fingerprint search heatmap_{score}")
@@ -283,7 +283,7 @@ def create_structural_result(target_dir:Path,
 scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 for i in scores_list:
-    create_structural_result(target_dir=target_dir,score=i,var='stdev',data_type='structural')
+    create_structural_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='structural')
 
 
 
@@ -297,6 +297,7 @@ for i in scores_list:
 
 
 def create_structural_scaler_result(target_dir:Path,
+                                    target:str,
                                     score:str,
                                     var:str,
                                     data_type:str
@@ -304,7 +305,7 @@ def create_structural_scaler_result(target_dir:Path,
 
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
     model_in_title:str =  ",".join(model)
-    traget: str = 'Lp (nm)'
+    
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=target_dir,
                     score=score,
@@ -312,7 +313,7 @@ def create_structural_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {traget} using {model_in_title} model",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation vs (Fingerprint-numerical) search heatmap_{score}")
@@ -320,18 +321,18 @@ def create_structural_scaler_result(target_dir:Path,
 
 
 for i in scores_list:
-    create_structural_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='structural_scaler')
+    create_structural_scaler_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='structural_scaler')
 
 
 def create_scaler_result(target_dir:Path,
                         score:str,
+                        target:str,
                         var:str,
                         data_type:str
                         )->None:
 
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
     model_in_title:str =  ",".join(model)
-    traget: str = 'Lp (nm)'
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=target_dir,
                     score=score,
@@ -339,11 +340,11 @@ def create_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for numerical Predicting {traget} using {model_in_title} model",
+                    fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model",
                     x_title="numerical Representations",
                     y_title="Regression Models",
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
 for i in scores_list:
-    create_scaler_result(target_dir=target_dir,score=i,var='stdev',data_type='scaler')
+    create_scaler_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='scaler')
