@@ -19,6 +19,18 @@ from typing import Callable, Optional, Union, Dict
 from types import NoneType
 from skopt.space import Integer, Real, Categorical
 
+
+
+cutoffs = {
+            # "Rh1 (nm)":1000,
+            # "Rg1 (nm)":1000,
+            # "Lc (nm)":1000,
+            "Lp (nm)":(None,100),
+            "Concentration (mg/ml)":(None,50)
+        }
+
+
+
 imputer_factory: Dict[str, TransformerMixin] = {
     "mean": SimpleImputer(strategy="mean"),
     "median": SimpleImputer(strategy="median"),

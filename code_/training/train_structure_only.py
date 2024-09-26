@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from training_utils import train_regressor
-from all_factories import radius_to_bits
+from all_factories import radius_to_bits,cutoffs
 import sys
 import json
 import numpy as np
@@ -60,6 +60,7 @@ def main_ECFP_only(
                             regressor_type=regressor_type,
                             transform_type=transform_type,
                             hyperparameter_optimization=hyperparameter_optimization,
+                            cutoff=cutoffs,
                             imputer=None
                         )
     save_results(scores,
@@ -70,6 +71,7 @@ def main_ECFP_only(
             vector =vector_type,
             target_features=target_features,
             regressor_type=regressor_type,
+            cutoff=cutoffs,
             TEST=TEST
             )
 
@@ -100,6 +102,7 @@ def main_MACCS_only(
                             regressor_type=regressor_type,
                             transform_type=transform_type,
                             hyperparameter_optimization=hyperparameter_optimization,
+                            cutoff=cutoffs,
                             imputer=None
                         )
 
@@ -109,6 +112,7 @@ def main_MACCS_only(
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                cutoff=cutoffs,
                 TEST=TEST
                 )
 
@@ -138,6 +142,7 @@ def main_Mordred_only(
                             regressor_type=regressor_type,
                             transform_type=transform_type,
                             hyperparameter_optimization=hyperparameter_optimization,
+                            cutoff=cutoffs,
                             imputer=None
                         )
 
@@ -147,6 +152,7 @@ def main_Mordred_only(
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                cutoff=cutoffs,
                 TEST=TEST
                 )
 
@@ -170,7 +176,7 @@ def perform_model_ecfp(radius,vector):
                 main_ECFP_only(
                                 dataset=w_data,
                                 regressor_type= 'RF',
-                                target_features= ['Rg1 (nm)'],
+                                target_features= ['Lp (nm)'],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 radius = radius,
@@ -186,7 +192,7 @@ def perform_model_maccs():
             main_MACCS_only(
                             dataset=w_data,
                             regressor_type= 'RF',
-                            target_features= ['Rg1 (nm)'],
+                            target_features= ['Lp (nm)'],
                             transform_type= "Standard",
                             hyperparameter_optimization= True,
                             oligomer_representation=oligo_type,
@@ -200,7 +206,7 @@ def perform_model_mordred():
                 main_Mordred_only(
                                 dataset=w_data,
                                 regressor_type= 'RF',
-                                target_features= ['Rg1 (nm)'],
+                                target_features= ['Lp (nm)'],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 oligomer_representation=oligo_type,

@@ -1,7 +1,7 @@
 import json
 import platform
 from pathlib import Path
-from typing import Callable, Optional, Union
+from typing import Callable, Optional, Union, Dict, Tuple
 from itertools import product
 
 import numpy as np
@@ -19,16 +19,19 @@ import time
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
-    regressor_factory,
-    regressor_search_space,
-    transforms)
+                            regressor_factory,
+                            regressor_search_space,
+                            transforms)
+
 
 from imputation_normalization import preprocessing_workflow
+
 # from pipeline_utils import (
 #     generate_feature_pipeline,
 #     get_feature_pipelines,
 #     imputer_factory,
 # )
+
 from scoring import (
     cross_validate_regressor,
     process_scores,
@@ -84,6 +87,7 @@ def train_regressor(
     transform_type: str,
     hyperparameter_optimization: bool=True,
     imputer: Optional[str] = None,
+    cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
     # output_dir_name: str = "results",
     ) -> None:
         """
@@ -104,6 +108,7 @@ def train_regressor(
                                 regressor_type=regressor_type,
                                 transform_type=transform_type,
                                 imputer=imputer,
+                                cutoff=cutoff,
                                 hyperparameter_optimization=hyperparameter_optimization,
                                 )
         scores = process_scores(scores)
@@ -111,9 +116,6 @@ def train_regressor(
         return scores, predictions
         
 
-      
-      
-      
 
 
 def _prepare_data(
@@ -131,6 +133,7 @@ def _prepare_data(
     transform_type: str = "Standard",
     hyperparameter_optimization: bool = True,
     imputer: Optional[str] = None,
+    cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=None,
     **kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
@@ -146,6 +149,7 @@ def _prepare_data(
           structure_feats=structural_features,
           scalar_feats=numerical_feats,
           target_feats=target_features,
+          cutoff=cutoff,
           dropna = True,
           unroll=unroll,
       )

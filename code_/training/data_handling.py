@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 from types import NoneType
-from typing import Dict, Optional
+from typing import Dict, Optional,Tuple
 
 import numpy as np
 import pandas as pd
@@ -16,6 +16,7 @@ target_abbrev: Dict[str, str] = {
     "Voc (V)":            "Voc",
     "Jsc (mA cm^-2)":     "Jsc",
     "FF (%)":             "FF",
+    "Concentration (mg/ml)": "Concentration"
 }
 
 
@@ -105,7 +106,9 @@ def save_results(scores: dict,
                  numerical_feats: Optional[list[str]]=None,
                  imputer: Optional[str] = None,
                  output_dir_name: str = "results",
+                 cutoff: Dict[str, Tuple[Optional[float], Optional[float]]] =None,
                  ) -> None:
+    
     targets_dir: str = "-".join([target_abbrev[target] for target in target_features])
     feature_ids = []
     if pu_type:
@@ -114,7 +117,13 @@ def save_results(scores: dict,
         feature_ids.append('scaler')
     features_dir: str = "_".join(feature_ids)
     print(features_dir)
-    results_dir: Path = ROOT / output_dir_name / f"target_{targets_dir}"
+    if cutoff:
+        cutoff_parameter = "-".join( target_abbrev[key] for key in cutoff)
+    
+    f_root_dir = f"target_{targets_dir}"
+    f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
+
+    results_dir: Path = ROOT / output_dir_name / f_root_dir
     results_dir: Path = results_dir / "test" if TEST else results_dir
     results_dir: Path = results_dir / features_dir
     # if subspace_filter:

@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from training_utils import train_regressor
-from all_factories import radius_to_bits
+from all_factories import radius_to_bits,cutoffs
 import json
 import numpy as np
 import sys
@@ -22,10 +22,7 @@ oligomer_list =open_json(oligo_dir)
 w_data = pd.read_pickle(training_df_dir)
 edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
-
-
 TEST = False
-
 
 
 
@@ -44,19 +41,21 @@ def main_numerical_only(
 
     imputer = "mean"
     scores, predictions  = train_regressor(
-                            dataset=dataset,
-                            features_impute=columns_to_impute,
-                            special_impute=special_column,
-                            representation=None,
-                            structural_features=None,
-                            unroll=None,
-                            numerical_feats=numerical_feats,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            imputer=imputer
-                        )
+                                            dataset=dataset,
+                                            features_impute=columns_to_impute,
+                                            special_impute=special_column,
+                                            representation=None,
+                                            structural_features=None,
+                                            unroll=None,
+                                            numerical_feats=numerical_feats,
+                                            target_features=target_features,
+                                            regressor_type=regressor_type,
+                                            transform_type=transform_type,
+                                            cutoff=cutoffs,
+                                            hyperparameter_optimization=hyperparameter_optimization,
+                                            imputer=imputer
+                                            )
+    
     save_results(scores,
                 predictions=predictions,
                 imputer=imputer,
@@ -65,26 +64,11 @@ def main_numerical_only(
                 target_features=target_features,
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
+                cutoff=cutoffs,
                 TEST=TEST
                 )
 
 
-
-# save_results(scores: dict,
-#                  predictions: pd.DataFrame,
-#                  target_features: str,
-#                  regressor_type: str,
-#                  TEST : bool =True,
-#                  representation: str=None,
-#                  pu_type : Optional[str]=None,
-#                  radius : Optional[int]=None,
-#                  vector : Optional[str]=None,
-#                  numerical_feats: Optional[list[str]]=None,
-#                  imputer: Optional[str] = None,
-#                  output_dir_name: str = "results",
-#                  ) -> None:
-
-# perform model
 
 def perform_model_numerical(regressor_type:str):
         
@@ -92,7 +76,7 @@ def perform_model_numerical(regressor_type:str):
                             regressor_type=regressor_type,
                             transform_type= "Standard",
                             hyperparameter_optimization= True,
-                            target_features= ['Rg1 (nm)'],
+                            target_features= ['Lp (nm)'],
                             )
 
 
@@ -140,7 +124,6 @@ def perform_model_numerical(regressor_type:str):
 
 
 
-# perfrom numerical and maccs
 
 def main_maccs_numerical(
     dataset: pd.DataFrame,
@@ -173,6 +156,7 @@ def main_maccs_numerical(
                             target_features=target_features,
                             regressor_type=regressor_type,
                             transform_type=transform_type,
+                            cutoff=cutoffs,
                             hyperparameter_optimization=hyperparameter_optimization,
                             imputer=imputer
                         )
@@ -184,8 +168,10 @@ def main_maccs_numerical(
                 target_features=target_features,
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
+                cutoff=cutoffs,
                 TEST=TEST
                 )
+
 
 
 def perform_model_numerical_maccs(regressor_type:str):
@@ -194,7 +180,7 @@ def perform_model_numerical_maccs(regressor_type:str):
                                 regressor_type=regressor_type,
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
-                                target_features= ['Rg1 (nm)'],
+                                target_features= ['Lp (nm)'],
                                 oligomer_representation=oligo_type
                                 )
 
@@ -232,6 +218,7 @@ def main_ecfp_numerical(
                             target_features=target_features,
                             regressor_type=regressor_type,
                             transform_type=transform_type,
+                            cutoff=cutoffs,
                             hyperparameter_optimization=hyperparameter_optimization,
                             imputer=imputer
                         )
@@ -242,6 +229,7 @@ def main_ecfp_numerical(
                 target_features=target_features,
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
+                cutoff=cutoffs,
                 TEST=TEST
                 )
 
@@ -249,7 +237,6 @@ def main_ecfp_numerical(
 
 
 # perform_model_numerical_maccs('RF')
-
 
 
 if __name__ == "__main__":

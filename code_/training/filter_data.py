@@ -1,9 +1,8 @@
 import json
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional, Union, Dict, Tuple
 
 import pandas as pd
-
 from unrolling_utils import unrolling_factory
 
 # HERE: Path = Path(__file__).resolve().parent
@@ -16,6 +15,20 @@ from unrolling_utils import unrolling_factory
 #     SUBSETS: dict[str, list[str]] = json.load(f)
 
 
+
+# Filtration with optional lower and upper cutoff and resetting index
+def cutoff_filteration(data: pd.DataFrame, lower_cutoff: Optional[float], upper_cutoff: Optional[float], target_feature: str) -> pd.DataFrame:
+    if lower_cutoff is not None:
+        data = data.drop(data.index[data[target_feature] < lower_cutoff])
+    if upper_cutoff is not None:
+        data = data.drop(data.index[data[target_feature] > upper_cutoff])
+    return data.reset_index(drop=True)  # Reset index after filtering
+
+def apply_cutoff(data: pd.DataFrame, cutoffs: Dict[str, Tuple[Optional[float], Optional[float]]]) -> pd.DataFrame:
+    df = data.copy()
+    for feature, (lower_cutoff, upper_cutoff) in cutoffs.items():
+        df = cutoff_filteration(data=df, lower_cutoff=lower_cutoff, upper_cutoff=upper_cutoff, target_feature=feature)
+    return df
 
 
 
@@ -47,6 +60,7 @@ def filter_dataset(
     structure_feats: Optional[list[str]], # can be None
     scalar_feats: Optional[list[str]], # like conc, temp
     target_feats: list[str], # lp
+    cutoff: Dict[str, Tuple[Optional[float], Optional[float]]],
     dropna: bool = True,
     unroll: Union[dict, list, None] = None,
     **kwargs,
@@ -72,8 +86,8 @@ def filter_dataset(
     ]
 
     dataset: pd.DataFrame = raw_dataset[all_feats]
-
-
+    if cutoff:
+        dataset = apply_cutoff(dataset,cutoff)
 
     if unroll:
         if isinstance(unroll, dict):
@@ -117,6 +131,7 @@ def filter_dataset(
     training_features, targets = sanitize_dataset(
         training_features, targets, dropna=dropna, **kwargs
     )
+    print(targets.shape)
 
     # if not (scalars_available and struct_available):
     new_struct_feats: list[str] = structure_features.columns.tolist()
