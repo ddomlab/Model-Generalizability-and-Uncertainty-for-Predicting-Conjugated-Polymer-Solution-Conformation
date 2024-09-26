@@ -14,7 +14,7 @@ import seaborn as sns
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
 
-target_dir: Path = Path(RESULTS/'target_Rg')
+target_dir: Path = RESULTS/'target_Lp_filter_(Lp)'
 
 
 # with open(filters, "r") as f:
@@ -29,7 +29,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 
 
-file = Path(r'C:\Users\sdehgha2\Desktop\PhD code\pls-dataset-project\PLS-Dataset\results\target_Lp\Trimer\(ECFP8)_count_1024_RF_scores.json')
+# file = Path(r'C:\Users\sdehgha2\Desktop\PhD code\pls-dataset-project\PLS-Dataset\results\target_Lp\Trimer\(ECFP8)_count_1024_RF_scores.json')
 # print(file.name)
 
 
@@ -283,7 +283,7 @@ def create_structural_result(target_dir:Path,
 scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 for i in scores_list:
-    create_structural_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='structural')
+    create_structural_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural')
 
 
 
@@ -321,7 +321,7 @@ def create_structural_scaler_result(target_dir:Path,
 
 
 for i in scores_list:
-    create_structural_scaler_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='structural_scaler')
+    create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
 
 
 def create_scaler_result(target_dir:Path,
@@ -347,4 +347,4 @@ def create_scaler_result(target_dir:Path,
     
 
 for i in scores_list:
-    create_scaler_result(target_dir=target_dir,target='Rg (nm)',score=i,var='stdev',data_type='scaler')
+    create_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='scaler')
