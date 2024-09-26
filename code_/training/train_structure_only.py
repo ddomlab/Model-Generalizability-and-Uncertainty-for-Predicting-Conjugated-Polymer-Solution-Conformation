@@ -106,6 +106,7 @@ def main_MACCS_only(
                             imputer=None
                         )
 
+
     save_results(scores,
                 predictions=predictions,
                 representation= representation,
@@ -115,6 +116,7 @@ def main_MACCS_only(
                 cutoff=cutoffs,
                 TEST=TEST
                 )
+
 
 def main_Mordred_only(
     dataset: pd.DataFrame,
