@@ -1,5 +1,5 @@
 #!/bin/bash
-
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 models_to_run=("RF" "MLR")
 functions_to_run=("numerical" "numerical_maccs")
@@ -17,8 +17,8 @@ for model in "${models_to_run[@]}"; do
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J finger_numerical_maccs
-#BSUB -o mordred_run.out
-#BSUB -e mordred_err.out
+#BSUB -o ${output_dir}/mordred_run_${model}_${function}.out
+#BSUB -e ${output_dir}/mordred_err_${model}_${function}.err
 
 
 source ~/.bashrc
