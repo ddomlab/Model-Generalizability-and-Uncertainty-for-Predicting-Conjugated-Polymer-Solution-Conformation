@@ -26,7 +26,7 @@ cutoffs = {
             # "Rg1 (nm)":1000,
             # "Lc (nm)":1000,
             "Lp (nm)":(None,100),
-            "Concentration (mg/ml)":(None,50)
+            # "Concentration (mg/ml)":(None,50)
         }
 
 
