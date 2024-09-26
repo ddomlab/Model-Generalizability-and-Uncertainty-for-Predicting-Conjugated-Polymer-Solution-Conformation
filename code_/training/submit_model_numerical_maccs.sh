@@ -23,9 +23,6 @@ for model in "${models_to_run[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-
-#python /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/preprocessing/fingerprint_preprocess.py --num_workers 8
-
 python train_structure_numeric.py --model $model --function $function
 
 conda deactivate

@@ -16,7 +16,7 @@ for radius in "${radii[@]}"; do
 #BSUB -e ${output_dir}/ecfp_err_radius${radius}_vector${vector}.out
 
 source ~/.bashrc
-conda activate /share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/env-pls
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python train_structure_only.py --model ecfp --radius ${radius} --vector ${vector}
 EOT
   done

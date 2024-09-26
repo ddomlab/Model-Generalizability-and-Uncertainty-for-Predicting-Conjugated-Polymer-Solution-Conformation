@@ -14,7 +14,6 @@ bsub <<EOT
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-
 python train_structure_only.py --model mordred
 
 conda deactivate
