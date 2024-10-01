@@ -106,8 +106,9 @@ def generate_training_dataset():
     dataset_hsp_added: pd.DataFrame = map_hsp(dataset_structure_added,raw_solvent_properties,raw_polymer_hsp)
     dataset_hsp_added.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.csv',index=False)
     dataset_hsp_added.to_pickle(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.pkl')
-    
-
+    dataset_hsp_added_dropped_additives = dataset_hsp_added[dataset_hsp_added['Solid additive'].isna()].reset_index(drop=True) 
+    dataset_hsp_added_dropped_additives.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.csv',index=False)
+    dataset_hsp_added_dropped_additives.to_pickle(training_dir/'dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl')
 
 
 if __name__ == "__main__":
