@@ -46,6 +46,17 @@ raw_polymer_hcp: pd.DataFrame = pd.read_excel(RAW_dir/'SMILES_to_BigSMILES_Conve
 
 
 
+
+def get_polymer_hsp_value(polymer_name, hsp_param):
+    row = raw_polymer_hcp[raw_polymer_hcp['Name'] == polymer_name]
+    if not row.empty:
+        return row[hsp_param].values[0]
+    else:
+        return None
+
+
+
+
 def assign_canonical_name(df, original_name: str, mapping: dict) -> pd.DataFrame:
     """
     Assigns canonical name to the dataset.
@@ -68,7 +79,9 @@ def mapping_from_external(strucure_df, main_df):
         for idx, col in enumerate(working_structure.columns.tolist()):
             main_df[col] = unpacked_data[idx]
         # map the hsp of polymer here
-
+        polymer_hsp_param_names:list[str] = ['dP', 'dD', 'dH']
+        for hsp_param in polymer_hsp_param_names:
+             main_data[f'polymer {hsp_param}'] = main_data['canonical_name'].apply(lambda x: get_polymer_hsp_value(x, hsp_param))
 
 def map_structure():
     assign_canonical_name(main_data, 'name', unified_poly_name)
@@ -84,13 +97,15 @@ def map_structure():
 
 
 def map_solvent_hsp(df,solvent_df):
-    df["modified_solvent_format"] = df['Solvent(s)'].apply(sol_name_change)
-    hsp_param_names:list[str] = ["dP", "dD", "dH"]
-    for param in hsp_param_names:
-        df[f'solvent {param}'] = df["modified_solvent_format"].apply(lambda x: calculate_mixture_hsp(solvent_df,x, param))
+    df['modified_solvent_format'] = df['Solvent(s)'].apply(sol_name_change)
+    solvent_hsp_param_names:list[str] = ['dP', 'dD', 'dH']
+    for param in solvent_hsp_param_names:
+        df[f'solvent {param}'] = df['modified_solvent_format'].apply(lambda x: calculate_mixture_hsp(solvent_df,x, param))
     
     return df
 
+
+def generate_training_dataset():
 # dataset_with_hsp_params = map_solvent_hsp(main_data,raw_solvent_properties)
 # print(dataset_with_hsp_params)
 # map hsp here
