@@ -283,7 +283,7 @@ def closing(editeable_mol, bond_type):
 
 def run(oligomer_length:list[int],oligomer_name:list[str],rru_name:list[str]) -> None:
     # Load cleaned donor and acceptor structures
-    dataset_dir: Path = DATASETS / "SMILES_to_BigSMILES_Conversion_wo_block_copolymer.xlsx"
+    dataset_dir: Path = DATASETS / "SMILES_to_BigSMILES_Conversion_wo_block_copolymer_with_HSPs"
     raw_smiles: pd.DataFrame = pd.read_excel(dataset_dir)
     raw_structure = raw_smiles[['Name', 'SMILES']].rename(columns={'SMILES': 'Monomer SMILES'})
 

@@ -10,6 +10,8 @@ from rdkit.Chem import rdFingerprintGenerator
 import mordred
 import mordred.descriptors
 
+from assign_solvent_hsp import sol_name_change, calculate_mixture_hsp
+
 sys.path.append("code_/cleaning")
 from clean_dataset import open_json
 
@@ -19,20 +21,28 @@ from clean_dataset import open_json
 #          return json.load(file)
     
 
+# file paths
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / 'datasets'
 CLEANED_DATASETS: Path = DATASETS/ 'cleaned_datasets'
 JSONS: Path = DATASETS/ 'json_resources'
+RAW_dir = DATASETS/ 'raw'
 
 
 corrected_name_dir: Path =  JSONS/'canonicalized_name.json'
 main_df_dir: Path  = CLEANED_DATASETS/'cleaned_data_wo_block_cp.csv'
-structural_df_dir: Path =  DATASETS/'fingerprint'/'structural_features.pkl'
+structural_df_dir: Path =  DATASETS/'fingerprint'/'structural_features.pkl' # fingerprints data in array format
 
+# reading files
 unified_poly_name: dict[str,list] = open_json(corrected_name_dir)
 main_data = pd.read_csv(main_df_dir)
 structural_data = pd.read_pickle(structural_df_dir)
+
+# reading hsp features
+raw_solvent_properties: pd.DataFrame = pd.read_excel(RAW_dir/'Polymer_Solution_Scattering_Dataset.xlsx',
+                                                     sheet_name='solvents_addtives_short_form') 
+raw_polymer_hcp: pd.DataFrame = pd.read_excel(RAW_dir/'SMILES_to_BigSMILES_Conversion_wo_block_copolymer_with_HSPs.xlsx')
 
 
 
@@ -57,6 +67,7 @@ def mapping_from_external(strucure_df, main_df):
         # Assign the unpacked data to the corresponding columns in the dataset
         for idx, col in enumerate(working_structure.columns.tolist()):
             main_df[col] = unpacked_data[idx]
+        # map the hsp of polymer here
 
 
 def map_structure():
@@ -67,13 +78,23 @@ def map_structure():
     print(main_data.shape)
     # saving the file 
     training_dir: Path = DATASETS/'training_dataset' 
+    return main_data
+    # main_data.to_csv(training_dir/'structure_wo_block_cp_scaler_dataset.csv')
+    # main_data.to_pickle(training_dir/'structure_wo_block_cp_scaler_dataset.pkl')
+
+
+def map_solvent_hsp(df,solvent_df):
+    df["modified_solvent_format"] = df['Solvent(s)'].apply(sol_name_change)
+    hsp_param_names:list[str] = ["dP", "dD", "dH"]
+    for param in hsp_param_names:
+        df[f'solvent {param}'] = df["modified_solvent_format"].apply(lambda x: calculate_mixture_hsp(solvent_df,x, param))
     
-    main_data.to_csv(training_dir/'structure_wo_block_cp_scaler_dataset.csv')
-    main_data.to_pickle(training_dir/'structure_wo_block_cp_scaler_dataset.pkl')
+    return df
 
-
+# dataset_with_hsp_params = map_solvent_hsp(main_data,raw_solvent_properties)
+# print(dataset_with_hsp_params)
 # map hsp here
 
 
-if __name__ == "__main__":
-    map_structure()
+# if __name__ == "__main__":
+#     map_structure()

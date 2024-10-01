@@ -92,5 +92,5 @@ def smile_main():
     r_groups.to_csv(clean_csv, index=False)
 
 
-if __name__ == "__main__":
-    r_main()
+# if __name__ == "__main__":
+#     smile_main()
