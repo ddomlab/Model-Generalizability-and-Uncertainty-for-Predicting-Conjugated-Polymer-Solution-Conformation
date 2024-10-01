@@ -101,10 +101,10 @@ def generate_training_dataset():
     training_dir: Path = DATASETS/'training_dataset' 
 
     dataset_structure_added: pd.DataFrame= map_structure()
-    dataset_structure_added.to_csv(training_dir/'dataset_wo_block_cp_fp_added.csv')
+    dataset_structure_added.to_csv(training_dir/'dataset_wo_block_cp_fp_added.csv',index=False)
     dataset_structure_added.to_pickle(training_dir/'dataset_wo_block_cp_fp_added.pkl')
     dataset_hsp_added: pd.DataFrame = map_hsp(dataset_structure_added,raw_solvent_properties,raw_polymer_hsp)
-    dataset_hsp_added.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.csv')
+    dataset_hsp_added.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.csv',index=False)
     dataset_hsp_added.to_pickle(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.pkl')
     
 
