@@ -5,7 +5,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import Lasso
-from sklearn.multioutput import MultiOutputRegressor
+# from sklearn.multioutput import MultiOutputRegressor
 
 from sklearn.preprocessing import (StandardScaler,
                                    QuantileTransformer,
@@ -25,7 +25,7 @@ cutoffs = {
             # "Rh1 (nm)":1000,
             # "Rg1 (nm)":1000,
             # "Lc (nm)":1000,
-            "Lp (nm)":(None,100),
+            # "Lp (nm)":(None,100),
             # "Concentration (mg/ml)":(None,50)
         }
 
@@ -80,7 +80,8 @@ regressor_factory: dict[str, type]={
     "SVR": SVR(),
     "XGBR": XGBRegressor(),
     "RF": RandomForestRegressor(),
-    "Lasso": Lasso()
+    "Lasso": Lasso(),
+    "DT": DecisionTreeRegressor()
 }
 
 
@@ -115,6 +116,14 @@ regressor_search_space = {
         # "regressor__grow_policy": Categorical(["depthwise", "lossguide"]),
         "regressor__regressor__n_jobs": [-2],
         "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
+    },
+    "DT": {
+        "regressor__regressor__max_depth": [None],
+        "regressor__regressor__min_samples_split": Real(0.05, 0.99),
+        "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
+        "regressor__regressor__max_features": Categorical(['auto',"sqrt", "log2"]),
+        "regressor__regressor__max_depth": Integer(10, 10000, prior="log-uniform"),
+        "regressor__regressor__ccp_alpha": Real(0.05, 0.99),
     }
 }
 

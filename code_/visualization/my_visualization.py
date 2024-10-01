@@ -101,7 +101,6 @@ def generate_annotations(num: float) -> str:
 
 
 
-
 def _create_heatmap(
     root_dir: Path,
     score: str,
@@ -284,7 +283,6 @@ scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 for i in scores_list:
     create_structural_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural')
-
 
 
 # feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')

@@ -71,4 +71,9 @@ def map_structure():
     main_data.to_csv(training_dir/'structure_wo_block_cp_scaler_dataset.csv')
     main_data.to_pickle(training_dir/'structure_wo_block_cp_scaler_dataset.pkl')
 
-map_structure()
+
+# map hsp here
+
+
+if __name__ == "__main__":
+    map_structure()
