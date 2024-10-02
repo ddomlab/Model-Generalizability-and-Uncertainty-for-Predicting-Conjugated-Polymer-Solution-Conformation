@@ -272,24 +272,18 @@ def parse_arguments():
     parser.add_argument(
         '--numerical_feats',
         type=str,
-        choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
-                  'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH'],
-
         nargs='+',  # Allows multiple choices
         required=True,
-        help="Numerical features: choose"
+        help="Numerical features: choose as a space-separated list"
     )
     
 
     parser.add_argument(
         '--columns_to_impute',
         type=str,
-        choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
-                  'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH'],
-
         nargs='*',  # This allows 0 or more values
         default=None,  
-        help="imputation features: choose"
+        help="Imputation features: choose as a space-separated list"
     )
 
     parser.add_argument(
@@ -308,7 +302,8 @@ def parse_arguments():
         help="Specify the imputation strategy or leave it as None."
     )
 
-    
+    args.numerical_feats = [feat.strip() for feat in args.numerical_feats]
+    args.columns_to_impute = [col.strip() for col in args.columns_to_impute] if args.columns_to_impute else []
     return parser.parse_args()
 
 if __name__ == "__main__":
