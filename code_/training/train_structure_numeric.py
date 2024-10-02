@@ -318,14 +318,14 @@ if __name__ == "__main__":
     main_numerical_only(
         dataset=w_data,
         regressor_type=args.regressor_type,
-        target_features=[args.target_features],  # Can adjust based on actual usage
+        target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
         transform_type="Standard",
         hyperparameter_optimization=True,
-        columns_to_impute=[args.columns_to_impute],
+        columns_to_impute=args.columns_to_impute,  # Already a list
         special_impute=args.special_impute,
-        numerical_feats=[args.numerical_feats],
+        numerical_feats=args.numerical_feats,  # Already a list
         imputer=args.imputer,
-        cutoff=None,
+        cutoff=None,  # Optional cutoff value
     )
 
 
