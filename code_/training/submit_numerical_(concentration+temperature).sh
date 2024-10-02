@@ -5,7 +5,6 @@ models_to_run=("RF" "MLR" "DT")
 numerical_feats=(
   "Concentration (mg/ml)"
   "Temperature SANS/SLS/DLS/SEC (K)"
-  "Concentration (mg/ml) Temperature SANS/SLS/DLS/SEC (K)"
 )
 
 for model in "${models_to_run[@]}"; do
