@@ -10,8 +10,9 @@ numerical_feats=(
 
 for model in "${models_to_run[@]}"; do
     for feats  in "${numerical_feats[@]}"; do
+        echo "Submitting job with numerical_feats: $feats and $model"
         bsub <<EOT
-
+    
 
 
 
@@ -21,8 +22,8 @@ for model in "${models_to_run[@]}"; do
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J finger_numerical_maccs
-#BSUB -o ${output_dir}/numerical_${model}_with${feats}.out
-#BSUB -e ${output_dir}/numerical_${model}_with${feats}.err
+#BSUB -o ${output_dir}/numerical_${model}_with_${feats}.out
+#BSUB -e ${output_dir}/numerical_${model}_with_${feats}.err
 
 
 source ~/.bashrc
