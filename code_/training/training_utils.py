@@ -48,7 +48,7 @@ from sklearn.metrics import (
 HERE: Path = Path(__file__).resolve().parent
 
 # os_type: str = platform.system().lower()
-TEST=False
+TEST=True
 
 # Seeds for generating random states
 if TEST==False:

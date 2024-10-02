@@ -10,13 +10,17 @@ from all_factories import radius_to_bits
 HERE: Path = Path(__file__).resolve().parent
 ROOT: Path = HERE.parent.parent
 
-target_abbrev: Dict[str, str] = {
+feature_abbrev: Dict[str, str] = {
     "Lp (nm)":          "Lp",
     "Rg1 (nm)":         "Rg",
     "Voc (V)":            "Voc",
     "Jsc (mA cm^-2)":     "Jsc",
     "FF (%)":             "FF",
-    "Concentration (mg/ml)": "Concentration"
+    "Concentration (mg/ml)":            "concentration",
+    "Temperature SANS/SLS/DLS/SEC (K)":         "temperature",
+    "Mn (g/mol)":       "Mn", 
+    "Mw (g/mol)":       "Mw", 
+
 }
 
 
@@ -63,14 +67,16 @@ def _save(scores: Dict[int, Dict[str, float]],
     results_dir.mkdir(parents=True, exist_ok=True)
     
     if numerical_feats and pu_type==None:
-        fname_root = f"(numerical)_{regressor_type}"
+        short_num_feats = "-".join( feature_abbrev[key] for key in numerical_feats)
+        fname_root = f"({short_num_feats})_{regressor_type}"
         fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
     if numerical_feats and pu_type:
+        short_num_feats = "-".join( feature_abbrev[key] for key in numerical_feats)
         if radius:
-            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_numerical)_{regressor_type}"
+            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_({short_num_feats})_{regressor_type}"
         
         else:
-            fname_root = f"({representation}_numerical)_{regressor_type}"
+            fname_root = f"({representation}_({short_num_feats}))_{regressor_type}"
             fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
 
     if numerical_feats==None and pu_type: 
@@ -106,10 +112,10 @@ def save_results(scores: dict,
                  numerical_feats: Optional[list[str]]=None,
                  imputer: Optional[str] = None,
                  output_dir_name: str = "results",
-                 cutoff: Dict[str, Tuple[Optional[float], Optional[float]]] =None,
+                 cutoff: Optional[Dict[str, Tuple[Optional[float], Optional[float]]]] =None,
                  ) -> None:
     
-    targets_dir: str = "-".join([target_abbrev[target] for target in target_features])
+    targets_dir: str = "-".join([feature_abbrev[target] for target in target_features])
     feature_ids = []
     if pu_type:
         feature_ids.append(pu_type)
@@ -118,7 +124,7 @@ def save_results(scores: dict,
     features_dir: str = "_".join(feature_ids)
     print(features_dir)
     if cutoff:
-        cutoff_parameter = "-".join( target_abbrev[key] for key in cutoff)
+        cutoff_parameter = "-".join( feature_abbrev[key] for key in cutoff)
     
     f_root_dir = f"target_{targets_dir}"
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir

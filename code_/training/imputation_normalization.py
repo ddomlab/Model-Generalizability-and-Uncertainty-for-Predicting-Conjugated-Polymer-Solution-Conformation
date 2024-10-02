@@ -44,7 +44,11 @@ def preprocessing_workflow(imputer: Optional[str],
                 ],
                 remainder="passthrough", verbose_feature_names_out=False
             )),
-            # put if special column:
+            
+                ]
+    
+    if special_column:
+        steps.append(
             ("Calculate Mw", ColumnTransformer(
                 transformers=[
                     (f'calculator_{special_column}',
@@ -67,7 +71,8 @@ def preprocessing_workflow(imputer: Optional[str],
                      FunctionTransformer(drop_columns, kw_args={'columns_to_drop': ['Mn (g/mol)']}, validate=False),
                      ['Mn (g/mol)'])
                 ], remainder="passthrough", verbose_feature_names_out=False))
-        ]
+
+        )
     # Normalization
     transformers = []
     if numerical_feat:
