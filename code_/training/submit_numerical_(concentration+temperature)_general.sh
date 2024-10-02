@@ -26,10 +26,10 @@ for target in "${target_to_asses[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_numeric.py --target_features ${target} \
-                                  --regressor_type ${model} \
-                                  --numerical_feats ${feats} \
-                                  --columns_to_impute ${feats} \
+python train_structure_numeric.py --target_features "${target}" \
+                                  --regressor_type "${model}" \
+                                  --numerical_feats "${feats}" \
+                                  --columns_to_impute "${feats}" \
                                   --imputer mean
 
 conda deactivate
