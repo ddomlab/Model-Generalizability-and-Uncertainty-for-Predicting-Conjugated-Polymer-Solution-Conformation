@@ -301,7 +301,9 @@ def parse_arguments():
         default=None,  # Set the default value to None
         help="Specify the imputation strategy or leave it as None."
     )
+    args = parser.parse_args()
 
+    # Process numerical_feats and columns_to_impute (splitting by commas)
     args.numerical_feats = [feat.strip() for feat in args.numerical_feats.split(",")]
     args.columns_to_impute = [col.strip() for col in args.columns_to_impute.split(",")] if args.columns_to_impute else []
     return parser.parse_args()
