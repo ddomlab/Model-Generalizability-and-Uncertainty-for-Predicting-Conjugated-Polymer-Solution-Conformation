@@ -321,9 +321,9 @@ if __name__ == "__main__":
         target_features=[args.target_features],  # Can adjust based on actual usage
         transform_type="Standard",
         hyperparameter_optimization=True,
-        columns_to_impute=args.columns_to_impute or [],
+        columns_to_impute=[args.columns_to_impute],
         special_impute=args.special_impute,
-        numerical_feats=args.numerical_feats,
+        numerical_feats=[args.numerical_feats],
         imputer=args.imputer,
         cutoff=None,
     )
