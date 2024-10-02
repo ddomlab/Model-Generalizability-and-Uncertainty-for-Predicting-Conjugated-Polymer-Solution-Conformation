@@ -14,7 +14,7 @@ import seaborn as sns
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
 
-target_dir: Path = RESULTS/'target_Lp_filter_(Lp)'
+# target_dir: Path = RESULTS/'target_Lp'
 
 
 # with open(filters, "r") as f:
@@ -55,11 +55,12 @@ def get_results_from_file(
         avg, std = np.nan, np.nan
     else:
         # for just scaler features
-        if '(numerical)'== file_path.name.split("_")[0]:
+        if "scaler" == file_path.parent.name:
+        # if '(numerical)'== file_path.name.split("_")[0]:
             model:str = file_path.name.split("_")[-3] 
-            features:str = file_path.name.split("_")[0]
+            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
         else:
-            features:str = "-".join(file_path.name.split("_")[:-2])
+            features:str = "-".join(file_path.name.split("_")[:-2]).replace("(", "").replace(")", "")
             # for mixure of scaler and fingerprint
             if "imputer" in file_path.name:
                 model:str = file_path.name.split("_")[-3] 
@@ -219,7 +220,7 @@ def creat_result_df(target_dir: Path,
                 score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
 
         for file_path in score_files:
-            
+            print(file_path)
             feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
             models.add(model)
             # for scaler features only
@@ -281,8 +282,8 @@ def create_structural_result(target_dir:Path,
 
 scores_list: list = {"r", "r2", "mae", "rmse"}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-for i in scores_list:
-    create_structural_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural')
+# for i in scores_list:
+#     create_structural_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural')
 
 
 # feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
@@ -318,8 +319,8 @@ def create_structural_scaler_result(target_dir:Path,
     
 
 
-for i in scores_list:
-    create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
+# for i in scores_list:
+#     create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
 
 
 def create_scaler_result(target_dir:Path,
@@ -344,5 +345,7 @@ def create_scaler_result(target_dir:Path,
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
-for i in scores_list:
-    create_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='scaler')
+target_list = ['target_Lp','target_Rg']
+for target_folder in target_list:
+    for i in scores_list:
+        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',score=i,var='stdev',data_type='scaler')
