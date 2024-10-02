@@ -314,9 +314,6 @@ def parse_arguments():
 if __name__ == "__main__":
     args = parse_arguments()
     
-    # Dummy dataset example, replace with actual dataset load
-    dataset = pd.DataFrame()
-
     # Call the main function with parsed arguments
     main_numerical_only(
         dataset=w_data,
