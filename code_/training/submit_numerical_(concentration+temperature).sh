@@ -1,5 +1,5 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
 
 models_to_run=("RF" "MLR" "DT")
 numerical_feats=(
@@ -28,9 +28,9 @@ for model in "${models_to_run[@]}"; do
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python train_structure_numeric.py --target_features "Lp (nm)" \
-                                  --regressor_type "RF" \
+                                  --regressor_type $model \
                                   --numerical_feats $feats \
-                                  --columns_to_impute "Mn (g/mol)" "Mw (g/mol)" \
+                                  --columns_to_impute $feats \
                                   --imputer "mean"
 
 conda deactivate

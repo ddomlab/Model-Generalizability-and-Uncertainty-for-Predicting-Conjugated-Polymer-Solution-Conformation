@@ -48,7 +48,7 @@ from sklearn.metrics import (
 HERE: Path = Path(__file__).resolve().parent
 
 # os_type: str = platform.system().lower()
-TEST=True
+TEST=False
 
 # Seeds for generating random states
 if TEST==False:
@@ -94,26 +94,26 @@ def train_regressor(
         you should change the name here for prepare
         """
             #seed scores and seed prediction
-        scores, predictions = _prepare_data(
-                                dataset=dataset,
-                                features_impute= features_impute,
-                                special_impute= special_impute,
-                                representation=representation,
-                                structural_features=structural_features,
-                                unroll=unroll,
-                                numerical_feats = numerical_feats,
-                                # scalar_filter=scalar_filter,
-                                # subspace_filter=subspace_filter,
-                                target_features=target_features,
-                                regressor_type=regressor_type,
-                                transform_type=transform_type,
-                                imputer=imputer,
-                                cutoff=cutoff,
-                                hyperparameter_optimization=hyperparameter_optimization,
-                                )
+        scores, predictions, data_shape = _prepare_data(
+                                                    dataset=dataset,
+                                                    features_impute= features_impute,
+                                                    special_impute= special_impute,
+                                                    representation=representation,
+                                                    structural_features=structural_features,
+                                                    unroll=unroll,
+                                                    numerical_feats = numerical_feats,
+                                                    # scalar_filter=scalar_filter,
+                                                    # subspace_filter=subspace_filter,
+                                                    target_features=target_features,
+                                                    regressor_type=regressor_type,
+                                                    transform_type=transform_type,
+                                                    imputer=imputer,
+                                                    cutoff=cutoff,
+                                                    hyperparameter_optimization=hyperparameter_optimization,
+                                                    )
         scores = process_scores(scores)
   
-        return scores, predictions
+        return scores, predictions, data_shape
         
 
 
@@ -138,42 +138,43 @@ def _prepare_data(
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
 
-      """
-      here you should change the names
-      """
+    """
+    here you should change the names
+    """
 
 
 
-      X, y, unrolled_feats = filter_dataset(
-          raw_dataset=dataset,
-          structure_feats=structural_features,
-          scalar_feats=numerical_feats,
-          target_feats=target_features,
-          cutoff=cutoff,
-          dropna = True,
-          unroll=unroll,
-      )
-      
-      # Pipline workflow here and preprocessor
-      preprocessor: Pipeline = preprocessing_workflow(imputer=imputer,
-                                                        feat_to_impute=features_impute,
-                                                        representation = representation,
-                                                        numerical_feat=numerical_feats,
-                                                        structural_feat = unrolled_feats,
-                                                        special_column=special_impute,
-                                                        scaler=transform_type)
-      
-      preprocessor.set_output(transform="pandas")
-      return run(
-              X,
-              y,
-              preprocessor=preprocessor,
-              regressor_type=regressor_type,
-              transform_type=transform_type,
-              hyperparameter_optimization=hyperparameter_optimization,
-              **kwargs,
-              )
+    X, y, unrolled_feats, X_y_shape = filter_dataset(
+                                        raw_dataset=dataset,
+                                        structure_feats=structural_features,
+                                        scalar_feats=numerical_feats,
+                                        target_feats=target_features,
+                                        cutoff=cutoff,
+                                        dropna = True,
+                                        unroll=unroll,
+                                        )
 
+    # Pipline workflow here and preprocessor
+    preprocessor: Pipeline = preprocessing_workflow(imputer=imputer,
+                                                    feat_to_impute=features_impute,
+                                                    representation = representation,
+                                                    numerical_feat=numerical_feats,
+                                                    structural_feat = unrolled_feats,
+                                                    special_column=special_impute,
+                                                    scaler=transform_type)
+    
+    preprocessor.set_output(transform="pandas")
+    score,predication= run(
+                            X,
+                            y,
+                            preprocessor=preprocessor,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            **kwargs,
+                            )
+
+    return score, predication, X_y_shape
 
 def run(
     X, y, preprocessor: Union[ColumnTransformer, Pipeline], regressor_type: str,

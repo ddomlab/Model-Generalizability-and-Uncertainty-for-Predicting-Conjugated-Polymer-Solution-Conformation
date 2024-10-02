@@ -53,6 +53,7 @@ class NumpyArrayEncoder(json.JSONEncoder):
 
 def _save(scores: Dict[int, Dict[str, float]],
           predictions: Optional[pd.DataFrame],
+          df_shapes:Dict,
           results_dir: Path,
           regressor_type: str,
         #   hyperparameter_optimization: Optional[bool],
@@ -95,13 +96,20 @@ def _save(scores: Dict[int, Dict[str, float]],
 
     predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
     predictions.to_csv(predictions_file, index=False)
+    
+    data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
+    with open(data_shape_file, "w") as f:
+        json.dump(df_shapes, f, cls=NumpyArrayEncoder, indent=2)
+
     print("Saved results to:")
     print(scores_file)
+    print(predictions_file)
     print(predictions_file)
 
 
 def save_results(scores: dict,
                  predictions: pd.DataFrame,
+                 df_shapes:Dict,
                  target_features: list,
                  regressor_type: str,
                  TEST : bool =True,
@@ -137,6 +145,7 @@ def save_results(scores: dict,
 
     _save(scores, predictions,
           results_dir=results_dir,
+          df_shapes=df_shapes,
           regressor_type=regressor_type,
           imputer=imputer,
           representation= representation,

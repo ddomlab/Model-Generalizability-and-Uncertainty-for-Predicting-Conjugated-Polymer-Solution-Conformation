@@ -131,8 +131,11 @@ def filter_dataset(
     training_features, targets = sanitize_dataset(
         training_features, targets, dropna=dropna, **kwargs
     )
-    print(targets.shape)
 
     # if not (scalars_available and struct_available):
     new_struct_feats: list[str] = structure_features.columns.tolist()
-    return training_features, targets, new_struct_feats
+    training_test_shape: Dict ={
+                                "targets_shape": targets.shape,
+                                "training_features_shape": training_features.shape
+                                }
+    return training_features, targets, new_struct_feats, training_test_shape

@@ -5,7 +5,7 @@ from all_factories import radius_to_bits,cutoffs
 import json
 import numpy as np
 import sys
-sys.path.append("code_/cleaning")
+sys.path.append("../cleaning")
 from clean_dataset import open_json
 from argparse import ArgumentParser
 from data_handling import save_results
@@ -21,7 +21,7 @@ oligomer_list =open_json(oligo_dir)
 w_data = pd.read_pickle(training_df_dir)
 edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
-TEST = True
+TEST = False
 
 
 
@@ -35,11 +35,11 @@ def main_numerical_only(
     special_impute: str,
     numerical_feats: list[str],
     imputer:str,
-    cutoff:str
+    cutoff:str=None
 ) -> None:
 
 
-    scores, predictions  = train_regressor(
+    scores, predictions,data_shapes  = train_regressor(
                                             dataset=dataset,
                                             features_impute=columns_to_impute,
                                             special_impute=special_impute,
@@ -57,6 +57,7 @@ def main_numerical_only(
     
     save_results(scores,
                 predictions=predictions,
+                df_shapes=data_shapes,
                 imputer=imputer,
                 representation= None,
                 pu_type= None,
@@ -216,23 +217,24 @@ def main_ecfp_numerical(
     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
 
     imputer = "mean"
-    scores, predictions  = train_regressor(
-                            dataset=dataset,
-                            features_impute=columns_to_impute,
-                            special_impute=special_column,
-                            representation=None,
-                            structural_features=None,
-                            unroll=None,
-                            numerical_feats=numerical_feats,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            cutoff=cutoffs,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            imputer=imputer
-                        )
+    scores, predictions, data_shapes  = train_regressor(
+                                                dataset=dataset,
+                                                features_impute=columns_to_impute,
+                                                special_impute=special_column,
+                                                representation=None,
+                                                structural_features=None,
+                                                unroll=None,
+                                                numerical_feats=numerical_feats,
+                                                target_features=target_features,
+                                                regressor_type=regressor_type,
+                                                transform_type=transform_type,
+                                                cutoff=cutoffs,
+                                                hyperparameter_optimization=hyperparameter_optimization,
+                                                imputer=imputer
+                                            )
     save_results(scores,
                 predictions=predictions,
+                df_shapes = data_shapes,
                 representation= None,
                 pu_type= None,
                 target_features=target_features,
@@ -309,37 +311,38 @@ def parse_arguments():
     
     return parser.parse_args()
 
-# if __name__ == "__main__":
-#     args = parse_arguments()
+if __name__ == "__main__":
+    args = parse_arguments()
     
-#     # Dummy dataset example, replace with actual dataset load
-#     dataset = pd.DataFrame()
+    # Dummy dataset example, replace with actual dataset load
+    dataset = pd.DataFrame()
 
-#     # Call the main function with parsed arguments
-#     main_numerical_only(
-#         dataset=w_data,
-#         regressor_type=args.regressor_type,
-#         target_features=[args.target_features],  # Can adjust based on actual usage
-#         transform_type="Standard",
-#         hyperparameter_optimization=True,
-#         columns_to_impute=args.columns_to_impute or [],
-#         special_impute=args.special_impute,
-#         numerical_feats=args.numerical_feats,
-#         imputer=args.imputer,
-#     )
+    # Call the main function with parsed arguments
+    main_numerical_only(
+        dataset=w_data,
+        regressor_type=args.regressor_type,
+        target_features=[args.target_features],  # Can adjust based on actual usage
+        transform_type="Standard",
+        hyperparameter_optimization=True,
+        columns_to_impute=args.columns_to_impute or [],
+        special_impute=args.special_impute,
+        numerical_feats=args.numerical_feats,
+        imputer=args.imputer,
+        cutoff=None,
+    )
 
 
-main_numerical_only(
-    dataset=w_data,
-    regressor_type="DT",
-    target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
-    transform_type="Standard",
-    hyperparameter_optimization=True,
-    columns_to_impute=["Concentration (mg/ml)"],
-    special_impute=None,
-    numerical_feats=["Concentration (mg/ml)"],
-    imputer="mean",
-    cutoff=cutoffs)
+# main_numerical_only(
+#     dataset=w_data,
+#     regressor_type="DT",
+#     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
+#     transform_type="Standard",
+#     hyperparameter_optimization=True,
+#     columns_to_impute=["Concentration (mg/ml)"],
+#     special_impute=None,
+#     numerical_feats=["Concentration (mg/ml)",'Temperature SANS/SLS/DLS/SEC (K)'],
+#     imputer="mean",
+#     cutoff=cutoffs)
 
 
 # if __name__ == "__main__":
