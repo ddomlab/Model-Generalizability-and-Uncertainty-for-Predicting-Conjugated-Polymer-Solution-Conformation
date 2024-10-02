@@ -31,5 +31,6 @@ python train_structure_numeric.py --target_features ${target} \
 conda deactivate
 
 EOT
+        done
     done
 done
