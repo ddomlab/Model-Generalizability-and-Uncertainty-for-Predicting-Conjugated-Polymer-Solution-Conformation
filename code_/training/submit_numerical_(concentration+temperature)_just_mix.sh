@@ -4,7 +4,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Correctly define models and numerical features
 target_to_asses=("Lp (nm)" "Rg1 (nm)")
 models_to_run=("RF" "MLR" "DT")
-numerical_feats="Concentration (mg/ml),Temperature SANS/SLS/DLS/SEC (K)"
+
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
@@ -23,8 +23,8 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python train_structure_numeric.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats "${numerical_feats}" \
-                                  --columns_to_impute "${numerical_feats}" \
+                                  --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
+                                  --columns_to_impute 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
                                   --imputer mean
 
 conda deactivate
