@@ -4,7 +4,11 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Correctly define models and numerical features
 target_to_asses=("Lp (nm)" "Rg1 (nm)")
 models_to_run=("RF" "MLR" "DT")
-numerical_feats=("Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)")
+numerical_feats=(
+  "Concentration (mg/ml)"
+  "Temperature SANS/SLS/DLS/SEC (K)"
+  "Concentration (mg/ml) Temperature SANS/SLS/DLS/SEC (K)"
+)
 
 for target in "${target_to_asses[@]}"; do
         for model in "${models_to_run[@]}"; do

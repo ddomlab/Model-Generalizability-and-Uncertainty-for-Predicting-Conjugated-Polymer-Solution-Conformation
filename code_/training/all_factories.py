@@ -118,11 +118,10 @@ regressor_search_space = {
         "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
     },
     "DT": {
-        "regressor__regressor__max_depth": [None],
         "regressor__regressor__min_samples_split": Real(0.05, 0.99),
         "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-        "regressor__regressor__max_features": Categorical(['auto',"sqrt", "log2"]),
-        "regressor__regressor__max_depth": Integer(10, 10000, prior="log-uniform"),
+        "regressor__regressor__max_features": Categorical([None,"sqrt", "log2"]),
+        "regressor__regressor__max_depth": [None],
         "regressor__regressor__ccp_alpha": Real(0.05, 0.99),
     }
 }
