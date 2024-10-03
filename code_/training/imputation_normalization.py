@@ -23,7 +23,7 @@ def calculate_mw(df: pd.DataFrame,  # df containing Mw, Mn & PDI columns only
   df.loc[df[mw].isna(), mw] = df[pdi] * df[mn]  # df.loc may give you some issues
   return df
 
-def preprocessing_workflow(imputer: Optional[str],
+def preprocessing_workflow(imputer: Optional[str]=None,
                            feat_to_impute: Optional[list[str]] = None,
                            representation: Optional[str] = None,
                            numerical_feat: Optional[list] = None,

@@ -296,7 +296,7 @@ def parse_arguments():
         '--imputer',
         choices=['mean', 'median', 'most_frequent',"distance KNN", None],  # Add 'None' as an option
         nargs='?',  # This allows the argument to be optional
-        default='mean',  # Set the default value to None
+        default=None,  # Set the default value to None
         help="Specify the imputation strategy or leave it as None."
     )
 
@@ -335,11 +335,11 @@ if __name__ == "__main__":
 #     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
 #     transform_type="Standard",
 #     hyperparameter_optimization=True,
-#     columns_to_impute=["Concentration (mg/ml)"],
+#     columns_to_impute=None,
 #     special_impute=None,
-#     numerical_feats=["Concentration (mg/ml)",'Temperature SANS/SLS/DLS/SEC (K)'],
-#     imputer="mean",
-#     cutoff=cutoffs)
+#     numerical_feats=['solvent dH'],
+#     imputer=None,
+#     cutoff=None)
 
 
 # if __name__ == "__main__":

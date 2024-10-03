@@ -68,11 +68,11 @@ def _save(scores: Dict[int, Dict[str, float]],
     results_dir.mkdir(parents=True, exist_ok=True)
     
     if numerical_feats and pu_type==None:
-        short_num_feats = "-".join( feature_abbrev[key] for key in numerical_feats)
+        short_num_feats = "-".join(feature_abbrev.get(key,key) for key in numerical_feats)
         fname_root = f"({short_num_feats})_{regressor_type}"
         fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
     if numerical_feats and pu_type:
-        short_num_feats = "-".join( feature_abbrev[key] for key in numerical_feats)
+        short_num_feats = "-".join(feature_abbrev.get(key,key) for key in numerical_feats)
         if radius:
             fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_({short_num_feats})_{regressor_type}"
         
@@ -123,7 +123,7 @@ def save_results(scores: dict,
                  cutoff: Optional[Dict[str, Tuple[Optional[float], Optional[float]]]] =None,
                  ) -> None:
     
-    targets_dir: str = "-".join([feature_abbrev[target] for target in target_features])
+    targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
     feature_ids = []
     if pu_type:
         feature_ids.append(pu_type)
@@ -132,7 +132,7 @@ def save_results(scores: dict,
     features_dir: str = "_".join(feature_ids)
     print(features_dir)
     if cutoff:
-        cutoff_parameter = "-".join( feature_abbrev[key] for key in cutoff)
+        cutoff_parameter = "-".join(feature_abbrev.get(key,key) for key in cutoff)
     
     f_root_dir = f"target_{targets_dir}"
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
