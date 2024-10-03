@@ -2,11 +2,11 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=("Lp (nm)" "Rg1 (nm)")
+target_to_assess=("Lp (nm)" "Rg1 (nm)")
 models_to_run=("RF" "MLR" "DT")
 
 
-for target in "${target_to_asses[@]}"; do
+for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
@@ -25,7 +25,7 @@ python train_structure_numeric.py --target_features "${target}" \
                                   --regressor_type "${model}" \
                                   --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' \
                                   --columns_to_impute  'PDI' \
-                                  --special_impute 'Mw (g/mol)'\
+                                  --special_impute 'Mw (g/mol)' \
                                   --imputer mean
 
 
