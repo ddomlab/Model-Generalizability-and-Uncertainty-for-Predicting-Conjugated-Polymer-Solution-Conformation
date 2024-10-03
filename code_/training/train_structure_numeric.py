@@ -311,35 +311,35 @@ def parse_arguments():
     
     return parser.parse_args()
 
-# if __name__ == "__main__":
-#     args = parse_arguments()
+if __name__ == "__main__":
+    args = parse_arguments()
     
-#     # Call the main function with parsed arguments
-#     main_numerical_only(
-#         dataset=w_data,
-#         regressor_type=args.regressor_type,
-#         target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
-#         transform_type="Standard",
-#         hyperparameter_optimization=True,
-#         columns_to_impute=args.columns_to_impute,  # Already a list
-#         special_impute=args.special_impute,
-#         numerical_feats=args.numerical_feats,  # Already a list
-#         imputer=args.imputer,
-#         cutoff=None,  # Optional cutoff value
-#     )
+    # Call the main function with parsed arguments
+    main_numerical_only(
+        dataset=w_data,
+        regressor_type=args.regressor_type,
+        target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
+        transform_type="Standard",
+        hyperparameter_optimization=True,
+        columns_to_impute=args.columns_to_impute,  # Already a list
+        special_impute=args.special_impute,
+        numerical_feats=args.numerical_feats,  # Already a list
+        imputer=args.imputer,
+        cutoff=None,  # Optional cutoff value
+    )
 
 
-main_numerical_only(
-    dataset=w_data,
-    regressor_type="DT",
-    target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
-    transform_type="Standard",
-    hyperparameter_optimization=True,
-    columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
-    special_impute="Mw (g/mol)",
-    numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)","solvent dP"],
-    imputer='mean',
-    cutoff=None)
+# main_numerical_only(
+#     dataset=w_data,
+#     regressor_type="DT",
+#     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
+#     transform_type="Standard",
+#     hyperparameter_optimization=True,
+#     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
+#     special_impute="Mw (g/mol)",
+#     numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)","solvent dP"],
+#     imputer='mean',
+#     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # special_column: str = "Mw (g/mol)"
