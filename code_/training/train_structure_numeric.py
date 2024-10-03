@@ -73,8 +73,8 @@ def main_numerical_only(
     # special_column: str = "Mw (g/mol)"
     # numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # imputer = "mean"
-    transform_type= "Standard"
-    target_features= ['Lp (nm)']
+    # transform_type= "Standard"
+    # target_features= ['Lp (nm)']
     
 # def perform_model_numerical(regressor_type:str):
         
