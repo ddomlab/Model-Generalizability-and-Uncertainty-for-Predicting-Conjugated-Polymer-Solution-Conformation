@@ -16,18 +16,16 @@ for target in "${target_to_asses[@]}"; do
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J numerical_${model}_with_feats_on_${target}
-#BSUB -o ${output_dir}/numerical_polymer${model}_with_feats_on_${target}.out
-#BSUB -e ${output_dir}/numerical_polymer${model}_with_feats_on_${target}.err
+#BSUB -o ${output_dir}/numerical_${model}_with_feats_on_${target}.out
+#BSUB -e ${output_dir}/numerical_${model}_with_feats_on_${target}.err
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python train_structure_numeric.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "solvent dP" "solvent dD" "solvent dH" \
+                                  --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "solvent dP" "solvent dD" "solvent dH"\
                                   --columns_to_impute 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
-                                  --special_impute "Mw (g/mol)" \
                                   --imputer mean
-
 
 conda deactivate
 
@@ -35,4 +33,3 @@ EOT
         
     done
 done
-

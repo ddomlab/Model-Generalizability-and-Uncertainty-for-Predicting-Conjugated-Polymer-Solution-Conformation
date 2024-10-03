@@ -287,7 +287,7 @@ def parse_arguments():
         choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
                   'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH'],
 
-        nargs='*',  # This allows 0 or more values
+        nargs='+',  # This allows 0 or more values
         default=None,  
         help="imputation features: choose"
     )
