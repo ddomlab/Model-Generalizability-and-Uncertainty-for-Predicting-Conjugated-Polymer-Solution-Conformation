@@ -287,7 +287,7 @@ def parse_arguments():
         choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
                   'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH'],
 
-        nargs='+',  # This allows 0 or more values
+        nargs='*',  # This allows 0 or more values
         default=None,  
         help="imputation features: choose"
     )
@@ -335,9 +335,9 @@ if __name__ == "__main__":
 #     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
 #     transform_type="Standard",
 #     hyperparameter_optimization=True,
-#     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
+#     columns_to_impute=["PDI"],
 #     special_impute="Mw (g/mol)",
-#     numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)","solvent dP"],
+#     numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI"],
 #     imputer='mean',
 #     cutoff=None)
 
