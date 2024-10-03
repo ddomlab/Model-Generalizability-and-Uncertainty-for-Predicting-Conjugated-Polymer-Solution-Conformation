@@ -48,7 +48,7 @@ def preprocessing_workflow(imputer: Optional[str]=None,
                 ]
     
     if special_column:
-        steps.append(
+        steps.extend([
             ("Calculate Mw", ColumnTransformer(
                 transformers=[
                     (f'calculator_{special_column}',
@@ -72,7 +72,7 @@ def preprocessing_workflow(imputer: Optional[str]=None,
                      ['Mn (g/mol)'])
                 ], remainder="passthrough", verbose_feature_names_out=False))
 
-        )
+        ])
     # Normalization
     transformers = []
     if numerical_feat:

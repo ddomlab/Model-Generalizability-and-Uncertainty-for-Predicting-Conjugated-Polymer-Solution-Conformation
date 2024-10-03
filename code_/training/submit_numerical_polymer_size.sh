@@ -4,15 +4,9 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Correctly define models and numerical features
 target_to_asses=("Lp (nm)" "Rg1 (nm)")
 models_to_run=("RF" "MLR" "DT")
-numerical_feats=(
-  "PDI"
-  "Mw (g/mol)"
-)
+numerical_feats=("PDI" "Mw (g/mol)")
 
-combined_feats="${numerical_feats[0]} ${numerical_feats[1]} ${numerical_feats[2]}"
 
-# Append the combined features to the array
-numerical_feats+=("$combined_feats")
 
 for target in "${target_to_asses[@]}"; do
         for model in "${models_to_run[@]}"; do
