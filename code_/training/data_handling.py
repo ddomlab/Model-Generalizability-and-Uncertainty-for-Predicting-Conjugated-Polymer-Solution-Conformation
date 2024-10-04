@@ -14,12 +14,12 @@ feature_abbrev: Dict[str, str] = {
     "Lp (nm)":          "Lp",
     "Rg1 (nm)":         "Rg",
     "Voc (V)":            "Voc",
-    "Jsc (mA cm^-2)":     "Jsc",
+    "Jsc (mA cm^-2)":            "Jsc",
     "FF (%)":             "FF",
     "Concentration (mg/ml)":            "concentration",
     "Temperature SANS/SLS/DLS/SEC (K)":         "temperature",
-    "Mn (g/mol)":       "Mn", 
-    "Mw (g/mol)":       "Mw", 
+    "Mn (g/mol)":         "Mn", 
+    "Mw (g/mol)":         "Mw", 
 
 }
 
@@ -67,22 +67,26 @@ def _save(scores: Dict[int, Dict[str, float]],
     
     results_dir.mkdir(parents=True, exist_ok=True)
     
+    # just scaler
     if numerical_feats and pu_type==None:
         short_num_feats = "-".join(feature_abbrev.get(key,key) for key in numerical_feats)
         fname_root = f"({short_num_feats})_{regressor_type}"
         fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
+    
+    # scaler and structural mixed
     if numerical_feats and pu_type:
         short_num_feats = "-".join(feature_abbrev.get(key,key) for key in numerical_feats)
         if radius:
-            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_({short_num_feats})_{regressor_type}"
+            fname_root = f"({representation}{radius}.{vector}.{radius_to_bits[radius]}-{short_num_feats})_{regressor_type}"
         
         else:
-            fname_root = f"({representation}_({short_num_feats}))_{regressor_type}"
+            fname_root = f"({representation}-{short_num_feats})_{regressor_type}"
             fname_root = f"{fname_root}_{imputer}" if imputer else fname_root
 
+    #just structural
     if numerical_feats==None and pu_type: 
         if radius:
-            fname_root = f"({representation}{radius})_{vector}_{radius_to_bits[radius]}_{regressor_type}"
+            fname_root = f"({representation}{radius}.{vector}.{radius_to_bits[radius]})_{regressor_type}"
 
         else:
             fname_root = f"({representation})_{regressor_type}"

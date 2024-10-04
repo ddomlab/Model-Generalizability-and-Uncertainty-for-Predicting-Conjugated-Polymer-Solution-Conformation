@@ -1,8 +1,8 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
-radii=(3 4 5 6)  # Fixed array declaration
-vectors=('count' 'binary')  # Fixed array declaration
+radii=(3 4 5 6) 
+vectors=('count' 'binary')  
 
 for radius in "${radii[@]}"; do
   for vector in "${vectors[@]}"; do

@@ -57,7 +57,7 @@ def get_results_from_file(
         # for just scaler features
         if "scaler" == file_path.parent.name:
         # if '(numerical)'== file_path.name.split("_")[0]:
-            model:str = file_path.name.split("_")[-3] 
+            model:str = file_path.name.split("_")[1] 
             features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
         else:
             features:str = "-".join(file_path.name.split("_")[:-2]).replace("(", "").replace(")", "")
