@@ -12,7 +12,6 @@ output_dir="/path/to/output"  # Change this to the appropriate directory
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for model in "${models[@]}"; do
-      # Submitting the job using bsub
       bsub <<EOT
 #BSUB -n 8
 #BSUB -W 35:05

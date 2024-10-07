@@ -307,10 +307,63 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str):
 
 
 
-perform_model_ecfp(regressor_type='RF', radius=3,vector='count',target='Rg1 (nm)')
 
-perform_model_maccs_numerical('RF','Rg1 (nm)')
-perform_model_mordred_numerical('RF','Rg1 (nm)')
+def perform_model_ecfp(regressor_type='RF', radius=3, vector='count', target='Rg1 (nm)'):
+    print(f"Running ECFP model with: regressor_type={regressor_type}, radius={radius}, vector={vector}, target={target}")
+
+def perform_model_maccs_numerical(regressor_type='RF', target='Rg1 (nm)'):
+    print(f"Running MACCS model with: regressor_type={regressor_type}, target={target}")
+
+def perform_model_mordred_numerical(regressor_type='RF', target='Rg1 (nm)'):
+    print(f"Running Mordred model with: regressor_type={regressor_type}, target={target}")
+
+def main():
+    parser = ArgumentParser(description='Run models with specific parameters')
+
+    # Subparsers for different models
+    subparsers = parser.add_subparsers(dest='model', required=True, help='Choose a model to run')
+
+    # Parser for ECFP model
+    parser_ecfp = subparsers.add_parser('ecfp', help='Run the ECFP model')
+    parser_ecfp.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_ecfp.add_argument('--radius', type=int, choices=[3, 4, 5, 6], default=3, help='Radius for ECFP (default: 3)')
+    parser_ecfp.add_argument('--vector', choices=['count', 'binary'], default='count', help='Type of vector (default: count)')
+    parser_ecfp.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parser for MACCS model
+    parser_maccs = subparsers.add_parser('maccs', help='Run the MACCS numerical model')
+    parser_maccs.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_maccs.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parser for Mordred model
+    parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
+    parser_mordred.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_mordred.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parse arguments
+    args = parser.parse_args()
+
+    # Run the appropriate model based on the parsed arguments
+    if args.model == 'ecfp':
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target)
+    elif args.model == 'maccs':
+        perform_model_maccs_numerical(args.regressor_type, args.target)
+    elif args.model == 'mordred':
+        perform_model_mordred_numerical(args.regressor_type, args.target)
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+
+
+
+# perform_model_ecfp(regressor_type='RF', radius=3,vector='count',target='Rg1 (nm)')
+
+# perform_model_maccs_numerical('RF','Rg1 (nm)')
+# perform_model_mordred_numerical('RF','Rg1 (nm)')
 
 # main_numerical_only(
 #     dataset=w_data,
