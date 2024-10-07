@@ -307,16 +307,6 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str):
 
 
 
-
-def perform_model_ecfp(regressor_type='RF', radius=3, vector='count', target='Rg1 (nm)'):
-    print(f"Running ECFP model with: regressor_type={regressor_type}, radius={radius}, vector={vector}, target={target}")
-
-def perform_model_maccs_numerical(regressor_type='RF', target='Rg1 (nm)'):
-    print(f"Running MACCS model with: regressor_type={regressor_type}, target={target}")
-
-def perform_model_mordred_numerical(regressor_type='RF', target='Rg1 (nm)'):
-    print(f"Running Mordred model with: regressor_type={regressor_type}, target={target}")
-
 def main():
     parser = ArgumentParser(description='Run models with specific parameters')
 
