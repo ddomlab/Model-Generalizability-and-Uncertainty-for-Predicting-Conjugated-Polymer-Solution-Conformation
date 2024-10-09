@@ -1,7 +1,7 @@
 import json
 from itertools import product
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 import os 
 # import cmcrameri.cm as cmc
 import matplotlib.pyplot as plt
@@ -22,6 +22,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
+target_list = ['target_Lp','target_Rg']
 
 
 
@@ -56,17 +57,17 @@ def get_results_from_file(
     else:
         # for just scaler features
         if "scaler" == file_path.parent.name:
-        # if '(numerical)'== file_path.name.split("_")[0]:
             model:str = file_path.name.split("_")[1] 
             features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+        # for mixture of scaler and structural 
+        if "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
+            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            model:str = file_path.name.split("_")[1]
+        # for structural only
         else:
-            features:str = "-".join(file_path.name.split("_")[:-2]).replace("(", "").replace(")", "")
-            # for mixure of scaler and fingerprint
-            if "imputer" in file_path.name:
-                model:str = file_path.name.split("_")[-3] 
-            # for fingerprints only
-            else:   
-                model:str = file_path.name.split("_")[-2]
+            features:str = "-".join(file_path.name.split("_")[0]).replace("(", "").replace(")", "")
+            model:str = file_path.name.split("_")[-2]
+
        
         with open(file_path, "r") as f:
             data = json.load(f)
@@ -189,7 +190,8 @@ def _create_heatmap(
 def creat_result_df(target_dir: Path,
                     score: str,
                     var: str,
-                    data_type:str
+                    data_type:str,
+                    regressor_model:Optional[str],
 ) -> tuple[pd.DataFrame,pd.DataFrame]:
     
     avg_scores: pd.DataFrame = pd.DataFrame()
@@ -220,9 +222,20 @@ def creat_result_df(target_dir: Path,
                 score_files: list[Path] = list(Path(representation_dir).rglob(pattern))
 
         for file_path in score_files:
-            print(file_path)
-            feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-            models.add(model)
+            # for structural and mix of structural-scaler
+            if data_type=='structural_scaler' or data_type=='structural':
+                if regressor_model and regressor_model in file_path.name:
+                    print(file_path)
+                    feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                    models.add(model)
+                # for just scaler 
+                else:
+                    continue
+                   
+            else:
+                print(file_path)
+                feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                models.add(model)
             # for scaler features only
             if data_type=='scaler':
                 if feats not in avg_scores.columns:
@@ -253,19 +266,20 @@ def creat_result_df(target_dir: Path,
 
     avg_scores = avg_scores.astype(float)
     annotations = annotations.astype(str)
-
-
     return avg_scores, annotations, list(models)
 
 
 
+
 def create_structural_result(target_dir:Path,
-                               target:str,
-                               score:str,
-                               var:str,
-                               data_type:str
-                               ) -> None:
-    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
+                             regressor_model:str,
+                             target:str,
+                             score:str,
+                             var:str,
+                             data_type:str
+                             ) -> None:
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+                                       ,regressor_model=regressor_model)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=target_dir,
@@ -277,7 +291,7 @@ def create_structural_result(target_dir:Path,
                     fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s)",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
-                    fname=f"PolymerRepresentation vs Fingerprint search heatmap_{score}")
+                    fname=f"PolymerRepresentation vs Fingerprint trained by {regressor_model} search heatmap_{score} score")
 
 
 scores_list: list = {"r", "r2", "mae", "rmse"}
@@ -296,13 +310,15 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 
 def create_structural_scaler_result(target_dir:Path,
+                                    regressor_model:str,
                                     target:str,
                                     score:str,
                                     var:str,
                                     data_type:str
                                     ) -> None:
 
-    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type)
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
+                                       regressor_model=regressor_model)
     model_in_title:str =  ",".join(model)
     
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
@@ -311,16 +327,24 @@ def create_structural_scaler_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(12, 8),
+                    figsize=(14, 10),
                     fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
-                    fname=f"PolymerRepresentation vs (Fingerprint-numerical) search heatmap_{score}")
+                    fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} search heatmap_{score} score")
     
 
 
 # for i in scores_list:
 #     create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
+models = ['XGBR','MLR','RF']
+for model in models: 
+    for target_folder in target_list:
+        for i in scores_list:
+            create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural_scaler')
+
+
 
 
 def create_scaler_result(target_dir:Path,
@@ -345,7 +369,7 @@ def create_scaler_result(target_dir:Path,
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
-target_list = ['target_Lp','target_Rg']
-for target_folder in target_list:
-    for i in scores_list:
-        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',score=i,var='stdev',data_type='scaler')
+# for target_folder in target_list:
+#     for i in scores_list:
+#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                              score=i,var='stdev',data_type='scaler')
