@@ -3,12 +3,12 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Define arrays for regressor types, targets, and models
 regressors=("RF" "MLR" "XGBR")
 targets=("Rg1 (nm)" "Lp (nm)")
-
+radii=(3 4 5 6) 
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
-    for radius in 3 4 5 6; do
+    for radius in ${radii[@]}; do
       for vector in "count" "binary"; do
         # Submitting the job using bsub
         bsub <<EOT
@@ -16,7 +16,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 35:05
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "ecfp_radius${radius}_vector${vector}"  # Job name
+#BSUB -J "ecfp_radius${radius}_vector${vector}"_${regressor}"_${target}"_  # Job name
 #BSUB -o ${output_dir}/ecfp_run_radius${radius}_vector${vector}.out
 #BSUB -e ${output_dir}/ecfp_err_radius${radius}_vector${vector}.out
 

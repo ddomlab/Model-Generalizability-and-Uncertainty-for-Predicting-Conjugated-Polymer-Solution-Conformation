@@ -22,6 +22,7 @@ oligomer_list =open_json(oligo_dir)
 w_data = pd.read_pickle(training_df_dir)
 edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
+
 TEST=False
 
 def main_ECFP_only(
@@ -48,23 +49,24 @@ def main_ECFP_only(
         "col_names": structural_features,
     }
 
-    scores, predictions = train_regressor(
-                            dataset=dataset,
-                            features_impute=None,
-                            special_impute=None,
-                            representation=representation,
-                            structural_features=structural_features,
-                            unroll=unroll_single_feat,
-                            numerical_feats=None,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            cutoff=cutoffs,
-                            imputer=None
-                        )
+    scores, predictions, data_shapes = train_regressor(
+                                        dataset=dataset,
+                                        features_impute=None,
+                                        special_impute=None,
+                                        representation=representation,
+                                        structural_features=structural_features,
+                                        unroll=unroll_single_feat,
+                                        numerical_feats=None,
+                                        target_features=target_features,
+                                        regressor_type=regressor_type,
+                                        transform_type=transform_type,
+                                        hyperparameter_optimization=hyperparameter_optimization,
+                                        cutoff=cutoffs,
+                                        imputer=None
+                                    )
     save_results(scores,
             predictions=predictions,
+            df_shapes=data_shapes,
             representation= representation,
             pu_type= oligomer_representation,
             radius= radius,
@@ -90,25 +92,26 @@ def main_MACCS_only(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
 
-    scores, predictions  = train_regressor(
-                            dataset=dataset,
-                            features_impute=None,
-                            special_impute=None,
-                            representation=representation,
-                            structural_features=structural_features,
-                            unroll=unroll_single_feat,
-                            numerical_feats=None,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            cutoff=cutoffs,
-                            imputer=None
-                        )
+    scores, predictions, data_shapes  = train_regressor(
+                                            dataset=dataset,
+                                            features_impute=None,
+                                            special_impute=None,
+                                            representation=representation,
+                                            structural_features=structural_features,
+                                            unroll=unroll_single_feat,
+                                            numerical_feats=None,
+                                            target_features=target_features,
+                                            regressor_type=regressor_type,
+                                            transform_type=transform_type,
+                                            hyperparameter_optimization=hyperparameter_optimization,
+                                            cutoff=cutoffs,
+                                            imputer=None
+                                        )
 
 
     save_results(scores,
                 predictions=predictions,
+                df_shapes=data_shapes,
                 representation= representation,
                 pu_type= oligomer_representation,
                 target_features=target_features,
@@ -132,24 +135,25 @@ def main_Mordred_only(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
 
-    scores, predictions  = train_regressor(
-                            dataset=dataset,
-                            features_impute=None,
-                            special_impute=None,
-                            representation=representation,
-                            structural_features=structural_features,
-                            unroll=unroll_single_feat,
-                            numerical_feats=None,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            cutoff=cutoffs,
-                            imputer=None
-                        )
+    scores, predictions, data_shapes  = train_regressor(
+                                    dataset=dataset,
+                                    features_impute=None,
+                                    special_impute=None,
+                                    representation=representation,
+                                    structural_features=structural_features,
+                                    unroll=unroll_single_feat,
+                                    numerical_feats=None,
+                                    target_features=target_features,
+                                    regressor_type=regressor_type,
+                                    transform_type=transform_type,
+                                    hyperparameter_optimization=hyperparameter_optimization,
+                                    cutoff=cutoffs,
+                                    imputer=None
+                                )
 
     save_results(scores,
                 predictions=predictions,
+                df_shapes=data_shapes,
                 representation= representation,
                 pu_type= oligomer_representation,
                 target_features=target_features,
@@ -160,25 +164,20 @@ def main_Mordred_only(
 
 
 
-training_df_dir: Path = DATASETS/ "training_dataset"/ "structure_wo_block_cp_scaler_dataset.pkl"
-oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
 
-oligomer_list =open_json(oligo_dir)
-w_data = pd.read_pickle(training_df_dir)
-edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 
 # for radius in radii:
 # for vector in vectors:
 # radii = [3, 4, 5, 6]
 # vectors = ['count', 'binary']
-def perform_model_ecfp(radius,vector):
+def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str):
     for oligo_type in edited_oligomer_list:
                 print(f'polymer unit :{oligo_type} with rep of ECFP{radius} and {vector}')
                 main_ECFP_only(
                                 dataset=w_data,
-                                regressor_type= 'RF',
-                                target_features= ['Lp (nm)'],
+                                regressor_type= regressor_type,
+                                target_features= [target],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 radius = radius,
@@ -189,12 +188,12 @@ def perform_model_ecfp(radius,vector):
 
 
 
-def perform_model_maccs():
+def perform_model_maccs(regressor_type:str,target:str):
     for oligo_type in edited_oligomer_list:
             main_MACCS_only(
                             dataset=w_data,
-                            regressor_type= 'RF',
-                            target_features= ['Lp (nm)'],
+                            regressor_type= regressor_type,
+                            target_features= [target],
                             transform_type= "Standard",
                             hyperparameter_optimization= True,
                             oligomer_representation=oligo_type,
@@ -203,12 +202,12 @@ def perform_model_maccs():
 
 
 # Rg1 (nm)
-def perform_model_mordred():
+def perform_model_mordred(regressor_type:str,target:str):
     for oligo_type in edited_oligomer_list:
                 main_Mordred_only(
                                 dataset=w_data,
-                                regressor_type= 'RF',
-                                target_features= ['Lp (nm)'],
+                                regressor_type= regressor_type,
+                                target_features= [target],
                                 transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 oligomer_representation=oligo_type,
@@ -222,37 +221,38 @@ def perform_model_mordred():
 # perform_model_mordred()
 
 def main():
-    parser = ArgumentParser(description="Run different models")
-    
-    parser.add_argument(
-        '--model',
-        choices=['mordred', 'maccs', 'ecfp'],
-        required=True,
-        help='Specify which model to run: mordred, maccs, or ecfp'
-    )
-    
-    parser.add_argument(
-        '--radius',
-        type=int,
-        help='Radius for ECFP (only used for ecfp model)'
-    )
-    
-    parser.add_argument(
-        '--vector',
-        choices=['count', 'binary'],
-        help='Vector type for ECFP (only used for ecfp model)'
-    )
-    
+    parser = ArgumentParser(description='Run models with specific parameters')
+
+    # Subparsers for different models
+    subparsers = parser.add_subparsers(dest='model', required=True, help='Choose a model to run')
+
+    # Parser for ECFP model
+    parser_ecfp = subparsers.add_parser('ecfp', help='Run the ECFP model')
+    parser_ecfp.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_ecfp.add_argument('--radius', type=int, choices=[3, 4, 5, 6], default=3, help='Radius for ECFP (default: 3)')
+    parser_ecfp.add_argument('--vector', choices=['count', 'binary'], default='count', help='Type of vector (default: count)')
+    parser_ecfp.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parser for MACCS model
+    parser_maccs = subparsers.add_parser('maccs', help='Run the MACCS numerical model')
+    parser_maccs.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_maccs.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parser for Mordred model
+    parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
+    parser_mordred.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_mordred.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+
+    # Parse arguments
     args = parser.parse_args()
 
-    if args.model == 'mordred':
-        perform_model_mordred()
+    # Run the appropriate model based on the parsed arguments
+    if args.model == 'ecfp':
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target)
     elif args.model == 'maccs':
-        perform_model_maccs()
-    elif args.model == 'ecfp':
-        if args.radius is None or args.vector is None:
-            parser.error('--radius and --vector are required for the ecfp model')
-        perform_model_ecfp(args.radius, args.vector)
+        perform_model_maccs(args.regressor_type, args.target)
+    elif args.model == 'mordred':
+        perform_model_mordred(args.regressor_type, args.target)
 
 if __name__ == '__main__':
     main()
