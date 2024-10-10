@@ -5,8 +5,6 @@ regressors=("RF" "NGB" "XGBR")
 targets=("Rg1 (nm)")
 models=("maccs" "mordred")
 
-# Define the output directory (make sure to create it beforehand)
-output_dir="/path/to/output"  # Change this to the appropriate directory
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
@@ -14,16 +12,16 @@ for regressor in "${regressors[@]}"; do
     for model in "${models[@]}"; do
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 35:05
+#BSUB -W 60:05
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "${model}_${regressor}"  # Job name
-#BSUB -o ${output_dir}/model_${model}_${target}_${regressor}_run.out
-#BSUB -e ${output_dir}/model_${model}_${target}_${regressor}_err.out
+#BSUB -J "${model}_${regressor}_structure_only"  # Job name
+#BSUB -o ${output_dir}/model_${model}_${target}_${regressor}_.out
+#BSUB -e ${output_dir}/model_${model}_${target}_${regressor}_.err
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_only.py $model --regressor_type $regressor --target "$target"
+python train_structure_numerical.py $model --regressor_type $regressor --target "$target"
 EOT
     done
   done

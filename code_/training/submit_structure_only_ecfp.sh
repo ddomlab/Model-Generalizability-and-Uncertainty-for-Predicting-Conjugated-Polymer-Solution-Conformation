@@ -13,16 +13,16 @@ for regressor in "${regressors[@]}"; do
         # Submitting the job using bsub
         bsub <<EOT
 #BSUB -n 8
-#BSUB -W 35:05
+#BSUB -W 60:05
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}" # Job name
-#BSUB -o ${output_dir}/ecfp_run_radius${radius}_vector${vector}_${target}_${regressor}_run.out
-#BSUB -e ${output_dir}/ecfp_err_radius${radius}_vector${vector}_${target}_${regressor}_err.out
+#BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}_structure_only" # Job name
+#BSUB -o ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_structure_only.out
+#BSUB -e ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_structure_only.err
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_numerical.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target"
+python train_structure_only.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target"
 EOT
       done
     done

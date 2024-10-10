@@ -25,6 +25,73 @@ TEST = False
 
 
 
+# def main_numerical_only(
+#     dataset: pd.DataFrame,
+#     regressor_type: str,
+#     target_features: list[str],
+#     transform_type: str,
+#     hyperparameter_optimization: bool,
+#     columns_to_impute: list[str],
+#     special_impute: str,
+#     numerical_feats: list[str],
+#     imputer:str,
+#     cutoff:str=None
+# ) -> None:
+
+
+#     scores, predictions,data_shapes  = train_regressor(
+#                                             dataset=dataset,
+#                                             features_impute=columns_to_impute,
+#                                             special_impute=special_impute,
+#                                             representation=None,
+#                                             structural_features=None,
+#                                             unroll=None,
+#                                             numerical_feats=numerical_feats,
+#                                             target_features=target_features,
+#                                             regressor_type=regressor_type,
+#                                             transform_type=transform_type,
+#                                             cutoff=cutoff,
+#                                             hyperparameter_optimization=hyperparameter_optimization,
+#                                             imputer=imputer
+#                                             )
+    
+#     save_results(scores,
+#                 predictions=predictions,
+#                 df_shapes=data_shapes,
+#                 imputer=imputer,
+#                 representation= None,
+#                 pu_type= None,
+#                 target_features=target_features,
+#                 regressor_type=regressor_type,
+#                 numerical_feats=numerical_feats,
+#                 cutoff=cutoffs,
+#                 TEST=TEST
+#                 )
+
+
+    # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    # special_column: str = "Mw (g/mol)"
+    # numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    # imputer = "mean"
+    # transform_type= "Standard"
+    # target_features= ['Lp (nm)']
+    
+# def perform_model_numerical(regressor_type:str):
+        
+# main_numerical_only(dataset=w_data,
+#                     regressor_type=regressor_type,
+#                     transform_type= "Standard",
+#                     hyperparameter_optimization= True,
+#                     target_features= ['Lp (nm)'],
+#                     columns_to_impute,
+#                     special_column,
+#                     numerical_feats,
+#                     imputer,
+#                     )
+
+
+# perform numerical and mordred
+
 def main_mordred_numerical(
     dataset: pd.DataFrame,
     regressor_type: str,
@@ -41,10 +108,11 @@ def main_mordred_numerical(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
     
-    columns_to_impute: list[str] = ["PDI"]
+    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     special_column: str = "Mw (g/mol)"
     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                              ]
+                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
+                                   "solvent dD", "solvent dH", "solvent dP"]
 
     imputer = "mean"
     scores, predictions,data_shapes  = train_regressor(
@@ -106,10 +174,11 @@ def main_maccs_numerical(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
 
-    columns_to_impute: list[str] = ["PDI"]
+    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     special_column: str = "Mw (g/mol)"
     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                              ]
+                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
+                                   'solvent dD', 'solvent dH', 'solvent dP']
     imputer = "mean"
 
     scores, predictions,data_shapes  = train_regressor(
@@ -183,10 +252,11 @@ def main_ecfp_numerical(
         "col_names": structural_features,
     }
 
-    columns_to_impute: list[str] = ["PDI"]
+    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     special_column: str = "Mw (g/mol)"
     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                                   ]
+                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
+                                   'solvent dD', 'solvent dH', 'solvent dP']
 
     imputer = "mean"
     scores, predictions, data_shapes  = train_regressor(
