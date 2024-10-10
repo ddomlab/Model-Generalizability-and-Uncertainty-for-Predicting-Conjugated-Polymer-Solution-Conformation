@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
 regressors=("RF" "NGB" "XGBR")
-targets=("Rg1 (nm)" "Lp (nm)")
+targets=("Rg1 (nm)")
 models=("maccs" "mordred")
 
 # Define the output directory (make sure to create it beforehand)
