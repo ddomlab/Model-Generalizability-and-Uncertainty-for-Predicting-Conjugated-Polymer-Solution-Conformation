@@ -1,0 +1,430 @@
+{
+  "6": {
+    "fit_time": [
+      6.245177507400513,
+      5.515992641448975,
+      4.973338603973389,
+      5.536420106887817,
+      6.1424994468688965
+    ],
+    "score_time": [
+      0.19544744491577148,
+      0.22468113899230957,
+      0.19798755645751953,
+      0.202653169631958,
+      0.19313859939575195
+    ],
+    "test_r": [
+      0.9763724143618749,
+      0.950338565236578,
+      0.8617145488002835,
+      0.967346636824232,
+      0.8527999975563648
+    ],
+    "test_r2": [
+      0.9511098331071525,
+      0.8947197237100821,
+      0.7152908653091601,
+      0.9349066151142974,
+      0.7250096021392991
+    ],
+    "test_rmse": [
+      -36.496886109523246,
+      -38.83706935964065,
+      -32.87514498641642,
+      -35.15220992122293,
+      -36.492024938562224
+    ],
+    "test_mae": [
+      -20.846335916379697,
+      -21.879390408174665,
+      -14.377816488280466,
+      -19.41411737514178,
+      -22.11677355229006
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 205,
+      "regressor__learning_rate": 0.1,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "13": {
+    "fit_time": [
+      3.600466251373291,
+      3.6534345149993896,
+      3.5235395431518555,
+      3.5128254890441895,
+      3.582059144973755
+    ],
+    "score_time": [
+      0.15686845779418945,
+      0.15363049507141113,
+      0.16467833518981934,
+      0.1738295555114746,
+      0.15862202644348145
+    ],
+    "test_r": [
+      0.6911728320308025,
+      0.9573033121853372,
+      0.9842162002189033,
+      0.960405550946846,
+      0.9196555238633676
+    ],
+    "test_r2": [
+      0.20622898876316353,
+      0.9044353304778046,
+      0.9683468427681613,
+      0.9189009525067294,
+      0.7959930617442718
+    ],
+    "test_rmse": [
+      -44.55324990284136,
+      -45.402518954239476,
+      -27.986936548334175,
+      -34.93181085000476,
+      -34.712785300962885
+    ],
+    "test_mae": [
+      -22.51539949515496,
+      -25.202001653584237,
+      -17.8571966562174,
+      -20.43005252172153,
+      -21.41814411768127
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 162,
+      "regressor__learning_rate": 0.03572754135249605,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "42": {
+    "fit_time": [
+      5.537128925323486,
+      5.475680828094482,
+      5.1340742111206055,
+      5.350719928741455,
+      6.280943870544434
+    ],
+    "score_time": [
+      0.2222299575805664,
+      0.21524262428283691,
+      0.221602201461792,
+      0.21192526817321777,
+      0.19568586349487305
+    ],
+    "test_r": [
+      0.9572592121186221,
+      0.8436593433871129,
+      0.9746499793907483,
+      0.9684068768500792,
+      0.9129823873647043
+    ],
+    "test_r2": [
+      0.9124835437147969,
+      0.6831754238720262,
+      0.9398843444265171,
+      0.9364944602216791,
+      0.7921513229398343
+    ],
+    "test_rmse": [
+      -35.562128480919775,
+      -41.82702020229249,
+      -42.190027373643176,
+      -33.08559016921802,
+      -28.936183415690508
+    ],
+    "test_mae": [
+      -21.28382133069959,
+      -22.80831925508539,
+      -23.616457626158972,
+      -17.798459384807252,
+      -15.661989928988207
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 212,
+      "regressor__learning_rate": 0.09133298957492197,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "69": {
+    "fit_time": [
+      30.51334524154663,
+      28.227516651153564,
+      25.76224708557129,
+      30.89406681060791,
+      31.102773427963257
+    ],
+    "score_time": [
+      0.8251299858093262,
+      0.8327322006225586,
+      0.8486931324005127,
+      0.7925252914428711,
+      0.7795360088348389
+    ],
+    "test_r": [
+      0.9816436859031303,
+      0.8529578412375027,
+      0.7273530001281003,
+      0.8626060729566621,
+      0.9765112160184488
+    ],
+    "test_r2": [
+      0.9462652159537017,
+      0.6053182522852771,
+      0.31534600026598325,
+      0.7417128296786907,
+      0.9503761452438854
+    ],
+    "test_rmse": [
+      -31.887744225185447,
+      -98.45867291188158,
+      -51.57318426743869,
+      -34.40317388205313,
+      -29.91000010397234
+    ],
+    "test_mae": [
+      -16.88587210521054,
+      -37.41114029188328,
+      -25.476266340056245,
+      -19.20263456491386,
+      -18.55336126306257
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 1050,
+      "regressor__learning_rate": 0.04065639446505724,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "420": {
+    "fit_time": [
+      52.11958646774292,
+      48.19381237030029,
+      50.22081971168518,
+      50.06451487541199,
+      49.70512413978577
+    ],
+    "score_time": [
+      1.2407951354980469,
+      1.2994508743286133,
+      1.2191379070281982,
+      1.1906607151031494,
+      1.1908211708068848
+    ],
+    "test_r": [
+      0.9210292005180607,
+      0.9758681890398574,
+      0.9473930647724587,
+      0.8604101226922564,
+      0.9798594147556661
+    ],
+    "test_r2": [
+      0.821053041332861,
+      0.945317687732111,
+      0.8947939871261926,
+      0.7401565254579325,
+      0.9580868652671777
+    ],
+    "test_rmse": [
+      -28.916604732264187,
+      -37.35156152499327,
+      -44.69658226227397,
+      -38.31427921645611,
+      -25.87918773407361
+    ],
+    "test_mae": [
+      -15.275166614242064,
+      -20.11433811855594,
+      -23.17011260095994,
+      -22.999799354485138,
+      -14.303245553772957
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 2000,
+      "regressor__learning_rate": 0.030991567644399726,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "1234567890": {
+    "fit_time": [
+      6.030905246734619,
+      7.107451677322388,
+      6.541167497634888,
+      5.525175333023071,
+      5.5126190185546875
+    ],
+    "score_time": [
+      0.20602726936340332,
+      0.21225905418395996,
+      0.19077014923095703,
+      0.22180509567260742,
+      0.2206113338470459
+    ],
+    "test_r": [
+      0.8910542278957648,
+      0.9579718024596475,
+      0.949048983564577,
+      0.9617562294124302,
+      0.9505203881399381
+    ],
+    "test_r2": [
+      0.7578444738444048,
+      0.9138285935613558,
+      0.9004037546254413,
+      0.9215039052690918,
+      0.9022299304386557
+    ],
+    "test_rmse": [
+      -33.03510534440284,
+      -36.813857529928086,
+      -39.202886154280876,
+      -38.391816573486736,
+      -41.0114916799588
+    ],
+    "test_mae": [
+      -19.24893003013171,
+      -18.99667269681185,
+      -25.43165100890742,
+      -18.072217873794568,
+      -25.18158709141637
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 264,
+      "regressor__learning_rate": 0.06924488410339631,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "473129": {
+    "fit_time": [
+      36.022324085235596,
+      36.54517936706543,
+      33.68362998962402,
+      34.37115836143494,
+      36.31499671936035
+    ],
+    "score_time": [
+      0.984612226486206,
+      0.988943338394165,
+      0.985551118850708,
+      0.9792191982269287,
+      0.9493210315704346
+    ],
+    "test_r": [
+      0.9596661246299504,
+      0.9568496678791214,
+      0.9827775832895707,
+      0.8620680294106581,
+      0.8595907052388895
+    ],
+    "test_r2": [
+      0.9155139232320252,
+      0.9150135350587184,
+      0.9497142591249997,
+      0.7376846646094728,
+      0.7376111304387188
+    ],
+    "test_rmse": [
+      -36.34193162637355,
+      -38.70745140596147,
+      -35.079304138385034,
+      -42.76465547827935,
+      -39.651702000127884
+    ],
+    "test_mae": [
+      -18.34246979471593,
+      -22.585243343944683,
+      -19.843134408649224,
+      -23.702228351777165,
+      -21.566399082664383
+    ],
+    "best_params": {
+      "check_inverse": true,
+      "func": null,
+      "inverse_func": null,
+      "regressor__natural_gradient": true,
+      "regressor__n_estimators": 1400,
+      "regressor__learning_rate": 0.07168786154491853,
+      "regressor__minibatch_frac": 1,
+      "regressor__col_sample": 1.0,
+      "regressor__verbose": false,
+      "transformer__memory": null,
+      "transformer__verbose": false,
+      "transformer__y scaler__copy": true,
+      "transformer__y scaler__with_mean": true,
+      "transformer__y scaler__with_std": true
+    }
+  },
+  "r_avg": 0.9198633980308157,
+  "r_stdev": 0.06947469280204736,
+  "r2_avg": 0.8242544466103334,
+  "r2_stdev": 0.16893318372303223,
+  "rmse_avg": 38.61236512300825,
+  "rmse_stdev": 11.579669928410032,
+  "mae_avg": 20.959678462866325,
+  "mae_stdev": 4.145765438524858
+}
