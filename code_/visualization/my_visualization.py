@@ -337,7 +337,7 @@ def create_structural_scaler_result(target_dir:Path,
 
 # for i in scores_list:
 #     create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
-models = ['XGBR','MLR','RF']
+models = ['XGBR','MLR','RF','NGB']
 for model in models: 
     for target_folder in target_list:
         for i in scores_list:
@@ -369,7 +369,7 @@ def create_scaler_result(target_dir:Path,
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
-# for target_folder in target_list:
-#     for i in scores_list:
-#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                              score=i,var='stdev',data_type='scaler')
+for target_folder in target_list:
+    for i in scores_list:
+        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                             score=i,var='stdev',data_type='scaler')
