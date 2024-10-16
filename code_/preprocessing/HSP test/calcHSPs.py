@@ -6,7 +6,9 @@
 # input: MDL .mol files
 # output: delta(d) delta(p) delta(h) Vm are printed out in this order
 # units: MPa**1/2 and cc/mol
-
+import pandas as pd
+import numpy as np
+from pathlib import Path
 
 import sys, os, fileinput
 from math import sqrt
@@ -254,6 +256,7 @@ def get_polar_groups(mol):
     
 def get_HSPp(mol):
     d = get_polar_groups(mol)
+    print(d)
     if set(d) - set(params_p): return None
     eP = sum(params_p[k]*d[k] for k in d)
     return eP
@@ -306,6 +309,7 @@ def get_dic_h(mol):
 
 def get_HSPh(mol):
     d = get_dic_h(mol)
+    print()
     if set(d) - set(params_h): return None
     eH = sum(params_h[k]*d[k] for k in d)
     return eH
@@ -319,32 +323,84 @@ def tostr(energy, volume=None):
    
 # MAIN PROGRAM STARTS HERE
 
-if __name__ == "__main__":
-    for entry in fileinput.input():
-        molsrc = entry.rstrip()
-        # read molecule
-        if not os.path.isfile(molsrc):
-            mol = Chem.MolFromSmiles(molsrc)
-        else:
-            mol = Chem.MolFromMolFile(molsrc)
-        molname = molsrc.split("/")[-1].replace(".mol", "")
-        if mol is None:
-            print("%s => None" %molname)
-            continue
-        # compute molar volume and refractivity
+HERE: Path = Path(__file__).resolve().parent
+DATASETS: Path = HERE.parent.parent.parent / 'datasets'
+RAW_dir = DATASETS/ 'raw'
+
+
+smiles_df = pd.read_excel(RAW_dir/'SMILES_to_BigSMILES_Conversion_wo_block_copolymer_with_HSPs.xlsx')
+eval_hsp_df = smiles_df.dropna(subset=['dD']).reset_index()
+# print(eval_hsp_df[['SMILES','dD',   'dP'   ,'dH']].head())
+
+
+def calculate_theoretical_hsp(df):
+    new_hsp = []
+
+    for smiles in df['SMILES']:
+        mol = Chem.MolFromSmiles(smiles)
+        
         Vm, RD = get_Vm_RD(mol)
-        # compute D-component of HSP
+        
+        # Compute D-component (dD)
         if Vm is None or RD is None:
             hspD = None
         else:
-            hspD = sqrt(93.8 + (2016 + 75044./Vm) * (RD/Vm)**2)
-        # compute P-component of HSP
+            hspD = sqrt(93.8 + (2016 + 75044.0 / Vm) * (RD / Vm) ** 2)
+
+        # Compute P-component (dP)
         eP = get_HSPp(mol)
+        print(eP)
+        # Compute H-component (dH)
         eH = get_HSPh(mol)
-        # convert energies to HSP
-        hspD, hspP, hspH =  tostr(hspD,0), tostr(eP,Vm), tostr(eH,Vm)
-        if Vm is not None:
-            line = molname.ljust(12) + hspD + hspP + hspH + " %7.1f" %Vm
-        else:
-            line = molname.ljust(12) + hspD + hspP + hspH + "   None"
-        print(line)
+        
+        # Convert energies to HSPs
+        hspD = tostr(hspD, 0)
+        hspP = tostr(eP, Vm)
+        hspH = tostr(eH, Vm)
+        
+        # Append new values to the list
+        new_hsp.append({'theoretical_dD': hspD, 'theoretical_dP': hspP, 'theoretical_dH': hspH})
+
+    # Create a new DataFrame from the calculated values
+    new_values_df = pd.DataFrame(new_hsp)
+    
+    # Concatenate the original and new values DataFrames
+    df = pd.concat([df.reset_index(drop=True), new_values_df], axis=1)
+    
+    return df
+
+
+
+if __name__ == "__main__":
+    eval_hsp_df = calculate_theoretical_hsp(eval_hsp_df)
+    eval_hsp_df.to_csv(HERE/'new_test_hsp.csv')
+    
+    
+    # for entry in fileinput.input():
+    #     molsrc = entry.rstrip()
+    #     # read molecule
+    #     if not os.path.isfile(molsrc):
+    #         mol = Chem.MolFromSmiles(molsrc)
+    #     else:
+    #         mol = Chem.MolFromMolFile(molsrc)
+    #     molname = molsrc.split("/")[-1].replace(".mol", "")
+    #     if mol is None:
+    #         print("%s => None" %molname)
+    #         continue
+    #     # compute molar volume and refractivity
+    #     Vm, RD = get_Vm_RD(mol)
+    #     # compute D-component of HSP
+    #     if Vm is None or RD is None:
+    #         hspD = None
+    #     else:
+    #         hspD = sqrt(93.8 + (2016 + 75044./Vm) * (RD/Vm)**2)
+    #     # compute P-component of HSP
+    #     eP = get_HSPp(mol)
+    #     eH = get_HSPh(mol)
+    #     # convert energies to HSP
+    #     hspD, hspP, hspH =  tostr(hspD,0), tostr(eP,Vm), tostr(eH,Vm)
+    #     if Vm is not None:
+    #         line = molname.ljust(12) + hspD + hspP + hspH + " %7.1f" %Vm
+    #     else:
+    #         line = molname.ljust(12) + hspD + hspP + hspH + "   None"
+    #     print(line)
