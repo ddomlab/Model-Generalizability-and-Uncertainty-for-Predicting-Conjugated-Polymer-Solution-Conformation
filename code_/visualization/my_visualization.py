@@ -23,7 +23,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = ['target_Rg']
-models = ['XGBR','MLR','RF','NGB']
+models = ['XGBR','RF','NGB']
 
 
 
@@ -65,8 +65,8 @@ def get_results_from_file(
             model:str = file_path.name.split("_")[1]
         # for structural only
         else:
-            features:str = "-".join(file_path.name.split("_")[0]).replace("(", "").replace(")", "")
-            model:str = file_path.name.split("_")[-2]
+            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            model:str = file_path.name.split("_")[1]
 
        
         with open(file_path, "r") as f:
@@ -302,9 +302,14 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 # feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
 
-# print(feat,model, av ,std)
 
-# def create_structural_scaler_result() -> None:
+
+for model in models: 
+    for target_folder in target_list:
+        for i in scores_list:
+            create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural')
+
 
 
 
@@ -335,8 +340,6 @@ def create_structural_scaler_result(target_dir:Path,
     
 
 
-# for i in scores_list:
-#     create_structural_scaler_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural_scaler')
 
 # for model in models: 
 #     for target_folder in target_list:
@@ -370,7 +373,7 @@ def create_scaler_result(target_dir:Path,
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
-for target_folder in target_list:
-    for i in scores_list:
-        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                             score=i,var='stdev',data_type='scaler')
+# for target_folder in target_list:
+#     for i in scores_list:
+#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                              score=i,var='stdev',data_type='scaler')
