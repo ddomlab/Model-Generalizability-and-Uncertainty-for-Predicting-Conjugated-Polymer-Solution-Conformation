@@ -13,7 +13,7 @@ for regressor in "${regressors[@]}"; do
         # Submitting the job using bsub
         bsub <<EOT
 #BSUB -n 8
-#BSUB -W 60:05
+#BSUB -W 120:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}_polysize" # Job name
