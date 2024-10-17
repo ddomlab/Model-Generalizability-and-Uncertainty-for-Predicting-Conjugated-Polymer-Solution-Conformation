@@ -16,7 +16,7 @@ for regressor in "${regressors[@]}"; do
       
         bsub <<EOT
 #BSUB -n 8
-#BSUB -W 70:05
+#BSUB -W 5:00
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}_${oligo_rep}_structure_only" 
