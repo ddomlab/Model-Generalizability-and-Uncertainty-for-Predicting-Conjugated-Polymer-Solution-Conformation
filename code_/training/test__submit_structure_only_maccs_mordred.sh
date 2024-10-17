@@ -20,9 +20,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 70:05
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "${oligo_rep}_${target}_${model}_${regressor}_structure_only"  
-#BSUB -o ${output_dir}/model_${model}_${target}_${regressor}_${oligo_rep}_structure_only.out
-#BSUB -e ${output_dir}/model_${model}_${target}_${regressor}_${oligo_rep}_structure_only.err
+#BSUB -J "${oligo_rep}_${target}_${model}_${regressor}_test_structure_only"  
+#BSUB -o test.out
+#BSUB -e test.err
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
