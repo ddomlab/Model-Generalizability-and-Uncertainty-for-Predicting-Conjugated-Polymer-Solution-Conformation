@@ -17,7 +17,7 @@ for regressor in "${regressors[@]}"; do
       
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 70:05
+#BSUB -W 5:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "${oligo_rep}_${target}_${model}_${regressor}_test_structure_only"  
