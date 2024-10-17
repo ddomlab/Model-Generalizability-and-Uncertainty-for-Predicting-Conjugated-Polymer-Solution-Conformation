@@ -10,9 +10,9 @@ vectors=("count" "binary")
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
-    for radius in ${radii[@]}; do
-      for vector in ${vectors[@]}; do
-        for oligo_rep in ${poly_representations[@]}; do
+    for radius in "${radii[@]}"; do
+      for vector in "${vectors[@]}"; do
+        for oligo_rep in "${poly_representations[@]}"; do
       
         bsub <<EOT
 #BSUB -n 8
