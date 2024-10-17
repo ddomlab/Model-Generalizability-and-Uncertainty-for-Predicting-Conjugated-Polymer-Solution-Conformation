@@ -128,14 +128,14 @@ regressor_search_space = {
     },
     "NGB": {
         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
-        "regressor__regressor__learning_rate": Real(1e-4, 1e-1, prior="log-uniform"),
+        "regressor__regressor__learning_rate": Real(1e-6, 1e-3, prior="log-uniform"),
         "regressor__regressor__minibatch_frac": [1],
         # "regressor__regressor__minibatch_size":   Integer(1, 100),
         #  "regressor__regressor__Base":             Categorical(["DecisionTreeRegressor", "Ridge", "Lasso",
         #                                            "KernelRidge", "SVR"]),
         "regressor__regressor__natural_gradient": [True],
         "regressor__regressor__verbose": [False],
-        "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
+        # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
     },
 
 }

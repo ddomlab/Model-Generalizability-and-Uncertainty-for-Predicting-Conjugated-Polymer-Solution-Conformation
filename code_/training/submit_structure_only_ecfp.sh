@@ -3,9 +3,9 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Define arrays for regressor types, targets, and models
 regressors=("NGB")
 targets=("Rg1 (nm)")
-radii=(3 4 5 6) 
-poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
-vectors=("count" "binary")
+radii=(6) 
+poly_representations=('RRU Dimer')
+vectors=("binary")
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
