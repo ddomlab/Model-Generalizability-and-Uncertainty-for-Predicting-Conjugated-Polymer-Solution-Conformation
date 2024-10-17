@@ -13,7 +13,7 @@ poly_representations=("RRU Monomer")
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for model in "${models[@]}"; do
-      for oligo_rep in ${poly_representations[@]}; do
+      for oligo_rep in "${poly_representations[@]}"; do
       
       bsub <<EOT
 #BSUB -n 8
