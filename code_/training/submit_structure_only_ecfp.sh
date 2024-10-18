@@ -25,7 +25,7 @@ for regressor in "${regressors[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_only.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target" --oligo_type $oligo_rep
+python train_structure_only.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target" --oligo_type "$oligo_rep"
 EOT
         done
       done

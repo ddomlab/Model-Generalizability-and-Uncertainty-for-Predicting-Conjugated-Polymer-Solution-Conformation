@@ -164,7 +164,6 @@ def _prepare_data(
                                                     scaler=transform_type)
     
     preprocessor.set_output(transform="pandas")
-    print(preprocessor)
     score,predication= run(
                             X,
                             y,

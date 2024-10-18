@@ -177,7 +177,7 @@ def main_Mordred_only(
 # vectors = ['count', 'binary']
 def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,oligo_type:str):
     # for oligo_type in edited_oligomer_list:
-                print(f'polymer unit :{oligo_type} with rep of ECFP{radius} and {vector}')
+                print(oligo_type)
                 main_ECFP_only(
                                 dataset=w_data,
                                 regressor_type= regressor_type,
@@ -194,6 +194,7 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,olig
 
 def perform_model_maccs(regressor_type:str,target:str,oligo_type:str):
     # for oligo_type in edited_oligomer_list:
+            print(oligo_type)
             main_MACCS_only(
                             dataset=w_data,
                             regressor_type= regressor_type,
@@ -207,7 +208,7 @@ def perform_model_maccs(regressor_type:str,target:str,oligo_type:str):
 
 # Rg1 (nm)
 def perform_model_mordred(regressor_type:str,target:str,oligo_type:str):
-    # for oligo_type in ['RRU Monomer', 'RRU Dimer', 'RRU Trimer']:
+                print(oligo_type)
                 main_Mordred_only(
                                 dataset=w_data,
                                 regressor_type= regressor_type,

@@ -3,8 +3,8 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Define arrays for regressor types, targets, and models
 regressors=("NGB")
 targets=("Rg1 (nm)")
-models=("mordred")
-poly_representations=('RRU Trimer')
+models=("maccs" "mordred")
+poly_representations=('RRU Monomer' 'RRU Dimer' 'RRU Trimer')
 
 
 
@@ -17,12 +17,12 @@ for regressor in "${regressors[@]}"; do
       
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 5:01
+#BSUB -W 60:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "test_structure_only_mordred"  
-#BSUB -o test_structure_only_mordred.out
-#BSUB -e test_structure_only_mordred.err
+#BSUB -J "structure_only_mordred_NGB"  
+#BSUB -o "${output_dir}/structure_only_mordred_NGB.out"
+#BSUB -e "${output_dir}/test_structure_only_mordred_NGB.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
