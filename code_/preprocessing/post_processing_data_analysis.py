@@ -42,7 +42,7 @@ print("full size of the dataset without additives and no nan in hsp:  ", len(df_
 
 print("difference in the dataset additives with and w/o nan in hsp ", len(df_missing_poly_hsp)- len(df_missing_poly_hsp[~df_missing_poly_hsp['polymer dH'].isnull()]))
 
-df_missing_poly_hsp_unique_poly = unique_polymer_dataset[['Name','dD',	'dP',	'dH']].copy()
+df_missing_poly_hsp_unique_poly = unique_polymer_dataset[['Name','SMILES','dD', 'dP','dH']].copy()
 
 df_without_hsp = df_missing_poly_hsp_unique_poly[df_missing_poly_hsp_unique_poly['dD'].isna()].reset_index(drop=True)
 df_without_hsp.to_csv(DATASETS/'raw'/'polymer_without_hsp.csv',index=False)

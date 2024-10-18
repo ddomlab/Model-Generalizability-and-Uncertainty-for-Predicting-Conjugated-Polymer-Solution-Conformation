@@ -19,9 +19,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 5:00
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}_${oligo_rep}_structure_only" 
-#BSUB -o ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_${oligo_rep}_structure_only.out
-#BSUB -e ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_${oligo_rep}_structure_only.err
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_${oligo_rep}_structure_only.out"
+#BSUB -e "${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_${oligo_rep}_structure_only.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
