@@ -26,8 +26,6 @@ TEST=False
 
 
 
-
-
 def main_ECFP_only(
     dataset: pd.DataFrame,
     regressor_type: str,

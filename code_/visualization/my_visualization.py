@@ -341,11 +341,11 @@ def create_structural_scaler_result(target_dir:Path,
 
 
 
-for model in models: 
-    for target_folder in target_list:
-        for i in scores_list:
-            create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,var='stdev',data_type='structural_scaler')
+# for model in models: 
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                             score=i,var='stdev',data_type='structural_scaler')
 
 
 
