@@ -51,9 +51,10 @@ class NumpyArrayEncoder(json.JSONEncoder):
             return super(NumpyArrayEncoder, self).default(obj)
 
 
-def _save(scores: Dict[int, Dict[str, float]],
+def _save(scores: Optional[Dict[int, Dict[str, float]]],
           predictions: Optional[pd.DataFrame],
-          df_shapes:Dict,
+          df_shapes: Optional[Dict],
+          generalizability_score:Optional[Dict],
           results_dir: Path,
           regressor_type: str,
         #   hyperparameter_optimization: Optional[bool],
@@ -93,27 +94,37 @@ def _save(scores: Dict[int, Dict[str, float]],
     
 
     print("Filename:", fname_root)
+    if scores:
+        scores_file: Path = results_dir / f"{fname_root}_scores.json"
+        with open(scores_file, "w") as f:
+            json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
+        print(scores_file)
 
-    scores_file: Path = results_dir / f"{fname_root}_scores.json"
-    with open(scores_file, "w") as f:
-        json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
+    if predictions:
+        predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
+        predictions.to_csv(predictions_file, index=False)
+        print(predictions_file)
 
-    predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
-    predictions.to_csv(predictions_file, index=False)
     
-    data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
-    with open(data_shape_file, "w") as f:
-        json.dump(df_shapes, f, cls=NumpyArrayEncoder, indent=2)
+    if df_shapes:
+        data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
+        with open(data_shape_file, "w") as f:
+            json.dump(df_shapes, f, cls=NumpyArrayEncoder, indent=2)
+        print(data_shape_file)
+    
+    if generalizability_score:
+        generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizibility_scores.json"
+        with open(generalizibility_scores_file, "w") as f:
+            json.dump(generalizability_score, f, cls=NumpyArrayEncoder, indent=2)
+        print(generalizibility_scores_file)
+    
+    print('Done Saving scores!')
 
-    print("Saved results to:")
-    print(scores_file)
-    print(predictions_file)
-    print(predictions_file)
 
-
-def save_results(scores: dict,
-                 predictions: pd.DataFrame,
-                 df_shapes:Dict,
+def save_results(scores:Optional[Dict[int, Dict[str, float]]],
+                 predictions: Optional[pd.DataFrame],
+                 df_shapes:Optional[Dict],
+                 generalizability_score:Optional[Dict],
                  target_features: list,
                  regressor_type: str,
                  TEST : bool =True,
@@ -147,9 +158,11 @@ def save_results(scores: dict,
     # if subspace_filter:
     #     results_dir = results_dir / f"subspace_{subspace_filter}"
 
-    _save(scores, predictions,
+    _save(scores=scores,
+          predictions=predictions,
           results_dir=results_dir,
           df_shapes=df_shapes,
+          generalizability_score=generalizability_score,
           regressor_type=regressor_type,
           imputer=imputer,
           representation= representation,

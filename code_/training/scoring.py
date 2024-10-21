@@ -8,10 +8,12 @@ from sklearn.metrics import (
     make_scorer,
     mean_absolute_error,
     mean_squared_error,
+    root_mean_squared_error,
     r2_score,
 )
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
+from sklearn.model_selection import learning_curve
 
 
 
@@ -39,7 +41,7 @@ def rmse_score(y_test: pd.Series, y_pred: pd.Series) -> float:
     Returns:
         Root mean squared error.
     """
-    return mean_squared_error(y_test, y_pred, squared=False)
+    return root_mean_squared_error(y_test, y_pred)
 
 
 # def np_r(y_true: pd.Series, y_pred: np.ndarray) -> float:
@@ -108,34 +110,89 @@ def process_scores(
             
         return scores
 
+
+def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
+     # Initialize arrays for aggregation
+    train_scores_mean = None
+    train_scores_std = None
+    test_scores_mean = None
+    test_scores_std = None
+
+    # Loop over seeds and accumulate results
+    for _, results in score.items():
+        if train_scores_mean is None:
+            # Initialize mean and std with the first seed's results
+            train_scores_mean = results["train_scores"].mean(axis=1, keepdims=True)
+            train_scores_std = results["train_scores"].std(axis=1, keepdims=True)
+            test_scores_mean = results["test_scores"].mean(axis=1, keepdims=True)
+            test_scores_std = results["test_scores"].std(axis=1, keepdims=True)
+        else:
+            # Accumulate the means and stds
+            train_scores_mean += results["train_scores"].mean(axis=1, keepdims=True)
+            train_scores_std += results["train_scores"].std(axis=1, keepdims=True)
+            test_scores_mean += results["test_scores"].mean(axis=1, keepdims=True)
+            test_scores_std += results["test_scores"].std(axis=1, keepdims=True)
+
+    # Calculate the averages over the number of seeds
+    num_seeds = len(score)
+    score['aggregated_results']= {
+        "train_sizes": results["train_sizes"],
+        "train_sizes_fraction": results["train_sizes_fraction"],
+        "train_scores_mean": train_scores_mean / num_seeds,
+        "train_scores_std": train_scores_std / num_seeds,
+        "test_scores_mean": test_scores_mean / num_seeds,
+        "test_scores_std": test_scores_std / num_seeds,
+    }
+
+    return score
+
+
 def cross_validate_regressor(
     regressor, X, y, cv
     ) -> tuple[dict[str, float], np.ndarray]:
 
-      scores: dict[str, float] = cross_validate(
-          regressor,
-          X,
-          y,
-          cv=cv,
-          scoring={
-              #r pearson is added
-              "r": r_scorer,
-              "r2": r2_scorer,
-              "rmse": rmse_scorer,
-              "mae": mae_scorer,
-          },
-          # return_estimator=True,
-          n_jobs=-1,
-      )
+        scores: dict[str, float] = cross_validate(
+            regressor,
+            X,
+            y,
+            cv=cv,
+            scoring={
+                #r pearson is added
+                "r": r_scorer,
+                "r2": r2_scorer,
+                "rmse": rmse_scorer,
+                "mae": mae_scorer,
+            },
+            # return_estimator=True,
+            n_jobs=-1,
+        )
 
-      predictions: np.ndarray = cross_val_predict(
-          regressor,
-          X,
-          y,
-          cv=cv,
-          n_jobs=-1,
-      )
-      return scores, predictions
+        predictions: np.ndarray = cross_val_predict(
+            regressor,
+            X,
+            y,
+            cv=cv,
+            n_jobs=-1,
+        )
+        return scores, predictions
+
+
+def get_incremental_split(
+        regressor, X, y, cv,steps:int 
+    ) -> tuple[dict[str, float], np.ndarray]:
+     
+    train_sizes, train_scores, test_scores = learning_curve(
+                                                regressor,
+                                                X,
+                                                y,
+                                                cv=cv,
+                                                n_jobs=-1,
+                                                train_sizes=np.linspace(0.1, 1, int(0.9 / steps)),
+                                                scoring="r2"
+                                                )
+
+ 
+    return train_sizes, train_scores, test_scores
 
 
 def get_score_func(score: str, output: str) -> Callable:
