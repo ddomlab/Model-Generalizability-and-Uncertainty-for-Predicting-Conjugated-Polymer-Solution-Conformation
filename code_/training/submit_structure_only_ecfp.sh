@@ -16,7 +16,7 @@ for regressor in "${regressors[@]}"; do
       
         bsub <<EOT
 #BSUB -n 8
-#BSUB -W 5:00
+#BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "ecfp_radius_tructure_only" 
