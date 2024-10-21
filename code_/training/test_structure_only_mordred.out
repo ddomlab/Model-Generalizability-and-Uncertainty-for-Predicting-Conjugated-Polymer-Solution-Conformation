@@ -1,0 +1,258 @@
+Job <835390> is submitted to default queue <single_chassis>.
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c034n03>
+Subject: Job 835389: <test_structure_only_mordred> in cluster <Hazel> Done
+
+Job <test_structure_only_mordred> was submitted from host <login01> by user <sdehgha2> in cluster <Hazel> at Fri Oct 18 12:17:37 2024
+Job was executed on host(s) <4*c034n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri Oct 18 12:17:38 2024
+                            <4*c039n03>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training> was used as the working directory.
+Started at Fri Oct 18 12:17:38 2024
+Terminated at Fri Oct 18 12:17:38 2024
+Results reported at Fri Oct 18 12:17:38 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
+# Define arrays for regressor types, targets, and models
+regressors=("NGB")
+targets=("Rg1 (nm)")
+models=("mordred")
+poly_representations=('RRU Trimer')
+
+
+
+
+# Loop through each combination of regressor, target, and model
+for regressor in "${regressors[@]}"; do
+  for target in "${targets[@]}"; do
+    for model in "${models[@]}"; do
+      for oligo_rep in "${poly_representations[@]}"; do
+      
+      bsub <<EOT
+#BSUB -n 8
+#BSUB -W 5:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "test_structure_only_mordred"  
+#BSUB -o test_structure_only_mordred.out
+#BSUB -e test_structure_only_mordred.err
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python train_structure_only.py $model --regressor_type $regressor --target "$target" --oligo_type "$oligo_rep"
+EOT
+      done
+    done
+  done
+done
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.11 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   5 sec.
+    Turnaround time :                            1 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <test_structure_only_mordred.err> for stderr output of this job.
+
+Pipeline(steps=[('scaling features',
+                 ColumnTransformer(remainder='passthrough',
+                                   transformers=[('structural_scaling',
+                                                  StandardScaler(),
+                                                  ['RRU Trimer Mordred ABC',
+                                                   'RRU Trimer Mordred ABCGG',
+                                                   'RRU Trimer Mordred nAcid',
+                                                   'RRU Trimer Mordred nBase',
+                                                   'RRU Trimer Mordred '
+                                                   'nAromAtom',
+                                                   'RRU Trimer Mordred '
+                                                   'nAromBond',
+                                                   'RRU Trimer Mordred nAtom',
+                                                   'RRU Trimer Mordred '
+                                                   'nHeavyAtom',
+                                                   'RRU Trimer...
+                                                   'RRU Trimer Mordred nBr',
+                                                   'RRU Trimer Mordred nX',
+                                                   'RRU Trimer Mordred ATS0dv',
+                                                   'RRU Trimer Mordred ATS1dv',
+                                                   'RRU Trimer Mordred ATS2dv',
+                                                   'RRU Trimer Mordred ATS3dv',
+                                                   'RRU Trimer Mordred ATS4dv',
+                                                   'RRU Trimer Mordred ATS5dv',
+                                                   'RRU Trimer Mordred ATS6dv',
+                                                   'RRU Trimer Mordred ATS7dv',
+                                                   'RRU Trimer Mordred ATS8dv',
+                                                   'RRU Trimer Mordred ATS0d',
+                                                   'RRU Trimer Mordred ATS1d', ...])],
+                                   verbose_feature_names_out=False))])
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.00034722275305285695), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1153), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1027), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1231), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0005575437117795021), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 988), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0006152775319151538), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0005566279825085558), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0006379970406705961), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0005825015688905741), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c034n03>
+Subject: Job 835390: <test_structure_only_mordred> in cluster <Hazel> Exited
+
+Job <test_structure_only_mordred> was submitted from host <c034n03> by user <sdehgha2> in cluster <Hazel> at Fri Oct 18 12:17:38 2024
+Job was executed on host(s) <4*c034n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri Oct 18 12:18:39 2024
+                            <4*c039n03>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training> was used as the working directory.
+Started at Fri Oct 18 12:18:39 2024
+Terminated at Fri Oct 18 17:20:06 2024
+Results reported at Fri Oct 18 17:20:06 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 5:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "test_structure_only_mordred"  
+#BSUB -o test_structure_only_mordred.out
+#BSUB -e test_structure_only_mordred.err
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python train_structure_only.py mordred --regressor_type NGB --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   82974.00 sec.
+    Max Memory :                                 4 GB
+    Average Memory :                             3.18 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               60.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   18090 sec.
+    Turnaround time :                            18148 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <test_structure_only_mordred.err> for stderr output of this job.
+
