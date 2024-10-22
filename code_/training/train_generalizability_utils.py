@@ -209,14 +209,24 @@ def run_leaning(
                     regressor=regressor,
                 )
         
-                train_sizes, train_scores, test_scores = get_incremental_split(best_estimator, X, y, cv_outer, steps=0.1)
+                train_sizes, train_scores, test_scores = get_incremental_split(best_estimator,
+                                                                                X,
+                                                                                y,
+                                                                                cv_outer,
+                                                                                steps=0.1,
+                                                                                random_state=seed)
 
 
         elif regressor_type == "ANN":
                 pass
 
         else:
-                train_sizes, train_scores, test_scores = get_incremental_split(regressor, X, y, cv_outer, steps=0.1)
+                train_sizes, train_scores, test_scores = get_incremental_split(regressor,
+                                                                                X,
+                                                                                y,
+                                                                                cv_outer,
+                                                                                steps=0.1,
+                                                                                random_state=seed)
 
 
         seed_learning_curve_scores[seed] = {

@@ -178,7 +178,8 @@ def cross_validate_regressor(
 
 
 def get_incremental_split(
-        regressor_params, X, y, cv, steps:int 
+        regressor_params, X, y, cv, steps:int,
+        random_state:int
     ) -> tuple:
      
     training_sizes, training_scores, testing_scores = learning_curve(
@@ -188,7 +189,9 @@ def get_incremental_split(
                                                         cv=cv,
                                                         n_jobs=-1,
                                                         train_sizes=np.linspace(0.1, 1, int(0.9 / steps)),
-                                                        scoring="r2"
+                                                        scoring="r2",
+                                                        shuffle=True,
+                                                        random_state=random_state
                                                         )
 
  
