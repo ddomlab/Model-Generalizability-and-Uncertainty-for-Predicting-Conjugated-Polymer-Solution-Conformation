@@ -81,7 +81,7 @@ def main_mordred_numerical(
 
 
 def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str):
-            print(f'polymer representation{oligo_type:str}')
+            print(f'polymer representation{oligo_type}')
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
                                     transform_type= "Standard",
@@ -149,7 +149,7 @@ def main_maccs_numerical(
 
 
 def perform_model_maccs_numerical(regressor_type:str,target:str,oligo_type:str):
-            print(f'polymer representation{oligo_type:str}')
+            print(f'polymer representation{oligo_type}')
             main_maccs_numerical(dataset=w_data,
                                 regressor_type=regressor_type,
                                 transform_type= "Standard",
@@ -230,7 +230,7 @@ def main_ecfp_numerical(
 
 
 def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,oligo_type:str):
-                print(f'polymer representation :{oligo_type} with rep of ECFP{radius} and {vector}')
+                print(oligo_type)
                 main_ecfp_numerical(
                                     dataset=w_data,
                                     regressor_type= regressor_type,
@@ -278,11 +278,11 @@ def main():
 
     # Run the appropriate model based on the parsed arguments
     if args.model == 'ecfp':
-        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target,args.oligo_type)
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target, args.oligo_type)
     elif args.model == 'maccs':
-        perform_model_maccs_numerical(args.regressor_type, args.target,args.oligo_type)
+        perform_model_maccs_numerical(args.regressor_type, args.target, args.oligo_type)
     elif args.model == 'mordred':
-        perform_model_mordred_numerical(args.regressor_type, args.target,args.oligo_type)
+        perform_model_mordred_numerical(args.regressor_type, args.target, args.oligo_type)
 
 if __name__ == '__main__':
     main()

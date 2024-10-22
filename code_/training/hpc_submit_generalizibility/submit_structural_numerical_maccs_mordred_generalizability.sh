@@ -21,8 +21,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "structure_numerical_mordred_NGB_generalizibility"  
-#BSUB -o ${output_dir}/structure_numerical_mordred_generalizibili_${regressor}.out
-#BSUB -e ${output_dir}/structure_numerical_mordred_generalizibili_${regressor}.err"
+#BSUB -o "${output_dir}/structure_numerical_mordred_generalizibili_${regressor}.out"
+#BSUB -e "${output_dir}/structure_numerical_mordred_generalizibili_${regressor}.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

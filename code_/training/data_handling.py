@@ -121,12 +121,12 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     print('Done Saving scores!')
 
 
-def save_results(scores:Optional[Dict[int, Dict[str, float]]],
-                 predictions: Optional[pd.DataFrame],
-                 df_shapes:Optional[Dict],
-                 generalizability_score:Optional[Dict],
-                 target_features: list,
-                 regressor_type: str,
+def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
+                 predictions: Optional[pd.DataFrame]=None,
+                 df_shapes:Optional[Dict]=None,
+                 generalizability_score:Optional[Dict]=None,
+                 target_features: list=None,
+                 regressor_type: str='RF',
                  TEST : bool =True,
                  representation: str=None,
                  pu_type : Optional[str]=None,
