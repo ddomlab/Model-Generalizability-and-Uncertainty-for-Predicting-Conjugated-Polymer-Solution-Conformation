@@ -136,6 +136,7 @@ def _create_heatmap(
     """
 
     # Create heatmap
+
     fig, ax = plt.subplots(figsize=figsize)
     palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
     # # palette: str = "cmc.batlow" if score in ["r", "r2"] else "cmc.batlow_r"
@@ -154,6 +155,7 @@ def _create_heatmap(
         mask=avg_scores.isnull(),
         annot_kws={"fontsize": 12},
     )
+    
     # Set axis labels and tick labels
     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
@@ -198,7 +200,7 @@ def creat_result_df(target_dir: Path,
     std_scores: pd.DataFrame = pd.DataFrame()
     annotations: pd.DataFrame = pd.DataFrame()
     models = set()
-    pattern: str = "*_scores.json"
+    pattern: str = "*[^_generalizibility]_scores.json"
     for representation in os.listdir(target_dir):
         score_files = []
         if data_type == 'structural':
@@ -223,9 +225,9 @@ def creat_result_df(target_dir: Path,
 
         for file_path in score_files:
             # for structural and mix of structural-scaler
+            print(file_path)
             if data_type=='structural_scaler' or data_type=='structural':
                 if regressor_model and regressor_model in file_path.name:
-                    print(file_path)
                     feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                     models.add(model)
                 # for just scaler 
@@ -233,7 +235,6 @@ def creat_result_df(target_dir: Path,
                     continue
                    
             else:
-                print(file_path)
                 feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                 models.add(model)
             # for scaler features only
@@ -282,6 +283,7 @@ def create_structural_result(target_dir:Path,
                                        ,regressor_model=regressor_model)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
+
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
