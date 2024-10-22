@@ -234,7 +234,7 @@ def run_leaning(
                     "train_sizes_fraction": train_sizes/len(X),
                     "train_scores": train_scores,  # 2D array of training scores
                     "test_scores": test_scores,  # 2D array of validation (cross-validation) scores
-                    "best_params": regressor_params
+                    "best_params": regressor_params if hyperparameter_optimization else "Default"
                 }
 
     return seed_learning_curve_scores

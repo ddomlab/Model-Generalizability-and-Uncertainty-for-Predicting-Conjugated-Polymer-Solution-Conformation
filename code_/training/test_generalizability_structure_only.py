@@ -161,7 +161,8 @@ def main_Mordred_only(
                 target_features=target_features,
                 regressor_type=regressor_type,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
@@ -212,7 +213,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str):
                                 regressor_type= regressor_type,
                                 target_features= [target],
                                 transform_type= "Standard",
-                                hyperparameter_optimization= True,
+                                hyperparameter_optimization= False,
                                 oligomer_representation=oligo_type,
                                 )
 
