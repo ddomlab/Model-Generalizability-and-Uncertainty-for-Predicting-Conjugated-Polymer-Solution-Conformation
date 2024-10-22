@@ -82,8 +82,6 @@ def get_generalizability_predictions(
     structural_features: Optional[list[str]],
     numerical_feats: Optional[list[str]],
     unroll: Union[dict[str, str], list[dict[str, str]], None],
-    # scalar_filter: Optional[str],
-    # subspace_filter: Optional[str],
     regressor_type: str,
     target_features: str,
     transform_type: str,
@@ -104,8 +102,6 @@ def get_generalizability_predictions(
                                             structural_features=structural_features,
                                             unroll=unroll,
                                             numerical_feats = numerical_feats,
-                                            # scalar_filter=scalar_filter,
-                                            # subspace_filter=subspace_filter,
                                             target_features=target_features,
                                             regressor_type=regressor_type,
                                             transform_type=transform_type,
@@ -130,8 +126,6 @@ def _prepare_data(
     representation: Optional[str]=None,
     structural_features: Optional[list[str]]=None,
     numerical_feats: Optional[list[str]]=None,
-    # scalar_filter: Optional[str],
-    # subspace_filter: Optional[str],
     unroll: Union[dict, list, None] = None,
     transform_type: str = "Standard",
     hyperparameter_optimization: bool = True,
@@ -215,7 +209,7 @@ def run_leaning(
                     regressor=regressor,
                 )
         
-                train_sizes, train_scores, test_scores = get_incremental_split(best_estimator, X, y, cv_outer,steps=0.1)
+                train_sizes, train_scores, test_scores = get_incremental_split(best_estimator, X, y, cv_outer, steps=0.1)
 
 
         elif regressor_type == "ANN":

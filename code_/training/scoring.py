@@ -178,21 +178,21 @@ def cross_validate_regressor(
 
 
 def get_incremental_split(
-        regressor, X, y, cv,steps:int 
-    ) -> tuple[dict[str, float], np.ndarray]:
+        regressor_params, X, y, cv, steps:int 
+    ) -> tuple:
      
-    train_sizes, train_scores, test_scores = learning_curve(
-                                                regressor,
-                                                X,
-                                                y,
-                                                cv=cv,
-                                                n_jobs=-1,
-                                                train_sizes=np.linspace(0.1, 1, int(0.9 / steps)),
-                                                scoring="r2"
-                                                )
+    training_sizes, training_scores, testing_scores = learning_curve(
+                                                        regressor_params,
+                                                        X,
+                                                        y,
+                                                        cv=cv,
+                                                        n_jobs=-1,
+                                                        train_sizes=np.linspace(0.1, 1, int(0.9 / steps)),
+                                                        scoring="r2"
+                                                        )
 
  
-    return train_sizes, train_scores, test_scores
+    return training_sizes, training_scores, testing_scores
 
 
 def get_score_func(score: str, output: str) -> Callable:
