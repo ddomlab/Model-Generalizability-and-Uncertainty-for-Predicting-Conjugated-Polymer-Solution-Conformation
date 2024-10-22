@@ -21,8 +21,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "structure_only_mordred_NGB_generalizibility"  
-#BSUB -o "${output_dir}/structure_only_mordred_NGB_generalizibility.out"
-#BSUB -e "${output_dir}/test_structure_only_mordred_NGB_generalizibility.err"
+#BSUB -o "${output_dir}/structure_only_mordred_NGB_generalizibility_shuffle.out"
+#BSUB -e "${output_dir}/test_structure_only_mordred_NGB_generalizibility_shuffle.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
