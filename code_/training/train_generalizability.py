@@ -179,7 +179,7 @@ def run_leaning(
     **kwargs,
     ) -> dict[int, dict[str, float]]:
 
-    seed_learning_curve_scores:dict[int, dict[str, float]] = {}
+    seed_learning_curve_scores:dict[int, dict] = {}
 
     for seed in SEEDS:
         cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
@@ -224,6 +224,7 @@ def run_leaning(
                     "train_sizes_fraction": train_sizes/len(X),
                     "train_scores": train_scores,  # 2D array of training scores
                     "test_scores": test_scores,  # 2D array of validation (cross-validation) scores
+                    "best_params": regressor_params
                 }
 
     return seed_learning_curve_scores

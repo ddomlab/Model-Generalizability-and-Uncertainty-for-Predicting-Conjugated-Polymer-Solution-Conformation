@@ -113,7 +113,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
         print(data_shape_file)
     
     if generalizability_score:
-        generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizibility_scores.json"
+        generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizability_scores.json"
         with open(generalizibility_scores_file, "w") as f:
             json.dump(generalizability_score, f, cls=NumpyArrayEncoder, indent=2)
         print(generalizibility_scores_file)

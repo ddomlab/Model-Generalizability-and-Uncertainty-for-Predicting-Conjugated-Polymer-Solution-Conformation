@@ -6,7 +6,6 @@ import sys
 import json
 import numpy as np
 sys.path.append("../cleaning")
-# from clean_dataset import open_json
 from argparse import ArgumentParser
 from data_handling import save_results
 
@@ -16,11 +15,7 @@ DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
-# oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
-
-# oligomer_list =open_json(oligo_dir)
 w_data = pd.read_pickle(training_df_dir)
-# edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 # ['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer']
 TEST=False
 
@@ -81,7 +76,7 @@ def main_mordred_numerical(
 
 
 def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str):
-            print(f'polymer representation{oligo_type}')
+            print(f'polymer representation: {oligo_type}')
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
                                     transform_type= "Standard",
@@ -149,7 +144,7 @@ def main_maccs_numerical(
 
 
 def perform_model_maccs_numerical(regressor_type:str,target:str,oligo_type:str):
-            print(f'polymer representation{oligo_type}')
+            print(f'polymer representation: {oligo_type}')
             main_maccs_numerical(dataset=w_data,
                                 regressor_type=regressor_type,
                                 transform_type= "Standard",
@@ -230,7 +225,7 @@ def main_ecfp_numerical(
 
 
 def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,oligo_type:str):
-                print(oligo_type)
+                print(f'polymer representation: {oligo_type}')
                 main_ecfp_numerical(
                                     dataset=w_data,
                                     regressor_type= regressor_type,
@@ -286,6 +281,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # perform_model_mordred_numerical('NGB','Rg1 (nm)', 'Monomer')
 
 
 
@@ -296,7 +292,6 @@ if __name__ == '__main__':
 # perform_model_ecfp(regressor_type='RF', radius=3,vector='count',target='Rg1 (nm)')
 
 # perform_model_maccs_numerical('RF','Rg1 (nm)')
-# perform_model_mordred_numerical('RF','Rg1 (nm)')
 
 # main_numerical_only(
 #     dataset=w_data,
