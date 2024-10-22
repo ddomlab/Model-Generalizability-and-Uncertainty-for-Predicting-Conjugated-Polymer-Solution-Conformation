@@ -100,7 +100,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
         print(scores_file)
 
-    if predictions:
+    if predictions is not None and not predictions.empty:
         predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
         predictions.to_csv(predictions_file, index=False)
         print(predictions_file)
@@ -126,7 +126,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  df_shapes:Optional[Dict]=None,
                  generalizability_score:Optional[Dict]=None,
                  target_features: list=None,
-                 regressor_type: str='RF',
+                 regressor_type: str=None,
                  TEST : bool =True,
                  representation: str=None,
                  pu_type : Optional[str]=None,

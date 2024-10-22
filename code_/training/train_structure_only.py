@@ -5,7 +5,7 @@ from all_factories import radius_to_bits,cutoffs
 import sys
 import json
 import numpy as np
-sys.path.append("code_/cleaning")
+sys.path.append("../cleaning")
 # from clean_dataset import open_json
 from argparse import ArgumentParser
 from data_handling import save_results
@@ -22,7 +22,7 @@ training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-h
 w_data = pd.read_pickle(training_df_dir)
 # edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 # ['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer']
-TEST=True
+TEST=False
 
 
 
@@ -155,7 +155,7 @@ def main_Mordred_only(
                                     imputer=None
                                 )
 
-    save_results(scores,
+    save_results(scores=scores,
                 predictions=predictions,
                 df_shapes=data_shapes,
                 generalizability_score=None,
