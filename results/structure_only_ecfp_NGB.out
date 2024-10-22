@@ -4024,3 +4024,4123 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
 
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n09>
+Subject: Job 849556: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:03 2024
+Job was executed on host(s) <4*c202n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:03 2024
+                            <4*c202n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:21:03 2024
+Terminated at Tue Oct 22 10:23:59 2024
+Results reported at Tue Oct 22 10:23:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   4.91 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   202 sec.
+    Turnaround time :                            176 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n10>
+Subject: Job 849557: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:04 2024
+Job was executed on host(s) <4*c205n10>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:04 2024
+                            <4*c205n11>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:21:04 2024
+Terminated at Tue Oct 22 10:23:59 2024
+Results reported at Tue Oct 22 10:23:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   4.48 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   194 sec.
+    Turnaround time :                            175 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849559: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:04 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:05 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:21:05 2024
+Terminated at Tue Oct 22 10:23:59 2024
+Results reported at Tue Oct 22 10:23:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   9.53 sec.
+    Max Memory :                                 1 GB
+    Average Memory :                             0.25 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               63.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   197 sec.
+    Turnaround time :                            175 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849560: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:05 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:22:02 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:22:02 2024
+Terminated at Tue Oct 22 10:23:59 2024
+Results reported at Tue Oct 22 10:23:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   3.80 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   129 sec.
+    Turnaround time :                            174 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849587: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:15 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:24:00 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:24:00 2024
+Terminated at Tue Oct 22 10:24:00 2024
+Results reported at Tue Oct 22 10:24:00 2024
+Cannot open your job file: /home/sdehgha2/.lsbatch/1729606875.849587
+TERM_OWNER: job killed by owner.
+Exited with signal termination: 2.
+
+Resource usage summary:
+
+    CPU time :                                   0.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              1
+    Max Threads :                                1
+    Run time :                                   1 sec.
+    Turnaround time :                            165 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n14>
+Subject: Job 849558: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:04 2024
+Job was executed on host(s) <4*c207n14>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:21:05 2024
+                            <4*c207n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:21:05 2024
+Terminated at Tue Oct 22 10:24:16 2024
+Results reported at Tue Oct 22 10:24:16 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   6.11 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   209 sec.
+    Turnaround time :                            192 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849647: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:42:15 2024
+Terminated at Tue Oct 22 10:42:35 2024
+Results reported at Tue Oct 22 10:42:35 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   26.10 sec.
+    Max Memory :                                 1 GB
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               63.00 GB
+    Max Swap :                                   -
+    Max Processes :                              19
+    Max Threads :                                21
+    Run time :                                   29 sec.
+    Turnaround time :                            34 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849648: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:43:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:43:15 2024
+Terminated at Tue Oct 22 10:43:34 2024
+Results reported at Tue Oct 22 10:43:34 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            93 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849649: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:44:16 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:44:16 2024
+Terminated at Tue Oct 22 10:44:37 2024
+Results reported at Tue Oct 22 10:44:37 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   28.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   33 sec.
+    Turnaround time :                            156 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849650: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:44:35 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:44:35 2024
+Terminated at Tue Oct 22 10:44:54 2024
+Results reported at Tue Oct 22 10:44:54 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   20 sec.
+    Turnaround time :                            173 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849651: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:45:15 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:45:15 2024
+Terminated at Tue Oct 22 10:45:35 2024
+Results reported at Tue Oct 22 10:45:35 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   30.10 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   34 sec.
+    Turnaround time :                            214 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849652: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:45:35 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:45:35 2024
+Terminated at Tue Oct 22 10:45:52 2024
+Results reported at Tue Oct 22 10:45:52 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.17 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            231 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849653: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:46:15 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:46:15 2024
+Terminated at Tue Oct 22 10:46:37 2024
+Results reported at Tue Oct 22 10:46:37 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   31.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            276 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849654: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:46:36 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:46:36 2024
+Terminated at Tue Oct 22 10:46:54 2024
+Results reported at Tue Oct 22 10:46:54 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.17 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   32 sec.
+    Turnaround time :                            293 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849655: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:47:15 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:47:15 2024
+Terminated at Tue Oct 22 10:47:36 2024
+Results reported at Tue Oct 22 10:47:36 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   31.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            335 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849656: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:47:36 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:47:36 2024
+Terminated at Tue Oct 22 10:47:56 2024
+Results reported at Tue Oct 22 10:47:56 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.18 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   32 sec.
+    Turnaround time :                            355 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c010n04>
+Subject: Job 849657: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c010n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:47:40 2024
+                            <4*c005n03>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:47:40 2024
+Terminated at Tue Oct 22 10:47:59 2024
+Results reported at Tue Oct 22 10:47:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.29 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   20 sec.
+    Turnaround time :                            358 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849658: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:48:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:48:15 2024
+Terminated at Tue Oct 22 10:48:37 2024
+Results reported at Tue Oct 22 10:48:37 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 3 --vector count --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   28.30 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            396 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849659: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:48:35 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:48:35 2024
+Terminated at Tue Oct 22 10:48:55 2024
+Results reported at Tue Oct 22 10:48:55 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            414 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849660: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:48:41 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:48:41 2024
+Terminated at Tue Oct 22 10:48:58 2024
+Results reported at Tue Oct 22 10:48:58 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.08 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            417 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849661: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:49:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:49:15 2024
+Terminated at Tue Oct 22 10:49:35 2024
+Results reported at Tue Oct 22 10:49:35 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.24 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   25 sec.
+    Turnaround time :                            454 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849662: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:49:35 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:49:35 2024
+Terminated at Tue Oct 22 10:49:56 2024
+Results reported at Tue Oct 22 10:49:56 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.05 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            475 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849663: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:01 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:49:40 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:49:40 2024
+Terminated at Tue Oct 22 10:49:59 2024
+Results reported at Tue Oct 22 10:49:59 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.31 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            478 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849664: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:50:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:50:15 2024
+Terminated at Tue Oct 22 10:50:34 2024
+Results reported at Tue Oct 22 10:50:34 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.48 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   26 sec.
+    Turnaround time :                            512 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849665: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:50:36 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:50:36 2024
+Terminated at Tue Oct 22 10:50:56 2024
+Results reported at Tue Oct 22 10:50:56 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.09 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   30 sec.
+    Turnaround time :                            534 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849666: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:50:41 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:50:41 2024
+Terminated at Tue Oct 22 10:50:56 2024
+Results reported at Tue Oct 22 10:50:56 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   24 sec.
+    Turnaround time :                            534 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849667: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:51:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:51:15 2024
+Terminated at Tue Oct 22 10:51:35 2024
+Results reported at Tue Oct 22 10:51:35 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.54 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            573 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849668: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:51:29 2024
+                            <4*c207n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:51:29 2024
+Terminated at Tue Oct 22 10:51:52 2024
+Results reported at Tue Oct 22 10:51:52 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.37 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   35 sec.
+    Turnaround time :                            590 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849669: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:51:37 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:51:37 2024
+Terminated at Tue Oct 22 10:51:57 2024
+Results reported at Tue Oct 22 10:51:57 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.04 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            595 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849670: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:51:40 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:51:40 2024
+Terminated at Tue Oct 22 10:51:58 2024
+Results reported at Tue Oct 22 10:51:58 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 4 --vector count --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.01 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   32 sec.
+    Turnaround time :                            596 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n11>
+Subject: Job 849671: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c205n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:52:05 2024
+                            <4*c205n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:52:05 2024
+Terminated at Tue Oct 22 10:52:29 2024
+Results reported at Tue Oct 22 10:52:29 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.55 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   26 sec.
+    Turnaround time :                            627 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849672: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:52:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:52:15 2024
+Terminated at Tue Oct 22 10:52:36 2024
+Results reported at Tue Oct 22 10:52:36 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.38 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            634 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849673: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:52:30 2024
+                            <4*c207n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:52:30 2024
+Terminated at Tue Oct 22 10:52:53 2024
+Results reported at Tue Oct 22 10:52:53 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.10 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            651 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849674: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:52:36 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:52:36 2024
+Terminated at Tue Oct 22 10:52:57 2024
+Results reported at Tue Oct 22 10:52:57 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   25.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   30 sec.
+    Turnaround time :                            655 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849675: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:52:40 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:52:40 2024
+Terminated at Tue Oct 22 10:52:58 2024
+Results reported at Tue Oct 22 10:52:58 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.03 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   30 sec.
+    Turnaround time :                            656 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n11>
+Subject: Job 849676: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c205n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:53:04 2024
+                            <4*c205n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:53:04 2024
+Terminated at Tue Oct 22 10:53:25 2024
+Results reported at Tue Oct 22 10:53:25 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   26.56 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   26 sec.
+    Turnaround time :                            683 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n06>
+Subject: Job 849677: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c201n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:53:15 2024
+                            <4*c201n13>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:53:15 2024
+Terminated at Tue Oct 22 10:53:35 2024
+Results reported at Tue Oct 22 10:53:35 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   26 sec.
+    Turnaround time :                            693 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849678: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:53:29 2024
+                            <4*c207n14>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:53:29 2024
+Terminated at Tue Oct 22 10:53:53 2024
+Results reported at Tue Oct 22 10:53:53 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.25 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   30 sec.
+    Turnaround time :                            711 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849679: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:53:36 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:53:36 2024
+Terminated at Tue Oct 22 10:54:00 2024
+Results reported at Tue Oct 22 10:54:00 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.16 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   33 sec.
+    Turnaround time :                            718 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849680: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:53:40 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:53:40 2024
+Terminated at Tue Oct 22 10:54:04 2024
+Results reported at Tue Oct 22 10:54:04 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.35 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   36 sec.
+    Turnaround time :                            722 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n11>
+Subject: Job 849681: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:02 2024
+Job was executed on host(s) <4*c205n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:54:04 2024
+                            <4*c205n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:54:04 2024
+Terminated at Tue Oct 22 10:54:27 2024
+Results reported at Tue Oct 22 10:54:27 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.33 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   32 sec.
+    Turnaround time :                            745 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849682: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:54:16 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:54:16 2024
+Terminated at Tue Oct 22 10:54:43 2024
+Results reported at Tue Oct 22 10:54:43 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 5 --vector count --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   31.31 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   34 sec.
+    Turnaround time :                            760 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849683: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:54:29 2024
+                            <4*c207n14>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:54:29 2024
+Terminated at Tue Oct 22 10:54:52 2024
+Results reported at Tue Oct 22 10:54:52 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   29 sec.
+    Turnaround time :                            769 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 849684: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:54:36 2024
+                            <4*c200n12>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:54:36 2024
+Terminated at Tue Oct 22 10:54:57 2024
+Results reported at Tue Oct 22 10:54:57 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.59 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   27 sec.
+    Turnaround time :                            774 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849685: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:54:41 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:54:41 2024
+Terminated at Tue Oct 22 10:54:58 2024
+Results reported at Tue Oct 22 10:54:58 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.09 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   24 sec.
+    Turnaround time :                            775 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n11>
+Subject: Job 849686: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c205n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:04 2024
+                            <4*c205n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:04 2024
+Terminated at Tue Oct 22 10:55:24 2024
+Results reported at Tue Oct 22 10:55:24 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   26.26 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   24 sec.
+    Turnaround time :                            801 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849687: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:16 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:16 2024
+Terminated at Tue Oct 22 10:55:38 2024
+Results reported at Tue Oct 22 10:55:38 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   30.31 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   52 sec.
+    Turnaround time :                            815 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849688: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:29 2024
+                            <4*c207n14>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:29 2024
+Terminated at Tue Oct 22 10:55:53 2024
+Results reported at Tue Oct 22 10:55:53 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   22.68 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            830 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n12>
+Subject: Job 849689: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c200n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:37 2024
+                            <4*c200n01>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:37 2024
+Terminated at Tue Oct 22 10:56:00 2024
+Results reported at Tue Oct 22 10:56:00 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   24.34 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   33 sec.
+    Turnaround time :                            837 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c005n03>
+Subject: Job 849690: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c005n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:40 2024
+                            <4*c010n04>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:40 2024
+Terminated at Tue Oct 22 10:56:03 2024
+Results reported at Tue Oct 22 10:56:03 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   23.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   23 sec.
+    Turnaround time :                            840 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n09>
+Subject: Job 849691: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c202n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:55:49 2024
+                            <4*c202n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:55:49 2024
+Terminated at Tue Oct 22 10:56:10 2024
+Results reported at Tue Oct 22 10:56:10 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   28.47 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   5 sec.
+    Turnaround time :                            847 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n11>
+Subject: Job 849692: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c205n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:56:04 2024
+                            <4*c205n10>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:56:04 2024
+Terminated at Tue Oct 22 10:56:26 2024
+Results reported at Tue Oct 22 10:56:26 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "RRU Monomer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   27.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   32 sec.
+    Turnaround time :                            864 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+Monomer
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 849693: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:56:15 2024
+                            <4*c201n06>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:56:15 2024
+Terminated at Tue Oct 22 10:56:39 2024
+Results reported at Tue Oct 22 10:56:39 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "RRU Dimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   33.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            876 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.9268959189169639), ('regressor__regressor__min_samples_split', 0.34685161787782576), ('regressor__regressor__n_estimators', 592)])
+
+
+{'targets_shape': (257, 1), 'training_features_shape': (257, 520)}
+Average scores:	 r: nan±nan	 r2: -0.0±0.0
+Monomer
+Filename: (Mordred)_RF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_Rg/test/Monomer/(Mordred)_RF_scores.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 849694: <ecfp_radius_tructure_only> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:42:03 2024
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Oct 22 10:56:29 2024
+                            <4*c207n14>
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training> was used as the working directory.
+Started at Tue Oct 22 10:56:29 2024
+Terminated at Tue Oct 22 10:56:49 2024
+Results reported at Tue Oct 22 10:56:49 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "RRU Trimer"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   25.00 sec.
+    Max Memory :                                 1 GB
+    Average Memory :                             0.67 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               63.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   26 sec.
+    Turnaround time :                            886 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB.err> for stderr output of this job.
+

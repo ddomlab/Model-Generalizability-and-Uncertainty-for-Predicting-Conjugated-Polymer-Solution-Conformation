@@ -670,3 +670,1037 @@ Traceback (most recent call last):
   File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 156, in main_Mordred_only
     save_results(scores,
 TypeError: save_results() missing 1 required positional argument: 'generalizability_score'
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 3, in <module>
+    from training_utils import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 19, in <module>
+    from data_handling import remove_unserializable_keys, save_results
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 8, in <module>
+    from all_factories import radius_to_bits
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/all_factories.py", line 3, in <module>
+    from xgboost import XGBRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/xgboost/__init__.py", line 6, in <module>
+    from . import tracker  # noqa
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/xgboost/tracker.py", line 9, in <module>
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/runpy.py", line 187, in _run_module_as_main
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/runpy.py", line 187, in _run_module_as_main
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 3, in <module>
+    from training_utils import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 14, in <module>
+    from skopt import BayesSearchCV
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/__init__.py", line 21, in <module>
+    from .core import _LIB, _check_call, make_jcargs
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/xgboost/core.py", line 269, in <module>
+    _LIB = _load_lib()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/xgboost/core.py", line 249, in _load_lib
+    pyver = parse(_py_version())
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/xgboost/core.py", line 181, in _py_version
+    with open(VERSION_FILE, encoding="ascii") as f:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/encodings/__init__.py", line 99, in search_function
+    mod = __import__('encodings.' + modname, fromlist=_import_tail,
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 3, in <module>
+    from training_utils import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 14, in <module>
+    from skopt import BayesSearchCV
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/__init__.py", line 21, in <module>
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+    from . import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/callbacks.py", line 18, in <module>
+    from skopt.utils import dump, load
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/utils.py", line 11, in <module>
+    from sklearn.ensemble import GradientBoostingRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/ensemble/__init__.py", line 3, in <module>
+    from ._bagging import BaggingClassifier, BaggingRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/ensemble/_bagging.py", line 18, in <module>
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/runpy.py", line 187, in _run_module_as_main
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/runpy.py", line 187, in _run_module_as_main
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 224, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 210, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 140, in main_Mordred_only
+    scores, predictions, data_shapes  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 97, in train_regressor
+    scores, predictions, data_shape = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 167, in _prepare_data
+    score,predication= run(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 206, in run
+    best_estimator, regressor_params = _optimize_hyperparams(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 272, in _optimize_hyperparams
+    bayes.fit(X_train, y_train)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 542, in fit
+    super().fit(X=X, y=y, groups=groups, **fit_params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    from . import (
+    return fit_method(estimator, *args, **kwargs)
+    from ..tree import DecisionTreeClassifier, DecisionTreeRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/tree/__init__.py", line 3, in <module>
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/callbacks.py", line 18, in <module>
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    from skopt.utils import dump, load
+    self._run_search(evaluate_candidates)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/utils.py", line 11, in <module>
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 599, in _run_search
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 224, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 210, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 140, in main_Mordred_only
+    scores, predictions, data_shapes  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 97, in train_regressor
+    scores, predictions, data_shape = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 167, in _prepare_data
+    score,predication= run(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 206, in run
+    best_estimator, regressor_params = _optimize_hyperparams(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 272, in _optimize_hyperparams
+    bayes.fit(X_train, y_train)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 542, in fit
+    super().fit(X=X, y=y, groups=groups, **fit_params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    self._run_search(evaluate_candidates)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 599, in _run_search
+    optim_result, score_name = self._step(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 453, in _step
+    from sklearn.ensemble import GradientBoostingRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/ensemble/__init__.py", line 3, in <module>
+    from ._bagging import BaggingClassifier, BaggingRegressor
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+    from ._classes import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/tree/_classes.py", line 44, in <module>
+    all_results = evaluate_candidates(params_dict)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 965, in evaluate_candidates
+    out = parallel(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+    from . import _criterion, _splitter, _tree
+  File "_criterion.pyx", line 1, in init sklearn.tree._criterion
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
+    return super().__call__(iterable_with_config)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1762, in _retrieve
+    time.sleep(0.01)
+KeyboardInterrupt
+    optim_result, score_name = self._step(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 453, in _step
+    all_results = evaluate_candidates(params_dict)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 965, in evaluate_candidates
+    out = parallel(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+    return super().__call__(iterable_with_config)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1762, in _retrieve
+    time.sleep(0.01)
+KeyboardInterrupt
+  File "_splitter.pyx", line 1, in init sklearn.tree._splitter
+  File "_tree.pyx", line 1, in init sklearn.tree._tree
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neighbors/__init__.py", line 15, in <module>
+    from ._nca import NeighborhoodComponentsAnalysis
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neighbors/_nca.py", line 23, in <module>
+    from ..decomposition import PCA
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/decomposition/__init__.py", line 8, in <module>
+    from ._dict_learning import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/decomposition/_dict_learning.py", line 22, in <module>
+    from ..linear_model import Lars, Lasso, LassoLars, orthogonal_mp_gram
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/linear_model/__init__.py", line 22, in <module>
+    from ._huber import HuberRegressor
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1002, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 945, in _find_spec
+  File "<frozen importlib._bootstrap_external>", line 1439, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 1411, in _get_spec
+  File "<frozen importlib._bootstrap_external>", line 1577, in find_spec
+  File "<frozen importlib._bootstrap_external>", line 161, in _path_isfile
+  File "<frozen importlib._bootstrap_external>", line 153, in _path_is_mode_type
+  File "<frozen importlib._bootstrap_external>", line 147, in _path_stat
+KeyboardInterrupt
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py:70: ConstantInputWarning: An input array is constant; the correlation coefficient is not defined.
+  r = pearsonr(y_true, y_pred)[0]
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 227, in <module>
+    perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 213, in perform_model_mordred
+    main_Mordred_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training/../train_structure_only.py", line 158, in main_Mordred_only
+    save_results(scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 161, in save_results
+    _save(scores=scores,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/data_handling.py", line 103, in _save
+    if predictions:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/generic.py", line 1577, in __nonzero__
+    raise ValueError(
+ValueError: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().
