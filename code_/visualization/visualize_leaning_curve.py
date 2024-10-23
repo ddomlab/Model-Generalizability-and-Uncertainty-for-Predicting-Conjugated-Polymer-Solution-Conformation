@@ -96,11 +96,12 @@ def get_learning_data(
 
 
 
-def _save_curve_path(features, model, root_dir, polymer_representation):
+def _save_curve_path(features, model, root_dir, polymer_representation,hyp_status):
     visualization_folder_path =  root_dir/"learning curves"/polymer_representation
     
     os.makedirs(visualization_folder_path, exist_ok=True)
     fname = f"{features}({model})"
+    fname = f"{fname}_hypeOFF" if hyp_status==False else fname 
     saving_path = visualization_folder_path/ f"{fname}.png"
     return saving_path
 
@@ -111,6 +112,7 @@ def _create_learning_curve(
     root_dir: Path,
     features:str,
     model:str,
+    hyp_status:Optional[str],
     poly_representation:str,
     df:pd.DataFrame,
     # x_labels: list[str],
@@ -164,11 +166,12 @@ def _create_learning_curve(
 
     plt.legend(fontsize=16)
 
-
+    print(hyp_status)
     # make folder and save the files
     saving_file_path =_save_curve_path(features=features,
                                        model=model, 
                                        root_dir=root_dir, 
+                                       hyp_status=hyp_status,
                                        polymer_representation=poly_representation)
 
     plt.tight_layout()
@@ -186,7 +189,7 @@ def save_learning_curve(target_dir: Path,
 ) -> tuple[pd.DataFrame,pd.DataFrame]:
     
 
-    pattern: str = "*generalizibility_scores.json"
+    pattern: str = "*generalizability_scores.json"
     for representation in os.listdir(target_dir):
         score_files = []
             
@@ -195,11 +198,14 @@ def save_learning_curve(target_dir: Path,
         
         for file_path in score_files:
             # for structural and mix of structural-scaler
-                print(file_path.parent.name)
                 poly_representation_name = file_path.parent.name
-                feats, model, learning_score_data = get_learning_data(file_path=file_path)                
+                print(poly_representation_name)
+                feats, model, learning_score_data = get_learning_data(file_path=file_path)  
+                hyper_param_status = True if "hypOFF" not in file_path.name else False  
                 _create_learning_curve(target_dir,
-                                       feats,model,
+                                       feats,
+                                       model,
+                                       hyper_param_status,
                                        poly_representation_name,
                                        learning_score_data,
                                        figsize=(12, 8),

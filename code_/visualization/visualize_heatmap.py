@@ -23,7 +23,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = ['target_Rg']
-models = ['XGBR','RF','NGB']
+models = ['XGBR','NGB','MLR']
 
 
 
@@ -153,7 +153,7 @@ def _create_heatmap(
         vmax=vmax,
         ax=ax,
         mask=avg_scores.isnull(),
-        annot_kws={"fontsize": 12},
+        annot_kws={"fontsize": 14},
     )
     
     # Set axis labels and tick labels
@@ -165,19 +165,21 @@ def _create_heatmap(
     #     y_tick_labels: list[str] = [target_abbrev_to_full[x] for x in avg_scores.index]
     y_tick_labels: list[str] = avg_scores.index.to_list()
 
-    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right")
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right")
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=14, fontweight='bold')
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=14, fontweight='bold')
 
     # Set plot and axis titles
-    plt.title(fig_title)
-    ax.set_xlabel(x_title)
-    ax.set_ylabel(y_title)
+    plt.title(fig_title,fontsize=18, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=16, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=16, fontweight='bold')
     # Set colorbar title
     score_txt: str = "$R^2$" if score == "r2" else score
     cbar = hmap.collections[0].colorbar
     cbar.set_label(
-        f"Average {score_txt.upper()} ± {var_titles[var]}", rotation=270, labelpad=20
+        f"Average {score_txt.upper()} ± {var_titles[var]}", rotation=270, labelpad=20, 
+        fontsize=16, fontweight='bold'
     )
+    cbar.ax.tick_params(labelsize=14)
     visualization_folder_path =  root_dir/"heatmap"
     os.makedirs(visualization_folder_path, exist_ok=True)    
     plt.tight_layout()
@@ -200,7 +202,7 @@ def creat_result_df(target_dir: Path,
     std_scores: pd.DataFrame = pd.DataFrame()
     annotations: pd.DataFrame = pd.DataFrame()
     models = set()
-    pattern: str = "*[^_generalizibility]_scores.json"
+    pattern: str = "*_scores.json"
     for representation in os.listdir(target_dir):
         score_files = []
         if data_type == 'structural':
@@ -225,36 +227,40 @@ def creat_result_df(target_dir: Path,
 
         for file_path in score_files:
             # for structural and mix of structural-scaler
-            print(file_path)
-            if data_type=='structural_scaler' or data_type=='structural':
-                if regressor_model and regressor_model in file_path.name:
+            if "generalizability" in file_path.name:
+                continue
+            else:
+
+                print(file_path)
+                if data_type=='structural_scaler' or data_type=='structural':
+                    if regressor_model and regressor_model in file_path.name:
+                        feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                        models.add(model)
+                    # for just scaler 
+                    else:
+                        continue
+                    
+                else:
                     feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                     models.add(model)
-                # for just scaler 
-                else:
-                    continue
-                   
-            else:
-                feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-                models.add(model)
-            # for scaler features only
-            if data_type=='scaler':
-                if feats not in avg_scores.columns:
+                # for scaler features only
+                if data_type=='scaler':
+                    if feats not in avg_scores.columns:
 
-                    avg_scores.loc[model,feats] = av
-                    std_scores.loc[model,feats] = std
+                        avg_scores.loc[model,feats] = av
+                        std_scores.loc[model,feats] = std
+                    else:
+                        avg_scores.at[model,feats] = av
+                        std_scores.at[model,feats] = std
+                # for mixtures and fingerprints 
                 else:
-                    avg_scores.at[model,feats] = av
-                    std_scores.at[model,feats] = std
-            # for mixtures and fingerprints 
-            else:
-                if feats not in avg_scores.columns:
+                    if feats not in avg_scores.columns:
 
-                    avg_scores.loc[filterd_rep,feats] = av
-                    std_scores.loc[filterd_rep,feats] = std
-                else:
-                    avg_scores.at[filterd_rep,feats] = av
-                    std_scores.at[filterd_rep,feats] = std
+                        avg_scores.loc[filterd_rep,feats] = av
+                        std_scores.loc[filterd_rep,feats] = std
+                    else:
+                        avg_scores.at[filterd_rep,feats] = av
+                        std_scores.at[filterd_rep,feats] = std
         
 
 
@@ -306,11 +312,11 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 
 
-for model in models: 
-    for target_folder in target_list:
-        for i in scores_list:
-            create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,var='stdev',data_type='structural')
+# for model in models: 
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                             score=i,var='stdev',data_type='structural')
 
 
 
@@ -334,7 +340,7 @@ def create_structural_scaler_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(20, 16),
+                    figsize=(24, 16),
                     fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
@@ -343,11 +349,11 @@ def create_structural_scaler_result(target_dir:Path,
 
 
 
-# for model in models: 
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                             score=i,var='stdev',data_type='structural_scaler')
+for model in models: 
+    for target_folder in target_list:
+        for i in scores_list:
+            create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural_scaler')
 
 
 
