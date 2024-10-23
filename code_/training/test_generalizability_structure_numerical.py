@@ -81,7 +81,7 @@ def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
                                     transform_type= "Standard",
-                                    hyperparameter_optimization= False,
+                                    hyperparameter_optimization= True,
                                     target_features= [target],
                                     oligomer_representation=oligo_type
                                     )
