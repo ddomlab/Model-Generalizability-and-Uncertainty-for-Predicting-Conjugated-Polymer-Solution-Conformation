@@ -71,7 +71,8 @@ def main_mordred_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
@@ -80,7 +81,7 @@ def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
                                     transform_type= "Standard",
-                                    hyperparameter_optimization= True,
+                                    hyperparameter_optimization= False,
                                     target_features= [target],
                                     oligomer_representation=oligo_type
                                     )
@@ -138,7 +139,8 @@ def main_maccs_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
@@ -219,7 +221,8 @@ def main_ecfp_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
