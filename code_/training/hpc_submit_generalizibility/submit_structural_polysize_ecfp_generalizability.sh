@@ -19,7 +19,7 @@ for regressor in "${regressors[@]}"; do
       
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 7:01
+#BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "structure_numerical_ecfp3binery_${regressor}_generalizibility_with_hypo"  
