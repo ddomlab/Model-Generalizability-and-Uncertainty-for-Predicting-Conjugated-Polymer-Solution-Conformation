@@ -232,7 +232,7 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,olig
                                     regressor_type= regressor_type,
                                     target_features= [target],
                                     transform_type= "Standard",
-                                    hyperparameter_optimization= False,
+                                    hyperparameter_optimization= True,
                                     radius = radius,
                                     vector_type=vector,
                                     oligomer_representation=oligo_type,
