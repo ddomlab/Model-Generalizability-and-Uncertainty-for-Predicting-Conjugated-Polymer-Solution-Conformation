@@ -31,6 +31,7 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../test_generalizability_structure_numerical.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target" --oligo_type "$oligo_rep"
 
 EOT
+        done
       done
     done
   done
