@@ -19,12 +19,12 @@ for regressor in "${regressors[@]}"; do
       
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 10:01
+#BSUB -W 7:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "structure_numerical_mordred_NGB_generalizibility"  
-#BSUB -o ${output_dir}/structure_polysize_ecfp3bin_NGB_generalizibili_${regressor}.out
-#BSUB -e ${output_dir}/structure_polysize_ecfp3bin_NGB_generalizibili_${regressor}.err"
+#BSUB -J "structure_numerical_ecfp3binery_${regressor}_generalizibility"  
+#BSUB -o "${output_dir}/structure_polysize_ecfp3bin_generalizibili_${regressor}_wo_hypo.out"
+#BSUB -e "${output_dir}/structure_polysize_ecfp3bin_generalizibili_${regressor}_wo_hypo.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

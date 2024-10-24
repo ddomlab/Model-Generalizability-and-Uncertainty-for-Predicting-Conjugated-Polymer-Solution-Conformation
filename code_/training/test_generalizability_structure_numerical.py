@@ -186,11 +186,9 @@ def main_ecfp_numerical(
         "col_names": structural_features,
     }
 
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    columns_to_impute: list[str] = ["PDI"]
     special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
-                                   'solvent dD', 'solvent dH', 'solvent dP']
+    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI"]
 
     imputer = "mean"
     learning_score  = get_generalizability_predictions(
@@ -234,7 +232,7 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,olig
                                     regressor_type= regressor_type,
                                     target_features= [target],
                                     transform_type= "Standard",
-                                    hyperparameter_optimization= True,
+                                    hyperparameter_optimization= False,
                                     radius = radius,
                                     vector_type=vector,
                                     oligomer_representation=oligo_type,
@@ -290,7 +288,11 @@ if __name__ == '__main__':
 
 
 
-
+# columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+#     special_column: str = "Mw (g/mol)"
+#     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
+#                                    "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
+#                                    'solvent dD', 'solvent dH', 'solvent dP']
 
 # perform_model_ecfp(regressor_type='RF', radius=3,vector='count',target='Rg1 (nm)')
 
