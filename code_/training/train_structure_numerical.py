@@ -186,11 +186,10 @@ def main_ecfp_numerical(
         "col_names": structural_features,
     }
 
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    columns_to_impute: list[str] = ["PDI"]
     special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
-                                   'solvent dD', 'solvent dH', 'solvent dP']
+    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI"]
+                                   
 
     imputer = "mean"
     scores, predictions, data_shapes  = train_regressor(
