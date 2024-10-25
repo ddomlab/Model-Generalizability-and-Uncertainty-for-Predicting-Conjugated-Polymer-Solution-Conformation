@@ -41,10 +41,10 @@ def main_mordred_numerical(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
     
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    columns_to_impute: list[str] = ["PDI"]
     special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI"]
+                                   
                               
 
     imputer = "mean"
@@ -73,7 +73,8 @@ def main_mordred_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
@@ -138,7 +139,8 @@ def main_maccs_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 
@@ -217,7 +219,8 @@ def main_ecfp_numerical(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization
                 )
 
 

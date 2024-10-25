@@ -14,16 +14,16 @@ for regressor in "${regressors[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
       bsub <<EOT
 #BSUB -n 8
-#BSUB -W 72:01
+#BSUB -W 60:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "${model}_${regressor}_structure_only"  # Job name
-#BSUB -o ${output_dir}/model_${model}_${target}_${regressor}_.out
-#BSUB -e ${output_dir}/model_${model}_${target}_${regressor}_.err
+#BSUB -J "${model}_${regressor}_structure_only" 
+BSUB -o "${output_dir}/model_${model}_${target}_${regressor}_remaining.out"
+#BSUB -e "${output_dir}/model_${model}_${target}_${regressor}__remaining.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_numerical.py $model --regressor_type $regressor --target "$target" --oligo_type $oligo_rep
+python ../train_structure_numerical.py $model --regressor_type $regressor --target "$target" --oligo_type "$oligo_rep"
 EOT
       done
     done
