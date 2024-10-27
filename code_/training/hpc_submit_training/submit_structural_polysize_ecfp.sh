@@ -20,8 +20,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "ecfp_radius${radius}_vector${vector}_${regressor}_${target}_polysize_ramining" 
-#BSUB -o ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_polysize_ramining.out
-#BSUB -e ${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_polysize_ramining.err
+#BSUB -o "${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_polysize_ramining.out"
+#BSUB -e "${output_dir}/ecfp_radius${radius}_vector${vector}_${target}_${regressor}_polysize_ramining.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
