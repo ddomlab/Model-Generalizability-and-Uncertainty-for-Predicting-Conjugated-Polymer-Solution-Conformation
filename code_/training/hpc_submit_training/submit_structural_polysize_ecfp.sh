@@ -4,7 +4,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 regressors=("NGB")
 targets=("Rg1 (nm)")
 radii=(6) 
-vectors=("count" "binary")
+vectors=("count")
 poly_representations=('RRU Dimer' 'RRU Trimer')
 
 # Loop through each combination of regressor, target, and model
