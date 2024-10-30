@@ -96,8 +96,8 @@ def get_learning_data(
 
 
 
-def _save_curve_path(features, model, root_dir, polymer_representation,hyp_status):
-    visualization_folder_path =  root_dir/"learning curves"/polymer_representation
+def _save_path(features, result_type, model, root_dir, polymer_representation,hyp_status):
+    visualization_folder_path =  root_dir/result_type/polymer_representation
     
     os.makedirs(visualization_folder_path, exist_ok=True)
     fname = f"{features}({model})"
@@ -168,7 +168,8 @@ def _create_learning_curve(
 
     print(hyp_status)
     # make folder and save the files
-    saving_file_path =_save_curve_path(features=features,
+    saving_file_path =_save_path(features=features,
+                                       result_type="learning curves",
                                        model=model, 
                                        root_dir=root_dir, 
                                        hyp_status=hyp_status,
