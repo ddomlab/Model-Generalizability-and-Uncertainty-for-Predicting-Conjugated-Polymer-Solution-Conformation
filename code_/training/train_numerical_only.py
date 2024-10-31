@@ -52,7 +52,8 @@ def main_numerical_only(
                                             transform_type=transform_type,
                                             cutoff=cutoff,
                                             hyperparameter_optimization=hyperparameter_optimization,
-                                            imputer=imputer
+                                            imputer=imputer,
+                                            kernel="rbf"
                                             )
     
     save_results(scores,
