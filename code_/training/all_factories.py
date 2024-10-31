@@ -6,6 +6,7 @@ from sklearn.svm import SVR
 from ngboost import NGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import Lasso
+from GPR_model import GPRegressor
 # from sklearn.multioutput import MultiOutputRegressor
 
 from sklearn.preprocessing import (StandardScaler,
@@ -84,7 +85,13 @@ regressor_factory: dict[str, type]={
     "Lasso": Lasso(),
     "DT": DecisionTreeRegressor(),
     "NGB": NGBRegressor(),
+    "GPR": lambda kernel=None: GPRegressor(kernel=kernel),
 }
+
+
+
+
+
 
 
 regressor_search_space = {
@@ -137,7 +144,11 @@ regressor_search_space = {
         "regressor__regressor__verbose": [False],
         # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
     },
+    "GPR": {
+        "regressor__regressor__lr": [1e-2], 
+        "regressor__regressor__n_epoch": [1000],
 
+    }
 }
 
 

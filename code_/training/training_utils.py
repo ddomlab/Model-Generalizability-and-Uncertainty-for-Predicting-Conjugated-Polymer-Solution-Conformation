@@ -38,11 +38,11 @@ from scoring import (
 )
 from scipy.stats import pearsonr
 
-from sklearn.metrics import (
-    mean_absolute_error,
-    mean_squared_error,
-    r2_score,
-)
+# from sklearn.metrics import (
+#     mean_absolute_error,
+#     mean_squared_error,
+#     r2_score,
+# )
 
 
 HERE: Path = Path(__file__).resolve().parent
@@ -88,6 +88,7 @@ def train_regressor(
     hyperparameter_optimization: bool=True,
     imputer: Optional[str] = None,
     cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    kernel: Optional[str] = None,
     # output_dir_name: str = "results",
     ) -> None:
         """
@@ -110,6 +111,7 @@ def train_regressor(
                                                     imputer=imputer,
                                                     cutoff=cutoff,
                                                     hyperparameter_optimization=hyperparameter_optimization,
+                                                    kernel=kernel
                                                     )
         scores = process_scores(scores)
   
@@ -134,6 +136,7 @@ def _prepare_data(
     hyperparameter_optimization: bool = True,
     imputer: Optional[str] = None,
     cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    kernel:Optional[str] = None,
     **kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
@@ -163,22 +166,37 @@ def _prepare_data(
                                                     special_column=special_impute,
                                                     scaler=transform_type)
     
+
+
     preprocessor.set_output(transform="pandas")
-    score,predication= run(
-                            X,
-                            y,
-                            preprocessor=preprocessor,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            **kwargs,
-                            )
+    
+    if regressor_type =="GPR":
+        score,predication= run(
+                                X,
+                                y,
+                                preprocessor=preprocessor,
+                                regressor_type=regressor_type,
+                                transform_type=transform_type,
+                                hyperparameter_optimization=hyperparameter_optimization,
+                                kernel=kernel,
+                                **kwargs,
+                                )
+    else:
+        score,predication= run(
+                                X,
+                                y,
+                                preprocessor=preprocessor,
+                                regressor_type=regressor_type,
+                                transform_type=transform_type,
+                                hyperparameter_optimization=hyperparameter_optimization,
+                                **kwargs,
+                                )
     print(X_y_shape)
     return score, predication, X_y_shape
 
 def run(
     X, y, preprocessor: Union[ColumnTransformer, Pipeline], regressor_type: str,
-    transform_type: str, hyperparameter_optimization: bool = True, **kwargs,
+    transform_type: str, hyperparameter_optimization: bool = True,  kernel:Optional[str] = None,**kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
     seed_scores: dict[int, dict[str, float]] = {}
@@ -190,10 +208,11 @@ def run(
                 steps=[("y scaler",transforms[transform_type]),
                       ])
 
-      y_transform_regressor: TransformedTargetRegressor = TransformedTargetRegressor(
-            regressor=regressor_factory[regressor_type],
+      y_transform_regressor = TransformedTargetRegressor(
+            regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+                      else regressor_factory[regressor_type](),
             transformer=y_transform,
-            )
+        )
     #   print('yes')
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", preprocessor),

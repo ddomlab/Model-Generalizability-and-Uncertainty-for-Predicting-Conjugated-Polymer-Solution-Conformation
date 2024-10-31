@@ -2,13 +2,13 @@ import gpytorch
 import numpy as np
 import pandas as pd
 import torch
-import torch.nn as nn
+# import torch.nn as nn
 from sklearn.base import BaseEstimator
 from sklearn.model_selection import train_test_split
-from torch_geometric.data import Batch
-from torch_geometric.loader import DataLoader
+# from torch_geometric.data import Batch
+# from torch_geometric.loader import DataLoader
 
-from pytorch_mpnn import DMPNNPredictor, RevIndexedData, smiles2data
+# from pytorch_mpnn import DMPNNPredictor, RevIndexedData, smiles2data
 
 
 def batch_tanimoto_sim(
@@ -67,8 +67,8 @@ class BitDistance(torch.nn.Module):
 
 
 class TanimotoKernel(gpytorch.kernels.Kernel):
-    ''' Tanimoto kernel from FlowMO and GAUCHE
-    (https://github.com/leojklarner/gauche/blob/main/gprotorch/kernels/fingerprint_kernels/tanimoto_kernel.py)
+    ''' Tanimoto kernel from GAUCHE
+    https://github.com/leojklarner/gauche/blob/main/gauche/kernels/fingerprint_kernels/tanimoto_kernel.py
     '''
 
     def __init__(self, metric="tanimoto", **kwargs):
@@ -141,12 +141,25 @@ class GP(gpytorch.models.ExactGP):
         super(GP, self).__init__(train_x, train_y, likelihood)
         self.mean_module = gpytorch.means.ZeroMean()
         if kwargs['kernel'] == 'rbf':
+            # for numerical
             self.covar_module = gpytorch.kernels.ScaleKernel(
                 gpytorch.kernels.RBFKernel(ard_num_dims=train_x.shape[-1])
             )
             # self.covar_module.base_kernel.lengthscale = kwargs['lengthscale']
         elif kwargs['kernel'] == 'tanimoto':
+            # for ECFP
             self.covar_module = gpytorch.kernels.ScaleKernel(TanimotoKernel())
+        elif kwargs['kernel'] == 'RQ':
+            # for mordred 
+            self.covar_module = gpytorch.kernels.ScaleKernel(
+                gpytorch.kernels.RQKernel(ard_num_dims=train_x.shape[-1])
+                )
+        elif kwargs['kernel'] == 'matern':
+            # for numeical
+            nu = kwargs.get('nu', 2.5)
+            self.covar_module = gpytorch.kernels.ScaleKernel(
+                gpytorch.kernels.MaternKernel(nu=nu, ard_num_dims=train_x.shape[-1])
+                )
         else:
             raise ValueError('Invalid kernel')
 
@@ -160,12 +173,14 @@ class GPRegressor(BaseEstimator):
 
     def __init__(
             self,
-            kernel='rbf',
+            kernel,
             lr=1e-2,
+            n_epoch=100,
     ):
         self.ll = gpytorch.likelihoods.GaussianLikelihood()
         self.kernel = kernel
         self.lr = lr
+        self.n_epoch = n_epoch
 
     def fit(self, X_train, Y_train):
 
@@ -191,7 +206,7 @@ class GPRegressor(BaseEstimator):
 
         self.model.train()
         self.ll.train()
-        for _ in range(n_epoch):
+        for _ in range(self.n_epoch):
             optimizer.zero_grad()
             y_pred = self.model(X_train)
             loss = -mll(y_pred, Y_train.ravel())
@@ -218,195 +233,4 @@ class GPRegressor(BaseEstimator):
         return y_pred
 
 
-### GNN ###
 
-class PairDataset(torch.utils.data.Dataset):
-    def __init__(self, donor, acceptor, y=None):
-        self.donor = donor
-        self.acceptor = acceptor
-        self.y = y
-
-    def __len__(self):
-        return len(self.donor)
-
-    def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
-        if self.y is None:
-            return self.donor[idx], self.acceptor[idx]
-        return self.donor[idx], self.acceptor[idx], self.y[idx]
-
-
-def pair_collate(self, data_list):
-    # gather batches with targets for dataloader
-    batchA = Batch.from_data_list([data[0] for data in data_list])
-    batchB = Batch.from_data_list([data[1] for data in data_list])
-    target = Batch.from_data_list([data[2] for data in data_list])
-    return batchA, batchB, target
-
-
-class GNNPredictor(BaseEstimator):
-    def __init__(self,
-                 hidden_size=55,
-                 depth=2,
-                 lr=1e-3):
-
-        self.hidden_size = hidden_size
-        self.depth = depth
-        self.lr = lr
-        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-    def create_data(self, x_train, y_train=None):
-        d_graphs = [RevIndexedData(smiles2data(s)) for s in x_train.iloc[:, 0]]
-        a_graphs = [RevIndexedData(smiles2data(s)) for s in x_train.iloc[:, 1]]
-
-        if y_train is not None:
-            if len(y_train.shape) == 1:
-                y_train = y_train.reshape(-1, 1)
-            if type(y_train) is not np.ndarray:
-                y_train = y_train.to_numpy()
-            y_train = torch.tensor(y_train, dtype=torch.float)
-            self.dataset = PairDataset(d_graphs, a_graphs, y_train)
-        else:
-            self.dataset = PairDataset(d_graphs, a_graphs)
-
-        self.num_node_features = d_graphs[0].x.shape[-1]
-        self.num_edge_features = d_graphs[0].edge_attr.shape[-1]
-        if y_train is not None:
-            self.out_dim = y_train.shape[-1]
-
-    def fit(self, x_train, y_train):
-        # prepare dataloaders
-        self.create_data(x_train, y_train)
-        train_ind, val_ind = train_test_split(list(range(len(self.dataset))), test_size=0.1)
-        train_loader = DataLoader(torch.utils.data.Subset(self.dataset, train_ind), batch_size=64, shuffle=True)
-        val_loader = DataLoader(torch.utils.data.Subset(self.dataset, val_ind), batch_size=64, shuffle=False)
-
-        # make the model
-        self.model = DMPNNPredictor(
-            self.hidden_size,
-            self.num_node_features,
-            self.num_edge_features,
-            self.depth,
-            self.out_dim
-        ).to(self.device)
-
-        optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
-        loss_fn = torch.nn.MSELoss()
-
-        # early stopping
-        patience = 6
-        count = 0
-        best_loss = np.inf
-
-        n_epoch = 100
-        for _ in range(n_epoch):
-            self.model.train()
-            train_loss = 0
-            for dg, ag, y in train_loader:
-                dg, ag, y = dg.to(self.device), ag.to(self.device), y.to(self.device)
-                optimizer.zero_grad()
-                y_pred = self.model(dg, ag)
-                loss = loss_fn(y_pred, y)
-                loss.backward()
-                optimizer.step()
-                train_loss += loss.cpu().item()
-            print(f'Loss: {train_loss / len(train_loader)}')
-
-            self.model.eval()
-            with torch.no_grad():
-                val_loss = 0
-                for dg, ag, y in val_loader:
-                    dg, ag, y = dg.to(self.device), ag.to(self.device), y.to(self.device)
-                    y_pred = self.model(dg, ag)
-                    loss = loss_fn(y_pred, y)
-                    val_loss += loss.cpu().item()
-            val_loss /= len(val_loader)
-            print(f'Val loss: {val_loss}')
-
-            if val_loss < best_loss:
-                best_loss = val_loss
-                best_model = self.model.state_dict()
-                count = 0
-            else:
-                count += 1
-
-            if count >= patience:
-                print(f'Early stopping reached. Best loss: {best_loss}')
-                self.model.load_state_dict(best_model)
-                break
-
-    def predict(self, x_test):
-        self.create_data(x_test)
-        loader = DataLoader(self.dataset, batch_size=64, shuffle=False)
-        y_collect = []
-        self.model.to(self.device)
-        self.model.eval()
-        with torch.no_grad():
-            for dg, ag in loader:
-                dg, ag = dg.to(self.device), ag.to(self.device)
-                y_pred = self.model(dg, ag)
-                y_collect.append(y_pred)
-
-        y_collect = torch.concat(y_collect, axis=0)
-        return y_collect.cpu().numpy().reshape(-1)
-
-
-class OrthoLinear(torch.nn.Linear):
-    def reset_parameters(self):
-        torch.nn.init.orthogonal_(self.weight)
-        if self.bias is not None:
-            torch.nn.init.zeros_(self.bias)
-
-
-class XavierLinear(torch.nn.Linear):
-    def reset_parameters(self):
-        torch.nn.init.xavier_normal_(self.weight)
-        if self.bias is not None:
-            torch.nn.init.zeros_(self.bias)
-
-
-class NNModel(nn.Module):
-    def __init__(self,
-                 input_size,
-                 output_size,
-                 embedding_size=1024,
-                 hidden_size=2048,
-                 activation=nn.ReLU,
-                 # output_size=1,
-                 n_layers=3
-                 ):
-        """Instantiates NN linear model with arguments from
-
-        Args:
-            config (args): Model Configuration parameters.
-        """
-        super(NNModel, self).__init__()
-        self.embeds: nn.Sequential = nn.Sequential(  # Defines first two layers: input and embedding
-            nn.Linear(input_size, embedding_size),
-            activation(),
-            OrthoLinear(embedding_size, hidden_size),
-            activation(),
-        )
-        self.linearlayers: nn.ModuleList = nn.ModuleList(  # Add n hidden layers same size as embedding layer
-            [nn.Sequential(OrthoLinear(hidden_size, hidden_size), activation()) for _ in range(n_layers)]
-        )
-
-        self.output: nn.Linear = nn.Linear(hidden_size, output_size)  # Final output layer
-
-    def forward(self, x: torch.tensor, **kwargs):
-        """
-        Args:
-            x (torch.tensor): Shape[batch_size, input_size]
-
-        Returns:
-            _type_: _description_
-        """
-        if not isinstance(x, torch.Tensor):
-            x = torch.tensor(x)  # Convert to a PyTorch tensor if it's a NumPy array
-        x = x.type(torch.float32)
-        embeds: torch.tensor = self.embeds(x)
-        for i, layer in enumerate(self.linearlayers):
-            embeds: torch.tensor = layer(embeds)
-        output: torch.tensor = self.output(embeds)
-        return output
