@@ -41,9 +41,11 @@ def main_mordred_numerical(
                           "oligomer_representation":oligomer_representation,
                           "col_names": structural_features}
     
-    columns_to_impute: list[str] = ["PDI"]
+    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI"]
+    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
+                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
+                                   'solvent dD', 'solvent dH', 'solvent dP']
                                    
                               
 
@@ -74,7 +76,8 @@ def main_mordred_numerical(
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
                 TEST=TEST,
-                hypop=hyperparameter_optimization
+                hypop=hyperparameter_optimization,
+                transform_type=transform_type,
                 )
 
 
@@ -82,7 +85,7 @@ def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str
         # for oligo_type in edited_oligomer_list: 
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
-                                    transform_type= "Standard",
+                                    transform_type= "Robust Scaler",
                                     hyperparameter_optimization= True,
                                     target_features= [target],
                                     oligomer_representation=oligo_type
@@ -140,7 +143,8 @@ def main_maccs_numerical(
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
                 TEST=TEST,
-                hypop=hyperparameter_optimization
+                hypop=hyperparameter_optimization,
+                transform_type=transform_type,
                 )
 
 
@@ -149,7 +153,7 @@ def perform_model_maccs_numerical(regressor_type:str,target:str,oligo_type:str):
         # for oligo_type in edited_oligomer_list: 
             main_maccs_numerical(dataset=w_data,
                                 regressor_type=regressor_type,
-                                transform_type= "Standard",
+                                transform_type= "Robust Scaler",
                                 hyperparameter_optimization= True,
                                 target_features= [target],
                                 oligomer_representation=oligo_type
@@ -186,11 +190,10 @@ def main_ecfp_numerical(
         "col_names": structural_features,
     }
 
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
+    columns_to_impute: list[str] = ["PDI"]
     special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI",
-                                   "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)",
-                                   'solvent dD', 'solvent dH', 'solvent dP']
+    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI"
+                                   ]
                                    
 
     imputer = "mean"
@@ -222,7 +225,8 @@ def main_ecfp_numerical(
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
                 TEST=TEST,
-                hypop=hyperparameter_optimization
+                hypop=hyperparameter_optimization,
+                transform_type=transform_type,
                 )
 
 
@@ -234,7 +238,7 @@ def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,olig
                                     dataset=w_data,
                                     regressor_type= regressor_type,
                                     target_features= [target],
-                                    transform_type= "Standard",
+                                    transform_type= "Robust Scaler",
                                     hyperparameter_optimization= True,
                                     radius = radius,
                                     vector_type=vector,
