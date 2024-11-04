@@ -18,8 +18,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "${model}_${regressor}full_numerical_with_RScaler" 
-BSUB -o "${output_dir}/model_${model}_${target}_${regressor}_ful_numerical_with_RScaler.out"
-#BSUB -e "${output_dir}/model_${model}_${target}_${regressor}_ful_numerical_with_RScaler.err"
+BSUB -o "${output_dir}/model_${model}_${target}_${regressor}_full_numerical_with_RScaler.out"
+#BSUB -e "${output_dir}/model_${model}_${target}_${regressor}_full_numerical_with_RScaler.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
