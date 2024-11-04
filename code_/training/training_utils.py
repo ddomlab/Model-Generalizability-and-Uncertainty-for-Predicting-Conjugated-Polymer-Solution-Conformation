@@ -170,8 +170,7 @@ def _prepare_data(
 
     preprocessor.set_output(transform="pandas")
     
-    if regressor_type =="GPR":
-        score,predication= run(
+    score,predication= run(
                                 X,
                                 y,
                                 preprocessor=preprocessor,
@@ -179,16 +178,6 @@ def _prepare_data(
                                 transform_type=transform_type,
                                 hyperparameter_optimization=hyperparameter_optimization,
                                 kernel=kernel,
-                                **kwargs,
-                                )
-    else:
-        score,predication= run(
-                                X,
-                                y,
-                                preprocessor=preprocessor,
-                                regressor_type=regressor_type,
-                                transform_type=transform_type,
-                                hyperparameter_optimization=hyperparameter_optimization,
                                 **kwargs,
                                 )
     print(X_y_shape)
@@ -209,8 +198,8 @@ def run(
                       ])
 
       y_transform_regressor = TransformedTargetRegressor(
-            regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                      else regressor_factory[regressor_type](),
+            regressor=regressor_factory[regressor_type](kernel=kernel) if regressor_type=="GPR"
+                      else regressor_factory[regressor_type],
             transformer=y_transform,
         )
     #   print('yes')

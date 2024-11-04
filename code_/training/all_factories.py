@@ -12,7 +12,8 @@ from GPR_model import GPRegressor
 from sklearn.preprocessing import (StandardScaler,
                                    QuantileTransformer,
                                    MinMaxScaler,
-                                   FunctionTransformer)
+                                   FunctionTransformer,
+                                   RobustScaler)
 from sklearn.base import TransformerMixin
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer, KNNImputer, SimpleImputer
@@ -46,6 +47,7 @@ transforms: dict[str, Callable] = {
     None:                None,
     "MinMax":            MinMaxScaler(),
     "Standard":          StandardScaler(),
+    "Robust Scaler":      RobustScaler(),
     # "Power":             PowerTransformer(),
     "Uniform Quantile":  QuantileTransformer(),
 }
@@ -85,7 +87,7 @@ regressor_factory: dict[str, type]={
     "Lasso": Lasso(),
     "DT": DecisionTreeRegressor(),
     "NGB": NGBRegressor(),
-    "GPR": lambda kernel=None: GPRegressor(kernel=kernel),
+    "GPR": GPRegressor,
 }
 
 

@@ -1,10 +1,10 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("GPR")
+regressors=("NGB" "XGBR" "RF")
 targets=("Rg1 (nm)")
-radii=(3 4 5 6) 
-poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
+radii=(6) 
+poly_representations=('Trimer' 'RRU Monomer')
 vectors=("binary" "count")
 
 # Loop through each combination of regressor, target, and model
@@ -20,8 +20,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "ecfp_radius_tructure_only" 
-#BSUB -o "${output_dir}/structure_only_ecfp_NGB.out"
-#BSUB -e "${output_dir}/structure_only_ecfp_NGB.err"
+#BSUB -o "${output_dir}/structure_only_ecfp_${regressor}_with_RScaler.err.out"
+#BSUB -e "${output_dir}/structure_only_ecfp_${regressor}_with_RScaler.err.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

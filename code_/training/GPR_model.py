@@ -140,6 +140,7 @@ class GP(gpytorch.models.ExactGP):
     def __init__(self, train_x, train_y, likelihood, **kwargs):
         super(GP, self).__init__(train_x, train_y, likelihood)
         self.mean_module = gpytorch.means.ZeroMean()
+        # print(kwargs['kernel'])
         if kwargs['kernel'] == 'rbf':
             # for numerical
             self.covar_module = gpytorch.kernels.ScaleKernel(
@@ -183,8 +184,6 @@ class GPRegressor(BaseEstimator):
         self.n_epoch = n_epoch
 
     def fit(self, X_train, Y_train):
-
-        n_epoch = 100
 
         if isinstance(X_train, pd.DataFrame):
             X_train = X_train.to_numpy()

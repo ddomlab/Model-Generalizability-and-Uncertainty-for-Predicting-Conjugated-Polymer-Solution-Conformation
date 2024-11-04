@@ -64,7 +64,8 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
           radius : Optional[int],
           vector : Optional[str],
           numerical_feats: Optional[list[str]],
-          hypop: bool=True
+          hypop: bool=True,
+          transform_type:Optional[str]=None
           ) -> None:
     
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -94,6 +95,8 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
             fname_root = f"({representation})_{regressor_type}"
     
     fname_root =f"{fname_root}_hypOFF" if hypop==False else fname_root
+    fname_root =f"{fname_root}_{transform_type}" if transform_type!=None else fname_root
+
     print("Filename:", fname_root)
     if scores:
         scores_file: Path = results_dir / f"{fname_root}_scores.json"
@@ -137,7 +140,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  imputer: Optional[str] = None,
                  output_dir_name: str = "results",
                  cutoff: Optional[Dict[str, Tuple[Optional[float], Optional[float]]]] =None,
-                 hypop: Optional[bool]=True
+                 hypop: Optional[bool]=True,
+                 transform_type:Optional[str]=None
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -172,7 +176,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
           radius=radius,
           vector=vector,
           numerical_feats=numerical_feats,
-          hypop=hypop
+          hypop=hypop,
+          transform_type=transform_type
           )
 
 

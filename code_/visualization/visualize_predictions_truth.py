@@ -2,7 +2,7 @@ import json
 from math import ceil
 from pathlib import Path
 import os 
-
+import numpy as np
 # import cmcrameri.cm as cmc
 import pandas as pd
 import seaborn as sns
@@ -94,16 +94,19 @@ def draw_predictions_plot(true_values: pd.Series,
     predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
 
     ext_comb_df = pd.concat([true_values_ext, predicted_values_ext], axis=1)
+    log_ext_comb_df = np.log10(ext_comb_df)
+
     # print(ext_comb_df)
     # Create the hex-binned plot with value distributions for all y-axis columns
-    g = sns.jointplot(data=ext_comb_df, x="Rg1 (nm)", y=0,
+    g = sns.jointplot(data=log_ext_comb_df, x="Rg1 (nm)", y=0,
                       kind="hex",
                     #   cmap="viridis",
                       # joint_kws={"gridsize": 50, "cmap": "Blues"},
                     #   joint_kws={"gridsize": (150,45)},
-                      marginal_kws={"bins": 30},
+                      marginal_kws={"bins": 25},
                       )
-    ax_max = ceil(max(ext_comb_df.max()))
+    ax_max = ceil(max(log_ext_comb_df.max()))
+    # print(ax_max)
     g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
     # g.ax_joint.annotate(f"$R^2$ = {r2_avg} ± {r2_stderr}",
     #                     # xy=(0.1, 0.9), xycoords='axes fraction',
@@ -119,7 +122,7 @@ def draw_predictions_plot(true_values: pd.Series,
              )
     # g.plot_marginals(sns.kdeplot, color="blue")
     # Set plot limits to (0, 15) for both axes
-    g.set_axis_labels("True Rg (nm)", "Predicted Rg (nm)")
+    g.set_axis_labels("log True Rg (nm)", " log Predicted Rg (nm)")
     g.ax_joint.set_xlim(0, ax_max)
     g.ax_joint.set_ylim(0, ax_max)
     # plt.tight_layout()
@@ -128,15 +131,19 @@ def draw_predictions_plot(true_values: pd.Series,
     # plt.show()
 
 
-    visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
+    visualization_folder_path =  root_dir/"parity plot log base"/poly_representation_name
     os.makedirs(visualization_folder_path, exist_ok=True)
     saving_path = visualization_folder_path/ f"{file_name}.png"
 
     # output: Path = predictions.parent / f"{predictions.stem}_plot.png"
     # plt.savefig(output, dpi=600)
-    g.savefig(saving_path, dpi=600)
-    print(f"Saved {saving_path}")
-    # plt.show()
+    try:
+        g.savefig(saving_path, dpi=600)
+        print(f"Saved {saving_path}")
+    except Exception as e:
+        print(f"Failed to save {saving_path} due to {e}")
+
+    # plt.show() (if needed)
     plt.close()
 
 
