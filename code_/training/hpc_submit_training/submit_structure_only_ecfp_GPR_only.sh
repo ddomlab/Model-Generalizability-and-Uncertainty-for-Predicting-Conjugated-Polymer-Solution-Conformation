@@ -1,7 +1,7 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("NGB" "XGBR" "RF")
+regressors=("GPR")
 targets=("Rg1 (nm)")
 radii=(6) 
 poly_representations=('Trimer' 'RRU Monomer')
@@ -25,7 +25,14 @@ for regressor in "${regressors[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python ../train_structure_only.py ecfp --regressor_type $regressor --radius $radius --vector $vector --target "$target" --oligo_type "$oligo_rep"
+python ../train_structure_only.py ecfp \
+    --regressor_type "$regressor" \
+    --radius "$radius" \
+    --vector "$vector" \
+    --target "$target" \
+    --oligo_type "$oligo_rep" \
+    --kernel "$tanimoto"
+
 EOT
         done
       done
