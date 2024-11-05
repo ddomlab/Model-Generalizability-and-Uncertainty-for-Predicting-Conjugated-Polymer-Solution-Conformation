@@ -94,7 +94,7 @@ def draw_predictions_plot(true_values: pd.Series,
     predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
 
     ext_comb_df = pd.concat([true_values_ext, predicted_values_ext], axis=1)
-    log_ext_comb_df = np.log10(ext_comb_df)
+    log_ext_comb_df = np.log10(ext_comb_df+.001)
 
     # print(ext_comb_df)
     # Create the hex-binned plot with value distributions for all y-axis columns

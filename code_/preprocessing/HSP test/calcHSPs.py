@@ -340,7 +340,7 @@ def calculate_theoretical_hsp(df):
         mol = Chem.MolFromSmiles(smiles)
         
         Vm, RD = get_Vm_RD(mol)
-        
+
         # Compute D-component (dD)
         if Vm is None or RD is None:
             hspD = None
