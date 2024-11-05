@@ -84,7 +84,16 @@ def map_structure():
     print(main_data.shape)
     # saving the file 
     return main_data
- 
+
+
+def calculate_Ra_squared(row):
+    Ra = np.sqrt(4 * (row['solvent dD'] - row['polymer dD']) ** 2 +
+                  (row['solvent dP'] - row['polymer dP']) ** 2 +
+                  (row['solvent dH'] - row['polymer dH']) ** 2)
+    return Ra
+
+# Apply the function to each row
+# df['Ra_squared'] = df.apply(calculate_Ra_squared, axis=1)
 
 def map_hsp(df,solvent_df,polymer_hsp):
     df['modified_solvent_format'] = df['Solvent(s)'].apply(sol_name_change)
@@ -94,6 +103,10 @@ def map_hsp(df,solvent_df,polymer_hsp):
         df[f'solvent {param}'] = df['modified_solvent_format'].apply(lambda x: calculate_mixture_hsp(solvent_df,x, param))
         df[f'polymer {param}'] = df['canonical_name'].apply(lambda x: get_polymer_hsp_value(polymer_hsp,x, param))
     print('Done with mapping solvent and polymer hsp')
+    
+    df['Ra'] = df.apply(calculate_Ra_squared, axis=1)
+    print('Done with calculating Ra')
+
     return df
 
 

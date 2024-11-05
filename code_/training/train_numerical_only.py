@@ -2,11 +2,10 @@ import pandas as pd
 from pathlib import Path
 from training_utils import train_regressor
 from all_factories import radius_to_bits,cutoffs
-import json
+from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
 import sys
 sys.path.append("../cleaning")
-from clean_dataset import open_json
 from argparse import ArgumentParser
 from data_handling import save_results
 
@@ -14,12 +13,8 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
-oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
-
-oligomer_list =open_json(oligo_dir)
+training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
 w_data = pd.read_pickle(training_df_dir)
-edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 TEST = False
 
@@ -31,11 +26,11 @@ def main_numerical_only(
     target_features: list[str],
     transform_type: str,
     hyperparameter_optimization: bool,
-    columns_to_impute: list[str],
-    special_impute: str,
-    numerical_feats: list[str],
-    imputer:str,
-    cutoff:str=None
+    columns_to_impute: Optional[list[str]],
+    special_impute: Optional[str],
+    numerical_feats: Optional[list[str]],
+    imputer:Optional[str],
+    cutoff:Optional[str]=None
 ) -> None:
 
 
@@ -53,7 +48,6 @@ def main_numerical_only(
                                             cutoff=cutoff,
                                             hyperparameter_optimization=hyperparameter_optimization,
                                             imputer=imputer,
-                                            kernel="rbf"
                                             )
     
     save_results(scores,
@@ -66,7 +60,9 @@ def main_numerical_only(
                 regressor_type=regressor_type,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
-                TEST=TEST
+                TEST=TEST,
+                hypop=hyperparameter_optimization,
+                transform_type=transform_type
                 )
 
 
@@ -77,174 +73,7 @@ def main_numerical_only(
     # transform_type= "Standard"
     # target_features= ['Lp (nm)']
     
-# def perform_model_numerical(regressor_type:str):
         
-# main_numerical_only(dataset=w_data,
-#                     regressor_type=regressor_type,
-#                     transform_type= "Standard",
-#                     hyperparameter_optimization= True,
-#                     target_features= ['Lp (nm)'],
-#                     columns_to_impute,
-#                     special_column,
-#                     numerical_feats,
-#                     imputer,
-#                     )
-
-
-# perform numerical and mordred
-
-# def main_mordred_numerical(
-#     dataset: pd.DataFrame,
-#     regressor_type: str,
-#     target_features: list[str],
-#     transform_type: str,
-#     hyperparameter_optimization: bool,
-#     oligomer_representation: str
-
-# ) -> None:
-
-#     columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-#     special_column: str = "Mw (g/mol)"
-#     numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-
-#     imputer = "mean"
-#     scores, predictions  = train_regressor(
-#                             dataset=dataset,
-#                             features_impute=columns_to_impute,
-#                             special_impute=special_column,
-#                             representation=None,
-#                             structural_features=None,
-#                             unroll=None,
-#                             numerical_feats=numerical_feats,
-#                             target_features=target_features,
-#                             regressor_type=regressor_type,
-#                             transform_type=transform_type,
-#                             hyperparameter_optimization=hyperparameter_optimization,
-#                             imputer=imputer
-#                         )
-#     save_results(scores,
-#                 predictions=predictions,
-#                 representation= None,
-#                 pu_type= None,
-#                 target_features=target_features,
-#                 regressor_type=regressor_type,
-#                 numerical_feats=numerical_feats,
-#                 TEST=TEST
-#                 )
-
-
-
-
-
-def main_maccs_numerical(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-    oligomer_representation: str
-
-) -> None:
-    representation: str = "MACCS"
-    structural_features: list[str] = [f"{oligomer_representation}_{representation}"]
-    unroll_single_feat = {"representation": representation,
-                          "oligomer_representation":oligomer_representation,
-                          "col_names": structural_features}
-
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-    special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-    imputer = "mean"
-
-    scores, predictions  = train_regressor(
-                            dataset=dataset,
-                            features_impute=columns_to_impute,
-                            special_impute=special_column,
-                            representation=representation,
-                            structural_features=structural_features,
-                            unroll=unroll_single_feat,
-                            numerical_feats=numerical_feats,
-                            target_features=target_features,
-                            regressor_type=regressor_type,
-                            transform_type=transform_type,
-                            cutoff=cutoffs,
-                            hyperparameter_optimization=hyperparameter_optimization,
-                            imputer=imputer
-                        )
-    save_results(scores,
-                predictions=predictions,
-                imputer=imputer,
-                representation= representation,
-                pu_type= oligomer_representation,
-                target_features=target_features,
-                regressor_type=regressor_type,
-                numerical_feats=numerical_feats,
-                cutoff=cutoffs,
-                TEST=TEST
-                )
-
-
-
-def perform_model_numerical_maccs(regressor_type:str):
-        for oligo_type in edited_oligomer_list: 
-            main_maccs_numerical(dataset=w_data,
-                                regressor_type=regressor_type,
-                                transform_type= "Standard",
-                                hyperparameter_optimization= True,
-                                target_features= ['Lp (nm)'],
-                                oligomer_representation=oligo_type
-                                )
-
-
-
-
-
-
-def main_ecfp_numerical(
-    dataset: pd.DataFrame,
-    regressor_type: str,
-    target_features: list[str],
-    transform_type: str,
-    hyperparameter_optimization: bool,
-) -> None:
-    # representation: str = "MACCS"
-    # structural_features: list[str] = [f"{oligomer_representation}_{representation}"]
-    # unroll_single_feat = {"representation": representation,
-    #                       "oligomer_representation":oligomer_representation,
-    #                       "col_names": structural_features}
-
-    columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-    special_column: str = "Mw (g/mol)"
-    numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
-
-    imputer = "mean"
-    scores, predictions, data_shapes  = train_regressor(
-                                                dataset=dataset,
-                                                features_impute=columns_to_impute,
-                                                special_impute=special_column,
-                                                representation=None,
-                                                structural_features=None,
-                                                unroll=None,
-                                                numerical_feats=numerical_feats,
-                                                target_features=target_features,
-                                                regressor_type=regressor_type,
-                                                transform_type=transform_type,
-                                                cutoff=cutoffs,
-                                                hyperparameter_optimization=hyperparameter_optimization,
-                                                imputer=imputer
-                                            )
-    save_results(scores,
-                predictions=predictions,
-                df_shapes = data_shapes,
-                representation= None,
-                pu_type= None,
-                target_features=target_features,
-                regressor_type=regressor_type,
-                numerical_feats=numerical_feats,
-                cutoff=cutoffs,
-                TEST=TEST
-                )
-
 
 
 
@@ -264,7 +93,7 @@ def parse_arguments():
     parser.add_argument(
         '--regressor_type', 
         type=str, 
-        choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN'], 
+        choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN', 'GPR', 'NGB'], 
         required=True, 
         help="Regressor type: RF, DT, or MLR."
     )
@@ -309,6 +138,13 @@ def parse_arguments():
         help="Specify the imputation strategy or leave it as None."
     )
 
+    parser.add_argument(
+        "--transform_type", 
+        type=str, 
+        choices=["Standard", "Robust Scaler"], 
+        default= "Standard", 
+        help="transform type required"
+    )
     
     return parser.parse_args()
 
@@ -320,7 +156,7 @@ if __name__ == "__main__":
         dataset=w_data,
         regressor_type=args.regressor_type,
         target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
-        transform_type="Standard",
+        transform_type=args.transform_type,
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  # Already a list
         special_impute=args.special_impute,
@@ -330,17 +166,17 @@ if __name__ == "__main__":
     )
 
 
-# main_numerical_only(
-#     dataset=w_data,
-#     regressor_type="DT",
-#     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
-#     transform_type="Standard",
-#     hyperparameter_optimization=True,
-#     columns_to_impute=["PDI"],
-#     special_impute="Mw (g/mol)",
-#     numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI"],
-#     imputer='mean',
-#     cutoff=None)
+    # main_numerical_only(
+    #     dataset=w_data,
+    #     regressor_type="DT",
+    #     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
+    #     transform_type="Standard",
+    #     hyperparameter_optimization=True,
+    #     columns_to_impute=None,
+    #     special_impute=None,
+    #     numerical_feats=['polymer dH'],
+    #     imputer=None,
+    #     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # special_column: str = "Mw (g/mol)"
