@@ -20,9 +20,9 @@ for target in "${target_to_asses[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python ../train_structure_numeric.py --target_features "${target}" \
+python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats "polymer dP" "polymer dD" "polymer dH"
+                                  --numerical_feats "polymer dP" "polymer dD" "polymer dH" 
                                   
 conda deactivate
 
