@@ -237,9 +237,7 @@ def creat_result_df(target_dir: Path,
                         feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                         models.add(model)
                     # for just scaler 
-                    else:
-                        continue
-                    
+                
                 else:
                     feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                     models.add(model)
@@ -349,11 +347,11 @@ def create_structural_scaler_result(target_dir:Path,
 
 
 
-for model in models: 
-    for target_folder in target_list:
-        for i in scores_list:
-            create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,var='stdev',data_type='structural_scaler')
+# for model in models: 
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                             score=i,var='stdev',data_type='structural_scaler')
 
 
 
@@ -381,7 +379,7 @@ def create_scaler_result(target_dir:Path,
                     fname=f"Regression Models vs numerical features search heatmap_{score}")
     
 
-# for target_folder in target_list:
-#     for i in scores_list:
-#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                              score=i,var='stdev',data_type='scaler')
+for target_folder in target_list:
+    for i in scores_list:
+        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                             score=i,var='stdev',data_type='scaler')
