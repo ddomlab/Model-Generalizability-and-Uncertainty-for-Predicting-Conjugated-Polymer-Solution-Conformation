@@ -12,7 +12,8 @@ import mordred.descriptors
 
 from assign_hsp import (sol_name_change, 
                         calculate_mixture_hsp,
-                        get_polymer_hsp_value)
+                        get_polymer_hsp_value,
+                        calculate_Ra_squared)
 
 
 sys.path.append("code_/cleaning")
@@ -34,12 +35,12 @@ RAW_dir = DATASETS/ 'raw'
 
 
 corrected_name_dir: Path =  JSONS/'canonicalized_name.json'
-main_df_dir: Path  = CLEANED_DATASETS/'cleaned_data_wo_block_cp.csv'
+main_df_dir: Path  = CLEANED_DATASETS/'cleaned_data_wo_block_cp.pkl'
 structural_df_dir: Path =  DATASETS/'fingerprint'/'structural_features.pkl' # fingerprints data in array format
 
 # reading files
 unified_poly_name: dict[str,list] = open_json(corrected_name_dir)
-main_data = pd.read_csv(main_df_dir)
+main_data = pd.read_pickle(main_df_dir)
 structural_data = pd.read_pickle(structural_df_dir)
 
 # reading hsp features
@@ -86,11 +87,6 @@ def map_structure():
     return main_data
 
 
-def calculate_Ra_squared(row):
-    Ra = np.sqrt(4 * (row['solvent dD'] - row['polymer dD']) ** 2 +
-                  (row['solvent dP'] - row['polymer dP']) ** 2 +
-                  (row['solvent dH'] - row['polymer dH']) ** 2)
-    return Ra
 
 # Apply the function to each row
 # df['Ra_squared'] = df.apply(calculate_Ra_squared, axis=1)

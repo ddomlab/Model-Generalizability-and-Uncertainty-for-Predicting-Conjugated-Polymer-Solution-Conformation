@@ -49,9 +49,9 @@ def main_cleaning(raw_data:pd.DataFrame) -> None:
         m_data[value] = m_data[value].apply(convert_value)
     print('Done with converting to precise values ')
 
-    numreical_feats: list[str] = ["Rh1 (nm)", "Rg1 (nm)", "Lp (nm)",
-                    "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)"]
-    for column in numreical_feats:
+    # numreical_feats: list[str] = ["Rh1 (nm)", "Rg1 (nm)", "Lp (nm)",
+    #                 "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)"]
+    for column in main_columns:
         m_data[column] = pd.to_numeric(m_data[column], errors="coerce", )
     
     m_data = m_data.reset_index(drop=True)
@@ -69,7 +69,6 @@ def drop_block_cp(m_data:pd.DataFrame):
     block_cp_dir = JSONS/'block_copolymers.json'
     block_cp : dict[str,list] = open_json(block_cp_dir) 
     values_to_drop: list[str] = [poly_name for poly_name in block_cp.keys()]
-
     m_data: pd.DataFrame = m_data[~m_data['name'].isin(values_to_drop)].reset_index(drop=True)
 
     save_dir = DATASETS/'cleaned_datasets'
@@ -81,4 +80,17 @@ def drop_block_cp(m_data:pd.DataFrame):
 
 
 
+def get_replacement_value(index, df):
+    row = df[df['index to extract'] == index]
+    if not row.empty:
+        return row['intensity weighted average Rh (nm)'].values[0]
+    else:
+        return None
 
+def assign_intensity_weighted_Rh(data, rh_data):
+    data['intensity weighted Rh (nm)'] = data.apply(
+        lambda row: get_replacement_value(row.name, rh_data) if str(row.name) == str(rh_data['index to extract'].values).strip() else row['Rh1 (nm)'],
+        axis=1
+    )
+    print("Done with assigning intensity weighted Rh")
+    return data

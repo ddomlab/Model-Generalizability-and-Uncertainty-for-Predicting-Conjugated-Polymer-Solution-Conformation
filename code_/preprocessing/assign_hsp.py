@@ -104,7 +104,11 @@ def get_polymer_hsp_value(polymer_hsp_df,polymer_name, hsp_param,):
         return None
     
 
-
+def calculate_Ra_squared(row):
+    Ra = np.sqrt(4 * (row['solvent dD'] - row['polymer dD']) ** 2 +
+                  (row['solvent dP'] - row['polymer dP']) ** 2 +
+                  (row['solvent dH'] - row['polymer dH']) ** 2)
+    return Ra
 
     
 # m_data["modified_solvent_format"] = m_data['Solvent(s)'].apply(sol_name_change)
