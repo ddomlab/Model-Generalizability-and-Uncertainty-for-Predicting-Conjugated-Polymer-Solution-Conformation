@@ -25,7 +25,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 target_list = ['target_Rg']
 models = ['XGBR','NGB','MLR']
 
-
+transformer_list = ["Robust Scaler"]
 
 
 
@@ -195,6 +195,7 @@ def creat_result_df(target_dir: Path,
                     score: str,
                     var: str,
                     data_type:str,
+                    transformer_type:str,
                     regressor_model:Optional[str]=None,
 ) -> tuple[pd.DataFrame,pd.DataFrame]:
     
@@ -234,11 +235,18 @@ def creat_result_df(target_dir: Path,
                 print(file_path)
                 if data_type=='structural_scaler' or data_type=='structural':
                     if regressor_model and regressor_model in file_path.name:
-                        feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-                        models.add(model)
+                        if transformer_type in file_path.name:
+                            feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                            models.add(model)
+                        else:
+                            continue
+                    
+                    else:
+                        continue
                     # for just scaler 
                 
                 else:
+                    # if transformer_type in fi:
                     feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                     models.add(model)
                 # for scaler features only
@@ -281,10 +289,11 @@ def create_structural_result(target_dir:Path,
                              target:str,
                              score:str,
                              var:str,
-                             data_type:str
+                             data_type:str,
+                             transformer_type:str,
                              ) -> None:
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
-                                       ,regressor_model=regressor_model)
+                                       ,regressor_model=regressor_model, transformer_type=transformer_type)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
 
@@ -294,10 +303,10 @@ def create_structural_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s)",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s) with {transformer_type}",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
-                    fname=f"PolymerRepresentation vs Fingerprint trained by {regressor_model} search heatmap_{score} score")
+                    fname=f"PolymerRepresentation vs Fingerprint trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
 
 
 scores_list: list = {"r", "r2", "mae", "rmse"}
@@ -325,11 +334,12 @@ def create_structural_scaler_result(target_dir:Path,
                                     target:str,
                                     score:str,
                                     var:str,
-                                    data_type:str
+                                    data_type:str,
+                                    transformer_type:str,
                                     ) -> None:
 
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
-                                       regressor_model=regressor_model)
+                                       regressor_model=regressor_model, transformer_type=transformer_type)
     model_in_title:str =  ",".join(model)
     
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
@@ -339,19 +349,21 @@ def create_structural_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(24, 16),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
-                    fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} search heatmap_{score} score")
+                    fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
     
 
 
-
-# for model in models: 
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                             score=i,var='stdev',data_type='structural_scaler')
+for transformer in transformer_list:
+    for model in models: 
+        for target_folder in target_list:
+            for i in scores_list:
+                create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 
 
@@ -360,11 +372,12 @@ def create_scaler_result(target_dir:Path,
                         score:str,
                         target:str,
                         var:str,
-                        data_type:str
+                        data_type:str,
+                        transformer_type:str,
                         )->None:
 
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
-                                       regressor_model=None)
+                                       regressor_model=None,transformer_type=transformer_type)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     _create_heatmap(root_dir=target_dir,
@@ -373,13 +386,13 @@ def create_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(20, 10),
-                    fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model",
+                    fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="numerical Representations",
                     y_title="Regression Models",
-                    fname=f"Regression Models vs numerical features search heatmap_{score}")
+                    fname=f"Regression Models vs numerical features with {transformer_type} search heatmap_{score}")
     
 
-for target_folder in target_list:
-    for i in scores_list:
-        create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                             score=i,var='stdev',data_type='scaler')
+# for target_folder in target_list:
+#     for i in scores_list:
+#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                              score=i,var='stdev',data_type='scaler')

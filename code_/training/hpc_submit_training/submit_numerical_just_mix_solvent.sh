@@ -14,15 +14,18 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "poly_HSP_with_${model}_on_${target}"
-#BSUB -o "${output_dir}/poly_HSP_with_${model}_on_${target}_on_Ra.out"
-#BSUB -e "${output_dir}/poly_HSP_with_${model}_on_${target}_on_Ra.err"
+#BSUB -J "poly_HSP_with_${model}_on_${target}_on_polysize_hsp"
+#BSUB -o "${output_dir}/poly_HSP_with_${model}_on_${target}_on_polysize_hsp.out"
+#BSUB -e "${output_dir}/poly_HSP_with_${model}_on_${target}_on_polysize_hsp.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats "Ra"
+                                  --numerical_feats "Mn (g/mol)" "PDI" "Mw (g/mol)" "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" "Ra" \
+                                  --columns_to_impute "PDI" \
+                                  --special_impute 'Mw (g/mol)' \
+                                  --imputer mean
                                   
 conda deactivate
 

@@ -31,7 +31,7 @@ python ../train_structure_only.py $model \
     --regressor_type "$regressor" \
     --target "$target" \
     --oligo_type "$oligo_rep" \
-    --kernel "$RQ"
+    --kernel "RQ"
 
 EOT
       done

@@ -31,7 +31,7 @@ python ../train_structure_only.py ecfp \
     --vector "$vector" \
     --target "$target" \
     --oligo_type "$oligo_rep" \
-    --kernel "$tanimoto"
+    --kernel "tanimoto"
 
 EOT
         done
