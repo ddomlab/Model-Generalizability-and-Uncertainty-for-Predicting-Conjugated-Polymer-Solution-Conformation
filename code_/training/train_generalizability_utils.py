@@ -217,9 +217,6 @@ def run_leaning(
                                                                                 random_state=seed)
 
 
-        elif regressor_type == "ANN":
-                pass
-
         else:
                 train_sizes, train_scores, test_scores = get_incremental_split(regressor,
                                                                                 X,
