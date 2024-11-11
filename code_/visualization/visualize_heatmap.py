@@ -25,7 +25,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 target_list = ['target_Rg']
 models = ['XGBR','NGB','MLR']
 
-transformer_list = ["Robust Scaler"]
+transformer_list = ["Robust Scaler", "Standard"]
 
 
 
@@ -391,8 +391,9 @@ def create_scaler_result(target_dir:Path,
                     y_title="Regression Models",
                     fname=f"Regression Models vs numerical features with {transformer_type} search heatmap_{score}")
     
+# for transformer in transformer_list:
 
-# for target_folder in target_list:
-#     for i in scores_list:
-#         create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                              score=i,var='stdev',data_type='scaler')
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
