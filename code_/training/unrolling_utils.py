@@ -63,18 +63,10 @@ def unroll_MACCS(df: pd.DataFrame, col_names: list[str], oligomer_representation
 radius_to_bits: dict[int, int] = {3: 512, 4: 1024, 5: 2048, 6: 4096}
 
 
-unrolling_factory: dict[str, Callable] = {#"solvent":             unroll_solvent_descriptors,
-                                          #"solvent additive":    unroll_solvent_descriptors,
+unrolling_factory: dict[str, Callable] = {
                                           "ECFP":                 unroll_ECFP,
                                           "Mordred":              unroll_Mordred_descriptors,
                                           "MACCS":                unroll_MACCS,
-                                          #"BRICS":               unroll_tokens,
-                                          #"SELFIES":             unroll_tokens,
-                                          #"SMILES":              unroll_tokens,
-                                          #"OHE":                 get_ohe_structures,
-                                          #"material properties": get_material_properties,
-                                          #"graph embeddings":    get_gnn_embeddings,
-                                          #"PUFp":                unroll_pufp,
                                           }
 
 

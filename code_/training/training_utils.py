@@ -1,20 +1,13 @@
-import json
-import platform
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
-from itertools import product
 
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.model_selection import KFold
-# from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler, QuantileTransformer, StandardScaler
 from skopt import BayesSearchCV
-# from skorch.regressor import NeuralNetRegressor
 
-import time
 
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
@@ -25,52 +18,26 @@ from all_factories import (
 
 
 from imputation_normalization import preprocessing_workflow
-
-# from pipeline_utils import (
-#     generate_feature_pipeline,
-#     get_feature_pipelines,
-#     imputer_factory,
-# )
-
 from scoring import (
     cross_validate_regressor,
     process_scores,
 )
-from scipy.stats import pearsonr
-
-# from sklearn.metrics import (
-#     mean_absolute_error,
-#     mean_squared_error,
-#     r2_score,
-# )
-
 
 HERE: Path = Path(__file__).resolve().parent
 
-# os_type: str = platform.system().lower()
-TEST=False
 
-# Seeds for generating random states
-if TEST==False:
-    SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
-else:    
-    SEEDS = [42]
-N_FOLDS: int = 5 if not TEST else 2
+def set_globals(Test: bool=False) -> None:
+    global SEEDS, N_FOLDS, BO_ITER
+    if not Test:
+        SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+        N_FOLDS = 5
+        BO_ITER = 42
+    else:
+        SEEDS = [42,13]
+        N_FOLDS = 2
+        BO_ITER = 1
 
-# Number of iterations for Bayesian optimization
-BO_ITER: int = 42 if not TEST else 1
 
-# Number of folds for cross-validation
-# N_FOLDS: int = 5 if not TEST else 2
-
-# # Number of iterations for Bayesian optimization
-# BO_ITER: int = 42 if not TEST else 1
-
-# Path to config for Pytorch model
-# CONFIG_PATH: Path = HERE / "ANN_config.json"
-
-# Set seed for PyTorch model
-# torch.manual_seed(0)
 
 def train_regressor(
     dataset: pd.DataFrame,
@@ -80,8 +47,6 @@ def train_regressor(
     structural_features: Optional[list[str]],
     numerical_feats: Optional[list[str]],
     unroll: Union[dict[str, str], list[dict[str, str]], None],
-    # scalar_filter: Optional[str],
-    # subspace_filter: Optional[str],
     regressor_type: str,
     target_features: str,
     transform_type: str,
@@ -89,12 +54,13 @@ def train_regressor(
     imputer: Optional[str] = None,
     cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
     kernel: Optional[str] = None,
-    # output_dir_name: str = "results",
+    Test:bool=False,
     ) -> None:
         """
         you should change the name here for prepare
         """
             #seed scores and seed prediction
+        set_globals(Test)
         scores, predictions, data_shape = _prepare_data(
                                                     dataset=dataset,
                                                     features_impute= features_impute,
@@ -103,8 +69,6 @@ def train_regressor(
                                                     structural_features=structural_features,
                                                     unroll=unroll,
                                                     numerical_feats = numerical_feats,
-                                                    # scalar_filter=scalar_filter,
-                                                    # subspace_filter=subspace_filter,
                                                     target_features=target_features,
                                                     regressor_type=regressor_type,
                                                     transform_type=transform_type,
@@ -129,8 +93,6 @@ def _prepare_data(
     representation: Optional[str]=None,
     structural_features: Optional[list[str]]=None,
     numerical_feats: Optional[list[str]]=None,
-    # scalar_filter: Optional[str],
-    # subspace_filter: Optional[str],
     unroll: Union[dict, list, None] = None,
     transform_type: str = "Standard",
     hyperparameter_optimization: bool = True,
@@ -202,7 +164,6 @@ def run(
                       else regressor_factory[regressor_type],
             transformer=y_transform,
         )
-    #   print('yes')
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", preprocessor),
                     ("regressor", y_transform_regressor),
@@ -224,8 +185,6 @@ def run(
             )
             scores["best_params"] = regressor_params
 
-      elif regressor_type == "ANN":
-            pass
 
       else:
             scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)

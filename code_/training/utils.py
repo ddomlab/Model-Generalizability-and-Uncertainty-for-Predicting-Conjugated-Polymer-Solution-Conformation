@@ -8,16 +8,14 @@ import mordred
 import mordred.descriptors
 
 import torch
-# from torch_geometric.utils import from_smiles
 
-from .graphs_tf import MolTensorizer
-
-import sklearn
 from sklearn.decomposition import PCA 
 from sklearn.model_selection import KFold, train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error as mse
 from sklearn.metrics import r2_score
+
+
 
 def get_features(smi, feature_type = 'fp'):
     # get desired feature from smiles
@@ -28,17 +26,12 @@ def get_features(smi, feature_type = 'fp'):
         calc = mordred.Calculator(mordred.descriptors, ignore_3D=True)
         vals = calc(mol)._values
         feat = np.array([float(v) for v in vals])
-    # elif feature_type == 'graph':
-    #     # feat = from_smiles(Chem.MolToSmiles(mol))
 
-    #     feat = 
     else:
         raise NotImplementedError('No such feature.')
     return feat
 
 def set_seed(seed = 22):
-    # set random seed for all used modules
-    # print(f'Random seed set to {seed}')
     np.random.seed(seed)
     torch.manual_seed(seed)
     random.seed(seed)
@@ -75,16 +68,10 @@ def remove_zero_variance(features):
     return red_feature
 
 def pca_features(features, num_dims = 128, threshold = 0.99999):
-    # return pca reduced features with enough dimensions to account 
-    # for threshold of variance in data
+
     pca = PCA()
     features = np.array(features)
     pca.fit(features)
-    # count = 0
-    # for i, vals in enumerate(pca.explained_variance_ratio_):
-    #     count += vals
-    #     if count >= threshold:
-    #         break
     red_features = pca.transform(features)
     red_features = red_features[:, :num_dims]
     return red_features
