@@ -19,9 +19,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "ecfp_radius_tructure_only_${regressor}" 
-#BSUB -o "${output_dir}/structure_only_ecfp_${regressor}_with_RScaler.out"
-#BSUB -e "${output_dir}/structure_only_ecfp_${regressor}_with_RScaler.err"
+#BSUB -J "ecfp_radius_tructure_only_${regressor}_standard_validation"" 
+#BSUB -o "${output_dir}/structure_only_ecfp_${regressor}_with_standard_validation.out"
+#BSUB -e "${output_dir}/structure_only_ecfp_${regressor}_with_standard_validation.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

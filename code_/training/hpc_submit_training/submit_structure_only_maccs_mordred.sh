@@ -20,9 +20,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 60:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "structure_only_mordred_${regressor}_with_RScaler"  
-#BSUB -o "${output_dir}/structure_only_mordred_${regressor}_with_RScaler.out"
-#BSUB -e "${output_dir}/structure_only_mordred_${regressor}_with_RScaler.err"
+#BSUB -J "structure_only_mordred_${regressor}_with_standard_validation"  
+#BSUB -o "${output_dir}/structure_only_mordred_${regressor}_with_standard_validation.out"
+#BSUB -e "${output_dir}/structure_only_mordred_${regressor}_with_standard_validation.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
