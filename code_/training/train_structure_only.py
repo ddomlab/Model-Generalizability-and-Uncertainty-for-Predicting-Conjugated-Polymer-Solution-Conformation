@@ -37,6 +37,7 @@ def main_ECFP_only(
     vector_type: str,
     kernel:Optional[str]=None,
     
+    
 ) -> None:
     representation: str = "ECFP"
     n_bits = radius_to_bits[radius]
@@ -66,6 +67,7 @@ def main_ECFP_only(
                                         cutoff=cutoffs,
                                         imputer=None,
                                         kernel=kernel,
+                                        Test=TEST
                                     )
     save_results(scores,
             predictions=predictions,
@@ -113,7 +115,8 @@ def main_MACCS_only(
                                             hyperparameter_optimization=hyperparameter_optimization,
                                             cutoff=cutoffs,
                                             imputer=None,
-                                            kernel=kernel
+                                            kernel=kernel,
+                                            Test=TEST
                                         )
 
 
@@ -160,7 +163,8 @@ def main_Mordred_only(
                                     hyperparameter_optimization=hyperparameter_optimization,
                                     cutoff=cutoffs,
                                     imputer=None,
-                                    kernel=kernel
+                                    kernel=kernel,
+                                    Test=TEST
                                 )
 
     save_results(scores=scores,
@@ -196,7 +200,7 @@ def perform_model_ecfp(regressor_type:str,
                                 dataset=w_data,
                                 regressor_type= regressor_type,
                                 target_features= [target],
-                                transform_type= "Robust Scaler",
+                                transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 radius = radius,
                                 oligomer_representation=oligo_type,
@@ -214,7 +218,7 @@ def perform_model_maccs(regressor_type:str,target:str,oligo_type:str,kernel:Opti
                             dataset=w_data,
                             regressor_type= regressor_type,
                             target_features= [target],
-                            transform_type= "Robust Scaler",
+                            transform_type= "Standard",
                             hyperparameter_optimization= True,
                             oligomer_representation=oligo_type,
                             kernel=kernel,
@@ -229,7 +233,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
                                 dataset=w_data,
                                 regressor_type= regressor_type,
                                 target_features= [target],
-                                transform_type= "Robust Scaler",
+                                transform_type= "Standard",
                                 hyperparameter_optimization= True,
                                 oligomer_representation=oligo_type,
                                 kernel=kernel
@@ -240,7 +244,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
 
 # perform_model_ecfp('GPR',6,"count",'Rg1 (nm)', 'Monomer',kernel='tanimoto')
 # perform_model_maccs()
-# perform_model_mordred('GPR','Rg1 (nm)', 'Monomer', kernel="RQ")
+perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
 
 def main():
     parser = ArgumentParser(description='Run models with specific parameters')
@@ -289,6 +293,6 @@ def main():
     elif args.model == 'mordred':
         perform_model_mordred(args.regressor_type, args.target, args.oligo_type, args.kernel)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     # main()
 

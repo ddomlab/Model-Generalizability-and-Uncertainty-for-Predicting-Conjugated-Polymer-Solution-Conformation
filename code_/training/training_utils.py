@@ -213,7 +213,7 @@ def _optimize_hyperparams(
 
     # Splitting for outer cross-validation loop
     estimators: list[BayesSearchCV] = []
-    for train_index, test_index in cv_outer.split(X, y):
+    for train_index, _ in cv_outer.split(X, y):
 
         X_train = split_for_training(X, train_index)
         y_train = split_for_training(y, train_index)

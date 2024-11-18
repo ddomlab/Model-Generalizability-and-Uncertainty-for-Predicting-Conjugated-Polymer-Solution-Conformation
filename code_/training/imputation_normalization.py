@@ -82,9 +82,9 @@ def preprocessing_workflow(imputer: Optional[str]=None,
             ("numerical_scaling", transforms[scaler], numerical_feat)
             )
     # elif representation_scaling_factory[representation]['callable']:
-    elif representation_scaling_factory[representation]['callable']!=None:
+    elif representation:
          transformers.append(
-            ("structural_scaling", representation_scaling_factory[representation]['callable'], structural_feat)
+            ("structural_scaling", transforms[scaler], structural_feat)
             )
         
     scaling = ("scaling features",

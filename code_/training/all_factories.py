@@ -45,11 +45,10 @@ imputer_factory: Dict[str, TransformerMixin] = {
 
 transforms: dict[str, Callable] = {
     None:                None,
-    "MinMax":            MinMaxScaler(),
-    "Standard":          StandardScaler(),
-    "Robust Scaler":      RobustScaler(),
-    # "Power":             PowerTransformer(),
-    "Uniform Quantile":  QuantileTransformer(),
+    "MinMax":               MinMaxScaler(),
+    "Standard":             StandardScaler(),
+    "Robust Scaler":        RobustScaler(),
+    "Uniform Quantile":     QuantileTransformer(),
 }
 
 
@@ -58,11 +57,8 @@ radius_to_bits: dict[int, int] = {3: 512, 4: 1024, 5: 2048, 6: 4096}
 
 
 representation_scaling_factory: dict[str, dict[str, Union[Callable, str]]] = {
-    "solvent":             {"callable": StandardScaler(),
-                            "type":     "Standard"},
     "ECFP":                {"callable": None, "type": None},
     "MACCS":                {"callable": None, "type": None},
-    # "PUFp":                {"callable": MinMaxScaler, "type": "MinMax"},
     "Mordred":             {"callable": StandardScaler(),
                             "type":     "Standard"},
     # "graph embeddings":    {"callable": MinMaxScaler,
@@ -71,9 +67,6 @@ representation_scaling_factory: dict[str, dict[str, Union[Callable, str]]] = {
     # "SELFIES":             {"callable": MinMaxScaler, "type": "MinMax"},
     # "SMILES":              {"callable": MinMaxScaler, "type": "MinMax"},
     # "OHE":                 {"callable": MinMaxScaler, "type": "MinMax"},
-    "material properties": {"callable": StandardScaler(), "type": "Standard"},
-    "fabrication only":    {"callable": StandardScaler(),
-                            "type":     "Standard"},
     # "GNN":     {"callable": MinMaxScaler, "type": "MinMax"},
 }
 
