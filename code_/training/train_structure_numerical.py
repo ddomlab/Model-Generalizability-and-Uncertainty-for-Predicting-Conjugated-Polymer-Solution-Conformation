@@ -81,11 +81,11 @@ def main_mordred_numerical(
                 )
 
 
-def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str):
+def perform_model_mordred_numerical(regressor_type:str,target:str,oligo_type:str, transform_type:str='Standard'):
         # for oligo_type in edited_oligomer_list: 
             main_mordred_numerical(dataset=w_data,
                                     regressor_type=regressor_type,
-                                    transform_type= "Robust Scaler",
+                                    transform_type= transform_type,
                                     hyperparameter_optimization= True,
                                     target_features= [target],
                                     oligomer_representation=oligo_type
@@ -149,11 +149,11 @@ def main_maccs_numerical(
 
 
 
-def perform_model_maccs_numerical(regressor_type:str,target:str,oligo_type:str):
+def perform_model_maccs_numerical(regressor_type:str,target:str,oligo_type:str, transform_type:str='Standard'):
         # for oligo_type in edited_oligomer_list: 
             main_maccs_numerical(dataset=w_data,
                                 regressor_type=regressor_type,
-                                transform_type= "Robust Scaler",
+                                transform_type= transform_type,
                                 hyperparameter_optimization= True,
                                 target_features= [target],
                                 oligomer_representation=oligo_type
@@ -186,7 +186,7 @@ def main_ecfp_numerical(
         "radius": radius,
         "n_bits": n_bits,
         "vector_type": vector_type,
-        "oligomer_representation":oligomer_representation,
+        "oligomer_representation": oligomer_representation,
         "col_names": structural_features,
     }
 
@@ -231,14 +231,14 @@ def main_ecfp_numerical(
 
 
 
-def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,oligo_type:str):
+def perform_model_ecfp(regressor_type:str, radius:int,vector:str,target:str,oligo_type:str, transform_type:str='Standard'):
     # for oligo_type in edited_oligomer_list:
                 print(f'polymer unit :{oligo_type} with rep of ECFP{radius} and {vector}')
                 main_ecfp_numerical(
                                     dataset=w_data,
                                     regressor_type= regressor_type,
                                     target_features= [target],
-                                    transform_type= "Robust Scaler",
+                                    transform_type= transform_type,
                                     hyperparameter_optimization= True,
                                     radius = radius,
                                     vector_type=vector,
@@ -262,6 +262,7 @@ def main():
     parser_ecfp.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
+    parser_ecfp.add_argument('--transform_type', default='Standard', help='scaler required')
     # Parser for MACCS model
     parser_maccs = subparsers.add_parser('maccs', help='Run the MACCS numerical model')
     parser_maccs.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
@@ -269,6 +270,7 @@ def main():
     parser_maccs.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
+    parser_maccs.add_argument('--transform_type', default='Standard', help='scaler required')
     # Parser for Mordred model
     parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
     parser_mordred.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
@@ -276,16 +278,17 @@ def main():
     parser_mordred.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
+    parser_mordred.add_argument('--transform_type', default='Standard', help='scaler required')
     # Parse arguments
     args = parser.parse_args()
 
     # Run the appropriate model based on the parsed arguments
     if args.model == 'ecfp':
-        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target,args.oligo_type)
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target,args.oligo_type, args.transform_type)
     elif args.model == 'maccs':
-        perform_model_maccs_numerical(args.regressor_type, args.target,args.oligo_type)
+        perform_model_maccs_numerical(args.regressor_type, args.target,args.oligo_type, args.transform_type)
     elif args.model == 'mordred':
-        perform_model_mordred_numerical(args.regressor_type, args.target,args.oligo_type)
+        perform_model_mordred_numerical(args.regressor_type, args.target,args.oligo_type, args.transform_type)
 
 if __name__ == '__main__':
     main()
