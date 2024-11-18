@@ -193,14 +193,14 @@ def perform_model_ecfp(regressor_type:str,
                         radius:int,vector:str,
                         target:str,
                         oligo_type:str,
-                        kernel:Optional[str]=None):
+                        kernel:Optional[str]=None, transform_type:str='Standard'):
     # for oligo_type in edited_oligomer_list:
                 print(oligo_type)
                 main_ECFP_only(
                                 dataset=w_data,
                                 regressor_type= regressor_type,
                                 target_features= [target],
-                                transform_type= "Standard",
+                                transform_type= transform_type,
                                 hyperparameter_optimization= True,
                                 radius = radius,
                                 oligomer_representation=oligo_type,
@@ -211,14 +211,14 @@ def perform_model_ecfp(regressor_type:str,
 
 
 
-def perform_model_maccs(regressor_type:str,target:str,oligo_type:str,kernel:Optional[str]=None):
+def perform_model_maccs(regressor_type:str,target:str,oligo_type:str, kernel:Optional[str]=None, transform_type:str='Standard'):
     # for oligo_type in edited_oligomer_list:
             print(oligo_type)
             main_MACCS_only(
                             dataset=w_data,
                             regressor_type= regressor_type,
                             target_features= [target],
-                            transform_type= "Standard",
+                            transform_type= transform_type,
                             hyperparameter_optimization= True,
                             oligomer_representation=oligo_type,
                             kernel=kernel,
@@ -227,13 +227,13 @@ def perform_model_maccs(regressor_type:str,target:str,oligo_type:str,kernel:Opti
 
 
 # Rg1 (nm)
-def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Optional[str]=None):
+def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Optional[str]=None, transform_type:str='Standard'):
                 print(oligo_type)
                 main_Mordred_only(
                                 dataset=w_data,
                                 regressor_type= regressor_type,
                                 target_features= [target],
-                                transform_type= "Standard",
+                                transform_type= transform_type,
                                 hyperparameter_optimization= True,
                                 oligomer_representation=oligo_type,
                                 kernel=kernel
@@ -244,7 +244,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
 
 # perform_model_ecfp('GPR',6,"count",'Rg1 (nm)', 'Monomer',kernel='tanimoto')
 # perform_model_maccs()
-perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
+# perform_model_mordred('RF','Rg1 (nm)', 'Monomer')
 
 def main():
     parser = ArgumentParser(description='Run models with specific parameters')
@@ -262,6 +262,7 @@ def main():
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
     parser_ecfp.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_ecfp.add_argument('--transform_type', default='Standard', help='scaler required')
 
 
     # Parser for MACCS model
@@ -272,6 +273,7 @@ def main():
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
     parser_maccs.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_maccs.add_argument('--transform_type', default='Standard', help='scaler required')
 
     # Parser for Mordred model
     parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
@@ -281,18 +283,19 @@ def main():
                                                           'RRU Dimer', 'RRU Trimer'],
                                                             default='Monomer', help='polymer unite representation')
     parser_mordred.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_mordred.add_argument('--transform_type', default='Standard', help='scaler required')
 
     # Parse arguments
     args = parser.parse_args()
 
     # Run the appropriate model based on the parsed arguments
     if args.model == 'ecfp':
-        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target, args.oligo_type,args.kernel)
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target, args.oligo_type, args.kernel, args.transform_type)
     elif args.model == 'maccs':
-        perform_model_maccs(args.regressor_type, args.target, args.oligo_type,args.kernel)
+        perform_model_maccs(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
     elif args.model == 'mordred':
-        perform_model_mordred(args.regressor_type, args.target, args.oligo_type, args.kernel)
+        perform_model_mordred(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
 
-# if __name__ == '__main__':
-#     # main()
+if __name__ == '__main__':
+    main()
 

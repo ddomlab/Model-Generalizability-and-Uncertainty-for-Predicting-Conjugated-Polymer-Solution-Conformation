@@ -7,6 +7,7 @@ from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.model_selection import KFold
 from sklearn.pipeline import Pipeline
 from skopt import BayesSearchCV
+from sklearn.preprocessing import FunctionTransformer
 
 
 from data_handling import remove_unserializable_keys, save_results
@@ -133,21 +134,23 @@ def _prepare_data(
     preprocessor.set_output(transform="pandas")
     
     score,predication= run(
-                                X,
-                                y,
-                                preprocessor=preprocessor,
-                                regressor_type=regressor_type,
-                                transform_type=transform_type,
-                                hyperparameter_optimization=hyperparameter_optimization,
-                                kernel=kernel,
-                                **kwargs,
-                                )
+                            X,
+                            y,
+                            preprocessor=preprocessor,
+                            target_features=target_features,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            kernel=kernel,
+                            **kwargs,
+                            )
     print(X_y_shape)
     return score, predication, X_y_shape
 
 def run(
-    X, y, preprocessor: Union[ColumnTransformer, Pipeline], regressor_type: str,
-    transform_type: str, hyperparameter_optimization: bool = True,  kernel:Optional[str] = None,**kwargs,
+    X, y, preprocessor: Union[ColumnTransformer, Pipeline], target_features:str, regressor_type: str,
+    transform_type: str, hyperparameter_optimization: bool = True,
+    kernel:Optional[str] = None,**kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
     seed_scores: dict[int, dict[str, float]] = {}
@@ -155,9 +158,8 @@ def run(
 
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-      y_transform = Pipeline(
-                steps=[("y scaler",transforms[transform_type]),
-                      ])
+      
+      y_transform = get_target_transformer(target_features,transform_type)
 
       y_transform_regressor = TransformedTargetRegressor(
             regressor=regressor_factory[regressor_type](kernel=kernel) if regressor_type=="GPR"
@@ -268,3 +270,15 @@ def split_for_training(
 
 
 
+def get_target_transformer(target_name, transformer):
+    if target_name == "intensity weighted average over log(Rh (nm))":
+        # Apply log transformation followed by StandardScaler for Rh
+        return Pipeline(steps=[
+            ("log transform", FunctionTransformer(np.log10, validate=False)),  # log10(x)
+            ("y scaler", transforms[transformer])  # StandardScaler to standardize the log-transformed target
+        ])
+    else:
+        # Use the transformation passed via transform_type (for other targets)
+        return Pipeline(steps=[
+            ("y scaler", transforms[transformer])  # StandardScaler to standardize the log-transformed target
+        ])
