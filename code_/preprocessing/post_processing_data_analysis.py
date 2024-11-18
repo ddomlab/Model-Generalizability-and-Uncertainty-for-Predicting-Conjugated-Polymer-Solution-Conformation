@@ -45,9 +45,12 @@ df_missing_poly_hsp_unique_poly = unique_polymer_dataset[['Name','SMILES','dD', 
 
 df_without_hsp = df_missing_poly_hsp_unique_poly[df_missing_poly_hsp_unique_poly['dD'].isna()].reset_index(drop=True)
 df_without_hsp.to_csv(DATASETS/'raw'/'polymer_without_hsp.csv',index=False)
-# print(df_without_hsp)
-df_training_dropped_missing_polymer_hsp = w_data.dropna(subset=["polymer dH"]).reset_index(drop=True)
 
-df_training_dropped_missing_polymer_hsp.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
 
-# print("Number of unique polymers with missing hsp in training datsaet" ,df_training_dropped_missing_polymer_hsp['polymer dD'].isna().sum())
+if __name__ == "__main___":
+
+       df_training_dropped_missing_polymer_hsp = w_data.dropna(subset=["polymer dH"]).reset_index(drop=True)
+       print("Drop missing HSP values for polymers")
+       df_training_dropped_missing_polymer_hsp.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
+       print("Done saving dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
+

@@ -37,17 +37,18 @@ def main_cleaning(raw_data:pd.DataFrame) -> None:
     m_data = raw_data.applymap(lambda x: np.nan if x in ("None", 'none') else x)
     m_data=m_data.dropna(subset=['Rh1 (nm)', 'Lp (nm)', 'Rg1 (nm)'], how='all')
     print('Droping nan union of none in targets')
-    print(f'shape of the dataset after droping non in target: {m_data.shape}')
+    print(f'shape of the dataset after droping NAN in target: {m_data.shape}')
     # substuting with precise value
     m_data.loc[m_data['Lp (nm)'] == ">Lc", 'Lp (nm)'] = m_data.loc[m_data['Lp (nm)'] == ">Lc", 'Lc (nm)']
     m_data.loc[m_data['Lp (nm)'] == ">>R cylinder", 'Lp (nm)'] = m_data.loc[m_data['Lp (nm)'] == ">>R cylinder", 'R core cylinder (nm)']
 
     main_columns = ["Mn (g/mol)","Mw (g/mol)","PDI", "Rh1 (nm)","Rh2 (nm)","Rh3 (nm)", "Concentration (mg/ml)", "Rg1 (nm)",
-                            "Lp (nm)", "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)"]
+                            "Lp (nm)", "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)",
+                            "intensity weighted average Rh (nm)","intensity weighted average over log(Rh (nm))"]
 
     for value in main_columns:
         m_data[value] = m_data[value].apply(convert_value)
-    print('Done with converting to precise values ')
+    print('Done with converting to precise values')
 
     # numreical_feats: list[str] = ["Rh1 (nm)", "Rg1 (nm)", "Lp (nm)",
     #                 "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)"]
