@@ -205,3 +205,4 @@ def get_score_func(score: str, output: str) -> Callable:
     score_func: Callable = score_lookup[score][output]
     return score_func
 
+

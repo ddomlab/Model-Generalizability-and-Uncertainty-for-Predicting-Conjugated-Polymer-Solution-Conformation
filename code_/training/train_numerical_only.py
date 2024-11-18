@@ -15,7 +15,6 @@ RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
 w_data = pd.read_pickle(training_df_dir)
-
 TEST = False
 
 
@@ -48,6 +47,7 @@ def main_numerical_only(
                                             cutoff=cutoff,
                                             hyperparameter_optimization=hyperparameter_optimization,
                                             imputer=imputer,
+                                            Test=TEST,
                                             )
     
     save_results(scores,
@@ -85,7 +85,7 @@ def parse_arguments():
     # Argument for regressor_type
     parser.add_argument(
         '--target_features',
-        choices=['Lp (nm)', 'Rg1 (nm)', 'Rh1 (nm)'],  # Valid choices for target
+        choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  # Valid choices for target
         required=True,
         help="Specify a single target for the analysis."
     )
@@ -165,11 +165,10 @@ if __name__ == "__main__":
         cutoff=None,  # Optional cutoff value
     )
 
-
     # main_numerical_only(
     #     dataset=w_data,
     #     regressor_type="DT",
-    #     target_features=["Rg1 (nm)"],  # Can adjust based on actual usage
+    #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
     #     transform_type="Standard",
     #     hyperparameter_optimization=True,
     #     columns_to_impute=None,
@@ -182,20 +181,7 @@ if __name__ == "__main__":
     # special_column: str = "Mw (g/mol)"
     # numerical_feats: list[str] = ["Mn (g/mol)", "Mw (g/mol)", "PDI", "Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
 
-
-# if __name__ == "__main__":
-#     parser = ArgumentParser(description="Run models on HPC")
-#     parser.add_argument('--model', type=str, choices=['RF', 'MLR'], required=True, help="Specify the model to run")
-#     parser.add_argument('--function', type=str, choices=['numerical', 'numerical_maccs'], required=True, help="Specify the function to run")
-
-#     args = parser.parse_args()
-#     model = args.model
-#     function = args.function
-
-#     if function == 'numerical':
-#         perform_model_numerical(model)
-#     elif function == 'numerical_maccs':
-#         perform_model_numerical_maccs(model)
+# "intensity weighted average over log(Rh (nm))"
 
 
 

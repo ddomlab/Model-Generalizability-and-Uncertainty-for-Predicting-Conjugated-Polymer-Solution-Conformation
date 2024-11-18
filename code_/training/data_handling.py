@@ -13,9 +13,7 @@ ROOT: Path = HERE.parent.parent
 feature_abbrev: Dict[str, str] = {
     "Lp (nm)":          "Lp",
     "Rg1 (nm)":         "Rg",
-    "Voc (V)":            "Voc",
-    "Jsc (mA cm^-2)":            "Jsc",
-    "FF (%)":             "FF",
+    "Rh (IW avg log)":  "Rh",
     "Concentration (mg/ml)":            "concentration",
     "Temperature SANS/SLS/DLS/SEC (K)":         "temperature",
     "Mn (g/mol)":         "Mn", 
