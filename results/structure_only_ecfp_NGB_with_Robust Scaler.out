@@ -711,3 +711,286 @@ Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('
 
 
 OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c022n01>
+Subject: Job 505113: <ecfp_radius_tructure_only_NGB_with_Robust Scaler> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only_NGB_with_Robust Scaler> was submitted from host <c014n03> by user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:50 2024
+Job was executed on host(s) <4*c022n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:53 2024
+                            <4*c025n04>
+</home/sdehgha2> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon Nov 18 15:31:53 2024
+Terminated at Tue Nov 19 02:54:30 2024
+Results reported at Tue Nov 19 02:54:30 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only_NGB_with_Robust Scaler" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "Trimer" --transform_type "Robust Scaler"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   187814.00 sec.
+    Max Memory :                                 7 GB
+    Average Memory :                             6.20 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               57.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   40980 sec.
+    Turnaround time :                            40960 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c014n02>
+Subject: Job 505115: <ecfp_radius_tructure_only_NGB_with_Robust Scaler> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only_NGB_with_Robust Scaler> was submitted from host <c014n03> by user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:50 2024
+Job was executed on host(s) <4*c014n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:53 2024
+                            <4*c016n02>
+</home/sdehgha2> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon Nov 18 15:31:53 2024
+Terminated at Tue Nov 19 02:57:10 2024
+Results reported at Tue Nov 19 02:57:10 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only_NGB_with_Robust Scaler" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector binary --target "Rg1 (nm)" --oligo_type "RRU Monomer" --transform_type "Robust Scaler"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   186100.00 sec.
+    Max Memory :                                 7 GB
+    Average Memory :                             5.99 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               57.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   41134 sec.
+    Turnaround time :                            41120 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n04>
+Subject: Job 505117: <ecfp_radius_tructure_only_NGB_with_Robust Scaler> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only_NGB_with_Robust Scaler> was submitted from host <c014n03> by user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:50 2024
+Job was executed on host(s) <4*c201n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:53 2024
+                            <4*c201n14>
+</home/sdehgha2> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon Nov 18 15:31:53 2024
+Terminated at Tue Nov 19 03:12:05 2024
+Results reported at Tue Nov 19 03:12:05 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only_NGB_with_Robust Scaler" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "Trimer" --transform_type "Robust Scaler"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   192919.00 sec.
+    Max Memory :                                 6 GB
+    Average Memory :                             5.00 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               58.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   42013 sec.
+    Turnaround time :                            42015 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0006246183481146064), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1745), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0009644837074585925), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1982), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0007086999419848415), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1467), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0008478691467891981), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1219), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0008999282057397531), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1680), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1422), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n01>
+Subject: Job 505119: <ecfp_radius_tructure_only_NGB_with_Robust Scaler> in cluster <Hazel> Exited
+
+Job <ecfp_radius_tructure_only_NGB_with_Robust Scaler> was submitted from host <c014n03> by user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:50 2024
+Job was executed on host(s) <4*c200n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Nov 18 15:31:53 2024
+                            <4*c200n02>
+</home/sdehgha2> was used as the home directory.
+</tmp> was used as the working directory.
+Started at Mon Nov 18 15:31:53 2024
+Terminated at Tue Nov 19 03:31:13 2024
+Results reported at Tue Nov 19 03:31:13 2024
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -n 8
+#BSUB -W 30:01
+#BSUB -R span[ptile=4]
+#BSUB -R "rusage[mem=32GB]"
+#BSUB -J "ecfp_radius_tructure_only_NGB_with_Robust Scaler" 
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_only.py ecfp --regressor_type NGB --radius 6 --vector count --target "Rg1 (nm)" --oligo_type "RRU Monomer" --transform_type "Robust Scaler"
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   194508.00 sec.
+    Max Memory :                                 5 GB
+    Average Memory :                             4.51 GB
+    Total Requested Memory :                     64.00 GB
+    Delta Memory :                               59.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   43164 sec.
+    Turnaround time :                            43163 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/structure_only_ecfp_NGB_with_Robust Scaler.err> for stderr output of this job.
+
