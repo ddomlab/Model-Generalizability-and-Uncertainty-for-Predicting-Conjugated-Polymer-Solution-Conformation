@@ -9,10 +9,11 @@ numerical_feats=("polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD
 for target in "${target_to_asses[@]}"; do
         for model in "${models_to_run[@]}"; do
             for feats in "${numerical_feats[@]}"; do
+                
                 bsub <<EOT
 
 #BSUB -n 8
-#BSUB -W 30:01
+#BSUB -W 10:01
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
