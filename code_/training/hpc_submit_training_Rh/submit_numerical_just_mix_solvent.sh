@@ -22,9 +22,8 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats "Mn (g/mol)" "PDI" "Mw (g/mol)" "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH" \
-                                  --columns_to_impute "PDI" "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" \
-                                  --special_impute "Mw (g/mol)" \
+                                  --numerical_feats "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH" \
+                                  --columns_to_impute "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" \
                                   --imputer mean
                                   
 conda deactivate
