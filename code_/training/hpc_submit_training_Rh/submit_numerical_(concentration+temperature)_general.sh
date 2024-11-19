@@ -2,12 +2,11 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
 
 # Correctly define models and numerical features
-target_to_asses=("Lp (nm)" "Rg1 (nm)")
+target_to_asses=("Rh (IW avg log)")
 models_to_run=("RF" "MLR" "DT")
 numerical_feats=(
   "Concentration (mg/ml)"
   "Temperature SANS/SLS/DLS/SEC (K)"
-  "Concentration (mg/ml),Temperature SANS/SLS/DLS/SEC (K)"
 )
 
 for target in "${target_to_asses[@]}"; do
@@ -26,7 +25,8 @@ for target in "${target_to_asses[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_numeric.py --target_features "${target}" \
+
+python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
                                   --numerical_feats "${feats}" \
                                   --columns_to_impute "${feats}" \
@@ -38,3 +38,5 @@ EOT
         done
     done
 done
+
+
