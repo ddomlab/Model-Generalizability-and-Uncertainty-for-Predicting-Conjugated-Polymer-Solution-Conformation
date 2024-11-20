@@ -16,7 +16,7 @@ for regressor in "${regressors[@]}"; do
       for vector in "${vectors[@]}"; do
         for oligo_rep in "${poly_representations[@]}"; do
           for scaler in "${scaler_types[@]}"; do
-        bsub <<EOT
+              bsub <<EOT
 #BSUB -n 8
 #BSUB -W 30:01
 #BSUB -R span[ptile=4]
