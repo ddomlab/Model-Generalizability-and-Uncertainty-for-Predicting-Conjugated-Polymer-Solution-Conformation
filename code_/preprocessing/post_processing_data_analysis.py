@@ -52,7 +52,7 @@ df_training_dropped_missing_polymer_hsp = w_data.dropna(subset=["polymer dH"]).r
 print("Drop missing HSP values for polymers")
 df_training_dropped_missing_polymer_hsp.rename(columns={"intensity weighted average over log(Rh (nm))": 'Rh (IW avg log)'}, inplace=True)
 print("Done renaming Rh")
-print(df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'])
+# print(df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'])
 df_training_dropped_missing_polymer_hsp.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
 print("Done saving dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
 

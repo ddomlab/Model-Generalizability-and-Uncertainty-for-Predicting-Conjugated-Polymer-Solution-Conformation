@@ -278,7 +278,7 @@ def split_for_training(
 
 
 
-def get_target_transformer(transformer):
+def get_target_transformer(transformer) -> Pipeline:
 
         return Pipeline(steps=[
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the log-transformed target

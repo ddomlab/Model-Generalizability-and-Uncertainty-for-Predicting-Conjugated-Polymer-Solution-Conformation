@@ -1,6 +1,6 @@
 from pathlib import Path
 import pandas as pd
-from clean_dataset import main_cleaning, drop_block_cp, map_intensity_weighted_rh
+from clean_dataset import main_cleaning, drop_block_cp, map_derived_Rh_data, Rh_columns_to_map
 
 HERE = Path(__file__).resolve().parent
 DATASETS = HERE.parent.parent/'datasets'
@@ -13,13 +13,15 @@ Rh_data: pd.DataFrame = pd.read_csv(RAW_dir/'Rh distribution-intensity weighted.
 
 if __name__ == "__main__":
     Rh_data.set_index('index to extract', inplace=True)
-    print(Rh_data)
-    raw_dataset['intensity weighted average Rh (nm)'] = raw_dataset.index.to_series().apply(
-    map_intensity_weighted_rh, args=(Rh_data, raw_dataset,'intensity weighted average Rh (nm)'))
+    # print(Rh_data)
+    # raw_dataset['intensity weighted average Rh (nm)'] = raw_dataset.index.to_series().apply(
+    # map_intensity_weighted_rh, args=(Rh_data, raw_dataset,'intensity weighted average Rh (nm)'))
     
-    raw_dataset['intensity weighted average over log(Rh (nm))'] = raw_dataset.index.to_series().apply(
-    map_intensity_weighted_rh, args=(Rh_data, raw_dataset,'intensity weighted average over log(Rh (nm))'))
+    # raw_dataset['intensity weighted average over log(Rh (nm))'] = raw_dataset.index.to_series().apply(
+    # map_intensity_weighted_rh, args=(Rh_data, raw_dataset,'intensity weighted average over log(Rh (nm))'))
 
-    
-    cleaned_df = main_cleaning(raw_dataset)
+    mapped_dataset = map_derived_Rh_data(raw_dataset, Rh_data, Rh_columns_to_map)
+    print("Done with mapping Rh data")
+    cleaned_df = main_cleaning(mapped_dataset)
+    print(cleaned_df)
     drop_block_cp(cleaned_df)

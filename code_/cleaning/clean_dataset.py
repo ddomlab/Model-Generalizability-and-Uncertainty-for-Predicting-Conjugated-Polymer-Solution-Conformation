@@ -96,10 +96,57 @@ def drop_block_cp(m_data:pd.DataFrame):
 #     return data
 
 
-def map_intensity_weighted_rh(index, rh_data, main_data,column):
-    # Check if the index exists in rh_dataset
-    if index in rh_data.index:
-        return rh_data.loc[index, column]
-    else:
-        # If no match, return the previous value from 'Rh1 (nm)'
-        return main_data.at[index, 'Rh1 (nm)']
+# def map_intensity_weighted_rh(index, rh_data, main_data,column):
+#     # Check if the index exists in rh_dataset
+#     if index in rh_data.index:
+#         return rh_data.loc[index, column]
+#     else:
+#         # If no match, return the previous value from 'Rh1 (nm)'
+#         return main_data.at[index, 'Rh1 (nm)']
+
+def match_Rh_index(index, rh_data, main_data, columns):
+    """
+    Map values from `rh_data` to `main_data` for given columns, with fallback logic.
+    
+    Parameters:
+        index: Index of the row in `main_data`.
+        rh_data: DataFrame containing reference data.
+        main_data: DataFrame containing the main data.
+        columns: List of column names to map.
+    
+    Returns:
+        A dictionary of values for the specified columns.
+    """
+    results = {}
+    for col in columns:
+        if index in rh_data.index:
+            # If the index exists in `rh_data`, return its value for the column
+            results[col] = rh_data.loc[index, col]
+        else:
+            # If no match and specific columns, return fallback value
+            if col in ['intensity weighted average Rh (nm)', 'intensity weighted average over log(Rh (nm))']:
+                results[col] = main_data.at[index, 'Rh1 (nm)']
+            else:
+                results[col] = np.nan
+    return results
+
+
+Rh_columns_to_map = [
+    'intensity weighted average over log(Rh (nm))',
+    'intensity weighted average Rh (nm)',
+    'derived Rh (nm)',
+    'normalized intensity (0-1) corrected'
+]
+
+
+def map_derived_Rh_data(dataset, reference_data, columns_to_map):
+
+    mapped_values = dataset.index.to_series().apply(
+        match_Rh_index, args=(reference_data, dataset, columns_to_map)
+    )
+
+    mapped_values_df = pd.DataFrame(list(mapped_values))
+
+    dataset = pd.concat([dataset, mapped_values_df], axis=1)
+    return dataset
+
