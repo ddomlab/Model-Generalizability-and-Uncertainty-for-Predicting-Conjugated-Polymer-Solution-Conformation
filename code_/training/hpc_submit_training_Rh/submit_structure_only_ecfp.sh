@@ -2,11 +2,11 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
 regressors=("NGB" "XGBR" "RF")
-targets=("Rg1 (nm)")
-radii=(6) 
-poly_representations=('Trimer' 'RRU Monomer')
+targets=("Rh (IW avg log)")
+radii=(3 4 5 6) 
+poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
 vectors=("binary" "count")
-scaler_types=('Standard' 'Robust Scaler')
+scaler_types=('Standard')
 
 
 # Loop through each combination of regressor, target, and model
@@ -17,13 +17,14 @@ for regressor in "${regressors[@]}"; do
         for oligo_rep in "${poly_representations[@]}"; do
           for scaler in "${scaler_types[@]}"; do
               bsub <<EOT
+              
 #BSUB -n 8
 #BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "ecfp_radius_tructure_only_${regressor}_with_${scaler}" 
-#BSUB -o "${output_dir}/structure_only_ecfp_${regressor}_with_${scaler}.out"
-#BSUB -e "${output_dir}/structure_only_ecfp_${regressor}_with_${scaler}.err"
+#BSUB -J "ecfp_${regressor}_${scaler}_${target}"  
+#BSUB -o "${output_dir}/ecfp_${regressor}_${scaler}_${target}.out"
+#BSUB -e "${output_dir}/ecfp_${regressor}_${scaler}_${target}.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
