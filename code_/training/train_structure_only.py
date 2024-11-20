@@ -193,7 +193,7 @@ def perform_model_ecfp(regressor_type:str,
                         radius:int,vector:str,
                         target:str,
                         oligo_type:str,
-                        kernel:Optional[str]=None, transform_type:str='Standard'):
+                        kernel:Optional[str]=None, transform_type:Optional[str]='Standard'):
     # for oligo_type in edited_oligomer_list:
                 print(oligo_type)
                 main_ECFP_only(
@@ -211,7 +211,7 @@ def perform_model_ecfp(regressor_type:str,
 
 
 
-def perform_model_maccs(regressor_type:str,target:str,oligo_type:str, kernel:Optional[str]=None, transform_type:str='Standard'):
+def perform_model_maccs(regressor_type:str,target:str,oligo_type:str, kernel:Optional[str]=None, transform_type:Optional[str]='Standard'):
     # for oligo_type in edited_oligomer_list:
             print(oligo_type)
             main_MACCS_only(
@@ -227,7 +227,7 @@ def perform_model_maccs(regressor_type:str,target:str,oligo_type:str, kernel:Opt
 
 
 # Rg1 (nm)
-def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Optional[str]=None, transform_type:str='Standard'):
+def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Optional[str]=None, transform_type:Optional[str]='Standard'):
                 print(oligo_type)
                 main_Mordred_only(
                                 dataset=w_data,
