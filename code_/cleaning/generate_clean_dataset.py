@@ -12,7 +12,6 @@ Rh_data: pd.DataFrame = pd.read_csv(RAW_dir/'Rh distribution-intensity weighted.
 
 
 if __name__ == "__main__":
-    Rh_data.set_index('index to extract', inplace=True)
     # print(Rh_data)
     # raw_dataset['intensity weighted average Rh (nm)'] = raw_dataset.index.to_series().apply(
     # map_intensity_weighted_rh, args=(Rh_data, raw_dataset,'intensity weighted average Rh (nm)'))
@@ -23,5 +22,5 @@ if __name__ == "__main__":
     mapped_dataset = map_derived_Rh_data(raw_dataset, Rh_data, Rh_columns_to_map)
     print("Done with mapping Rh data")
     cleaned_df = main_cleaning(mapped_dataset)
-    print(cleaned_df)
+    print("Done with cleaning")
     drop_block_cp(cleaned_df)

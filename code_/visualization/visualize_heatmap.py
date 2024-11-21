@@ -25,7 +25,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 target_list = ['target_Rg']
 models = ['XGBR','NGB','MLR']
 
-transformer_list = ["Robust Scaler", "Standard"]
+transformer_list = ["Robust Scaler"]
 
 
 

@@ -132,6 +132,7 @@ def match_Rh_index(index, rh_data, main_data, columns):
 
 
 Rh_columns_to_map = [
+    'matched index',
     'intensity weighted average over log(Rh (nm))',
     'intensity weighted average Rh (nm)',
     'derived Rh (nm)',
@@ -140,6 +141,8 @@ Rh_columns_to_map = [
 
 
 def map_derived_Rh_data(dataset, reference_data, columns_to_map):
+    reference_data['matched index'] = reference_data['index to extract']
+    reference_data.set_index('index to extract', inplace=True)
 
     mapped_values = dataset.index.to_series().apply(
         match_Rh_index, args=(reference_data, dataset, columns_to_map)

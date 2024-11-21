@@ -157,13 +157,13 @@ def run(
 
     seed_scores: dict[int, dict[str, float]] = {}
     seed_predictions: dict[int, np.ndarray] = {}
-    if 'Rh (IW avg log)' in target_features:
-        y = np.log10(y)
+    # if 'Rh (IW avg log)' in target_features:
+    #     y = np.log10(y)
     
 
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-      y_transform = get_target_transformer(transform_type)
+      y_transform = get_target_transformer(transform_type,target_name=target_features)
     #   inverse_transformers = get_inverse_target_transformer(target_features, transform_type)
 
       y_transform_regressor = TransformedTargetRegressor(
@@ -197,10 +197,10 @@ def run(
             scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
             
       seed_scores[seed] = scores
-      if 'Rh (IW avg log)' in target_features:
-            seed_predictions[seed] = np.power(10, predictions).flatten()
-      else:
-            seed_predictions[seed] = predictions.flatten()
+    #   if 'Rh (IW avg log)' in target_features:
+    #         seed_predictions[seed] = np.power(10, predictions).flatten()
+    #   else:
+      seed_predictions[seed] = predictions.flatten()
 
 
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(
@@ -278,11 +278,20 @@ def split_for_training(
 
 
 
-def get_target_transformer(transformer) -> Pipeline:
+def get_target_transformer(transformer,target_name) -> Pipeline:
 
+    if 'Rh (IW avg log)' in target_name:
+        # Apply log transformation followed by StandardScaler for Rh
         return Pipeline(steps=[
+            ("log transform", FunctionTransformer(np.log10, inverse_func=lambda x: 10**x,
+                                                  check_inverse=True, validate=False)),  # log10(x)
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the log-transformed target
-        ])
+            ])
+    else:
+        # Use the transformation passed via transform_type (for other targets)
+        return Pipeline(steps=[
+            ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
+            ])
 
     
 
