@@ -22,10 +22,10 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rg']
-models = ['XGBR','NGB','MLR']
+target_list = ['target_Rh']
+models = ['MLR','DT','RF',]
 
-transformer_list = ["Robust Scaler"]
+transformer_list = ["Standard"]
 
 
 
@@ -246,9 +246,10 @@ def creat_result_df(target_dir: Path,
                     # for just scaler 
                 
                 else:
-                    # if transformer_type in fi:
-                    feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
-                    models.add(model)
+                    # print(transformer_type)
+                    if transformer_type in file_path.name:
+                        feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                        models.add(model)
                 # for scaler features only
                 if data_type=='scaler':
                     if feats not in avg_scores.columns:
@@ -356,14 +357,14 @@ def create_structural_scaler_result(target_dir:Path,
     
 
 
-for transformer in transformer_list:
-    for model in models: 
-        for target_folder in target_list:
-            for i in scores_list:
-                create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
+# for transformer in transformer_list:
+#     for model in models: 
+#         for target_folder in target_list:
+#             for i in scores_list:
+#                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+#                 create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 
 
@@ -385,15 +386,14 @@ def create_scaler_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(20, 10),
+                    figsize=(20, 12),
                     fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="numerical Representations",
                     y_title="Regression Models",
                     fname=f"Regression Models vs numerical features with {transformer_type} search heatmap_{score}")
     
-# for transformer in transformer_list:
-
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
