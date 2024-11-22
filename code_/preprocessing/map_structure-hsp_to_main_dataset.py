@@ -13,7 +13,9 @@ import mordred.descriptors
 from assign_hsp import (sol_name_change, 
                         calculate_mixture_hsp,
                         get_polymer_hsp_value,
-                        calculate_Ra_squared)
+                        calculate_Ra_squared,
+                        map_pairwise_hsp_distances,
+                        calculate_pairwise_hsp_distances)
 
 
 sys.path.append("code_/cleaning")
@@ -102,6 +104,9 @@ def map_hsp(df,solvent_df,polymer_hsp):
     
     df['Ra'] = df.apply(calculate_Ra_squared, axis=1)
     print('Done with calculating Ra')
+    
+    map_pairwise_hsp_distances(df=df)
+    print('Done with calculating pairwise hsp abs distance')
 
     return df
 

@@ -110,7 +110,26 @@ def calculate_Ra_squared(row):
                   (row['solvent dH'] - row['polymer dH']) ** 2)
     return Ra
 
-    
+
+def calculate_pairwise_hsp_distances(row, solvent_col, polymer_col):
+    """
+    Calculate the absolute distance between a pair of solvent and polymer values for a single row.
+    """
+    return np.abs(row[solvent_col] - row[polymer_col])
+
+
+def map_pairwise_hsp_distances(df:pd.DataFrame):
+    pairs = [
+    ('solvent dD', 'polymer dD'),
+    ('solvent dP', 'polymer dP'),
+    ('solvent dH', 'polymer dH')
+    ]
+    for solvent, polymer in pairs:
+        distance_column = f'|{solvent} - {polymer}|'
+        df[distance_column] = df.apply(calculate_pairwise_hsp_distances, axis=1, solvent_col=solvent, polymer_col=polymer)
+
+
+        
 # m_data["modified_solvent_format"] = m_data['Solvent(s)'].apply(sol_name_change)
 
 # pure_solvent = m_data[~m_data["modified_Solvent(s)"].str.contains(mixtures_filter, na=False)]

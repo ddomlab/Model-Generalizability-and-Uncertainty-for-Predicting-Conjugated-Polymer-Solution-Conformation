@@ -8,7 +8,7 @@ RAW_dir = DATASETS/ 'raw'
 JSONS =  DATASETS/'json_resources'
 
 raw_dataset: pd.DataFrame = pd.read_excel(RAW_dir/'Polymer_Solution_Scattering_Dataset.xlsx') 
-Rh_data: pd.DataFrame = pd.read_csv(RAW_dir/'Rh distribution-intensity weighted.csv')
+Rh_data: pd.DataFrame = pd.read_pickle(RAW_dir/'Rh distribution-intensity weighted.pkl')
 
 
 if __name__ == "__main__":
