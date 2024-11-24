@@ -14,9 +14,9 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -W 15:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "poly_HSP_with_${model}_on_${target}_on_polysize"
-#BSUB -o "${output_dir}/poly_HSP_with_${model}_on_${target}_on_polysize.out"
-#BSUB -e "${output_dir}/poly_HSP_with_${model}_on_${target}_on_polysize.err"
+#BSUB -J "${model}_on_${target}_on_polysize_only"
+#BSUB -o "${output_dir}/_${model}_on_${target}_on_polysize_only.out"
+#BSUB -e "${output_dir}/_${model}_on_${target}_on_polysize_only.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

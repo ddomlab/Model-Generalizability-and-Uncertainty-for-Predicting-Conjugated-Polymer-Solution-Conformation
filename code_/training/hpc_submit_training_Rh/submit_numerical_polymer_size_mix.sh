@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_assess=("Lp (nm)" "Rg1 (nm)")
+target_to_assess=("Rh (IW avg log)")
 models_to_run=("RF" "MLR" "DT")
 
 
@@ -21,7 +21,7 @@ for target in "${target_to_assess[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python train_structure_numeric.py --target_features "${target}" \
+python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
                                   --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' \
                                   --columns_to_impute 'PDI' \
