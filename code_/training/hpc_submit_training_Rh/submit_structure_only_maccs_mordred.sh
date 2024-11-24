@@ -15,6 +15,7 @@ for regressor in "${regressors[@]}"; do
         for scaler in "${scaler_types[@]}"; do
 
           bsub <<EOT
+          
 #BSUB -n 8
 #BSUB -W 60:01
 #BSUB -R span[ptile=4]
@@ -25,7 +26,11 @@ for regressor in "${regressors[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python ../train_structure_only.py --model $model --regressor_type $regressor --target "$target" --oligo_type "$oligo_rep" --transform_type "$scaler"
+python ../train_structure_only.py $model \
+             --regressor_type $regressor \
+             --target "$target" \
+             --oligo_type "$oligo_rep" \
+             --transform_type "$scaler"
 EOT
 
         done
