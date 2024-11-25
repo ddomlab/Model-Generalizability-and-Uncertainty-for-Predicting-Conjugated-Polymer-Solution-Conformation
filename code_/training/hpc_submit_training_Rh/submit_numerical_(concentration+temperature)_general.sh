@@ -13,7 +13,7 @@ for target in "${target_to_asses[@]}"; do
                 bsub <<EOT
 
 #BSUB -n 8
-#BSUB -W 10:01
+#BSUB -W 15:01
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
