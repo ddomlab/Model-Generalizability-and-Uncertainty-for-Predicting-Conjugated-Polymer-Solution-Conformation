@@ -80,29 +80,6 @@ def drop_block_cp(m_data:pd.DataFrame):
 
 
 
-# def get_replacement_value(index, df):
-#     row = df[df['index to extract'] == index]
-#     if not row.empty:
-#         return row['intensity weighted average Rh (nm)'].values[0]
-#     else:
-#         return None
-
-# def assign_intensity_weighted_Rh(data, rh_data):
-#     data['intensity weighted Rh (nm)'] = data.apply(
-#         lambda row: get_replacement_value(row.name, rh_data) if str(row.name) == str(rh_data['index to extract'].values).strip() else row['Rh1 (nm)'],
-#         axis=1
-#     )
-#     print("Done with assigning intensity weighted Rh")
-#     return data
-
-
-# def map_intensity_weighted_rh(index, rh_data, main_data,column):
-#     # Check if the index exists in rh_dataset
-#     if index in rh_data.index:
-#         return rh_data.loc[index, column]
-#     else:
-#         # If no match, return the previous value from 'Rh1 (nm)'
-#         return main_data.at[index, 'Rh1 (nm)']
 
 def match_Rh_index(index, rh_data, main_data, columns):
     """
