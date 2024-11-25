@@ -3,7 +3,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 
 # Correctly define models and numerical features
 target_to_asses=("Rh (IW avg log)")
-models_to_run=("RF" "MLR" "DT")
+models_to_run=("DT")
 
 
 for target in "${target_to_asses[@]}"; do

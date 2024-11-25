@@ -54,5 +54,7 @@ df_training_dropped_missing_polymer_hsp.rename(columns={"intensity weighted aver
 print("Done renaming Rh")
 # print(df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'])
 df_training_dropped_missing_polymer_hsp.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
+df_training_dropped_missing_polymer_hsp.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.csv")
+
 print("Done saving dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
 
