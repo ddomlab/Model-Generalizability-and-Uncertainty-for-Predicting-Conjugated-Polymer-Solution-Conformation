@@ -13,7 +13,7 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -n 8
 #BSUB -W 30:01
 #BSUB -R span[ptile=2]
-#BSUB -R "rusage[mem=32GB]"
+#BSUB -R "rusage[mem=16GB]"
 #BSUB -J "poly_HSP_with_${model}_on_${target}_no_Ra_poly"
 #BSUB -o "${output_dir}/solvent_HSP_with_${model}_on_${target}_no_Ra_poly.out"
 #BSUB -e "${output_dir}/solvent_HSP_with_${model}_on_${target}_no_Ra_poly.err"
