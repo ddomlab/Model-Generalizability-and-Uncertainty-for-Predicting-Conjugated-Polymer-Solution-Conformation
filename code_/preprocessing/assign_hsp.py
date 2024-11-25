@@ -125,7 +125,7 @@ def map_pairwise_hsp_distances(df:pd.DataFrame):
     ('solvent dH', 'polymer dH')
     ]
     for solvent, polymer in pairs:
-        distance_column = f'|{solvent} - {polymer}|'
+        distance_column = f'abs({solvent} - {polymer})'
         df[distance_column] = df.apply(calculate_pairwise_hsp_distances, axis=1, solvent_col=solvent, polymer_col=polymer)
 
 

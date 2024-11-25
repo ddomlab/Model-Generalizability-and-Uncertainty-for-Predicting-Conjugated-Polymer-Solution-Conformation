@@ -1,10 +1,10 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
 target_to_asses=("Rh (IW avg log)" "Rg1 (nm)")
 models_to_run=("RF" "MLR" "DT")
-numerical_feat_list=("|solvent dD - polymer dD|" "|solvent dP - polymer dP|" "|solvent dH - polymer dH|")
+numerical_feat_list=("abs(solvent dD - polymer dD)" "abs(solvent dP - polymer dP)" "abs(solvent dH - polymer dH)")
 
 for target in "${target_to_asses[@]}"; do
         for model in "${models_to_run[@]}"; do
@@ -17,7 +17,7 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -R span[ptile=4]
 ##BSUB -x
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J "${feats}_${model}_with_${feats}_on_${target}"
+#BSUB -J "${model}_with_${feats}_on_${target}"
 #BSUB -o "${output_dir}/${feats}_with_${model}_with_${feats}_on_${target}.out"
 #BSUB -e "${output_dir}/${feats}_with_${model}_with_${feats}_on_${target}.err"
 
