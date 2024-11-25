@@ -23,7 +23,6 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = ['target_Rh']
-models = ['MLR','DT','RF',]
 
 transformer_list = ["Standard"]
 
@@ -228,9 +227,7 @@ def creat_result_df(target_dir: Path,
 
         for file_path in score_files:
             # for structural and mix of structural-scaler
-            if "generalizability" in file_path.name:
-                continue
-            else:
+            if "generalizability" not in file_path.name:
 
                 print(file_path)
                 if data_type=='structural_scaler' or data_type=='structural':
@@ -304,7 +301,7 @@ def create_structural_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(12, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s) with {transformer_type}",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s)",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation vs Fingerprint trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
@@ -350,21 +347,22 @@ def create_structural_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(24, 16),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model with {transformer_type}",
+                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
     
+complex_models = ['XGBR','RF','NGB']
 
 
-# for transformer in transformer_list:
-#     for model in models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-#                 create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 
 
@@ -391,9 +389,11 @@ def create_scaler_result(target_dir:Path,
                     x_title="numerical Representations",
                     y_title="Regression Models",
                     fname=f"Regression Models vs numerical features with {transformer_type} search heatmap_{score}")
-    
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+
+simple_models = ['MLR','DT','RF']
+
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
