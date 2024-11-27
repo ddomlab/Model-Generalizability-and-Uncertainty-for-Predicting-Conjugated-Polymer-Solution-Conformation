@@ -58,3 +58,10 @@ df_training_dropped_missing_polymer_hsp.to_csv(DATASETS/"training_dataset"/"data
 
 print("Done saving dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
 
+Rh_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'].notna()]
+Rg_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Rg1 (nm)'].notna()]
+Lp_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Lp (nm)'].notna()]
+# print(Rh_data)
+Rh_data.to_pickle(DATASETS/"training_dataset"/"Rh_training_data.pkl")
+Rg_data.to_pickle(DATASETS/"training_dataset"/"Rg_training_data.pkl")
+Lp_data.to_pickle(DATASETS/"training_dataset"/"Lp_training_data.pkl")
