@@ -15,9 +15,8 @@ RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
 w_data = pd.read_pickle(training_df_dir)
+
 TEST = False
-
-
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -29,6 +28,7 @@ def main_numerical_only(
     special_impute: Optional[str],
     numerical_feats: Optional[list[str]],
     imputer:Optional[str],
+    kernel:str,
     cutoff:Optional[str]=None
 ) -> None:
 
@@ -43,6 +43,7 @@ def main_numerical_only(
                                             numerical_feats=numerical_feats,
                                             target_features=target_features,
                                             regressor_type=regressor_type,
+                                            kernel=kernel,
                                             transform_type=transform_type,
                                             cutoff=cutoff,
                                             hyperparameter_optimization=hyperparameter_optimization,
@@ -58,6 +59,7 @@ def main_numerical_only(
                 pu_type= None,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                kernel=kernel,
                 numerical_feats=numerical_feats,
                 cutoff=cutoffs,
                 TEST=TEST,
@@ -85,7 +87,7 @@ def parse_arguments():
     # Argument for regressor_type
     parser.add_argument(
         '--target_features',
-        choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  # Valid choices for target
+        choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  
         required=True,
         help="Specify a single target for the analysis."
     )
@@ -97,7 +99,6 @@ def parse_arguments():
         required=True, 
         help="Regressor type: RF, DT, or MLR."
     )
-
 
     parser.add_argument(
         '--numerical_feats',
@@ -111,7 +112,6 @@ def parse_arguments():
         help="Numerical features: choose"
     )
     
-
     parser.add_argument(
         '--columns_to_impute',
         type=str,
@@ -125,15 +125,15 @@ def parse_arguments():
 
     parser.add_argument(
         '--imputer',
-        choices=['mean', 'median', 'most_frequent',"distance KNN", None],  # Add 'None' as an option
+        choices=['mean', 'median', 'most_frequent',"distance KNN", None],  
         nargs='?',  # This allows the argument to be optional
-        default=None,  # Set the default value to None
+        default=None,  
         help="Specify the imputation strategy or leave it as None."
     )
 
     parser.add_argument(
         '--special_impute',
-        choices=['Mw (g/mol)', None],  # Add 'None' as an option
+        choices=['Mw (g/mol)', None],  
         nargs='?',  # This allows the argument to be optional
         default=None,  # Set the default value to None
         help="Specify the imputation strategy or leave it as None."
@@ -146,16 +146,23 @@ def parse_arguments():
         default= "Standard", 
         help="transform type required"
     )
+
+    parser.add_argument(
+        "--kernel", 
+        type=str,
+        default=None,
+        help='kernel for GP is optinal'
+    )
     
-    return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_arguments()
     
-    # Call the main function with parsed arguments
+    
     main_numerical_only(
         dataset=w_data,
         regressor_type=args.regressor_type,
+        kernel=args.kernel,
         target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
         transform_type=args.transform_type,
         hyperparameter_optimization=True,
@@ -168,7 +175,8 @@ if __name__ == "__main__":
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="DT",
+    #     regressor_type="GPR",
+    #     kernel= "matern",
     #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
     #     transform_type="Standard",
     #     hyperparameter_optimization=True,

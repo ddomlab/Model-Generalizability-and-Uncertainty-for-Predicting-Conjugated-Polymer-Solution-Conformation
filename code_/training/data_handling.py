@@ -129,6 +129,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  generalizability_score:Optional[Dict]=None,
                  target_features: list=None,
                  regressor_type: str=None,
+                 kernel: Optional[str]=None,
                  TEST : bool =True,
                  representation: str=None,
                  pu_type : Optional[str]=None,
@@ -144,6 +145,9 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
     feature_ids = []
+    
+    regressor_type = f"{regressor_type}.{kernel}" if kernel is not None else regressor_type
+    
     if pu_type:
         feature_ids.append(pu_type)
     if numerical_feats:

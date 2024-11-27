@@ -22,7 +22,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rh']
+target_list = ['target_Rg']
 
 transformer_list = ["Standard"]
 
@@ -244,7 +244,7 @@ def creat_result_df(target_dir: Path,
                 
                 else:
                     # print(transformer_type)
-                    if transformer_type in file_path.name:
+                    # if transformer_type in file_path.name:
                         feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                         models.add(model)
                 # for scaler features only

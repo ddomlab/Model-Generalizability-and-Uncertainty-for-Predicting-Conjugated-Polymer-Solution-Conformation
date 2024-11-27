@@ -151,7 +151,7 @@ class GP(gpytorch.models.ExactGP):
             # for ECFP
             self.covar_module = gpytorch.kernels.ScaleKernel(TanimotoKernel())
         elif kwargs['kernel'] == 'RQ':
-            # for mordred 
+            # for numerical 
             self.covar_module = gpytorch.kernels.ScaleKernel(
                 gpytorch.kernels.RQKernel(ard_num_dims=train_x.shape[-1])
                 )
