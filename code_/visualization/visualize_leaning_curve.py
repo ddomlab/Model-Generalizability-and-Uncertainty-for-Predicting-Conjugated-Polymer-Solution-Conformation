@@ -216,8 +216,8 @@ def save_learning_curve(target_dir: Path,
 
 
 
-for target_folder in target_list:
-    save_learning_curve(target_dir=RESULTS/target_folder)
+# for target_folder in target_list:
+#     save_learning_curve(target_dir=RESULTS/target_folder)
 
 
 

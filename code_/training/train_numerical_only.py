@@ -97,7 +97,7 @@ def parse_arguments():
         type=str, 
         choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN', 'GPR', 'NGB'], 
         required=True, 
-        help="Regressor type: RF, DT, or MLR."
+        help="Regressor type required"
     )
 
     parser.add_argument(
@@ -158,7 +158,9 @@ def parse_arguments():
 if __name__ == "__main__":
     args = parse_arguments()
     
-    
+    print(args.regressor_type)
+    print(type(args.regressor_type))
+
     main_numerical_only(
         dataset=w_data,
         regressor_type=args.regressor_type,
