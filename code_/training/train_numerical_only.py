@@ -154,12 +154,11 @@ def parse_arguments():
         help='kernel for GP is optinal'
     )
     
+    return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_arguments()
     
-    print(args.regressor_type)
-    print(type(args.regressor_type))
 
     main_numerical_only(
         dataset=w_data,
