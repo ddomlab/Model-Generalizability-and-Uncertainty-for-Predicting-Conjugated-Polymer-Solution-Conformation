@@ -15,13 +15,13 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -W 30:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
-#BSUB -J numerical_${model}_polymer_size_feats_on_${target}
-#BSUB -o ${output_dir}/numerical_${model}_polymer_on_${target}.out
-#BSUB -e ${output_dir}/numerical_${model}_polymer_on_${target}.err
+#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num"
+#BSUB -o "${output_dir}/numerical_${model}_polymer_on_${target}_all_num.out"
+#BSUB -e "${output_dir}/numerical_${model}_polymer_on_${target}_all_num.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
-python ../train_structure_numeric.py --target_features "${target}" \
+python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --kernel "${kernel}" \
                                     --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH" \
