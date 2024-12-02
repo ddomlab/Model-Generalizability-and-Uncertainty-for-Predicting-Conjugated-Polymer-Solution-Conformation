@@ -1,11 +1,12 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("NGB" "XGBR" "RF")
-targets=("Rh (IW avg log)")
-models=("mordred" "maccs")
+regressors=("GPR")
+targets=("Rg1 (nm)")
+models=("mordred")
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
-scaler_types=('Standard')
+scaler_types=('Standard' 'Robust Scaler')
+kernels=("matern" "rbf")
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
@@ -13,6 +14,7 @@ for regressor in "${regressors[@]}"; do
     for model in "${models[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
         for scaler in "${scaler_types[@]}"; do
+          for kernel in "${kernels[@]}"; do
 
           bsub <<EOT
           
@@ -28,11 +30,12 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_structure_only.py $model \
              --regressor_type $regressor \
+             --kernel "${kernel}" \
              --target "$target" \
              --oligo_type "$oligo_rep" \
              --transform_type "$scaler"
 EOT
-
+          done
         done
       done
     done
