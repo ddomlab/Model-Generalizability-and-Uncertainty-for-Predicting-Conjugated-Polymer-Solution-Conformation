@@ -140,8 +140,8 @@ regressor_search_space = {
         # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
     },
     "GPR": {
-        "regressor__regressor__lr": [1e-2], 
-        "regressor__regressor__n_epoch": [1000],
+        "regressor__regressor__lr": [10e-4, 1e-2,1], 
+        "regressor__regressor__n_epoch": [100],
 
     }
 }

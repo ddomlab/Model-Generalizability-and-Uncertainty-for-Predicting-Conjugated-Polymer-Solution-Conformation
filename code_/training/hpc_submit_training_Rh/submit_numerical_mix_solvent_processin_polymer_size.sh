@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
 
 # Correctly define models and numerical features
-target_to_asses=("Rg1 (nm)" "Rh (IW avg log)")
+target_to_asses=("Rh (IW avg log)")
 models_to_run=("GPR")
 kernels=("matern" "rbf")
 
@@ -12,7 +12,7 @@ for target in "${target_to_asses[@]}"; do
             bsub <<EOT
 
 #BSUB -n 8
-#BSUB -W 30:01
+#BSUB -W 48:01
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num"

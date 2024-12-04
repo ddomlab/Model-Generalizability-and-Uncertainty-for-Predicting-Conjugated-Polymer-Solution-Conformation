@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=("Rh (IW avg log)" "Rg1 (nm)")
+target_to_asses=("Rh (IW avg log)")
 models_to_run=("GPR")
 kernels=("matern" "rbf")
 
@@ -12,7 +12,7 @@ for target in "${target_to_asses[@]}"; do
             bsub <<EOT
 
 #BSUB -n 8
-#BSUB -W 15:01
+#BSUB -W 48:02
 #BSUB -R span[ptile=4]
 #BSUB -R "rusage[mem=32GB]"
 #BSUB -J "poly_HSP_with_${model}_on_${target}_on_polysize_solvent"
