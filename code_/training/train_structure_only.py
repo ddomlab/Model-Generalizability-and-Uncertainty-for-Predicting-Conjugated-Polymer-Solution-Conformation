@@ -175,9 +175,11 @@ def main_Mordred_only(
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
+                kernel=kernel,
                 cutoff=cutoffs,
                 TEST=TEST,
-                transform_type=transform_type
+                transform_type=transform_type,
+                hyperparameter_optimization=hyperparameter_optimization,
                 )
 
 

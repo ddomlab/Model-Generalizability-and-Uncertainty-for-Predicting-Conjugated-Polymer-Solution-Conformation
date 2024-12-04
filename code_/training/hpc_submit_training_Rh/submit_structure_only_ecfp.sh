@@ -5,9 +5,9 @@ regressors=("GPR")
 targets=("Rg1 (nm)")
 radii=(3 4 5 6) 
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
-vectors=("binary")
+vectors=("count")
 scaler_types=('Standard' 'Robust Scaler')
-kernels=("tanimoto")
+kernels=("matern" "rbf")
 
 
 # Loop through each combination of regressor, target, and model
