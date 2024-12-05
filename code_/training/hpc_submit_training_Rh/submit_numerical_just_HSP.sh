@@ -11,9 +11,9 @@ for target in "${target_to_asses[@]}"; do
         for kernel in "${kernels[@]}"; do
             bsub <<EOT
 
-#BSUB -n 8
+#BSUB -n 6
 #BSUB -W 48:02
-#BSUB -R span[ptile=4]
+#BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "poly_HSP_with_${model}_on_${target}_no_Ra_poly"
 #BSUB -o "${output_dir}/solvent_HSP_with_${model}_on_${target}_no_Ra_poly.out"

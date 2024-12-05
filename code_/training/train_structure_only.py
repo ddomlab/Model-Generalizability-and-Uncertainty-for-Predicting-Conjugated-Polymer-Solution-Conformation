@@ -79,6 +79,7 @@ def main_ECFP_only(
             vector =vector_type,
             target_features=target_features,
             regressor_type=regressor_type,
+            kernel=kernel,
             cutoff=cutoffs,
             TEST=TEST,
             transform_type=transform_type
