@@ -19,7 +19,7 @@ for regressor in "${regressors[@]}"; do
           for scaler in "${scaler_types[@]}"; do
             for kernel in "${kernels[@]}"; do
 
-              bsub <<EOT
+                bsub <<EOT
 
 #BSUB -n 8
 #BSUB -W 60:01
