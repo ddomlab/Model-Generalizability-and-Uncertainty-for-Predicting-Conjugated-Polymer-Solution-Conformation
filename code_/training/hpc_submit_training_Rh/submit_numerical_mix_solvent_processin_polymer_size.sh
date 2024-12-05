@@ -5,11 +5,13 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 target_to_asses=("Rh (IW avg log)")
 models_to_run=("GPR")
 kernels=("matern" "rbf")
+scaler_types=('Standard' 'Robust Scaler')
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
         for kernel in "${kernels[@]}"; do
-            bsub <<EOT
+            for scaler in "${scaler_types[@]}"; do
+                bsub <<EOT
 
 #BSUB -n 8
 #BSUB -W 48:01
@@ -32,6 +34,7 @@ python ../train_numerical_only.py --target_features "${target}" \
 conda deactivate
 
 EOT
+            done
         done
     done
 done
