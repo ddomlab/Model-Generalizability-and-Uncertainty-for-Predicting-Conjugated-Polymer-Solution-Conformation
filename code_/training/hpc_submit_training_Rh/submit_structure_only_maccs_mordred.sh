@@ -18,10 +18,10 @@ for regressor in "${regressors[@]}"; do
 
             bsub <<EOT
           
-#BSUB -n 8
+#BSUB -n 6
 #BSUB -W 60:01
-#BSUB -R span[ptile=4]
-#BSUB -R "rusage[mem=32GB]"
+#BSUB -R span[ptile=2]
+#BSUB -R "rusage[mem=16GB]"
 #BSUB -J "mordred_${regressor}_${scaler}_${target}_rbf_mat"  
 #BSUB -o "${output_dir}/mordred_${regressor}_${scaler}_${target}_mat_rbf.out"
 #BSUB -e "${output_dir}/mordred_${regressor}_${scaler}_${target}_mat_rbf.err"
