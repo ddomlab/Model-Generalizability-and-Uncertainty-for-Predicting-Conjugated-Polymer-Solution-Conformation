@@ -356,7 +356,7 @@ def create_structural_scaler_result(target_dir:Path,
                     fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
 
 #    'XGBR','RF','NGB' 
-complex_models = ['GPR']
+complex_models = ['GPR.matern', 'GPR.rbf']
 
 
 for transformer in transformer_list:
