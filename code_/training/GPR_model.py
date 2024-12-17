@@ -175,13 +175,16 @@ class GPRegressor(BaseEstimator):
     def __init__(
             self,
             kernel,
+            length_scale=None,
             lr=1e-2,
             n_epoch=100,
+            
     ):
         self.ll = gpytorch.likelihoods.GaussianLikelihood()
         self.kernel = kernel
         self.lr = lr
         self.n_epoch = n_epoch
+        self.length_scale = length_scale
 
     def fit(self, X_train, Y_train):
 
@@ -191,7 +194,7 @@ class GPRegressor(BaseEstimator):
         X_train = torch.tensor(X_train, dtype=torch.float)
         Y_train = torch.tensor(Y_train.ravel(), dtype=torch.float)
 
-        self.model = GP(X_train, Y_train.ravel(), self.ll, kernel=self.kernel)
+        self.model = GP(X_train, Y_train.ravel(), self.ll, kernel=self.kernel, length_scale=self.length_scale)
 
         # train return loss (minimize)
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)

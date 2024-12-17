@@ -15,11 +15,10 @@ for regressor in "${regressors[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
         for scaler in "${scaler_types[@]}"; do
           for kernel in "${kernels[@]}"; do
-
-            bsub <<EOT
+              bsub <<EOT
           
-#BSUB -n 6
-#BSUB -W 60:01
+#BSUB -n 4
+#BSUB -W 70:01
 #BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "mordred_${regressor}_${scaler}_${target}_rbf_mat"  

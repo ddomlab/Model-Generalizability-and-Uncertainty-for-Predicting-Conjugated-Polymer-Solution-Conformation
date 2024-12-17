@@ -141,7 +141,7 @@ regressor_search_space = {
     },
     "GPR": {
         "regressor__regressor__lr": [1e-2], 
-        "regressor__regressor__n_epoch": [200],
+        "regressor__regressor__n_epoch": [100],
 
     }
 }
