@@ -22,7 +22,7 @@ training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-h
 w_data = pd.read_pickle(training_df_dir)
 # edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 # ['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer']
-TEST=True
+TEST=False
 
 
 
@@ -248,58 +248,58 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
 
 # perform_model_ecfp('GPR',6,"count",'Rg1 (nm)', 'Monomer',kernel='tanimoto')
 # perform_model_maccs()
-perform_model_mordred('GPR','Rg1 (nm)', 'Monomer',kernel='matern',transform_type="Robust Scaler")
+# perform_model_mordred('GPR','Rg1 (nm)', 'Monomer',kernel='rbf',transform_type="Standard")
 
-# def main():
-#     parser = ArgumentParser(description='Run models with specific parameters')
+def main():
+    parser = ArgumentParser(description='Run models with specific parameters')
 
-#     # Subparsers for different models
-#     subparsers = parser.add_subparsers(dest='model', required=True, help='Choose a model to run')
+    # Subparsers for different models
+    subparsers = parser.add_subparsers(dest='model', required=True, help='Choose a model to run')
 
-#     # Parser for ECFP model
-#     parser_ecfp = subparsers.add_parser('ecfp', help='Run the ECFP model')
-#     parser_ecfp.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
-#     parser_ecfp.add_argument('--radius', type=int, choices=[3, 4, 5, 6], default=3, help='Radius for ECFP (default: 3)')
-#     parser_ecfp.add_argument('--vector', choices=['count', 'binary'], default='count', help='Type of vector (default: count)')
-#     parser_ecfp.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
-#     parser_ecfp.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
-#                                                           'RRU Dimer', 'RRU Trimer'],
-#                                                             default='Monomer', help='polymer unite representation')
-#     parser_ecfp.add_argument('--kernel', default=None, help='kernel for GP is optinal')
-#     parser_ecfp.add_argument('--transform_type', default='Standard', help='scaler required')
+    # Parser for ECFP model
+    parser_ecfp = subparsers.add_parser('ecfp', help='Run the ECFP model')
+    parser_ecfp.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_ecfp.add_argument('--radius', type=int, choices=[3, 4, 5, 6], default=3, help='Radius for ECFP (default: 3)')
+    parser_ecfp.add_argument('--vector', choices=['count', 'binary'], default='count', help='Type of vector (default: count)')
+    parser_ecfp.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+    parser_ecfp.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
+                                                          'RRU Dimer', 'RRU Trimer'],
+                                                            default='Monomer', help='polymer unite representation')
+    parser_ecfp.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_ecfp.add_argument('--transform_type', default='Standard', help='scaler required')
 
 
-#     # Parser for MACCS model
-#     parser_maccs = subparsers.add_parser('maccs', help='Run the MACCS numerical model')
-#     parser_maccs.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
-#     parser_maccs.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
-#     parser_maccs.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
-#                                                           'RRU Dimer', 'RRU Trimer'],
-#                                                             default='Monomer', help='polymer unite representation')
-#     parser_maccs.add_argument('--kernel', default=None, help='kernel for GP is optinal')
-#     parser_maccs.add_argument('--transform_type', default='Standard', help='scaler required')
+    # Parser for MACCS model
+    parser_maccs = subparsers.add_parser('maccs', help='Run the MACCS numerical model')
+    parser_maccs.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_maccs.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+    parser_maccs.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
+                                                          'RRU Dimer', 'RRU Trimer'],
+                                                            default='Monomer', help='polymer unite representation')
+    parser_maccs.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_maccs.add_argument('--transform_type', default='Standard', help='scaler required')
 
-#     # Parser for Mordred model
-#     parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
-#     parser_mordred.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
-#     parser_mordred.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
-#     parser_mordred.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
-#                                                           'RRU Dimer', 'RRU Trimer'],
-#                                                             default='Monomer', help='polymer unite representation')
-#     parser_mordred.add_argument('--kernel', default=None, help='kernel for GP is optinal')
-#     parser_mordred.add_argument('--transform_type', default='Standard', help='scaler required')
+    # Parser for Mordred model
+    parser_mordred = subparsers.add_parser('mordred', help='Run the Mordred numerical model')
+    parser_mordred.add_argument('--regressor_type', default='RF', help='Type of regressor (default: RF)')
+    parser_mordred.add_argument('--target', default='Rg1 (nm)', help='Target variable (default: Rg1 (nm))')
+    parser_mordred.add_argument('--oligo_type', choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer',
+                                                          'RRU Dimer', 'RRU Trimer'],
+                                                            default='Monomer', help='polymer unite representation')
+    parser_mordred.add_argument('--kernel', default=None, help='kernel for GP is optinal')
+    parser_mordred.add_argument('--transform_type', default='Standard', help='scaler required')
 
-#     # Parse arguments
-#     args = parser.parse_args()
+    # Parse arguments
+    args = parser.parse_args()
 
-#     # Run the appropriate model based on the parsed arguments
-#     if args.model == 'ecfp':
-#         perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target, args.oligo_type, args.kernel, args.transform_type)
-#     elif args.model == 'maccs':
-#         perform_model_maccs(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
-#     elif args.model == 'mordred':
-#         perform_model_mordred(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
+    # Run the appropriate model based on the parsed arguments
+    if args.model == 'ecfp':
+        perform_model_ecfp(args.regressor_type, args.radius, args.vector, args.target, args.oligo_type, args.kernel, args.transform_type)
+    elif args.model == 'maccs':
+        perform_model_maccs(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
+    elif args.model == 'mordred':
+        perform_model_mordred(args.regressor_type, args.target, args.oligo_type, args.kernel, args.transform_type)
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
 
