@@ -23,7 +23,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "mordred_${regressor}_${scaler}_${target}_rbf_mat"  
 #BSUB -o "${output_dir}/mordred_${regressor}_${kernel}_${scaler}_${target}.out"
-#BSUB -e "${output_dir}/mordred_${regressor}_${matern}_${scaler}_${target}.err"
+#BSUB -e "${output_dir}/mordred_${regressor}_${kernel}_${scaler}_${target}.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
