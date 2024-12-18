@@ -144,7 +144,7 @@ class GP(gpytorch.models.ExactGP):
         if kwargs['kernel'] == 'rbf':
             # for numerical
             self.covar_module = gpytorch.kernels.ScaleKernel(
-                gpytorch.kernels.RBFKernel(ard_num_dims=train_x.shape[-1])
+                gpytorch.kernels.RBFKernel(ard_num_dims=train_x.shape[-1],**kwargs)
             )
             # self.covar_module.base_kernel.lengthscale = kwargs['lengthscale']
         elif kwargs['kernel'] == 'tanimoto':
@@ -157,9 +157,9 @@ class GP(gpytorch.models.ExactGP):
                 )
         elif kwargs['kernel'] == 'matern':
             # for numeical
-            nu = kwargs.get('nu', 2.5)
+            # nu = kwargs.get('nu', 2.5)
             self.covar_module = gpytorch.kernels.ScaleKernel(
-                gpytorch.kernels.MaternKernel(nu=nu, ard_num_dims=train_x.shape[-1])
+                gpytorch.kernels.MaternKernel(ard_num_dims=train_x.shape[-1],**kwargs)
                 )
         else:
             raise ValueError('Invalid kernel')
@@ -175,16 +175,22 @@ class GPRegressor(BaseEstimator):
     def __init__(
             self,
             kernel,
-            length_scale=None,
+            # length_scale=None,
             lr=1e-2,
             n_epoch=100,
-            
+            lengthscale=1,
+            nu=2.5,
+
     ):
         self.ll = gpytorch.likelihoods.GaussianLikelihood()
         self.kernel = kernel
         self.lr = lr
         self.n_epoch = n_epoch
-        self.length_scale = length_scale
+        self.lengthscale = lengthscale 
+        self.nu = nu
+        print(self.lengthscale)
+        print(self.nu)
+
 
     def fit(self, X_train, Y_train):
 
@@ -193,9 +199,12 @@ class GPRegressor(BaseEstimator):
 
         X_train = torch.tensor(X_train, dtype=torch.float)
         Y_train = torch.tensor(Y_train.ravel(), dtype=torch.float)
-
-        self.model = GP(X_train, Y_train.ravel(), self.ll, kernel=self.kernel, length_scale=self.length_scale)
-
+        self.model = GP(X_train, Y_train.ravel(),
+                        self.ll, 
+                        kernel=self.kernel,
+                        lengthscale=self.lengthscale,
+                        nu = self.nu)
+        # gpytorch.settings.cholesky_jitter(1e-4)               
         # train return loss (minimize)
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
         mll = gpytorch.mlls.ExactMarginalLogLikelihood(self.ll, self.model)

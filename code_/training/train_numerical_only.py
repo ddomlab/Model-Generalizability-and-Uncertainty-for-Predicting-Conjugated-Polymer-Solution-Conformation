@@ -16,7 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -75,7 +75,6 @@ def main_numerical_only(
     # transform_type= "Standard"
     # target_features= ['Lp (nm)']
     
-        
 
 
 
@@ -179,12 +178,12 @@ if __name__ == "__main__":
     #     regressor_type="GPR",
     #     kernel= "matern",
     #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
-    #     transform_type="Standard",
+    #     transform_type="Robust Scaler",
     #     hyperparameter_optimization=True,
-    #     columns_to_impute=None,
-    #     special_impute=None,
-    #     numerical_feats=['polymer dH'],
-    #     imputer=None,
+    #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
+    #     special_impute="Mw (g/mol)",
+    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
+    #     imputer="mean",
     #     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]

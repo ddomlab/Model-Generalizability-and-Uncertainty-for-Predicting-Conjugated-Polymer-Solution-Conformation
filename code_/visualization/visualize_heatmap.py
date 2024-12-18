@@ -22,11 +22,11 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rg']
+target_list = ['target_Rh']
 
 transformer_list = [
-    "Standard",
-    # "Robust Scaler"
+    # "Standard",
+    "Robust Scaler"
                     ]
 
 
@@ -359,12 +359,12 @@ def create_structural_scaler_result(target_dir:Path,
 complex_models = ['XGBR','RF','NGB']
 
 
-for transformer in transformer_list:
-    for model in complex_models: 
-        for target_folder in target_list:
-            for i in scores_list:
-                create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+# for transformer in transformer_list:
+#     for model in complex_models: 
+#         for target_folder in target_list:
+#             for i in scores_list:
+#                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
                 # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
                 #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
@@ -396,8 +396,8 @@ def create_scaler_result(target_dir:Path,
 
 simple_models = ['MLR','DT','RF']
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)

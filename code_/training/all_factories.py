@@ -137,11 +137,15 @@ regressor_search_space = {
         #                                            "KernelRidge", "SVR"]),
         "regressor__regressor__natural_gradient": [True],
         "regressor__regressor__verbose": [False],
+        "regressor__regressor__min_samples_split": Real(0.05, 0.99),
+        "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
         # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
     },
     "GPR": {
         "regressor__regressor__lr": [1e-2], 
         "regressor__regressor__n_epoch": [100],
+        "regressor__regressor__lengthscale": Real(0.05, 3.0), 
+        "regressor__regressor__nu": Categorical([0.5, 1.5, 2.5]),
 
     }
 }

@@ -13,13 +13,13 @@ for target in "${target_to_asses[@]}"; do
             for scaler in "${scaler_types[@]}"; do
                 bsub <<EOT
 
-#BSUB -n 8
-#BSUB -W 48:01
-#BSUB -R span[ptile=4]
-#BSUB -R "rusage[mem=32GB]"
+#BSUB -n 4
+#BSUB -W 30:01
+#BSUB -R span[ptile=2]
+#BSUB -R "rusage[mem=16GB]"
 #BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num"
-#BSUB -o "${output_dir}/numerical_${model}_polymer_on_${target}_all_num.out"
-#BSUB -e "${output_dir}/numerical_${model}_polymer_on_${target}_all_num.err"
+#BSUB -o "${output_dir}/numerical_${model}_${kernel}_${scaler}_${target}_all_num.out"
+#BSUB -e "${output_dir}/numerical_${model}_${kernel}_${scaler}_${target}_all_num.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
