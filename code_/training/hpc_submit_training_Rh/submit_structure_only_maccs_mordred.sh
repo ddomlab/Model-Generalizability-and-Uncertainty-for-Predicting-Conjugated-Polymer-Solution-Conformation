@@ -4,9 +4,9 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 regressors=("GPR")
 targets=("Rg1 (nm)")
 models=("mordred")
-poly_representations=('Monomer')
+poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
 scaler_types=('Standard')
-kernels=("matern")
+kernels=("matern" "rbf")
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do

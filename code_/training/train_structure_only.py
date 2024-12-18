@@ -180,7 +180,7 @@ def main_Mordred_only(
                 cutoff=cutoffs,
                 TEST=TEST,
                 transform_type=transform_type,
-                hyperparameter_optimization=hyperparameter_optimization,
+                # hyperparameter_optimization=hyperparameter_optimization,
                 )
 
 
