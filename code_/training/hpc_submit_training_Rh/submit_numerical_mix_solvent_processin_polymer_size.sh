@@ -14,7 +14,7 @@ for target in "${target_to_asses[@]}"; do
                 bsub <<EOT
 
 #BSUB -n 4
-#BSUB -W 30:01
+#BSUB -W 11:01
 #BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num"
@@ -26,7 +26,7 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --kernel "${kernel}" \
-                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH" \
+                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" "Ra" \
                                     --columns_to_impute 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
                                     --special_impute 'Mw (g/mol)' \
                                     --imputer mean
@@ -38,3 +38,6 @@ EOT
         done
     done
 done
+
+# "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" "Ra"
+# 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH"
