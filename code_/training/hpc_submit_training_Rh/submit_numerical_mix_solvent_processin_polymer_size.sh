@@ -13,7 +13,7 @@ for target in "${target_to_asses[@]}"; do
             for scaler in "${scaler_types[@]}"; do
                 bsub <<EOT
 
-#BSUB -n 4
+#BSUB -n 6
 #BSUB -W 40:01
 #BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
