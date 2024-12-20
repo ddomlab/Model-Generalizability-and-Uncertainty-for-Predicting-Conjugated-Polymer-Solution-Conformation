@@ -12,7 +12,7 @@ from GPR_model import GPRegressor
 from sklearn.preprocessing import (StandardScaler,
                                    QuantileTransformer,
                                    MinMaxScaler,
-                                   FunctionTransformer,
+                                #    FunctionTransformer,
                                    RobustScaler)
 from sklearn.base import TransformerMixin
 from sklearn.experimental import enable_iterative_imputer
@@ -21,7 +21,9 @@ from sklearn.impute import IterativeImputer, KNNImputer, SimpleImputer
 from typing import Callable, Optional, Union, Dict
 from types import NoneType
 from skopt.space import Integer, Real, Categorical
+
 from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import PairwiseKernel
 
 
 cutoffs = {
@@ -86,10 +88,6 @@ regressor_factory: dict[str, type]={
 
 
 
-
-
-
-
 regressor_search_space = {
     "MLR": {
         "regressor__regressor__fit_intercept": [True, False]
@@ -148,9 +146,13 @@ regressor_search_space = {
         "regressor__regressor__lengthscale": Real(0.05, 3.0), 
         "regressor__regressor__nu": Categorical([0.5, 1.5, 2.5]),
 
+    },
+
+    "sklearn-GPR": {
+        "regressor__regressor__kernel__gamma": Real(1e-5, 1e0 , prior="log-uniform"),
+        "regressor__regressor__kernel__pairwise_kernels_kwargs__coef0": Real(1e-5, 1.0, prior="log-uniform"),
     }
 }
-
 
 
 results = {
@@ -165,11 +167,13 @@ results = {
 }
 
 
-# def construct_kernel(algorithm, kernel):
-#     if algorithm == "GPR":
-#         return kernel
-#     if algorithm == "sklearn-GPR":
-#         return kernel
-
+def construct_kernel(algorithm, kernel):
+    if algorithm == "GPR":
+        return kernel
+    elif algorithm == "sklearn-GPR":
+        kernel = PairwiseKernel()
+        return PairwiseKernel(metric=kernel)
+    else:
+        return None
 # def get_hparams():
 #     if 

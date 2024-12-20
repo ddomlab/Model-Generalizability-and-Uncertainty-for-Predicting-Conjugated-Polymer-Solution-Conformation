@@ -15,7 +15,8 @@ from filter_data import filter_dataset
 from all_factories import (
                             regressor_factory,
                             regressor_search_space,
-                            transforms)
+                            transforms,
+                            construct_kernel)
 
 
 from imputation_normalization import preprocessing_workflow
@@ -159,15 +160,16 @@ def run(
     seed_predictions: dict[int, np.ndarray] = {}
     # if 'Rh (IW avg log)' in target_features:
     #     y = np.log10(y)
+    kernel = construct_kernel(regressor_type, kernel)
     
-
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = get_target_transformer(transform_type,target_name=target_features)
     #   inverse_transformers = get_inverse_target_transformer(target_features, transform_type)
 
+      
       y_transform_regressor = TransformedTargetRegressor(
-            regressor=regressor_factory[regressor_type](kernel=kernel) if regressor_type=="GPR"
+            regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
                       else regressor_factory[regressor_type],
             transformer=y_transform,
         )
