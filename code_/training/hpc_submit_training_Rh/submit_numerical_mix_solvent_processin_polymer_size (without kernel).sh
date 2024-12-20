@@ -1,5 +1,5 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
 target_to_asses=("Rg1 (nm)")
@@ -24,9 +24,10 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" \
-                                    --imputer mean \
                                     --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                     --special_impute 'Mw (g/mol)' \
+                                    --imputer mean
+
 
 conda deactivate
 
