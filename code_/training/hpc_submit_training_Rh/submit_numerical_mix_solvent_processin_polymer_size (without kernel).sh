@@ -16,8 +16,8 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num"
-#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_single.out"
-#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_single.err"
+#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_final1.out"
+#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_final1.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
