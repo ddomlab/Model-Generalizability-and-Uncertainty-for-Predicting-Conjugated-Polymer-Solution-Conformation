@@ -163,14 +163,14 @@ if __name__ == "__main__":
         dataset=w_data,
         regressor_type=args.regressor_type,
         kernel=args.kernel,
-        target_features=[args.target_features],  # Already a list from `choices`, no need to wrap
+        target_features=[args.target_features],  
         transform_type=args.transform_type,
         hyperparameter_optimization=True,
-        columns_to_impute=args.columns_to_impute,  # Already a list
+        columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
-        numerical_feats=args.numerical_feats,  # Already a list
+        numerical_feats=args.numerical_feats,  
         imputer=args.imputer,
-        cutoff=None,  # Optional cutoff value
+        cutoff=None,  
     )
 
     # main_numerical_only(

@@ -188,8 +188,7 @@ class GPRegressor(BaseEstimator):
         self.n_epoch = n_epoch
         self.lengthscale = lengthscale 
         self.nu = nu
-        print(self.lengthscale)
-        print(self.nu)
+
 
 
     def fit(self, X_train, Y_train):
@@ -204,7 +203,7 @@ class GPRegressor(BaseEstimator):
                         kernel=self.kernel,
                         lengthscale=self.lengthscale,
                         nu = self.nu)
-        # gpytorch.settings.cholesky_jitter(1e-4)               
+        # gpytorch.settings.cholesky_jitter(1e-3)               
         # train return loss (minimize)
         optimizer = torch.optim.Adam(self.model.parameters(), lr=self.lr)
         mll = gpytorch.mlls.ExactMarginalLogLikelihood(self.ll, self.model)

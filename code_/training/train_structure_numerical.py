@@ -6,7 +6,6 @@ import json
 import numpy as np
 import sys
 sys.path.append("../cleaning")
-# from clean_dataset import open_json
 from argparse import ArgumentParser
 from data_handling import save_results
 
@@ -14,12 +13,8 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
-# oligo_dir: Path = DATASETS/ "raw"/"pu_columns_used.json"
-
-# oligomer_list =open_json(oligo_dir)
+training_df_dir: Path = DATASETS/ "training_dataset"/ "datasets/training_dataset/dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended.pkl"
 w_data = pd.read_pickle(training_df_dir)
-# edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 
 TEST = False
 
@@ -31,7 +26,7 @@ def main_mordred_numerical(
     target_features: list[str],
     transform_type: str,
     hyperparameter_optimization: bool,
-    oligomer_representation: str
+    oligomer_representation: str,
 
 ) -> None:
     

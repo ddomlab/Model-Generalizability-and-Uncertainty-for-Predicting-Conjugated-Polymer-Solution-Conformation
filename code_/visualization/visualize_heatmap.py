@@ -22,7 +22,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rh']
+target_list = ['target_Rg']
 
 transformer_list = [
     # "Standard",
@@ -234,7 +234,7 @@ def creat_result_df(target_dir: Path,
 
                 print(file_path)
                 if data_type=='structural_scaler' or data_type=='structural':
-                    if regressor_model and regressor_model in file_path.name:
+                    if regressor_model == file_path.name.split("_")[1]:
                         if transformer_type in file_path.name:
                             feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                             models.add(model)
@@ -246,7 +246,7 @@ def creat_result_df(target_dir: Path,
                     # for just scaler 
                 
                 else:
-                    # print(transformer_type)
+                    print(transformer_type)
                     if transformer_type in file_path.name:
                         feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
                         models.add(model)
@@ -355,18 +355,18 @@ def create_structural_scaler_result(target_dir:Path,
                     y_title="Polymer Unit Representation",
                     fname=f"PolymerRepresentation vs (Fingerprint-numerical) trained by {regressor_model} with {transformer_type} search heatmap_{score} score")
 
-#    
-complex_models = ['XGBR','RF','NGB']
+#    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
+complex_models = ["GPR.matern", "GPR.rbf"]
 
 
-# for transformer in transformer_list:
-#     for model in complex_models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
-#                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
+                # create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                #                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 
 
@@ -396,8 +396,8 @@ def create_scaler_result(target_dir:Path,
 
 simple_models = ['MLR','DT','RF']
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
