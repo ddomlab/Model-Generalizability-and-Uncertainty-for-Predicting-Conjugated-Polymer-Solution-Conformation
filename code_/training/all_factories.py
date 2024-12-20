@@ -21,7 +21,7 @@ from sklearn.impute import IterativeImputer, KNNImputer, SimpleImputer
 from typing import Callable, Optional, Union, Dict
 from types import NoneType
 from skopt.space import Integer, Real, Categorical
-
+from sklearn.gaussian_process import GaussianProcessRegressor
 
 
 cutoffs = {
@@ -81,6 +81,7 @@ regressor_factory: dict[str, type]={
     "DT": DecisionTreeRegressor(),
     "NGB": NGBRegressor(),
     "GPR": GPRegressor,
+    "sklearn-GPR":GaussianProcessRegressor
 }
 
 
@@ -162,3 +163,13 @@ results = {
     "r2_test":[],
     "rmse_test":[]
 }
+
+
+# def construct_kernel(algorithm, kernel):
+#     if algorithm == "GPR":
+#         return kernel
+#     if algorithm == "sklearn-GPR":
+#         return kernel
+
+# def get_hparams():
+#     if 
