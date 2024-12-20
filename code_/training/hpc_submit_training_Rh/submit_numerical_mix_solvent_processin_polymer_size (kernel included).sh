@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_out
 
 # Correctly define models and numerical features
-target_to_asses=("Rh (IW avg log)")
+target_to_asses=("Rh (IW avg log)" "Rg1 (nm)")
 models_to_run=("GPR")
 kernels=("matern" "rbf")
 scaler_types=('Standard')
