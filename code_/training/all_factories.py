@@ -90,7 +90,7 @@ regressor_factory: dict[str, type]={
 
 
 
-def get_regressor_search_space(algortihm, kernel) -> Dict :
+def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
     if algortihm == "MLR":
         return {
             "regressor__regressor__fit_intercept": [True, False]
@@ -111,11 +111,13 @@ def get_regressor_search_space(algortihm, kernel) -> Dict :
         "regressor__leaf_size": Integer(1, 100),
     }
 
-    if algortihm == "SVR":{
+    if algortihm == "SVR":
+        return {
         "regressor__kernel": Categorical(["linear", "rbf"]),
     }
 
-    if algortihm == "RF":{
+    if algortihm == "RF":
+        return {
         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
         "regressor__regressor__max_depth": [None],
         "regressor__regressor__min_samples_split": Real(0.05, 0.99),
@@ -123,7 +125,8 @@ def get_regressor_search_space(algortihm, kernel) -> Dict :
         "regressor__regressor__max_features": Categorical(["sqrt", "log2"]),
     }
 
-    if algortihm == "XGBR":{
+    if algortihm == "XGBR":
+        return {
         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
         "regressor__regressor__max_depth": Integer(10, 10000, prior="log-uniform"),
         # "regressor__grow_policy": Categorical(["depthwise", "lossguide"]),
@@ -131,7 +134,8 @@ def get_regressor_search_space(algortihm, kernel) -> Dict :
         "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
     }
 
-    if algortihm == "DT":{
+    if algortihm == "DT":
+        return {
         "regressor__regressor__min_samples_split": Real(0.05, 0.99),
         "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
         "regressor__regressor__max_features": Categorical([None,"sqrt", "log2"]),
@@ -139,7 +143,8 @@ def get_regressor_search_space(algortihm, kernel) -> Dict :
         "regressor__regressor__ccp_alpha": Real(0.05, 0.99),
     }
 
-    if algortihm == "NGB":{
+    if algortihm == "NGB":
+        return {
         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
         "regressor__regressor__learning_rate": Real(1e-6, 1e-3, prior="log-uniform"),
         "regressor__regressor__minibatch_frac": [1],
@@ -274,7 +279,7 @@ results = {
 }
 
 
-def construct_kernel(algorithm, kernel):
+def construct_kernel(algorithm:str, kernel:str=None):
     if algorithm == "GPR":
         return kernel
     elif algorithm == "sklearn-GPR":

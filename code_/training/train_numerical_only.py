@@ -28,7 +28,7 @@ def main_numerical_only(
     special_impute: Optional[str],
     numerical_feats: Optional[list[str]],
     imputer:Optional[str],
-    kernel:str,
+    kernel:str=None,
     cutoff:Optional[str]=None
 ) -> None:
 
@@ -175,8 +175,8 @@ if __name__ == "__main__":
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="sklearn-GPR",
-    #     kernel= "rbf",
+    #     regressor_type="DT",
+    #     # kernel= "rbf",
     #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
     #     transform_type="Standard",
     #     hyperparameter_optimization=True,
