@@ -16,7 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = True
+TEST = False
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -156,35 +156,35 @@ def parse_arguments():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    # args = parse_arguments()
+    args = parse_arguments()
     
-
-    # main_numerical_only(
-    #     dataset=w_data,
-    #     regressor_type=args.regressor_type,
-    #     kernel=args.kernel,
-    #     target_features=[args.target_features],  
-    #     transform_type=args.transform_type,
-    #     hyperparameter_optimization=True,
-    #     columns_to_impute=args.columns_to_impute,  
-    #     special_impute=args.special_impute,
-    #     numerical_feats=args.numerical_feats,  
-    #     imputer=args.imputer,
-    #     cutoff=None,  
-    # )
 
     main_numerical_only(
         dataset=w_data,
-        regressor_type="sklearn-GPR",
-        kernel= "rbf",
-        target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
-        transform_type="Standard",
+        regressor_type=args.regressor_type,
+        kernel=args.kernel,
+        target_features=[args.target_features],  
+        transform_type=args.transform_type,
         hyperparameter_optimization=True,
-        columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
-        special_impute="Mw (g/mol)",
-        numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
-        imputer="mean",
-        cutoff=None)
+        columns_to_impute=args.columns_to_impute,  
+        special_impute=args.special_impute,
+        numerical_feats=args.numerical_feats,  
+        imputer=args.imputer,
+        cutoff=None,  
+    )
+
+    # main_numerical_only(
+    #     dataset=w_data,
+    #     regressor_type="sklearn-GPR",
+    #     kernel= "rbf",
+    #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
+    #     transform_type="Standard",
+    #     hyperparameter_optimization=True,
+    #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
+    #     special_impute="Mw (g/mol)",
+    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
+    #     imputer="mean",
+    #     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # special_column: str = "Mw (g/mol)"
