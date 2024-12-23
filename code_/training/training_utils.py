@@ -14,9 +14,10 @@ from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
                             regressor_factory,
-                            regressor_search_space,
+                            # regressor_search_space,
                             transforms,
-                            construct_kernel)
+                            construct_kernel,
+                            get_regressor_search_space)
 
 
 from imputation_normalization import preprocessing_workflow
@@ -160,6 +161,7 @@ def run(
     seed_predictions: dict[int, np.ndarray] = {}
     # if 'Rh (IW avg log)' in target_features:
     #     y = np.log10(y)
+    search_space = get_regressor_search_space(regressor_type,kernel)
     kernel = construct_kernel(regressor_type, kernel)
     
     for seed in SEEDS:
@@ -187,6 +189,7 @@ def run(
                 cv_outer=cv_outer,
                 seed=seed,
                 regressor_type=regressor_type,
+                search_space=search_space,
                 regressor=regressor,
             )
             scores, predictions = cross_validate_regressor(
@@ -221,7 +224,7 @@ def _pd_to_np(data):
 
 
 def _optimize_hyperparams(
-    X, y, cv_outer: KFold, seed: int, regressor_type: str, regressor: Pipeline) -> tuple:
+    X, y, cv_outer: KFold, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline) -> tuple:
 
     # Splitting for outer cross-validation loop
     estimators: list[BayesSearchCV] = []
@@ -239,7 +242,7 @@ def _optimize_hyperparams(
         # Bayesian hyperparameter optimization
         bayes = BayesSearchCV(
             regressor,
-            regressor_search_space[regressor_type],
+            search_space,
             n_iter=BO_ITER,
             cv=cv_inner,
             n_jobs=-1,
