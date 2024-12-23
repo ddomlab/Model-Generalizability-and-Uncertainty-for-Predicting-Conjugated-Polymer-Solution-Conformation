@@ -22,7 +22,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rh']
+target_list = ['target_Rg']
 
 transformer_list = [
     "Standard",
