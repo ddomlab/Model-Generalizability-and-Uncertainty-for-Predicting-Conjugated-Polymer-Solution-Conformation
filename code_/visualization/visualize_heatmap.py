@@ -22,11 +22,14 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
-target_list = ['target_Rg']
+target_list = [
+    # 'target_Rg',
+    'target_Rh' 
+    ]
 
 transformer_list = [
-    "Standard",
-    # "Robust Scaler"
+    # "Standard",
+    "Robust Scaler"
                     ]
 
 
@@ -232,7 +235,6 @@ def creat_result_df(target_dir: Path,
             # for structural and mix of structural-scaler
             if "generalizability" not in file_path.name:
 
-                print(file_path)
                 if data_type=='structural_scaler' or data_type=='structural':
                     if regressor_model == file_path.name.split("_")[1]:
                         if transformer_type in file_path.name:
@@ -246,10 +248,14 @@ def creat_result_df(target_dir: Path,
                     # for just scaler 
                 
                 else:
-                    print(transformer_type)
                     if transformer_type in file_path.name:
-                        feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)                
+                        print(transformer_type)
+
+                        feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var)  
+                        print(feats)              
                         models.add(model)
+                    else:
+                            continue
                 # for scaler features only
                 if data_type=='scaler':
                     if feats not in avg_scores.columns:
