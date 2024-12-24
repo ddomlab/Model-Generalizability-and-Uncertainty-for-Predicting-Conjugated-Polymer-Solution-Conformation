@@ -94,7 +94,7 @@ def parse_arguments():
     parser.add_argument(
         '--regressor_type', 
         type=str, 
-        choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN', 'GPR', 'NGB'], 
+        choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN', 'GPR', 'NGB', 'sklearn-GPR'], 
         required=True, 
         help="Regressor type required"
     )
