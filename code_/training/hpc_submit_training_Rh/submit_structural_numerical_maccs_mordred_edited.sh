@@ -2,9 +2,9 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
 regressors=("XGBR" "NGB")
-targets=("Rh (IW avg log)")
+targets=("Rg1 (nm)")
 models=("maccs" "mordred")
-scaler_types=('Standard' 'Robust Scaler')
+scaler_types=('Standard')
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
 
 for regressor in "${regressors[@]}"; do
@@ -31,7 +31,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --regressor_type "${model}" \
                                       --transform_type "${scaler}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
+                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'polymer dP' 'polymer dD' 'polymer dH' 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                       --special_impute 'Mw (g/mol)' \
                                       --imputer mean \
