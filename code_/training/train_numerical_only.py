@@ -152,7 +152,8 @@ def parse_arguments():
         default=None,
         help='kernel for GP is optinal'
     )
-    
+
+
     return parser.parse_args()
 
 if __name__ == "__main__":
