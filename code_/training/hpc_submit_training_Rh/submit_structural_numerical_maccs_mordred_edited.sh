@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
 regressors=("XGBR" "NGB")
-targets=("Rg1 (nm)")
+targets=("Rh (IW avg log)")
 models=("maccs" "mordred")
 scaler_types=('Standard')
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
@@ -28,13 +28,13 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_structure_numerical.py --target_features "${target}" \
                                       --representation "${fp}" \
-                                      --regressor_type "${model}" \
+                                      --regressor_type "${regressor}" \
                                       --transform_type "${scaler}" \
                                       --oligomer_representation "${oligo_rep}" \
                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'polymer dP' 'polymer dD' 'polymer dH' 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                       --special_impute 'Mw (g/mol)' \
-                                      --imputer mean \
+                                      --imputer mean 
 
 
 
