@@ -1,11 +1,11 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("XGBR")
+regressors=("XGBR" "NGB")
 targets=("Rg1 (nm)")
-models=("maccs")
+models=("maccs" "mordred")
 scaler_types=('Standard')
-poly_representations=('Monomer')
+poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
