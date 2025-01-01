@@ -25,14 +25,14 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[ptile=2]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20241224.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20241224.err"
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250101.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250101.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_structure_numerical.py --target_features "${target}" \
                                       --representation "${fp}" \
-                                      --regressor_type "${model}" \
+                                      --regressor_type "${regressor}" \
                                       --transform_type "${scaler}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
@@ -40,7 +40,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                       --special_impute 'Mw (g/mol)' \
-                                      --imputer mean \
+                                      --imputer mean 
 
 
 
