@@ -153,8 +153,8 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         #                                            "KernelRidge", "SVR"]),
         "regressor__regressor__natural_gradient": [True],
         "regressor__regressor__verbose": [False],
-        "regressor__regressor__min_samples_split": Real(0.05, 0.99),
-        "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
+        # "regressor__regressor__min_samples_split": Real(0.05, 0.99),
+        # "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
         # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
     }
 
