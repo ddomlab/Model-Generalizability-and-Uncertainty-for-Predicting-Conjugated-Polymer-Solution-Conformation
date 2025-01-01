@@ -366,11 +366,11 @@ def parse_arguments():
 
     parser.add_argument(
         '--vector',
-        type=int,
-        choices=[3, 4, 5, 6],
+        type=str,
+        choices=['count', 'binary'],
         nargs='?',  # This allows the argument to be optional
-        default=None,  # Set the default value to None
-        help='Radius for ECFP'
+        default='count',  # Set the default value to None
+        help='Type of vector (default: count)'
     )
 
 
