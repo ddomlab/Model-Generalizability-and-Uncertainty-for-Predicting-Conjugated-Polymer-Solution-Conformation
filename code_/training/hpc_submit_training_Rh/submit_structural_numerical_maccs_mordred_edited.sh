@@ -31,8 +31,8 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --regressor_type "${regressor}" \
                                       --transform_type "${scaler}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
-                                      --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
+                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' \
+                                      --columns_to_impute "PDI" \
                                       --special_impute 'Mw (g/mol)' \
                                       --imputer mean 
 
