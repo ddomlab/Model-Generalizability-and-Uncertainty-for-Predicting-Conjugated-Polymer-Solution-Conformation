@@ -56,6 +56,7 @@ def unroll_MACCS(df: pd.DataFrame, col_names: list[str], oligomer_representation
                         **kwargs):
     new_ecfp_col_names: list[str] = [f"{oligomer_representation}_MACCS_bit{i}" for i in range(1,168)]
     new_df: pd.DataFrame = unroll_lists_to_columns(df, col_names, new_ecfp_col_names)
+    new_df: pd.DataFrame = new_df.astype('uint32')
     return new_df
 
 

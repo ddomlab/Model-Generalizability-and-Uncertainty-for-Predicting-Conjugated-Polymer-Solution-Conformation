@@ -402,15 +402,15 @@ if __name__ == "__main__":
 
     # main_structural_numerical(
     #     dataset=w_data,
-    #     representation="ECFP",
-    #     radius=3,
-    #     vector="count",
-    #     regressor_type="DT",
+    #     representation="MACCS",
+    #     # radius=3,
+    #     # vector="count",
+    #     regressor_type="XGBR",
     #     target_features=["Rg1 (nm)"],  
     #     transform_type="Standard",
-    #     columns_to_impute=["PDI"],
+    #     columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
     #     special_impute="Mw (g/mol)",
-    #     numerical_feats=["Mn (g/mol)", "Mw (g/mol)", "PDI"],
+    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
     #     imputer='mean',
     #     oligomer_representation="Monomer",
     # )
