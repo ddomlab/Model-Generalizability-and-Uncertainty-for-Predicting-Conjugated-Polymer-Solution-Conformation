@@ -3,7 +3,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Define arrays for regressor types, targets, and models
 regressors=("XGBR" "NGB")
 targets=("Rg1 (nm)")
-models=("MACCS")
+models=("MACCS" "Mordred")
 scaler_types=('Standard')
 poly_representations=('Trimer')
 
@@ -18,7 +18,7 @@ for regressor in "${regressors[@]}"; do
 
 #BSUB -n 6
 #BSUB -W 72:05
-#BSUB -R span[ptile=2]
+#BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250102.out"
