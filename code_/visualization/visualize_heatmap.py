@@ -24,7 +24,7 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = [
     'target_Rg',
-    'target_Rh' 
+    # 'target_Rh' 
     ]
 
 transformer_list = [
