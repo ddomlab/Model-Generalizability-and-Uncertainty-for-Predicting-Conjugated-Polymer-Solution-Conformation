@@ -14,3 +14,20 @@
   warnings.warn(
 /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.001, 0.99, 0.05, 1, 2000, True, False] before, using random point [1.6332510158611093e-06, 0.36293673711127633, 0.24618555051923813, 1, 252, True, False]
   warnings.warn(
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_structure_numerical.py", line 3, in <module>
+    from training_utils import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 9, in <module>
+    from skopt import BayesSearchCV
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/__init__.py", line 21, in <module>
+    from . import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/callbacks.py", line 18, in <module>
+    from skopt.utils import dump, load
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/utils.py", line 11, in <module>
+    from sklearn.ensemble import GradientBoostingRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/ensemble/__init__.py", line 12, in <module>
+    from ._gb import GradientBoostingClassifier, GradientBoostingRegressor
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/ensemble/_gb.py", line 55, in <module>
+    from ._gradient_boosting import _random_sample_mask, predict_stage, predict_stages
+  File "<frozen importlib._bootstrap>", line 404, in parent
+KeyboardInterrupt
