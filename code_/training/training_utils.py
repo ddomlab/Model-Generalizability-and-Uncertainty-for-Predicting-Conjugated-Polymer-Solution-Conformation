@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 from sklearn.pipeline import Pipeline
 from skopt import BayesSearchCV
 from sklearn.preprocessing import FunctionTransformer
-
+from sklearn.multioutput import MultiOutputRegressor
 
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
@@ -169,11 +169,17 @@ def run(
       y_transform = get_target_transformer(transform_type,target_name=target_features)
     #   inverse_transformers = get_inverse_target_transformer(target_features, transform_type)
 
-      
-      y_transform_regressor = TransformedTargetRegressor(
-            regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                      else regressor_factory[regressor_type],
+      if y.shape[1] > 1:
+        y_transform_regressor = TransformedTargetRegressor(
+            regressor=MultiOutputRegressor(estimator=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+                      else regressor_factory[regressor_type]),
             transformer=y_transform,
+        )
+      else:
+        y_transform_regressor = TransformedTargetRegressor(
+                regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+                        else regressor_factory[regressor_type],
+                transformer=y_transform,
         )
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", preprocessor),

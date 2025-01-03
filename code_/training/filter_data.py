@@ -4,7 +4,7 @@ from typing import Optional, Union, Dict, Tuple
 
 import pandas as pd
 from unrolling_utils import unrolling_factory
-
+import numpy as np
 # HERE: Path = Path(__file__).resolve().parent
 # DATASETS: Path = HERE.parent.parent / "datasets"
 
@@ -126,7 +126,7 @@ def filter_dataset(
         [structure_features, scalar_features], axis=1
     )
 
-    targets: pd.DataFrame = dataset[target_feats]
+    targets: np.ndarray = np.array(dataset[target_feats].to_list())
 
     training_features, targets = sanitize_dataset(
         training_features, targets, dropna=dropna, **kwargs
