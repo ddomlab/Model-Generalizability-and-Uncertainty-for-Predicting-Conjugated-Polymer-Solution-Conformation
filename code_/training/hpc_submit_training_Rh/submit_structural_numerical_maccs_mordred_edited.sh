@@ -1,9 +1,9 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("XGBR" "NGB")
+regressors=("NGB")
 targets=("Rg1 (nm)")
-models=("MACCS" "Mordred")
+models=("Mordred")
 scaler_types=('Standard')
 poly_representations=('Trimer')
 
