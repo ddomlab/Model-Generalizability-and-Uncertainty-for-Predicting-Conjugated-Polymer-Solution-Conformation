@@ -134,7 +134,7 @@ def _prepare_data(
 
 
     preprocessor.set_output(transform="pandas")
-    
+    print(target_features)
     score,predication= run(
                             X,
                             y,
@@ -147,7 +147,8 @@ def _prepare_data(
                             **kwargs,
                             )
     # print(X_y_shape)
-    combined_prediction_ground_truth = pd.concat([predication, y.reset_index(drop=True)], axis=1)
+    y_frame = pd.DataFrame(y.flatten(),columns=target_features)
+    combined_prediction_ground_truth = pd.concat([predication, y_frame], axis=1)
 
     return score, combined_prediction_ground_truth, X_y_shape
 
@@ -171,10 +172,18 @@ def run(
 
       if y.shape[1] > 1:
         y_transform_regressor = TransformedTargetRegressor(
-            regressor=MultiOutputRegressor(estimator=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                      else regressor_factory[regressor_type]),
-            transformer=y_transform,
-        )
+        regressor=MultiOutputRegressor(
+        estimator=regressor_factory[regressor_type](kernel=kernel) if kernel is not None
+        else regressor_factory[regressor_type]
+        ),
+        transformer=y_transform,
+            )
+        
+        search_space = {
+        f"regressor__regressor__estimator__{key.split('__')[-1]}": value
+        for key, value in search_space.items()
+            }
+        print(search_space)
       else:
         y_transform_regressor = TransformedTargetRegressor(
                 regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
@@ -206,13 +215,11 @@ def run(
 
       else:
             scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
-            
       seed_scores[seed] = scores
     #   if 'Rh (IW avg log)' in target_features:
     #         seed_predictions[seed] = np.power(10, predictions).flatten()
     #   else:
       seed_predictions[seed] = predictions.flatten()
-
 
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(
                       seed_predictions, orient="columns")

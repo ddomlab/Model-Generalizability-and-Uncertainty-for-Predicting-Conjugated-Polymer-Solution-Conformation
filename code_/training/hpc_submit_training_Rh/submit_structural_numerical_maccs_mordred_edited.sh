@@ -1,11 +1,11 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("NGB")
-targets=("Rh (IW avg log)")
+regressors=("NGB" "XGBR")
+targets=("multimodal Rh")
 models=("Mordred" "MACCS")
-scaler_types=('Standard')
-poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
+scaler_types=('Standard' 'Robust Scaler')
+poly_representations=('Trimer' 'RRU Trimer')
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
@@ -21,8 +21,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250103_full.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250103_full.err"
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250105.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250105.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

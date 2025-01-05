@@ -33,7 +33,7 @@ def apply_cutoff(data: pd.DataFrame, cutoffs: Dict[str, Tuple[Optional[float], O
 
 
 def sanitize_dataset(
-    training_features: pd.DataFrame, targets: pd.DataFrame, dropna: bool, **kwargs
+    training_features: pd.DataFrame, targets:pd.Series, dropna: bool, **kwargs
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     Sanitize the training features and targets in case the target features contain NaN values.
@@ -48,7 +48,7 @@ def sanitize_dataset(
         Sanitized training features and targets.
     """
     if dropna:
-        targets: pd.DataFrame = targets.dropna()
+        targets: pd.Series = targets.dropna()
         training_features: pd.DataFrame =training_features.loc[targets.index]
         return training_features, targets
     else:
@@ -64,7 +64,7 @@ def filter_dataset(
     dropna: bool = True,
     unroll: Union[dict, list, None] = None,
     **kwargs,
-) -> tuple[pd.DataFrame, pd.DataFrame, list[str]]:
+) -> tuple[pd.DataFrame, np.ndarray, list[str]]:
     """
     Filter the dataset.
 
@@ -126,12 +126,12 @@ def filter_dataset(
         [structure_features, scalar_features], axis=1
     )
 
-    targets: np.ndarray = np.array(dataset[target_feats].to_list())
+    targets = dataset[target_feats].squeeze()
 
     training_features, targets = sanitize_dataset(
         training_features, targets, dropna=dropna, **kwargs
     )
-
+    targets = np.vstack(targets.values)
     # if not (scalars_available and struct_available):
     new_struct_feats: list[str] = structure_features.columns.tolist()
     training_test_shape: Dict ={

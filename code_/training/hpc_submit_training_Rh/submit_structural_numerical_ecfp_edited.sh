@@ -7,7 +7,7 @@ models=('ECFP')
 radii=(3) 
 vectors=("count")
 scaler_types=('Standard' 'Robust Scaler')
-poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
+poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' )
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
