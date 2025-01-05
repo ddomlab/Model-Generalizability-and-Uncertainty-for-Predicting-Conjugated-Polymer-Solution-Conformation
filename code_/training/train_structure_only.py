@@ -22,7 +22,7 @@ training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-h
 w_data = pd.read_pickle(training_df_dir)
 # edited_oligomer_list = [" ".join(x.split()[:-1]) for x in oligomer_list]
 # ['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer']
-TEST=True
+TEST=False
 
 
 
