@@ -3,9 +3,9 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 
 # Correctly define models and numerical features
 target_to_asses=("Rh (IW avg log)")
-models_to_run=("GPR")
-kernels=("matern" "rbf")
-scaler_types=("Robust Scaler")
+models_to_run=("sklear-GPR")
+kernels=("matern")
+scaler_types=("Standard" "Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
