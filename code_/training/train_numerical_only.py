@@ -86,7 +86,7 @@ def parse_arguments():
     # Argument for regressor_type
     parser.add_argument(
         '--target_features',
-        choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  
+        # choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  
         required=True,
         help="Specify a single target for the analysis."
     )
