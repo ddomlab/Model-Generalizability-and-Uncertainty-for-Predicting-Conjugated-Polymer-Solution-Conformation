@@ -134,7 +134,6 @@ def _prepare_data(
 
 
     preprocessor.set_output(transform="pandas")
-    print(target_features)
     score,predication= run(
                             X,
                             y,

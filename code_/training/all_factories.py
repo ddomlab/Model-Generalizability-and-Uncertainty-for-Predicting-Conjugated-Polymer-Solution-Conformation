@@ -189,6 +189,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
 
         if kernel == 'matern':
             return {
+        "regressor__regressor__n_restarts_optimizer": [25],
         "regressor__regressor__kernel__nu": Real(0.5, 2.5),
         "regressor__regressor__kernel__length_scale": Real(0.05, 3.0),
             }

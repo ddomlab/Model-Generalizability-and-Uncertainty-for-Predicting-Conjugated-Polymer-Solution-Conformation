@@ -176,8 +176,8 @@ if __name__ == "__main__":
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="DT",
-    #     # kernel= "rbf",
+    #     regressor_type="sklearn-GPR",
+    #     kernel= "matern",
     #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
     #     transform_type="Standard",
     #     hyperparameter_optimization=True,
