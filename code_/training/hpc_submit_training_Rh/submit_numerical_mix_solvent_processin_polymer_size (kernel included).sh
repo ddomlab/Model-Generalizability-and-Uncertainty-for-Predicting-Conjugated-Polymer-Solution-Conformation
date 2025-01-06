@@ -5,7 +5,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 target_to_asses=("Rh (IW avg log)")
 models_to_run=("sklearn-GPR")
 kernels=("matern" "rbf")
-scaler_types=('Standard' 'Robust Scaler')
+scaler_types=('Standard')
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
@@ -27,7 +27,7 @@ python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --kernel "${kernel}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "solvent dP" "solvent dD" "solvent dH" \
+                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" "Ra" \
                                     --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                     --special_impute 'Mw (g/mol)' \
                                     --imputer mean 
