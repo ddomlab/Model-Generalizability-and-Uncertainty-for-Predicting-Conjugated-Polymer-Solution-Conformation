@@ -4,7 +4,7 @@ from scipy.spatial.distance import pdist, squareform
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
-
+import os
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -16,17 +16,42 @@ working_data = pd.read_pickle(training_df_dir/"Rg_training_data.pkl")
 unique_df = working_data.drop_duplicates(subset="canonical_name")
 print(len(unique_df))
 binary_vectors = np.array(unique_df["Monomer_ECFP12_binary_4096bits"].tolist())
+count_vectors = np.array(unique_df["Monomer_ECFP12_count_4096bits"].tolist())
 
-# Step 2: Compute pairwise Tanimoto similarities
-# `pdist` computes distances; subtract from 1 to get similarities
-tanimoto_similarities = 1 - pdist(binary_vectors, metric="jaccard")
+binary_tanimoto_similarities = 1 - pdist(binary_vectors, metric="jaccard")
 # Step 3: Visualize the distribution of Tanimoto similarities
-plt.figure(figsize=(10, 6))
-sns.histplot(tanimoto_similarities, bins=30, kde=True, color='blue')
-plt.title("Distribution of Tanimoto Similarities for Unique Polymers in Rg dataset", fontsize=14)
-plt.xlabel("Tanimoto Similarity", fontsize=12)
-plt.ylabel("Frequency", fontsize=12)
-plt.show()
+
+
+
+def weighted_jaccard(u, v):
+    min_sum = np.sum(np.minimum(u, v))
+    max_sum = np.sum(np.maximum(u, v))
+    return 1 - (min_sum / max_sum) if max_sum != 0 else 0
+
+count_tanimoto_similarities = 1 - pdist(count_vectors, metric=weighted_jaccard)
+
+data = pd.DataFrame({
+    "Similarity": np.concatenate([binary_tanimoto_similarities, count_tanimoto_similarities]),
+    "Type": ["Binary"] * len(binary_tanimoto_similarities) + ["Count-based"] * len(count_tanimoto_similarities)
+})
+
+# Plot using seaborn
+sns.histplot(data, x="Similarity", hue="Type", kde=True, bins=20)
+plt.title("Comparison of Binary and Count-based Tanimoto Similarities")
+plt.xlabel("Tanimoto Similarity")
+plt.ylabel("Frequency")
+plt.tight_layout()
+visualization_folder_path =  HERE/"analysis and test"
+os.makedirs(visualization_folder_path, exist_ok=True)    
+fname = "Comparison of Binary and Count-based Tanimoto Similarities"
+plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
+plt.close()
+
+   
+
+
+
+
 
 # unique_df = working_data.drop_duplicates(subset="canonical_name")
 # binary_vectors = np.array(unique_df["Monomer_ECFP12_binary_4096bits"].tolist())
