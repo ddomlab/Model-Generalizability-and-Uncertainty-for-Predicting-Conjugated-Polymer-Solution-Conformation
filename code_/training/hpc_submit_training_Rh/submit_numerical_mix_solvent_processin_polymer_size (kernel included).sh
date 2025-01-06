@@ -5,7 +5,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 target_to_asses=("Rh (IW avg log)")
 models_to_run=("sklearn-GPR")
 kernels=("matern" "rbf")
-scaler_types=('Standard')
+scaler_types=("Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
