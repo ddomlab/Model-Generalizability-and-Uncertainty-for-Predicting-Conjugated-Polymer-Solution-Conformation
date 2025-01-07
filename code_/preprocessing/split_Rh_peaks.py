@@ -95,7 +95,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
 
 
 if __name__ == "__main__":
-    l1 = 100
+    l1 = 30
     l2 = 1000
     w_data["multimodal Rh"] = w_data.apply(
     lambda row: reorder_and_pad(
@@ -110,3 +110,4 @@ if __name__ == "__main__":
     )
     # w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.pkl")
     plot_peak_distribution(w_data,"multimodal Rh",l1,l2)
+    print(w_data)
