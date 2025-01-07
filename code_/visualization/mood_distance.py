@@ -19,7 +19,6 @@ binary_vectors = np.array(unique_df["Monomer_ECFP12_binary_4096bits"].tolist())
 count_vectors = np.array(unique_df["Monomer_ECFP12_count_4096bits"].tolist())
 
 binary_tanimoto_similarities = 1 - pdist(binary_vectors, metric="jaccard")
-# Step 3: Visualize the distribution of Tanimoto similarities
 
 
 
@@ -35,7 +34,6 @@ data = pd.DataFrame({
     "Type": ["Binary"] * len(binary_tanimoto_similarities) + ["Count-based"] * len(count_tanimoto_similarities)
 })
 
-# Plot using seaborn
 sns.histplot(data, x="Similarity", hue="Type", kde=True, bins=20)
 plt.title("Comparison of Binary and Count-based Tanimoto Similarities")
 plt.xlabel("Tanimoto Similarity")
@@ -43,7 +41,7 @@ plt.ylabel("Frequency")
 plt.tight_layout()
 visualization_folder_path =  HERE/"analysis and test"
 os.makedirs(visualization_folder_path, exist_ok=True)    
-fname = "Comparison of Binary and Count-based Tanimoto Similarities"
+fname = "Comparison of Binary and Count-based Tanimoto Similarities (over Rg)"
 plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
 plt.close()
 
