@@ -23,13 +23,14 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = [
-    'target_Rg',
+    # 'target_Rg',
     # 'target_Rh' 
+    "target_multimodal Rh"
     ]
 
 transformer_list = [
     "Standard",
-    # "Robust Scaler"
+    "Robust Scaler"
                     ]
 
 
@@ -354,7 +355,7 @@ def create_structural_scaler_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(24, 16),
+                    figsize=(18, 12),
                     fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
@@ -393,7 +394,7 @@ def create_scaler_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(22, 14),
+                    figsize=(18, 12),
                     fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="numerical Representations",
                     y_title="Regression Models",
@@ -401,8 +402,8 @@ def create_scaler_result(target_dir:Path,
 
 simple_models = ['MLR','DT','RF']
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)

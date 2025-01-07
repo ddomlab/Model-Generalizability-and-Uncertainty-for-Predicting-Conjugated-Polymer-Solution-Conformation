@@ -3,9 +3,10 @@ from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+import os
 
 HERE: Path = Path(__file__).resolve().parent
+VISUALIZATION = HERE.parent/ "visualization"
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended.pkl"
@@ -60,7 +61,7 @@ def reorder_and_pad(values, peaks, intensity,l1,l2):
     return result
 
 
-def plot_peak_distribution(data, column_name):
+def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     # Reorder and pad values in the specified column
     df= data.dropna(subset=[column_name])
     reordered_df = pd.DataFrame(df[column_name].tolist(), columns=["First Peak", "Second Peak", "Third Peak"])
@@ -77,7 +78,7 @@ def plot_peak_distribution(data, column_name):
     # Customize the histogram
     ax.set_xlabel('log (Rh nm)')
     ax.set_ylabel('Occurrence')
-    ax.set_title('Distribution of Peak Values')
+    ax.set_title(f'Distribution of Rh Peak Values (limits of {l1}-{l2})')
 
     # Create inset boxplot
     box_inset = ax.inset_axes([0.01, -0.35, 0.99, 0.2])  # Adjust position for the inset box plot
@@ -86,21 +87,26 @@ def plot_peak_distribution(data, column_name):
     box_inset.set(yticks=[], xlabel=None)
     box_inset.legend_.remove()
     plt.tight_layout()
-    plt.show()
+    visualization_folder_path =  VISUALIZATION/"analysis and test"
+    os.makedirs(visualization_folder_path, exist_ok=True)    
+    fname = f"Distribution of Rh Peak Values after spliting (limits of {l1}-{l2} nm).png"
+    plt.savefig(visualization_folder_path / fname, dpi=600)
+    plt.close()
 
 
 if __name__ == "__main__":
-
+    l1 = 100
+    l2 = 1000
     w_data["multimodal Rh"] = w_data.apply(
     lambda row: reorder_and_pad(
         row["Rh at peaks (above 1 nm)"],
         row["peak index (above 1 nm)"],
         row["normalized intensity (0-1) corrected"],
-        l1=100,
-        l2=1000,
+        l1=l1,
+        l2=l2,
         # threshold=100000
     ),
     axis=1
     )
-    w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.pkl")
-    plot_peak_distribution(w_data,"multimodal Rh")
+    # w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.pkl")
+    plot_peak_distribution(w_data,"multimodal Rh",l1,l2)
