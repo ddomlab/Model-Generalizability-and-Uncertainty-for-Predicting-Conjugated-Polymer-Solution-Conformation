@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 # from pytorch_mpnn import DMPNNPredictor, RevIndexedData, smiles2data
 
 
-def batch_tanimoto_sim(
+def binary_batch_tanimoto_sim(
         x1: torch.Tensor, x2: torch.Tensor, eps: float = 1e-6
 ) -> torch.Tensor:
     """
@@ -27,8 +27,28 @@ def batch_tanimoto_sim(
             eps + x1_sum + torch.transpose(x2_sum, -1, -2) - dot_prod
     )
 
+def weighted_batch_tanimoto_similarity(
+        x1: torch.Tensor, x2: torch.Tensor, eps: float = 1e-6
+) -> torch.Tensor:
+    """
+    Weighted Tanimoto similarity (generalized Jaccard similarity) between two batched tensors across the last 2 dimensions.
+    eps argument ensures numerical stability to avoid division by zero.
+    """
+    assert x1.ndim >= 2 and x2.ndim >= 2, "Input tensors must have at least 2 dimensions."
 
-class BitDistance(torch.nn.Module):
+    pairwise_min = torch.min(x1.unsqueeze(-2), x2.unsqueeze(-3))  
+    min_sum = torch.sum(pairwise_min, dim=-1, keepdims=True)  
+
+    pairwise_max = torch.max(x1.unsqueeze(-2), x2.unsqueeze(-3))  
+    max_sum = torch.sum(pairwise_max, dim=-1, keepdims=True)  
+
+    # Weighted Tanimoto similarity
+    similarity = (min_sum + eps) / (max_sum + eps)
+    return similarity
+    
+
+
+class TanimotoDistance(torch.nn.Module):
     r"""
     Distance module for bit vector test_kernels.
     """
@@ -37,7 +57,7 @@ class BitDistance(torch.nn.Module):
         super().__init__()
         self._postprocess = postprocess_script
 
-    def _sim(self, x1, x2, postprocess, x1_eq_x2=False, metric="tanimoto"):
+    def _sim(self, x1, x2, postprocess, x1_eq_x2=False, metric="binary tanimoto"):
         r"""
         Computes the similarity between x1 and x2
         Args:
@@ -56,8 +76,12 @@ class BitDistance(torch.nn.Module):
         """
 
         # Branch for Tanimoto metric
-        if metric == "tanimoto":
-            res = batch_tanimoto_sim(x1, x2)
+        if metric == "binary tanimoto":
+            res = binary_batch_tanimoto_sim(x1, x2)
+            res.clamp_min_(0)  # zero out negative values
+            return self._postprocess(res) if postprocess else res
+        if metric == "weighted tanimoto":
+            res = weighted_batch_tanimoto_similarity(x1, x2)
             res.clamp_min_(0)  # zero out negative values
             return self._postprocess(res) if postprocess else res
         else:
@@ -118,7 +142,7 @@ class TanimotoKernel(gpytorch.kernels.Kernel):
                 not self.distance_module
                 or self.distance_module._postprocess != dist_postprocess_func
         ):
-            self.distance_module = BitDistance(dist_postprocess_func)
+            self.distance_module = TanimotoDistance(dist_postprocess_func)
 
         res = self.distance_module._sim(
             x1, x2, postprocess, x1_eq_x2, self.metric
