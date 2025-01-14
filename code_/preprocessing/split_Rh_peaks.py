@@ -229,8 +229,8 @@ def plot_violin_with_swarm(data, distance_column):
 if __name__ == "__main__":
     # for i in [800,900,1000,1500,2500, 3000]:
     
-        l1 = 30
-        l2 = 1500
+        l1 = 25
+        l2 = 1000
         # l3=3500
         w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
         lambda row: reorder_and_pad(
@@ -246,6 +246,8 @@ if __name__ == "__main__":
         ))
         
         # w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.pkl")
+        # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
+
         plot_peak_distribution(w_data,"multimodal Rh",l1,l2)
         plot_non_zero_counts(w_data, 'multimodal Rh', 3)
         plot_violin_with_swarm(w_data,"distances")
