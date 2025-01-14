@@ -19,7 +19,8 @@ block_copolymers = {'P3HT-b-P3HTNMe3':['block copolyelectrolytes','m and n is de
                     'DTVI5-TVB95': ['Random copolymer','x and y is defined'],
                     'DTVI10-TVB90': ['Random copolymer','x and y is defined'],
                     'DTVI25-TVB75': ['Random copolymer','x and y is defined'],
-                    'DTVI50-TVB50': ['Random copolymer','x and y is defined']
+                    'DTVI50-TVB50': ['Random copolymer','x and y is defined'],
+                    
                     }
 
 

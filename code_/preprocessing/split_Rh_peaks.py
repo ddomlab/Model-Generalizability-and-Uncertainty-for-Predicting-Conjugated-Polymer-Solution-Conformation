@@ -230,7 +230,7 @@ if __name__ == "__main__":
     # for i in [800,900,1000,1500,2500, 3000]:
     
         l1 = 25
-        l2 = 1000
+        l2 = 2000
         # l3=3500
         w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
         lambda row: reorder_and_pad(
