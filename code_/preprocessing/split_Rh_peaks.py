@@ -13,6 +13,11 @@ training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-h
 
 w_data = pd.read_pickle(training_df_dir)
 
+def save_path(folder_path:str, file_name:str)->None:
+    visualization_folder_path =  folder_path
+    os.makedirs(visualization_folder_path, exist_ok=True)    
+    fname = file_name
+    plt.savefig(visualization_folder_path / fname, dpi=600)
 
 
 def intensity_weighted_average_over_log(R_h, peaks, intensity):
@@ -82,10 +87,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     box_inset.set(yticks=[], xlabel=None)
     box_inset.legend_.remove()
     plt.tight_layout()
-    visualization_folder_path =  VISUALIZATION/"analysis and test"
-    os.makedirs(visualization_folder_path, exist_ok=True)    
-    fname = f"Distribution of Rh Peak Values after spliting (limits of {l1}-{l2} nm).png"
-    plt.savefig(visualization_folder_path / fname, dpi=600)
+    save_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after spliting (limits of {l1}-{l2} nm).png")
     plt.close()
 
 # def reorder_and_pad(values, peaks, intensity, l1, l2, l3):
@@ -153,11 +155,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
 #     plt.savefig(visualization_folder_path / fname, dpi=600)
 #     plt.close()
 
-def save_path(folder_path:str, file_name:str)->None:
-    visualization_folder_path =  folder_path
-    os.makedirs(visualization_folder_path, exist_ok=True)    
-    fname = file_name
-    plt.savefig(visualization_folder_path / fname, dpi=600)
+
 
 def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 
@@ -218,10 +216,7 @@ def plot_violin_with_swarm(data, distance_column):
     plt.yticks(fontsize=18)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
-    visualization_folder_path =  VISUALIZATION/"analysis and test"
-    os.makedirs(visualization_folder_path, exist_ok=True)    
-    fname = f"Distribution Rh distance (limits of {l1}-{l2} nm).png"
-    plt.savefig(visualization_folder_path / fname, dpi=600)
+    save_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
     plt.close()
 
 
@@ -229,10 +224,10 @@ def plot_violin_with_swarm(data, distance_column):
 
 
 if __name__ == "__main__":
-    # for i in [800,900,1000,1500,2500, 3000]:
+    for i in [40,50,70,80,90, 100]:
     
-        l1 = 25
-        l2 = 2000
+        l1 = i
+        l2 = 1000
         # l3=3500
         w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
         lambda row: reorder_and_pad(
