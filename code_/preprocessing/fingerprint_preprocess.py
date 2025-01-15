@@ -16,10 +16,10 @@ import mordred.descriptors
 from mordred import Calculator
 from rdkit.Chem import MACCSkeys
 
-# Parallelization
+# # Parallelization
 import time
-from pandarallel import pandarallel
-from argparse import ArgumentParser
+# from pandarallel import pandarallel
+# from argparse import ArgumentParser
 
 
 HERE: Path = Path(__file__).resolve().parent
@@ -47,10 +47,10 @@ def generate_ECFP_fingerprint(mol, radius: int = 3, nbits: int = 1024,count_vect
     return fingerprint
 
 
-def canonicalize_dataset_parallel(data=pd.DataFrame) -> pd.DataFrame:
+def canonicalize_dataset(data=pd.DataFrame) -> pd.DataFrame:
     """Canonicalize SMILES."""
 
-    data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns != 'Name'].parallel_applymap(
+    data.loc[:, data.columns != 'Name'] = data.loc[:, data.columns != 'Name'].applymap(
         lambda smiles: CanonSmiles(smiles))
 
 class ECFP_Processor:
@@ -59,7 +59,7 @@ class ECFP_Processor:
                  oligomer_represenation:str) -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
 
@@ -73,7 +73,7 @@ class ECFP_Processor:
             vector_type = 'binary'
         
         new_name: str = " ".join(self.oligomer_represenation.split()[:-1])
-        self.smile_source[f"{new_name}_ECFP{2 * radius}_{vector_type}_{nbits}bits"] = self.all_mols.parallel_map(
+        self.smile_source[f"{new_name}_ECFP{2 * radius}_{vector_type}_{nbits}bits"] = self.all_mols.map(
                           lambda mol: generate_ECFP_fingerprint(mol, radius, nbits, count_vector=count_vector))
         print(f"Done with generating {self.oligomer_represenation.split()[0]}_ECFP{2 * radius}_{vector_type}_{nbits}bits")
 
@@ -90,13 +90,13 @@ class MACCS_Processor:
                  oligomer_represenation:str='SMILES') -> None:
         self.smile_source = smile_source.copy()
         self.oligomer_represenation =oligomer_represenation
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
     def assign_MACCS(self):
         new_name = " ".join(self.oligomer_represenation.split()[:-1])
 
-        self.smile_source[f"{new_name}_MACCS"] = self.all_mols.parallel_map(
+        self.smile_source[f"{new_name}_MACCS"] = self.all_mols.map(
             lambda mol: list(MACCSkeys.GenMACCSKeys(mol).ToBitString()))
         print(f"Done assigning {self.oligomer_represenation.split()[0]}_MACCS representation")
         
@@ -122,12 +122,12 @@ class MordredCalculator:
     def __init__(self, smile_source: pd.DataFrame, oligomer_represenation:str ='SMILES') -> None:
         self.smile_source = smile_source
         self.oligomer_represenation = oligomer_represenation
-        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].parallel_map(lambda smiles: MolFromSmiles(smiles))
+        self.all_mols: pd.Series = self.smile_source[self.oligomer_represenation].map(lambda smiles: MolFromSmiles(smiles))
 
 
     def assign_Mordred(self):
         
-        descriptors: pd.Series = self.all_mols.parallel_map(lambda mol: get_mordred_dict(mol))
+        descriptors: pd.Series = self.all_mols.map(lambda mol: get_mordred_dict(mol))
         #unpacking the descriptors
         mordred_descriptors: pd.DataFrame = pd.DataFrame.from_records(descriptors, index=self.all_mols.index)
         # Remove any columns with calculation errors
@@ -155,16 +155,16 @@ class MordredCalculator:
 def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
     min_dir: Path = DATASETS / 'raw'
 
-    pu_file = min_dir / "pu_processed.csv"
+    pu_file = min_dir / "pu_processed.pkl"
     transferred_dir: Path = DATASETS / 'fingerprint'
-    pu_dataset: pd.DataFrame = pd.read_csv(pu_file)
+    pu_dataset: pd.DataFrame = pd.read_pickle(pu_file)
     pu_used_dir = min_dir / 'pu_columns_used.json'
     with open(pu_used_dir, 'r') as file:
         pu_used: list[str] = json.load(file)
 
     # for test =>  fp_dataset: pd.DataFrame = pu_dataset.iloc[:3]
     
-    canonicalize_dataset_parallel(pu_dataset)
+    canonicalize_dataset(pu_dataset)
 
     fp_dataset: pd.DataFrame = pu_dataset.copy()
     for polymer_unit in pu_used:
@@ -181,17 +181,17 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument(
-        '--num_workers',
-        action='store',
-        default=1,
-        type=int,
-        help= 'insert number of cores'
-    )
+    # parser = ArgumentParser()
+    # parser.add_argument(
+    #     '--num_workers',
+    #     action='store',
+    #     default=1,
+    #     type=int,
+    #     help= 'insert number of cores'
+    # )
     
-    FLAGS = parser.parse_args()
-    pandarallel.initialize(nb_workers=FLAGS.num_workers)
+    # FLAGS = parser.parse_args()
+    # pandarallel.initialize(nb_workers=FLAGS.num_workers)
     
     fp_radii: list[int] = [3, 4, 5, 6]
     fp_bits: list[int] = [512, 1024, 2048, 4096]

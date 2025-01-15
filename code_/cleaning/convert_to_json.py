@@ -20,7 +20,7 @@ block_copolymers = {'P3HT-b-P3HTNMe3':['block copolyelectrolytes','m and n is de
                     'DTVI10-TVB90': ['Random copolymer','x and y is defined'],
                     'DTVI25-TVB75': ['Random copolymer','x and y is defined'],
                     'DTVI50-TVB50': ['Random copolymer','x and y is defined'],
-                    
+
                     }
 
 
@@ -36,7 +36,8 @@ correct_structure_name: dict[str,list[str]] = {'PPFOH': ['PPFOH','PPFOH-L'],
                                                 'MEH-PPV' : ['MEH-PPV', 'MEH-PPV-100', 'MEH-PPV-30', 'MEH-PPV-70',],
                                                 'PFT3' : ['S_PFT', 'PFT3'],
                                                 'P(NDI2OD-T2)': ['P(NDI2OD-T2)', 'PNDI-C0', 'NDI-C0', 'NDI-2T-2OD'],
-                                                'PCPDTPT-ODD': ['PCPDTPT-ODD', 'PCDTPT-ODD']
+                                                'PCPDTPT-ODD': ['PCPDTPT-ODD', 'PCDTPT-ODD'],
+                                                'pBTTT12': ['PBTTT12', 'pBTTT12']
                                                 }
 
 

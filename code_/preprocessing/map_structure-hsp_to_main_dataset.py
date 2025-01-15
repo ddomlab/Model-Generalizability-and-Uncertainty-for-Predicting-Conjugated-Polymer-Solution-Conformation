@@ -61,10 +61,10 @@ def assign_canonical_name(df, original_name: str, mapping: dict) -> pd.DataFrame
     """
     canon_poly_name = {v: k for k, values in mapping.items() for v in values}
 
-    def map_to_canonical_nam(name):
+    def map_to_canonical_name(name):
         return canon_poly_name.get(name, name)
 
-    df['canonical_name'] = df[original_name].apply(map_to_canonical_nam)
+    df['canonical_name'] = df[original_name].apply(map_to_canonical_name)
 
 def mapping_from_external(strucure_df, main_df):
     
@@ -73,6 +73,7 @@ def mapping_from_external(strucure_df, main_df):
         combined_series = working_structure.apply(lambda row: tuple(row.values), axis=1)
         mapped_data = main_df['canonical_name'].map(combined_series)
         unpacked_data = list(zip(*mapped_data))
+        # print(unpacked_data)
         # Assign the unpacked data to the corresponding columns in the dataset
         for idx, col in enumerate(working_structure.columns.tolist()):
             main_df[col] = unpacked_data[idx]

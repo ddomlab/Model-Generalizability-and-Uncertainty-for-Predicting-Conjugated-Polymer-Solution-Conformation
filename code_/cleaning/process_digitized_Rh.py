@@ -1,8 +1,15 @@
 from sklearn.preprocessing import MinMaxScaler
+from pathlib import Path
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
-
-
+HERE = Path(__file__).resolve().parent
+DATASETS = HERE.parent.parent/'datasets'
+RAW_dir = DATASETS/ 'raw'
+raw_rh_data = pd.read_csv(RAW_dir/'Rh distribution.csv')
 rh_data = raw_rh_data[["index to extract",	"derived Rh (nm)",	"normalized intensity (0-1)"]].copy()
+
 
 grouped_rh_data = rh_data.groupby("index to extract").agg({
     "derived Rh (nm)": lambda x: list(x),
@@ -45,7 +52,6 @@ grouped_rh_data["intensity weighted average over log(Rh (nm))"] = grouped_rh_dat
         lambda row: intensity_weighted_average_over_log(row['derived Rh (nm)'], row['normalized intensity (0-1) corrected']),
     axis=1)
 
-
 # for idx, (rh_values, intensity_values) in enumerate(zip(grouped_rh_data['derived Rh (nm)'], grouped_rh_data['normalized intensity (0-1) corrected'])):
 #     index_label = grouped_rh_data['index to extract'][idx]
 #     plt.figure(figsize=(10, 6))
@@ -58,3 +64,8 @@ grouped_rh_data["intensity weighted average over log(Rh (nm))"] = grouped_rh_dat
 #     plt.xscale("log")  # assuming you want Rh on a log scale, as suggested by the plot you've shown
 #     plt.legend()
 #     plt.show()
+
+if __name__ == "__main__":
+
+
+    grouped_rh_data.to_pickle(RAW_dir/"Rh distribution-intensity weighted.pkl")

@@ -1,6 +1,6 @@
 from rdkit import Chem, DataStructs
 from rdkit.Chem import AllChem
-
+import pandas as pd
 # clean the data by removing block and random copolymers
 # def find_identical_molecules(series, radius, bits):
 #     # Get unique SMILES
