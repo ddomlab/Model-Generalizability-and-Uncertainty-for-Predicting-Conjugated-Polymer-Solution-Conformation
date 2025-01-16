@@ -73,19 +73,21 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     melted_df = reordered_df.melt(var_name="Peak Position", value_name="Value")
     melted_df['transformed_value'] = np.log10(melted_df['Value'])
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(14, 6))
 
     sns.histplot(data=melted_df, x="transformed_value", kde=True, hue="Peak Position",bins=40, ax=ax)
 
-    ax.set_xlabel('log (Rh nm)')
-    ax.set_ylabel('Occurrence')
-    ax.set_title(f'Distribution of Rh Peak Values (limits of {l1}-{l2})')
-
+    ax.set_xlabel('log (Rh nm)',fontsize=20)
+    ax.set_ylabel('Occurrence',fontsize=20)
+    ax.set_title(f'Distribution of Rh Peak Values (limits of {l1}-{l2})',fontsize=30)
+    ax.tick_params(axis='x', labelsize=25)  # Set font size for x-axis ticks
+    ax.tick_params(axis='y', labelsize=25)  # Set font size for y-axis ticks
     box_inset = ax.inset_axes([0.01, -0.35, 0.99, 0.2])  
   
     sns.boxplot(x="transformed_value", data=melted_df, hue="Peak Position", ax=box_inset)
     box_inset.set(yticks=[], xlabel=None)
     box_inset.legend_.remove()
+    box_inset.tick_params(axis='x', labelsize=20)
     plt.tight_layout()
     save_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after spliting (limits of {l1}-{l2} nm).png")
     plt.close()
@@ -165,7 +167,7 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
     ]
 
     # Bar plot
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(14, 6))
     bars = plt.bar(range(1, num_indices + 1), non_zero_counts, color='skyblue', edgecolor='black')
 
     # Annotate the values above each bar
@@ -173,10 +175,12 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
         plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.5, str(count),
                  ha='center', va='bottom', fontsize=18)
 
-    plt.xlabel('Peak Order', fontsize=14)
-    plt.ylabel('Frequency', fontsize=14)
-    plt.title(f'Non-Zero Counts at different peak orders (limits of {l1}-{l2} nm)', fontsize=16)
+    plt.xlabel('Peak Order', fontsize=20)
+    plt.ylabel('Frequency', fontsize=20)
+    plt.title(f'Non-Zero Counts at different peak orders (limits of {l1}-{l2} nm)', fontsize=30)
     plt.xticks(range(1, num_indices + 1))
+    plt.xticks(fontsize=25)
+    plt.yticks(fontsize=25)
     plt.tight_layout()
     save_path(VISUALIZATION/"analysis and test",f"Non-Zero Counts at different peak orders (limits of {l1}-{l2} nm).png")
     plt.close()
@@ -208,12 +212,20 @@ def plot_violin_with_swarm(data, distance_column):
     sns.swarmplot(x="peak_order", y="Value", data=plot_data,
                   dodge=True, color="k", alpha=0.6, size=4)
 
+    annotation_y = max(plot_data["Value"]) + 1  # Position above the maximum value
+    plt.annotate(f"{len(first_distances)} instances", xy=(0, annotation_y),
+                 xytext=(0, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+    plt.annotate(f"{len(second_distances)} instances", xy=(1, annotation_y),
+                 xytext=(1, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+    plt.annotate(f"{len(third_distances)} instances", xy=(2, annotation_y),
+                 xytext=(2, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+
 
     plt.title(f"Distribution of distances between Rh in the same range after spliting (limits of {l1}-{l2} nm)", fontsize=20)
-    plt.xlabel("Peak order", fontsize=20)
-    plt.ylabel("Log10(distance)", fontsize=20)
-    plt.xticks(fontsize=16)
-    plt.yticks(fontsize=18)
+    plt.xlabel("Peak order", fontsize=30)
+    plt.ylabel("Log10(distance)", fontsize=30)
+    plt.xticks(fontsize=25)
+    plt.yticks(fontsize=25)
     plt.grid(axis='y', linestyle='--', alpha=0.7)
     plt.tight_layout()
     save_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
@@ -224,8 +236,9 @@ def plot_violin_with_swarm(data, distance_column):
 
 
 if __name__ == "__main__":
-    # for i in [40,50,70,80,90, 100]:
-    
+    # for i1 in [40,50,70,80,90, 100]:
+    # for i2 in [900,1000,1100,1200,1500, 1900,2000]:
+
         l1 = 40
         l2 = 1000
         # l3=3500
@@ -242,7 +255,7 @@ if __name__ == "__main__":
         axis=1
         ))
         
-        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.pkl")
+        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal(40-1000 nm)_added.pkl")
         # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
 
         plot_peak_distribution(w_data,"multimodal Rh",l1,l2)
