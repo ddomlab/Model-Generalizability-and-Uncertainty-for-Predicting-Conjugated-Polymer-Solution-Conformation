@@ -239,7 +239,7 @@ if __name__ == "__main__":
         representation="MACCS",
         # radius=3,
         # vector="count",
-        regressor_type="XGBR",
+        regressor_type="RF",
         target_features=["multimodal Rh"],  
         transform_type="Standard",
         columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],

@@ -182,7 +182,6 @@ def run(
         f"regressor__regressor__estimator__{key.split('__')[-1]}": value
         for key, value in search_space.items()
             }
-        print(search_space)
       else:
         y_transform_regressor = TransformedTargetRegressor(
                 regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None

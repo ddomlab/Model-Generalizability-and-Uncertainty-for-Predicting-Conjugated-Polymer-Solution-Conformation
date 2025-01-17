@@ -164,22 +164,23 @@ def cross_validate_regressor(
     ) -> tuple[dict[str, float], np.ndarray]:
 
         if y.shape[1]>1:
-            scores: dict[str, float] =  multioutput_cross_validate(
+            print('yes')
+            score =  multioutput_cross_validate(
                 regressor,
                 X,
                 y,
                 cv,
-                scorers={
-                    #r pearson is added
+                {
                     "r2": r2_scorer_multi,
                     "rmse": rmse_scorer_multi,
-                    "mae": mae_scorer_multi,
+                    "mae": mae_scorer_multi
                 },
                 n_jobs=-1,
             )
 
         else:
-            scores: dict[str, float] = cross_validate(
+            print('No')
+            score: dict[str, float] = cross_validate(
                 regressor,
                 X,
                 y,
@@ -202,7 +203,7 @@ def cross_validate_regressor(
             cv=cv,
             n_jobs=-1,
         )
-        return scores, predictions
+        return score, predictions
 
 
 def get_incremental_split(

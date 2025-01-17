@@ -130,7 +130,14 @@ def multioutput_cross_validate(estimator, X, y,
     
     parallel = Parallel(n_jobs=n_jobs, verbose=verbose, pre_dispatch=pre_dispatch)
     results = parallel(
-        delayed(_fit_and_score)(estimator, X, y, scorers, train, test) for train, test in indices
+        delayed(_fit_and_score)(
+            clone(estimator),
+            X,
+            y,
+            scorers,
+            train,
+            test)
+            for train, test in indices
     )
     # print(results)
     results = _aggregate_score_dicts(results)
@@ -157,7 +164,7 @@ def multioutput_cross_validate(estimator, X, y,
 def _fit_and_score(estimator,
                   X,
                   y,
-                  scorers,
+                  scorer,
                   train,
                   test,
                   parameters=None,
@@ -189,10 +196,10 @@ def _fit_and_score(estimator,
         fit_time = time.time() - start_time
         score_time = 0.0
         # Predict
-        test_scores = _score(estimator, X_test,y_test, scorers)
+        test_scores = _score(estimator, X_test,y_test, scorer)
         score_time = time.time() - start_time - fit_time
         if return_train_score:
-            train_scores = _score(estimator, X_train, y_train, scorers)
+            train_scores = _score(estimator, X_train, y_train, scorer)
         
 
 
@@ -209,13 +216,13 @@ def _fit_and_score(estimator,
         return result
 
 
-def _score(estimator, X_test, y_test, scorers):
+def _score(estimator, X_test, y_test, score_space):
         y_pred = estimator.predict(X_test)
         
         # Compute scores for each scorer
         fold_scores = {}
-        for name, scorer in scorers.items():
-            fold_scores[name] = scorer(y_test, y_pred)
+        for name, sc in score_space.items():
+            fold_scores[name] = sc(y_test, y_pred)
         
         return fold_scores
 
@@ -244,46 +251,49 @@ def _normalize_score_results(scores, scaler_score_key="score"):
 
 
 ############## test
-from sklearn.ensemble import RandomForestRegressor
-from sklearn.multioutput import MultiOutputRegressor
-from sklearn.datasets import make_regression
-from sklearn.model_selection import KFold
-from sklearn.metrics import r2_score, mean_squared_error
-import numpy as np
-import time
+# from sklearn.ensemble import RandomForestRegressor
+# from sklearn.multioutput import MultiOutputRegressor
+# from sklearn.datasets import make_regression
+# from sklearn.model_selection import KFold
+# from sklearn.metrics import r2_score, mean_squared_error,root_mean_squared_error
+# import numpy as np
+# import time
 
-# Define custom scorers
-def r2_scorer_func(y_true, y_pred):
-    return r2_score(y_true, y_pred, multioutput="raw_values")
+# # Define custom scorers
+# def r2_scorer_func(y_true, y_pred):
+#     return r2_score(y_true, y_pred, multioutput="raw_values")
 
-def rmse_scorer_func(y_true, y_pred):
-    return np.sqrt(mean_squared_error(y_true, y_pred, multioutput="raw_values"))
+# def rmse_scorer_func(y_true, y_pred):
+#     return mean_squared_error(y_true, y_pred, multioutput="raw_values")
 
-scorers = {
-    "r2": r2_score(multioutput="raw_values"),
-    "rmse": rmse_scorer_func,
-}
+# def mse_scorer_func(y_true, y_pred):
+#     return root_mean_squared_error(y_true, y_pred, multioutput="raw_values") 
+# scorers = {
+#     "r2": r2_scorer_func,
+#     "rmse": mse_scorer_func,
+#     "mae": mse_scorer_func
+# }
 
-# Generate synthetic data
-X, y = make_regression(n_samples=100, n_features=10, n_targets=3, noise=0.1, random_state=25)
+# # Generate synthetic data
+# X, y = make_regression(n_samples=100, n_features=10, n_targets=3, noise=0.1, random_state=25)
 
-# Define the regressor and cross-validation strategy
-regressor = MultiOutputRegressor(RandomForestRegressor(random_state=42), n_jobs=-1)
-cv = KFold(n_splits=5, shuffle=True, random_state=42)
+# # Define the regressor and cross-validation strategy
+# regressor = MultiOutputRegressor(RandomForestRegressor(random_state=42), n_jobs=-1)
+# cv = KFold(n_splits=5, shuffle=True, random_state=42)
 
-# Perform custom cross-validation
-score = multioutput_cross_validate(
-    estimator=regressor,
-    X=X,
-    y=y,
-    scorers=scorers,
-    cv=cv,
-    n_jobs=-1,
-    verbose=0
-)
+# # Perform custom cross-validation
+# score = multioutput_cross_validate(
+#     estimator=regressor,
+#     X=X,
+#     y=y,
+#     scorers=scorers,
+#     cv=cv,
+#     n_jobs=-1,
+#     verbose=0
+# )
 
-print(score)
-for i in ["r2","rmse"]:
-  score[f'{i}_average'] =  np.array(score[f'test_{i}']).mean(axis=0)
+# print(score)
+# for i in ["r2","rmse"]:
+#   score[f'{i}_average'] =  np.array(score[f'test_{i}']).mean(axis=0)
 
-print(score)
+# print(score)
