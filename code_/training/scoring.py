@@ -93,33 +93,54 @@ mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
 def process_scores(
     scores: dict[int, dict[str, float]]
     ) -> dict[Union[int, str], dict[str, float]]:
-
-
-        avg_r = round(np.mean([seed["test_r"] for seed in scores.values()]), 2)
-        stdev_r = round(np.std([seed["test_r"] for seed in scores.values()]), 2)
-        avg_r2 = round(np.mean([seed["test_r2"] for seed in scores.values()]), 2)
-        stdev_r2 = round(np.std([seed["test_r2"] for seed in scores.values()]), 2)
-        print("Average scores:\t",
-              f"r: {avg_r}±{stdev_r}\t",
-              f"r2: {avg_r2}±{stdev_r2}")
-
+        # print(scores)
         first_key = list(scores.keys())[0]
         score_types: list[str] = [
             key for key in scores[first_key].keys() if key.startswith("test_")
         ]
-        avgs: list[float] = [
-            np.mean([seed[score] for seed in scores.values()]) for score in score_types
-        ]
-        stdevs: list[float] = [
-            np.std([seed[score] for seed in scores.values()]) for score in score_types
-        ]
+        if np.array(scores[42]["test_r2"]).shape[1] > 1:
+
+            avg_r2 = np.round(np.mean(np.vstack([arr for seed in scores.values() for arr in seed["test_r2"]]), axis=0), 3)
+            stdev_r2 = np.round(np.std(np.vstack([arr for seed in scores.values() for arr in seed["test_r2"]]), axis=0), 3)
+            print("Average scores:\t",
+                # f"r: {avg_r}±{stdev_r}\t",
+                f"r2: {avg_r2}±{stdev_r2}")
+            
+            avgs: list[float] = [
+                np.mean(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+            ]
+            stdevs: list[float] = [
+                np.std(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+            ]
+            print(avgs)
+        else:
+            avg_r = round(np.mean([seed["test_r"] for seed in scores.values()]), 2)
+            stdev_r = round(np.std([seed["test_r"] for seed in scores.values()]), 2)
+            avg_r2 = round(np.mean([seed["test_r2"] for seed in scores.values()]), 2)
+            stdev_r2 = round(np.std([seed["test_r2"] for seed in scores.values()]), 2)
+            print("Average scores:\t",
+                f"r: {avg_r}±{stdev_r}\t",
+                f"r2: {avg_r2}±{stdev_r2}")
+
+
+            avgs: list[float] = [
+                np.mean([seed[score] for seed in scores.values()]) for score in score_types
+            ]
+            stdevs: list[float] = [
+                np.std([seed[score] for seed in scores.values()]) for score in score_types
+            ]
 
 
         score_types: list[str] = [score.replace("test_", "") for score in score_types]
         for score, avg, stdev in zip(score_types, avgs, stdevs ):
             scores[f"{score}_avg"] = abs(avg) if score in ["rmse", "mae"] else avg
             scores[f"{score}_stdev"] = stdev
-            
+        
+        if np.array(scores[42]["test_r2"]).shape[1] > 1:
+            for score in score_types:
+                scores[f"{score}_avg_aggregate"] = np.mean(scores[f"{score}_avg"])
+                scores[f"{score}_stdev_aggregate"] = np.mean(scores[f"{score}_stdev"])
+        print(scores)
         return scores
 
 
@@ -159,27 +180,28 @@ def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
     return score
 
 
+
 def cross_validate_regressor(
     regressor, X, y, cv
     ) -> tuple[dict[str, float], np.ndarray]:
-
-        if y.shape[1]>1:
-            print('yes')
-            score =  multioutput_cross_validate(
-                regressor,
-                X,
-                y,
-                cv,
-                {
+        scorers = {
                     "r2": r2_scorer_multi,
                     "rmse": rmse_scorer_multi,
                     "mae": mae_scorer_multi
-                },
+                }
+        
+        if y.shape[1]>1:
+            score =  multioutput_cross_validate(
+                estimator= regressor,
+                X=X,
+                y= y,
+                cv=cv,
+                scorers=scorers,
                 n_jobs=-1,
-            )
+                verbose=0
+                )
 
         else:
-            print('No')
             score: dict[str, float] = cross_validate(
                 regressor,
                 X,

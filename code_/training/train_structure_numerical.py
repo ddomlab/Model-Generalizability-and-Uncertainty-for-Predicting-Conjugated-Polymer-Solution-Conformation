@@ -234,21 +234,21 @@ if __name__ == "__main__":
 
 
 
-    main_structural_numerical(
-        dataset=w_data,
-        representation="MACCS",
-        # radius=3,
-        # vector="count",
-        regressor_type="RF",
-        target_features=["multimodal Rh"],  
-        transform_type="Standard",
-        columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
-        special_impute="Mw (g/mol)",
-        numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
-        imputer='mean',
-        hyperparameter_optimization=True,
-        oligomer_representation="Monomer",
-    )
+    # main_structural_numerical(
+    #     dataset=w_data,
+    #     representation="MACCS",
+    #     # radius=3,
+    #     # vector="count",
+    #     regressor_type="RF",
+    #     target_features=["multimodal Rh"],  
+    #     transform_type="Standard",
+    #     columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
+    #     special_impute="Mw (g/mol)",
+    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
+    #     imputer='mean',
+    #     hyperparameter_optimization=True,
+    #     oligomer_representation="Monomer",
+    # )
 
 
 

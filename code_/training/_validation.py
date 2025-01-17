@@ -124,9 +124,11 @@ def multioutput_cross_validate(estimator, X, y,
         routed_params.estimator = Bunch(fit=params)
         routed_params.scorer = Bunch(score={})
 
+    # print('problem')
     indices = cv.split(X, y, **routed_params.splitter.split)
-    indices = list(cv.split(X))
-
+    # print(indices)
+    # indices = list(cv.split(X))
+    # print(indices)
     
     parallel = Parallel(n_jobs=n_jobs, verbose=verbose, pre_dispatch=pre_dispatch)
     results = parallel(
@@ -188,8 +190,8 @@ def _fit_and_score(estimator,
         result = {}
         
         # Split data
-        X_train, X_test = X[train], X[test]
-        y_train, y_test = y[train], y[test]
+        X_train, y_train = _safe_split(estimator, X, y, train)
+        X_test, y_test = _safe_split(estimator, X, y, test, train)
         
         # Fit the model
         estimator.fit(X_train, y_train)
