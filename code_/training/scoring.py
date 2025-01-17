@@ -14,7 +14,7 @@ from sklearn.metrics import (
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
 from sklearn.model_selection import learning_curve
-
+from _validation import multioutput_cross_validate 
 
 
 def pearson(y_true: pd.Series, y_pred: np.ndarray) -> float:
@@ -73,9 +73,21 @@ def pearson(y_true: pd.Series, y_pred: np.ndarray) -> float:
 
 # r_scorer = make_scorer(r_regression, greater_is_better=True)
 # r_scorer = make_scorer(np_r, greater_is_better=True)
+# r2_score_multiopt = r2_score(y_true, y_pred, multioutput="raw_values")
+def r2_scorer_multi(y_true, y_pred):
+    return r2_score(y_true, y_pred, multioutput="raw_values")
+
+def rmse_scorer_multi(y_true, y_pred):
+    return root_mean_squared_error(y_true, y_pred, multioutput="raw_values")
+
+def mae_scorer_multi(y_true, y_pred):
+    return mean_absolute_error(y_true, y_pred, multioutput="raw_values")
+
 r_scorer = make_scorer(pearson, greater_is_better=True)
 rmse_scorer = make_scorer(rmse_score, greater_is_better=False)
 mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
+
+
 
 
 def process_scores(
@@ -151,21 +163,37 @@ def cross_validate_regressor(
     regressor, X, y, cv
     ) -> tuple[dict[str, float], np.ndarray]:
 
-        scores: dict[str, float] = cross_validate(
-            regressor,
-            X,
-            y,
-            cv=cv,
-            scoring={
-                #r pearson is added
-                "r": r_scorer,
-                "r2": r2_scorer,
-                "rmse": rmse_scorer,
-                "mae": mae_scorer,
-            },
-            # return_estimator=True,
-            n_jobs=-1,
-        )
+        if y.shape[1]>1:
+            scores: dict[str, float] =  multioutput_cross_validate(
+                regressor,
+                X,
+                y,
+                cv,
+                scorers={
+                    #r pearson is added
+                    "r2": r2_scorer_multi,
+                    "rmse": rmse_scorer_multi,
+                    "mae": mae_scorer_multi,
+                },
+                n_jobs=-1,
+            )
+
+        else:
+            scores: dict[str, float] = cross_validate(
+                regressor,
+                X,
+                y,
+                cv=cv,
+                scoring={
+                    #r pearson is added
+                    "r": r_scorer,
+                    "r2": r2_scorer,
+                    "rmse": rmse_scorer,
+                    "mae": mae_scorer,
+                },
+                # return_estimator=True,
+                n_jobs=-1,
+            )
 
         predictions: np.ndarray = cross_val_predict(
             regressor,
