@@ -12,12 +12,12 @@ for target in "${target_to_asses[@]}"; do
             bsub <<EOT
 
 #BSUB -n 6
-#BSUB -W 40:01
+#BSUB -W 25:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250117"
-#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_20250117.out"
-#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_20250117.err"
+#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250118"
+#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_20250118.out"
+#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_20250118.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

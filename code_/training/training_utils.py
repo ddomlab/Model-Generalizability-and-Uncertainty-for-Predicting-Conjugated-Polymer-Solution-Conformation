@@ -293,18 +293,19 @@ def split_for_training(
     return split_data
 
 
+custom_function = lambda x: np.log(x + 0.000001)
+invers_function = lambda x: np.exp(x) - 0.000001
 
 def get_target_transformer(transformer,target_name) -> Pipeline:
 
-    if 'Rh (IW avg log)' in target_name:
+    if any('Rh' in target for target in target_name):
         # Apply log transformation followed by StandardScaler for Rh
         return Pipeline(steps=[
-            ("log transform", FunctionTransformer(np.log10, inverse_func=lambda x: 10**x,
-                                                  check_inverse=True, validate=False)),  # log10(x)
-            ("y scaler", transforms[transformer])  # StandardScaler to standardize the log-transformed target
+            ("log transform", FunctionTransformer(custom_function, inverse_func=invers_function,
+                                                  check_inverse=True, validate=False)), 
+            ("y scaler", transforms[transformer])  
             ])
     else:
-        # Use the transformation passed via transform_type (for other targets)
         return Pipeline(steps=[
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
             ])
