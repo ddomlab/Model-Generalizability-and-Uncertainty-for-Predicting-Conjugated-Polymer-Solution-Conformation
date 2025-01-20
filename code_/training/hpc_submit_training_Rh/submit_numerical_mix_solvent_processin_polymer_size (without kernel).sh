@@ -24,8 +24,8 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats 'Mn (g/mol)' 'PDI' "solvent dP" "solvent dD" "solvent dH" "polymer dP" "polymer dD" "polymer dH" \
-                                    --columns_to_impute "PDI"
+                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "solvent dP" "solvent dD" "solvent dH" "polymer dP" "polymer dD" "polymer dH" \
+                                    --columns_to_impute "PDI" \
                                     --special_impute 'Mw (g/mol)' \
 #                                   --imputer mean
 
