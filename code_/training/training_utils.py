@@ -298,14 +298,14 @@ def split_for_training(
 
 
 def custom_function(x):
-    x = x.astype(float)  # Ensure the array is float
-    x[:, 2] = np.log10(x[:, 2] + 1e-6)  # Apply log10 to the third column
+    x = x.astype(float)  
+    x[:, 2] = np.log10(x[:, 2] + 1e-6)  
     return x
 
-# Inverse of the log10 transformation
+
 def inverse_function(x):
-    x = x.astype(float)  # Ensure the array is float
-    x[:, 2] = 10 ** x[:, 2] - 1e-6  # Reverse the log10 transformation
+    x = x.astype(float) 
+    x[:, 2] = 10 ** x[:, 2] - 1e-6  
     return x
 
 
