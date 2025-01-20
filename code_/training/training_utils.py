@@ -293,15 +293,28 @@ def split_for_training(
     return split_data
 
 
-custom_function = lambda x: np.log(x + 0.000001)
-invers_function = lambda x: np.exp(x) - 0.000001
+# custom_function = lambda x: np.log(x + 0.000001)
+# invers_function = lambda x: np.exp(x) - 0.000001
+
+
+def custom_function(x):
+    x = x.astype(float)  # Ensure the array is float
+    x[:, 2] = np.log10(x[:, 2] + 1e-6)  # Apply log10 to the third column
+    return x
+
+# Inverse of the log10 transformation
+def inverse_function(x):
+    x = x.astype(float)  # Ensure the array is float
+    x[:, 2] = 10 ** x[:, 2] - 1e-6  # Reverse the log10 transformation
+    return x
+
 
 def get_target_transformer(transformer,target_name) -> Pipeline:
 
     if any('Rh' in target for target in target_name):
         # Apply log transformation followed by StandardScaler for Rh
         return Pipeline(steps=[
-            ("log transform", FunctionTransformer(custom_function, inverse_func=invers_function,
+            ("log transform", FunctionTransformer(custom_function, inverse_func=inverse_function,
                                                   check_inverse=True, validate=False)), 
             ("y scaler", transforms[transformer])  
             ])
