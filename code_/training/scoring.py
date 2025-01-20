@@ -140,7 +140,7 @@ def process_scores(
             for score in score_types:
                 scores[f"{score}_avg_aggregate"] = np.mean(scores[f"{score}_avg"])
                 scores[f"{score}_stdev_aggregate"] = np.mean(scores[f"{score}_stdev"])
-        print(scores)
+        # print(scores)
         return scores
 
 
