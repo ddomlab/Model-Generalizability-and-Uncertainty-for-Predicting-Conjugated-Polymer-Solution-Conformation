@@ -4,7 +4,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Correctly define models and numerical features
 target_to_asses=("multimodal Rh")
 models_to_run=("NGB" "RF" "XGBR")
-scaler_types=("Robust Scaler" "Standard")
+scaler_types=("Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
     for model in "${models_to_run[@]}"; do
@@ -24,9 +24,8 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
-                                    --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
-                                    --special_impute 'Mw (g/mol)' \
+                                    --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
+                                    --columns_to_impute "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                     --imputer mean
 
 
@@ -43,3 +42,4 @@ done
 # --special_impute 'Mw (g/mol)' \
 # --columns_to_impute 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' \
 # --imputer mean
+                                    # --special_impute 'Mw (g/mol)' \
