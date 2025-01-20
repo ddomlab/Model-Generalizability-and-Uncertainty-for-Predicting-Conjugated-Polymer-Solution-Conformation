@@ -14,31 +14,25 @@ import seaborn as sns
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
 
-# target_dir: Path = RESULTS/'target_Lp'
-
-
-# with open(filters, "r") as f:
-#     FILTERS: dict = json.load(f)
-
-# score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 target_list = [
     # 'target_Rg',
     # 'target_Rh' 
     "target_multimodal Rh"
-
     ]
 
 transformer_list = [
-    # "Standard",
+    "Standard",
     "Robust Scaler"
                     ]
 
-scores_list: list = { "r2", "mae", "rmse"}
+scores_list: list = [
+                    "r2", 
+                    # "mae", 
+                    # "rmse"
+                     ] 
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 
 
-# file = Path(r'C:\Users\sdehgha2\Desktop\PhD code\pls-dataset-project\PLS-Dataset\results\target_Lp\Trimer\(ECFP8)_count_1024_RF_scores.json')
-# print(file.name)
 
 
 def get_results_from_file(
@@ -417,6 +411,8 @@ def create_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(18, 12),
+                    vmin=-.1,
+                    vmax=.3,
                     fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="numerical Representations",
                     y_title="Regression Models",
@@ -432,7 +428,7 @@ simple_models = ['MLR','DT','RF']
 #             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-for peak in [0,1,2]:
+for peak in [2]:
     for transformer in transformer_list:
         for target_folder in target_list:
             for i in scores_list:
