@@ -248,7 +248,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
 
 # perform_model_ecfp('GPR',6,"count",'Rg1 (nm)', 'Monomer',kernel='tanimoto')
 # perform_model_maccs()
-# perform_model_mordred('GPR',"multimodal Rh", 'Monomer',kernel='rbf', transform_type="Standard")
+# perform_model_mordred('NGB',"multimodal Rh", 'Monomer', transform_type="Robust Scaler")
 
 def main():
     parser = ArgumentParser(description='Run models with specific parameters')

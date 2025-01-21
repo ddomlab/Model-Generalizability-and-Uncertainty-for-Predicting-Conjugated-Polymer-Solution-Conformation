@@ -27,8 +27,8 @@ transformer_list = [
 
 scores_list: list = [
                     "r2", 
-                    # "mae", 
-                    # "rmse"
+                    "mae", 
+                    "rmse"
                      ] 
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 
@@ -373,7 +373,7 @@ def create_structural_scaler_result(target_dir:Path,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
-complex_models = ['XGBR', 'NGB']
+complex_models = ['XGBR', 'NGB', 'RF']
 
 
 # for transformer in transformer_list:
@@ -385,6 +385,16 @@ complex_models = ['XGBR', 'NGB']
                 # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
                 #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
+for peak in [0,1,2]:
+    for transformer in transformer_list:
+        for model in complex_models: 
+            for target_folder in target_list:
+                for i in scores_list:
+                    # create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                    #                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer,peak_num=peak)
+                    
+                    create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                                score=i,var='stdev',data_type='structural', transformer_type=transformer,peak_num=peak)
 
 
 
@@ -411,8 +421,6 @@ def create_scaler_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(18, 12),
-                    vmin=-.1,
-                    vmax=.3,
                     fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
                     x_title="numerical Representations",
                     y_title="Regression Models",
@@ -428,9 +436,9 @@ simple_models = ['MLR','DT','RF']
 #             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-for peak in [2]:
-    for transformer in transformer_list:
-        for target_folder in target_list:
-            for i in scores_list:
-                create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                    score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
+# for peak in [0,1,2]:
+#     for transformer in transformer_list:
+#         for target_folder in target_list:
+#             for i in scores_list:
+#                 create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                     score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
