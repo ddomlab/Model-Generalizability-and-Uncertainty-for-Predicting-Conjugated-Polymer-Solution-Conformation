@@ -1,11 +1,11 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-regressors=("NGB" "RF" "XGBR")
+regressors=("NGB")
 targets=("multimodal Rh")
-models=("mordred" "maccs")
-poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer' 'RRU Trimer')
-scaler_types=("Standard" "Robust Scaler")
+models=("mordred")
+poly_representations=('Dimer' 'RRU Dimer')
+scaler_types=("Robust Scaler")
 # kernels=("matern" "rbf")
 
 # Loop through each combination of regressor, target, and model
@@ -22,8 +22,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "mordred_${regressor}_${scaler}_${target}_20250120"  
-#BSUB -o "${output_dir}/mordred_${regressor}_${scaler}_${target}_20250120.out"
-#BSUB -e "${output_dir}/mordred_${regressor}_${scaler}_${target}_20250120.err"
+#BSUB -o "${output_dir}/mordred_${regressor}_${scaler}_${target}_20250121.out"
+#BSUB -e "${output_dir}/mordred_${regressor}_${scaler}_${target}_20250121.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
