@@ -17,7 +17,7 @@ for regressor in "${regressors[@]}"; do
           # for kernel in "${kernels[@]}"; do
               bsub <<EOT
           
-#BSUB -n 8
+#BSUB -n 6
 #BSUB -W 40:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
