@@ -155,7 +155,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__regressor__verbose": [False],
         # "regressor__regressor__min_samples_split": Real(0.05, 0.99),
         # "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-        "regressor__regressor__tol": [1e-4],
+        # "regressor__regressor__tol": [1e-4],
     }
 
 
