@@ -238,7 +238,7 @@ def perform_model_mordred(regressor_type:str,target:str,oligo_type:str,kernel:Op
                                 regressor_type= regressor_type,
                                 target_features= [target],
                                 transform_type= transform_type,
-                                hyperparameter_optimization= True,
+                                hyperparameter_optimization= False,
                                 oligomer_representation=oligo_type,
                                 kernel=kernel
                                 )
