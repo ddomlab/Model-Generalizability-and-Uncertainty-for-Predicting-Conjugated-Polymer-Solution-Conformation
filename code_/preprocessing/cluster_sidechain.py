@@ -65,13 +65,14 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
 
     # melted_df = reordered_df.melt(var_name="Peak Position", value_name="Value")
     # melted_df['transformed_value'] = np.log10(melted_df['Value'])
-    fig, ax = plt.subplots(figsize=(12, 8))
+    fig, ax = plt.subplots(figsize=(12, 7))
     if (df[column_to_draw] <= 0).any():
         # print("Warning: Non-positive values found in the column. Filtering them out.")
         df = df[df[column_to_draw] > 0]
     sns.histplot(data=df, x=np.log10(df[column_to_draw]), kde=True, hue="Side Chain type", bins=40, ax=ax)
+    x_label = f'log (Rh {column_to_draw})' if 'Peak' in column_to_draw else f'log ({column_to_draw})'
 
-    ax.set_xlabel(f'log ({column_to_draw})',fontsize=20)
+    ax.set_xlabel(x_label,fontsize=20)
     ax.set_ylabel('Occurrence',fontsize=20)
     ax.set_title(f'Distribution of  {column_to_draw} over side chain type',fontsize=30)
     ax.tick_params(axis='x', labelsize=25)  # Set font size for x-axis ticks
@@ -83,7 +84,8 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
     box_inset.legend_.remove()
     box_inset.tick_params(axis='x', labelsize=20)
     plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Distribution of {column_to_draw} over side chain type.png")
+    fname = f"Distribution of Rh {column_to_draw} over side chain type.png" if 'Peak' in column_to_draw else f"Distribution of {column_to_draw} over side chain type.png"
+    save_path(VISUALIZATION/"analysis and test",fname)
     # plt.show()
     plt.close()
 
@@ -109,3 +111,5 @@ if __name__ == "__main__":
 
     # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
     plot_peak_distribution(Rh_data,'multimodal Rh',"First Peak")
+    # plot_peak_distribution(Rh_data,'multimodal Rh',"Second Peak")    
+    # plot_peak_distribution(Rh_data,'multimodal Rh',"Third Peak")
