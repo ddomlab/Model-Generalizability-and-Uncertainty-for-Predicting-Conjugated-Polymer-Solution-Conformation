@@ -6,8 +6,8 @@ targets=("multimodal Rh")
 models=('ECFP')
 radii=(3) 
 vectors=("count")
-scaler_types=('Standard' 'Robust Scaler')
-poly_representations=('Trimer' 'RRU Trimer')
+scaler_types=('Robust Scaler')
+poly_representations=('Dimer' 'RRU Dimer')
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
@@ -24,9 +24,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 72:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250105.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250105.err"
+#BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250122"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250122.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250122.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
@@ -37,7 +37,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
+                                      --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                       --special_impute 'Mw (g/mol)' \
                                       --imputer mean 
