@@ -65,7 +65,7 @@ def get_prediction_plot(results_directory: Path, ground_truth_file: Path, target
 
 
 
-
+# TODO: edite this for multioutput!
 def get_scores(dir: Path) -> tuple[float, float]:
     score_path = dir.with_name(dir.stem.replace("_prediction", "_score") + ".json")
     with open(score_path, "r") as f:
@@ -75,30 +75,116 @@ def get_scores(dir: Path) -> tuple[float, float]:
     return r2_avg, r2_stderr
 
 
-def draw_predictions_plot(true_values: pd.Series,
-                           predictions: Path,
-                           r2_avg: float,
-                           r2_stderr: float,
-                           root_dir:Path,
-                           poly_representation_name:str,
-                           file_name,
+# def draw_predictions_plot(
+#                         #    true_values: pd.Series,
+#                         target:str,
+#                         predictions: Path,
+#                         # r2_avg: float,
+#                         # r2_stderr: float,
+#                         root_dir:Path,
+#                         poly_representation_name:str,
+#                         file_name,
+#                            ) -> None:
+#     # Load the data from CSV files
+    
+#     predicted_values = pd.read_csv(predictions)
+#     seeds = predicted_values.drop(target, axis=1).columns 
+
+#     # There are 7 columns in predicted_values, each corresponding to a different seed
+#     # Create a Series consisting of the ground truth values repeated 7 times
+#     true_values_ext = pd.concat([predicted_values[target]] * len(seeds), ignore_index=True)
+#     # Create a Series consisting of the predicted values, with the column names as the index
+#     predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
+
+#     ext_comb_df = pd.concat([true_values_ext, predicted_values_ext], axis=1)
+#     print(ext_comb_df)
+#     log_ext_comb_df = np.log10(ext_comb_df+1)
+
+#     # print(ext_comb_df)
+#     # Create the hex-binned plot with value distributions for all y-axis columns
+
+#     g = sns.jointplot(data=log_ext_comb_df, x=target, y=0,
+#                       kind="hex",
+#                     #   cmap="viridis",
+#                       # joint_kws={"gridsize": 50, "cmap": "Blues"},
+#                     #   joint_kws={"gridsize": (150,45)},
+#                       marginal_kws={"bins": 25},
+#                       )
+#     ax_max = ceil(max(log_ext_comb_df.max()))
+#     # print(ax_max)
+#     g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
+#     # g.ax_joint.annotate(f"$R^2$ = {r2_avg} ± {r2_stderr}",
+#     #                     # xy=(0.1, 0.9), xycoords='axes fraction',
+#     #                     # ha='left', va='center',
+#     #                     # bbox={'boxstyle': 'round', 'fc': 'powderblue', 'ec': 'navy'}
+#     #                     )
+#     # TODO:
+#     #  kwargs: linewidth=0.2, edgecolor='white',  mincnt=1
+#     # plt.text(0.95, 0.05, f"$R^2$ = {r2_avg} ± {r2_stderr}",
+#     #          horizontalalignment='right',
+#     #          verticalalignment='bottom',
+#     #          transform=g.ax_joint.transAxes,
+#     #          )
+#     # g.plot_marginals(sns.kdeplot, color="blue")
+#     # Set plot limits to (0, 15) for both axes
+#     g.set_axis_labels(f"log True {target} ", f"log Predicted {target}")
+#     g.ax_joint.set_xlim(0, ax_max)
+#     g.ax_joint.set_ylim(0, ax_max)
+#     # plt.tight_layout()
+#     # g.ax_joint.set_xscale("log")
+#     # g.ax_joint.set_yscale("log")
+#     # plt.show()
+
+
+#     visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
+#     os.makedirs(visualization_folder_path, exist_ok=True)
+#     saving_path = visualization_folder_path/ f"{file_name}.png"
+
+#     # output: Path = predictions.parent / f"{predictions.stem}_plot.png"
+#     # plt.savefig(output, dpi=600)
+#     try:
+#         g.savefig(saving_path, dpi=600)
+#         print(f"Saved {saving_path}")
+#     except Exception as e:
+#         print(f"Failed to save {saving_path} due to {e}")
+
+#     # plt.show() (if needed)
+#     plt.close()
+
+
+def draw_predictions_plot(
+                        target:str,
+                        predictions: Path,
+                        # r2_avg: float,
+                        # r2_stderr: float,
+                        root_dir:Path,
+                        poly_representation_name:str,
+                        file_name,
                            ) -> None:
     # Load the data from CSV files
+    
     predicted_values = pd.read_csv(predictions)
-    seeds = predicted_values.columns
+    seeds = predicted_values.drop(target, axis=1).columns 
+    restored_df = pd.DataFrame({
+    col: predicted_values[col].values.reshape(-1, 3).tolist()  # Reshape each column
+    for col in predicted_values.columns
+    })
+    restored_df[target] = restored_df[target].apply(lambda x: eval(x)[0] if isinstance(x, str) else x[0])
+    true_values_ext = pd.concat([restored_df[target]] * len(seeds), ignore_index=True)
 
     # There are 7 columns in predicted_values, each corresponding to a different seed
     # Create a Series consisting of the ground truth values repeated 7 times
-    true_values_ext = pd.concat([true_values] * len(seeds), ignore_index=True)
     # Create a Series consisting of the predicted values, with the column names as the index
-    predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
+    predicted_values_ext = pd.concat([restored_df[col].apply(lambda x: eval(x)[0] if isinstance(x, str) else x[0]) for col in seeds], axis=0, ignore_index=True)
 
     ext_comb_df = pd.concat([true_values_ext, predicted_values_ext], axis=1)
-    log_ext_comb_df = np.log10(ext_comb_df+.001)
+    print(ext_comb_df)
+    log_ext_comb_df = np.log10(ext_comb_df+1)
 
     # print(ext_comb_df)
     # Create the hex-binned plot with value distributions for all y-axis columns
-    g = sns.jointplot(data=log_ext_comb_df, x="Rg1 (nm)", y=0,
+
+    g = sns.jointplot(data=log_ext_comb_df, x=target, y=0,
                       kind="hex",
                     #   cmap="viridis",
                       # joint_kws={"gridsize": 50, "cmap": "Blues"},
@@ -115,14 +201,14 @@ def draw_predictions_plot(true_values: pd.Series,
     #                     )
     # TODO:
     #  kwargs: linewidth=0.2, edgecolor='white',  mincnt=1
-    plt.text(0.95, 0.05, f"$R^2$ = {r2_avg} ± {r2_stderr}",
-             horizontalalignment='right',
-             verticalalignment='bottom',
-             transform=g.ax_joint.transAxes,
-             )
+    # plt.text(0.95, 0.05, f"$R^2$ = {r2_avg} ± {r2_stderr}",
+    #          horizontalalignment='right',
+    #          verticalalignment='bottom',
+    #          transform=g.ax_joint.transAxes,
+    #          )
     # g.plot_marginals(sns.kdeplot, color="blue")
     # Set plot limits to (0, 15) for both axes
-    g.set_axis_labels("log True Rg (nm)", " log Predicted Rg (nm)")
+    g.set_axis_labels(f"log True {target} ", f"log Predicted {target}")
     g.ax_joint.set_xlim(0, ax_max)
     g.ax_joint.set_ylim(0, ax_max)
     # plt.tight_layout()
@@ -131,7 +217,7 @@ def draw_predictions_plot(true_values: pd.Series,
     # plt.show()
 
 
-    visualization_folder_path =  root_dir/"parity plot log base"/poly_representation_name
+    visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
     os.makedirs(visualization_folder_path, exist_ok=True)
     saving_path = visualization_folder_path/ f"{file_name}.png"
 
@@ -147,16 +233,33 @@ def draw_predictions_plot(true_values: pd.Series,
     plt.close()
 
 
+
+
+
 if __name__ == "__main__":
     # predictions = HERE.parent.parent / "results" / "target_PCE" / "features_ECFP" / "RF_predictions.csv"
     # make_predictions_plot(predictions, 0.87, 0.02)
     # dataset_ground_truth_csv = DATASETS / "Min_2020_n558" / "cleaned_dataset.csv"
     # ground_truth_Hutchison_csv = DATASETS / "Hutchison_2023_n1001" / "Hutchison_filtered_dataset_pipeline.csv"
     # ground_truth_Saeki_csv = DATASETS / "Saeki_2022_n1318" / "Saeki_corrected_pipeline.csv"
-    training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
-    for target_folder in target_list:
-        get_prediction_plot(RESULTS/target_folder, training_df_dir,"Rg1 (nm)")
+
+    # training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
+    # for target_folder in target_list:
+    #     get_prediction_plot(RESULTS/target_folder, training_df_dir,"Rg1 (nm)")
 
     # for result_dir, ground_truth_csv in zip(["results_Hutchison", "results_Saeki"], [ground_truth_Hutchison_csv, ground_truth_Saeki_csv]):
     #     pce_results = ROOT / result_dir
     #     get_predictions(pce_results, ground_truth_csv)
+    target_to_an = 'target_multimodal Rh'
+    file_n = "(PDI-Mw-solvent dP-solvent dD-solvent dH-polymer dP-polymer dD-polymer dH)_NGB_mean_Robust Scaler_predictions.csv"
+    poly_representation_name = 'scaler'
+    truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
+    draw_predictions_plot(
+        target='multimodal Rh',
+        predictions=truth_val_file,
+        # r2_avg: float,
+        # r2_stderr: float,
+        root_dir=RESULTS/target_to_an,
+        poly_representation_name=poly_representation_name,
+        file_name="(PDI-Mw-solvent dP-solvent dD-solvent dH-polymer dP-polymer dD-polymer dH)_NGB_mean_Robust Scaler_predictions",
+    )

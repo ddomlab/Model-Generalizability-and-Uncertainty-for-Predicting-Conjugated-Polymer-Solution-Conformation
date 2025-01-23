@@ -293,9 +293,6 @@ def split_for_training(
     return split_data
 
 
-# custom_function = lambda x: np.log(x + 0.000001)
-# invers_function = lambda x: np.exp(x) - 0.000001
-
 
 def custom_function(x):
     x = x.astype(float)  
