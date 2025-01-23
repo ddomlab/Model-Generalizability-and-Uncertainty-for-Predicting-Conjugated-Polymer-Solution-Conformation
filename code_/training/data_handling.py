@@ -157,7 +157,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     if cutoff:
         cutoff_parameter = "-".join(feature_abbrev.get(key,key) for key in cutoff)
     
-    f_root_dir = f"target_{targets_dir}"
+    f_root_dir = f"target_{targets_dir}_without_log"
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir

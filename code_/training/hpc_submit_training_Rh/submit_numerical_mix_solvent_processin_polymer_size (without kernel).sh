@@ -15,17 +15,17 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -W 25:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250120"
-#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_20250120.out"
-#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_20250120.err"
+#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250123"
+#BSUB -o "${output_dir}/numerical_${model}_${scaler}_${target}_20250123.out"
+#BSUB -e "${output_dir}/numerical_${model}_${scaler}_${target}_20250123.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "solvent dP" "solvent dD" "solvent dH" "polymer dP" "polymer dD" "polymer dH" \
-                                    --columns_to_impute "PDI" \
+                                    --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "concentration" "temperature" "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" \
+                                    --columns_to_impute "PDI" "concentration" "temperature" \
                                     --special_impute 'Mw (g/mol)' \
                                     --imputer mean
 
@@ -37,6 +37,15 @@ EOT
     done
 done
 
+# "PDI" "Mw"
+# "concentration" "temperature"
+# "PDI" "Mw" "concentration" "temperature"
+# "PDI" "Mw" "concentration" "temperature" "Ra"
+# "PDI" "Mw" "concentration" "temperature" "solvent dP" "solvent dD" "solvent dH"
+# "PDI" "Mw" "concentration" "temperature" "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH"
+# "solvent dP" "solvent dD" "solvent dH"
+# "polymer dP" "polymer dD" "polymer dH"
+# "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH"
 
 # "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" "Ra"
 # 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' "Concentration (mg/ml)" "Temperature SANS/SLS/DLS/SEC (K)" "solvent dP" "solvent dD" "solvent dH"

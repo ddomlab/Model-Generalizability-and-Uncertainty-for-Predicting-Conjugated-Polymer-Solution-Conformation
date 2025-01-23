@@ -20,13 +20,13 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 6
+#BSUB -n 8
 #BSUB -W 72:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250122"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250122.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250122.err"
+#BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250123"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250123.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250123.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

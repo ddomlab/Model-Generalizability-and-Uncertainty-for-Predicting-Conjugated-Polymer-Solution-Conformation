@@ -25,9 +25,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 45:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "ecfp_${regressor}_${scaler}_${target}_20250121"  
-#BSUB -o "${output_dir}/ecfp_count_${regressor}_${scaler}_${target}_20250121.out"
-#BSUB -e "${output_dir}/ecfp_count_${regressor}_${scaler}_${target}_20250121.err"
+#BSUB -J "ecfp_${regressor}_${scaler}_${target}_20250123"  
+#BSUB -o "${output_dir}/ecfp_count_${regressor}_${scaler}_${target}_20250123.out"
+#BSUB -e "${output_dir}/ecfp_count_${regressor}_${scaler}_${target}_20250123.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
