@@ -24,7 +24,7 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats "solvent dP" "solvent dD" "solvent dH" \
+                                    --numerical_feats "polymer dP" "polymer dD" "polymer dH" \
 
 
 conda deactivate
