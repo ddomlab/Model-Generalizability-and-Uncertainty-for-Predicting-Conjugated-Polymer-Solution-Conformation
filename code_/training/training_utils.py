@@ -294,29 +294,29 @@ def split_for_training(
 
 
 
-def custom_function(x):
-    x = x.astype(float)  
-    x[:, 2] = np.log10(x[:, 2] + 1e-6)  
-    return x
+# def custom_function(x):
+#     x = x.astype(float)  
+#     x[:, 2] = np.log10(x[:, 2] + 1e-6)  
+#     return x
 
 
-def inverse_function(x):
-    x = x.astype(float) 
-    x[:, 2] = 10 ** x[:, 2] - 1e-6  
-    return x
+# def inverse_function(x):
+#     x = x.astype(float) 
+#     x[:, 2] = 10 ** x[:, 2] - 1e-6  
+#     return x
 
 
-def get_target_transformer(transformer,target_name) -> Pipeline:
+def get_target_transformer(transformer) -> Pipeline:
 
-    if any('mppptaw' in target for target in target_name):
-        # Apply log transformation followed by StandardScaler for Rh
-        print('yes')
-        return Pipeline(steps=[
-            ("log transform", FunctionTransformer(custom_function, inverse_func=inverse_function,
-                                                  check_inverse=True, validate=False)), 
-            ("y scaler", transforms[transformer])  
-            ])
-    else:
+    # if any('mppptaw' in target for target in target_name):
+    #     # Apply log transformation followed by StandardScaler for Rh
+    #     print('yes')
+    #     return Pipeline(steps=[
+    #         ("log transform", FunctionTransformer(custom_function, inverse_func=inverse_function,
+    #                                               check_inverse=True, validate=False)), 
+    #         ("y scaler", transforms[transformer])  
+    #         ])
+    # else:
         return Pipeline(steps=[
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
             ])

@@ -17,11 +17,12 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 target_list = [
     # 'target_Rg',
     # 'target_Rh' 
-    "target_multimodal Rh"
+    # "target_multimodal Rh",
+    "target_multimodal Rh_without_log"
     ]
 
 transformer_list = [
-    "Standard",
+    # "Standard",
     "Robust Scaler"
                     ]
 
@@ -159,7 +160,7 @@ def _create_heatmap(
         vmax=vmax,
         ax=ax,
         mask=avg_scores.isnull(),
-        annot_kws={"fontsize": 14},
+        annot_kws={"fontsize": 16},
     )
     
     # Set axis labels and tick labels
@@ -240,6 +241,7 @@ def creat_result_df(target_dir: Path,
                 if data_type=='structural_scaler' or data_type=='structural':
                     if regressor_model == file_path.name.split("_")[1]:
                         if transformer_type in file_path.name:
+                            # print(transformer_type)
                             feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var,peak_number=peak_number)                
                             models.add(model)
                         else:
@@ -356,16 +358,16 @@ def create_structural_scaler_result(target_dir:Path,
                                        regressor_model=regressor_model, transformer_type=transformer_type,
                                        peak_number=peak_num)
     model_in_title:str =  ",".join(model)
-    
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
-    fname= f"PolymerRepresentation vs Fingerprint trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
+    peak_n = peak_num+1
+    reg_name = f'{regressor_model} on peak {peak_n}' if peak_num else regressor_model
+    fname= f"PolymerRepresentation vs (Fingerprint-numerical) trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(14, 16),
+                    figsize=(20, 16),
                     fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
                     x_title="Fingerprint-numerical Representations",
                     y_title="Polymer Unit Representation",
@@ -373,7 +375,7 @@ def create_structural_scaler_result(target_dir:Path,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
-complex_models = ['XGBR', 'NGB', 'RF']
+complex_models = ['XGBR', 'NGB']
 
 
 # for transformer in transformer_list:

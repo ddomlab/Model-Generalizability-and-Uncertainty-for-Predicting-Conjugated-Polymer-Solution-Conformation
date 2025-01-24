@@ -77,8 +77,8 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
     ax.set_title(f'Distribution of  {column_to_draw} over side chain type',fontsize=30)
     ax.tick_params(axis='x', labelsize=25)  # Set font size for x-axis ticks
     ax.tick_params(axis='y', labelsize=25)  # Set font size for y-axis ticks
+    
     box_inset = ax.inset_axes([0.01, -0.4, 0.99, 0.2])  
-  
     sns.boxplot(x=np.log10(df[column_to_draw]), data=df, hue="Side Chain type", ax=box_inset)
     box_inset.set(yticks=[], xlabel=None)
     box_inset.legend_.remove()
@@ -86,7 +86,7 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
     plt.tight_layout()
     fname = f"Distribution of Rh {column_to_draw} over side chain type.png" if 'Peak' in column_to_draw else f"Distribution of {column_to_draw} over side chain type.png"
     save_path(VISUALIZATION/"analysis and test",fname)
-    # plt.show()
+    plt.show()
     plt.close()
 
 
