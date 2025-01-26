@@ -26,7 +26,7 @@ python ../train_numerical_only.py --target_features "${target}" \
                                     --transform_type "${scaler}" \
                                     --numerical_feats  'PDI' 'Mn (g/mol)' 'Mw (g/mol)' 'Concentration (mg/ml)' "Temperature SANS/SLS/DLS/SEC (K)" "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" \
                                     --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
-                                     --special_impute 'Mw (g/mol)' \
+                                    --special_impute 'Mw (g/mol)' \
                                     --imputer mean
 
 
