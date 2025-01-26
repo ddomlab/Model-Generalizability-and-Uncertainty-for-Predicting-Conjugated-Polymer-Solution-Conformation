@@ -22,52 +22,70 @@ def save_path(folder_path:str, file_name:str)->None:
     plt.savefig(visualization_folder_path / fname, dpi=600)
 
 
-def intensity_weighted_average_over_log(R_h, peaks, intensity):
-    intensity_at_peaks = [intensity[i] for i in peaks]
-    R_h = np.array(R_h)
-    I = np.array(intensity_at_peaks)
-    weighted_avg = np.sum(np.log10(R_h) * I) / np.sum(I)
-    return 10**weighted_avg
+# def intensity_weighted_average_over_log(R_h, peaks, intensity):
+#     intensity_at_peaks = [intensity[i] for i in peaks]
+#     R_h = np.array(R_h)
+#     I = np.array(intensity_at_peaks)
+#     weighted_avg = np.sum(np.log10(R_h) * I) / np.sum(I)
+#     return 10**weighted_avg
 
 
-def reorder_and_pad(values, peaks, intensity,l1,l2):
-    distances = [0, 0, 0]  
-
-    if values is None:
-        return values, distances
+# def reorder_and_pad(values, peaks, intensity,l1,l2):
+#     distances = [0, 0, 0]  
+#     print(type(values))
+#     if values is None:
+#         return values, distances
     
-    values = np.array(values)
-    ranges = {
-        0: (0, l1),
-        1: (l1, l2),
-        2: (l2, float('inf'))
-    }
+#     values = np.array(values)
+#     ranges = {
+#         0: (0, l1),
+#         1: (l1, l2),
+#         2: (l2, float('inf'))
+#     }
 
-    result = [0, 0, 0]
+#     result = [0, 0, 0]
 
-    for key, (lower, upper) in ranges.items():
-        in_range = (values >= lower) & (values < upper)
-        range_values = values[in_range]
+#     for key, (lower, upper) in ranges.items():
+#         in_range = (values >= lower) & (values < upper)
+#         range_values = values[in_range]
 
-        if len(range_values) > 1 and peaks is not None:
-            range_peaks = np.array(peaks)[in_range]
-            result[key] = intensity_weighted_average_over_log(
-                range_values.tolist(),
-                range_peaks.tolist(),
-                intensity
-            )
-            distances[key] = float(np.max(range_values) - np.min(range_values))
-        elif len(range_values) == 1:
-            result[key] = range_values[0]
-            distances[key] = 0
-    if peaks is None:
-        for key, (lower, upper) in ranges.items():
-            in_range = (values >= lower) & (values < upper)
-            if in_range.any():
-                result[key] = values[in_range][0] 
-                distances[key] = 0
-    return result, distances
+#         if len(range_values) > 1 and peaks is not None:
+#             range_peaks = np.array(peaks)[in_range]
+#             result[key] = intensity_weighted_average_over_log(
+#                 range_values.tolist(),
+#                 range_peaks.tolist(),
+#                 intensity
+#             )
+#             distances[key] = float(np.max(range_values) - np.min(range_values))
+#         elif len(range_values) == 1:
+#             result[key] = range_values[0]
+#             distances[key] = 0
+#     if peaks is None:
+#         for key, (lower, upper) in ranges.items():
+#             in_range = (values >= lower) & (values < upper)
+#             if in_range.any():
+#                 result[key] = values[in_range][0] 
+#                 distances[key] = 0
+#     return result, distances
 
+def process_list(value):
+    if isinstance(value, list):
+        # If the list is shorter than 3, pad with zeros
+        if len(value) < 3:
+            return value + [0] * (3 - len(value))
+        # If the list is longer than 3, truncate to keep the smallest values
+        elif len(value) > 3:
+            return sorted(value)[:3]
+        # If the list is already of length 3, return as is
+        else:
+            return value
+    # Preserve NaN values
+    elif pd.isna(value):
+        return np.nan
+    # Handle unexpected cases gracefully
+    else:
+        raise ValueError("The column contains unexpected non-list, non-NaN values.")
+    
 
 def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     df= data.dropna(subset=[column_name])
@@ -82,7 +100,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
 
     ax.set_xlabel('log (Rh nm)',fontsize=20)
     ax.set_ylabel('Occurrence',fontsize=20)
-    ax.set_title(f'Distribution of Rh Peak Values (limits of {l1}-{l2})',fontsize=30)
+    ax.set_title(f'Distribution of Rh Peak Values with padding',fontsize=30)
     ax.tick_params(axis='x', labelsize=25)  # Set font size for x-axis ticks
     ax.tick_params(axis='y', labelsize=25)  # Set font size for y-axis ticks
     box_inset = ax.inset_axes([0.01, -0.35, 0.99, 0.2])  
@@ -92,7 +110,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     box_inset.legend_.remove()
     box_inset.tick_params(axis='x', labelsize=20)
     plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after spliting (limits of {l1}-{l2} nm).png")
+    save_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after padding.png")
     plt.close()
 
 
@@ -115,59 +133,59 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 
     plt.xlabel('Peak Order', fontsize=20)
     plt.ylabel('Frequency', fontsize=20)
-    plt.title(f'Non-Zero Counts at different peak orders (limits of {l1}-{l2} nm)', fontsize=30)
+    plt.title(f'Non-Zero Counts at different peak orders with padding', fontsize=30)
     plt.xticks(range(1, num_indices + 1))
     plt.xticks(fontsize=25)
     plt.yticks(fontsize=25)
     plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Non-Zero Counts at different peak orders (limits of {l1}-{l2} nm).png")
+    save_path(VISUALIZATION/"analysis and test",f"Non-Zero Counts at different peak orders with padding.png")
     plt.close()
 
 
 
-def plot_violin_with_swarm(data, distance_column):
+# def plot_violin_with_swarm(data, distance_column):
 
-    first_distances = [np.log10(d[0]) for d in data[distance_column] if d[0] is not None and d[0] > 0]
-    second_distances = [np.log10(d[1]) for d in data[distance_column] if d[1] is not None and d[1] > 0]
-    third_distances = [np.log10(d[2]) for d in data[distance_column] if d[2] is not None and d[2] > 0]
-    print("numer of instances in first peaks", len(first_distances))
-    print("numer of instances in second peaks", len(second_distances))
-    print("numer of instances in third peaks", len(third_distances))
+#     first_distances = [np.log10(d[0]) for d in data[distance_column] if d[0] is not None and d[0] > 0]
+#     second_distances = [np.log10(d[1]) for d in data[distance_column] if d[1] is not None and d[1] > 0]
+#     third_distances = [np.log10(d[2]) for d in data[distance_column] if d[2] is not None and d[2] > 0]
+#     print("numer of instances in first peaks", len(first_distances))
+#     print("numer of instances in second peaks", len(second_distances))
+#     print("numer of instances in third peaks", len(third_distances))
 
     
-    plot_data = pd.DataFrame({
-        "Value": first_distances + second_distances + third_distances,
-        "peak_order": (["First"] * len(first_distances) +
-                      ["Second"] * len(second_distances) +
-                      ["Third"] * len(third_distances)),
+#     plot_data = pd.DataFrame({
+#         "Value": first_distances + second_distances + third_distances,
+#         "peak_order": (["First"] * len(first_distances) +
+#                       ["Second"] * len(second_distances) +
+#                       ["Third"] * len(third_distances)),
 
-    })
+#     })
 
-    plt.figure(figsize=(14, 7))
-    sns.violinplot(x="peak_order", y="Value", data=plot_data,
-                   split=True, palette="Set2")
+#     plt.figure(figsize=(14, 7))
+#     sns.violinplot(x="peak_order", y="Value", data=plot_data,
+#                    split=True, palette="Set2")
 
-    sns.swarmplot(x="peak_order", y="Value", data=plot_data,
-                  dodge=True, color="k", alpha=0.6, size=4)
+#     sns.swarmplot(x="peak_order", y="Value", data=plot_data,
+#                   dodge=True, color="k", alpha=0.6, size=4)
 
-    annotation_y = max(plot_data["Value"]) + 1  # Position above the maximum value
-    plt.annotate(f"{len(first_distances)} instances", xy=(0, annotation_y),
-                 xytext=(0, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
-    plt.annotate(f"{len(second_distances)} instances", xy=(1, annotation_y),
-                 xytext=(1, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
-    plt.annotate(f"{len(third_distances)} instances", xy=(2, annotation_y),
-                 xytext=(2, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+#     annotation_y = max(plot_data["Value"]) + 1  # Position above the maximum value
+#     plt.annotate(f"{len(first_distances)} instances", xy=(0, annotation_y),
+#                  xytext=(0, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+#     plt.annotate(f"{len(second_distances)} instances", xy=(1, annotation_y),
+#                  xytext=(1, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+#     plt.annotate(f"{len(third_distances)} instances", xy=(2, annotation_y),
+#                  xytext=(2, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
 
 
-    plt.title(f"Distribution of distances between Rh in the same range after spliting (limits of {l1}-{l2} nm)", fontsize=20)
-    plt.xlabel("Peak order", fontsize=30)
-    plt.ylabel("Log10(distance)", fontsize=30)
-    plt.xticks(fontsize=25)
-    plt.yticks(fontsize=25)
-    plt.grid(axis='y', linestyle='--', alpha=0.7)
-    plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
-    plt.close()
+#     plt.title(f"Distribution of distances between Rh in the same range after spliting (limits of {l1}-{l2} nm)", fontsize=20)
+#     plt.xlabel("Peak order", fontsize=30)
+#     plt.ylabel("Log10(distance)", fontsize=30)
+#     plt.xticks(fontsize=25)
+#     plt.yticks(fontsize=25)
+#     plt.grid(axis='y', linestyle='--', alpha=0.7)
+#     plt.tight_layout()
+#     save_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
+#     plt.close()
 
 
 
@@ -180,22 +198,26 @@ if __name__ == "__main__":
         l1 = 40
         l2 = 1000
         # l3=3500
-        w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
-        lambda row: reorder_and_pad(
-            row["Rh at peaks (above 1 nm)"],
-            row["peak index (above 1 nm)"],
-            row["normalized intensity (0-1) corrected"],
-            l1=l1,
-            l2=l2,
-            # l3=l3
-            # threshold=100000
-        ),
-        axis=1
-        ))
-        
+        # w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
+        # lambda row: reorder_and_pad(
+        #     row["Rh at peaks (above 1 nm)"],
+        #     row["peak index (above 1 nm)"],
+        #     row["normalized intensity (0-1) corrected"],
+        #     l1=l1,
+        #     l2=l2,
+        #     # l3=l3
+        #     # threshold=100000
+        # ),
+        # axis=1
+        # ))
+        w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(process_list)
         w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
         # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
 
-        plot_peak_distribution(w_data,"multimodal Rh",l1,l2)
-        plot_non_zero_counts(w_data, 'multimodal Rh', 3)
-        plot_violin_with_swarm(w_data,"distances")
+        plot_peak_distribution(w_data,"multimodal Rh with padding",l1,l2)
+        plot_non_zero_counts(w_data, "multimodal Rh with padding", 3)
+        # plot_violin_with_swarm(w_data,"distances")
+        # num_rows = w_data["Rh at peaks (above 1 nm)"].apply(
+        #         lambda x: isinstance(x, list) and len(x) >= 3
+        #     ).sum()
+        # print(f"Number of rows with lists of length 3 or more: {num_rows}")
