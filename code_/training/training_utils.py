@@ -306,7 +306,7 @@ def split_for_training(
 #     return x
 
 
-def get_target_transformer(transformer) -> Pipeline:
+def get_target_transformer(transformer,target_name) -> Pipeline:
 
     # if any('mppptaw' in target for target in target_name):
     #     # Apply log transformation followed by StandardScaler for Rh
