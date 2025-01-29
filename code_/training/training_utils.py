@@ -313,6 +313,7 @@ def get_target_transformer(transformer,target_name) -> Pipeline:
     if transformer:
         keywords = ("multimodal Rh (e-5 place holder)", "First Peak", "Second Peak", "Third Peak")  # Add more as needed
         if any(any(keyword in target for keyword in keywords) for target in target_name):
+            print('yes')
         # if any("multimodal Rh (e-5 place holder)" in target for target in target_name):
             # Apply log transformation followed by StandardScaler for Rh
             return Pipeline(steps=[
