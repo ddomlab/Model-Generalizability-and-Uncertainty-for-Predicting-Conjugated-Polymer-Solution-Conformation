@@ -305,18 +305,20 @@ def split_for_training(
 #     x[:, 2] = 10 ** x[:, 2] - 1e-6  
 #     return x
 
+def inverse_log_transform(X):
+    return np.power(10, X)
 
 def get_target_transformer(transformer,target_name) -> Pipeline:
 
-    # if any('mppptaw' in target for target in target_name):
-    #     # Apply log transformation followed by StandardScaler for Rh
-    #     print('yes')
-    #     return Pipeline(steps=[
-    #         ("log transform", FunctionTransformer(custom_function, inverse_func=inverse_function,
-    #                                               check_inverse=True, validate=False)), 
-    #         ("y scaler", transforms[transformer])  
-    #         ])
-    # else:
+    if any("multimodal Rh (e-5 place holder)" in target for target in target_name):
+        # Apply log transformation followed by StandardScaler for Rh
+        print('yes')
+        return Pipeline(steps=[
+            ("log transform", FunctionTransformer(np.log10, inverse_func=inverse_log_transform,
+                                                  check_inverse=True, validate=False)), 
+            ("y scaler", transforms[transformer])  
+            ])
+    else:
         return Pipeline(steps=[
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
             ])
