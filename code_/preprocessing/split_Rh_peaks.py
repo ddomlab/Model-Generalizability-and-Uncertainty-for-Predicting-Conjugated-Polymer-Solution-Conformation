@@ -221,8 +221,8 @@ if __name__ == "__main__":
         
         # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
 
-        plot_peak_distribution(w_data,"multimodal Rh with padding",l1,l2)
-        plot_non_zero_counts(w_data, "multimodal Rh with padding", 3)
+        # plot_peak_distribution(w_data,"multimodal Rh with padding",l1,l2)
+        # plot_non_zero_counts(w_data, "multimodal Rh with padding", 3)
         # plot_violin_with_swarm(w_data,"distances")
         # num_rows = w_data["Rh at peaks (above 1 nm)"].apply(
         #         lambda x: isinstance(x, list) and len(x) >= 3
@@ -234,5 +234,6 @@ if __name__ == "__main__":
         w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True)
 
         # print(w_data['Third Peak'].notna().sum())
-
+        w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
+        print(w_data)
         w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
