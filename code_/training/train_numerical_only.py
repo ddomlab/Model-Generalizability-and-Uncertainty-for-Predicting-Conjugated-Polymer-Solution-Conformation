@@ -178,7 +178,7 @@ if __name__ == "__main__":
     #     dataset=w_data,
     #     regressor_type="sklearn-GPR",
     #     kernel= "matern",
-    #     target_features=["multimodal Rh"],  # Can adjust based on actual usage
+    #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
     #     transform_type="Standard",
     #     hyperparameter_optimization=True,
     #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],

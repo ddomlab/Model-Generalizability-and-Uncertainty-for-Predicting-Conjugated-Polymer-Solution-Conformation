@@ -310,7 +310,7 @@ def inverse_log_transform(X):
 
 def get_target_transformer(transformer,target_name) -> Pipeline:
 
-    if transformer:
+    # if transformer:
         keywords = ("multimodal Rh (e-5 place holder)", "First Peak", "Second Peak", "Third Peak")  # Add more as needed
         if any(any(keyword in target for keyword in keywords) for target in target_name):
             print('yes')
@@ -326,6 +326,6 @@ def get_target_transformer(transformer,target_name) -> Pipeline:
                 ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
                 ])
 
-    return None
+    # return None
 
 

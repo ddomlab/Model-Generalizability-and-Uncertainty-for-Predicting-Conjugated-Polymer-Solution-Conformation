@@ -16,8 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
-
+TEST = True
 
 def get_structural_info(fp:str,poly_unit:str,radius:int=None,vector:str=None)->Tuple:
        
@@ -212,44 +211,44 @@ def parse_arguments():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    args = parse_arguments()
-
-    main_structural_numerical(
-        dataset=w_data,
-        representation=args.representation,
-        radius=args.radius,
-        vector=args.vector,
-        oligomer_representation = args.oligomer_representation,
-        regressor_type=args.regressor_type,
-        kernel=args.kernel,
-        target_features=[args.target_features],  
-        transform_type=args.transform_type,
-        hyperparameter_optimization=True,
-        columns_to_impute=args.columns_to_impute,  
-        special_impute=args.special_impute,
-        numerical_feats=args.numerical_feats,  
-        imputer=args.imputer,
-        cutoff=None,  
-    )
-
-
-
+    # args = parse_arguments()
 
     # main_structural_numerical(
     #     dataset=w_data,
-    #     representation="MACCS",
-    #     # radius=3,
-    #     # vector="count",
-    #     regressor_type="RF",
-    #     target_features=["multimodal Rh"],  
-    #     transform_type="Standard",
-    #     columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
-    #     special_impute="Mw (g/mol)",
-    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
-    #     imputer='mean',
+    #     representation=args.representation,
+    #     radius=args.radius,
+    #     vector=args.vector,
+    #     oligomer_representation = args.oligomer_representation,
+    #     regressor_type=args.regressor_type,
+    #     kernel=args.kernel,
+    #     target_features=[args.target_features],  
+    #     transform_type=args.transform_type,
     #     hyperparameter_optimization=True,
-    #     oligomer_representation="Monomer",
+    #     columns_to_impute=args.columns_to_impute,  
+    #     special_impute=args.special_impute,
+    #     numerical_feats=args.numerical_feats,  
+    #     imputer=args.imputer,
+    #     cutoff=None,  
     # )
+
+
+
+
+    main_structural_numerical(
+        dataset=w_data,
+        representation="MACCS",
+        # radius=3,
+        # vector="count",
+        regressor_type="RF",
+        target_features=["First Peak"],  
+        transform_type=None,
+        columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
+        special_impute="Mw (g/mol)",
+        numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
+        imputer='mean',
+        hyperparameter_optimization=True,
+        oligomer_representation="Monomer",
+    )
 
 
 
