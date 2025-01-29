@@ -18,7 +18,10 @@ feature_abbrev: Dict[str, str] = {
     "Temperature SANS/SLS/DLS/SEC (K)":         "temperature",
     "Mn (g/mol)":         "Mn", 
     "Mw (g/mol)":         "Mw", 
-
+    "First Peak":         "Rh First Peak",
+    "Second Peak":         "Rh Second Peak",
+    "First Peak":         "Rh First Peak",
+    "Third Peak":         "Rh Third Peak",
 }
 
 

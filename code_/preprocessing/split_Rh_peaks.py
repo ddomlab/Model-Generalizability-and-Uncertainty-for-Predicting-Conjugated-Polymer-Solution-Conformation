@@ -22,53 +22,53 @@ def save_path(folder_path:str, file_name:str)->None:
     plt.savefig(visualization_folder_path / fname, dpi=600)
 
 
-# def intensity_weighted_average_over_log(R_h, peaks, intensity):
-#     intensity_at_peaks = [intensity[i] for i in peaks]
-#     R_h = np.array(R_h)
-#     I = np.array(intensity_at_peaks)
-#     weighted_avg = np.sum(np.log10(R_h) * I) / np.sum(I)
-#     return 10**weighted_avg
+def intensity_weighted_average_over_log(R_h, peaks, intensity):
+    intensity_at_peaks = [intensity[i] for i in peaks]
+    R_h = np.array(R_h)
+    I = np.array(intensity_at_peaks)
+    weighted_avg = np.sum(np.log10(R_h) * I) / np.sum(I)
+    return 10**weighted_avg
 
 
-# def reorder_and_pad(values, peaks, intensity,l1,l2):
-#     distances = [0, 0, 0]  
-#     print(type(values))
-#     if values is None:
-#         return values, distances
+def reorder_and_pad(values, peaks, intensity,l1,l2):
+    distances = [0, 0, 0]  
+    if values is None:
+        return values, distances
     
-#     values = np.array(values)
-#     ranges = {
-#         0: (0, l1),
-#         1: (l1, l2),
-#         2: (l2, float('inf'))
-#     }
+    values = np.array(values)
+    ranges = {
+        0: (0, l1),
+        1: (l1, l2),
+        2: (l2, float('inf'))
+    }
 
-#     result = [0, 0, 0]
+    result = [0, 0, 0]
 
-#     for key, (lower, upper) in ranges.items():
-#         in_range = (values >= lower) & (values < upper)
-#         range_values = values[in_range]
+    for key, (lower, upper) in ranges.items():
+        in_range = (values >= lower) & (values < upper)
+        range_values = values[in_range]
 
-#         if len(range_values) > 1 and peaks is not None:
-#             range_peaks = np.array(peaks)[in_range]
-#             result[key] = intensity_weighted_average_over_log(
-#                 range_values.tolist(),
-#                 range_peaks.tolist(),
-#                 intensity
-#             )
-#             distances[key] = float(np.max(range_values) - np.min(range_values))
-#         elif len(range_values) == 1:
-#             result[key] = range_values[0]
-#             distances[key] = 0
-#     if peaks is None:
-#         for key, (lower, upper) in ranges.items():
-#             in_range = (values >= lower) & (values < upper)
-#             if in_range.any():
-#                 result[key] = values[in_range][0] 
-#                 distances[key] = 0
-#     return result, distances
+        if len(range_values) > 1 and peaks is not None:
+            range_peaks = np.array(peaks)[in_range]
+            result[key] = intensity_weighted_average_over_log(
+                range_values.tolist(),
+                range_peaks.tolist(),
+                intensity
+            )
+            distances[key] = float(np.max(range_values) - np.min(range_values))
+        elif len(range_values) == 1:
+            result[key] = range_values[0]
+            distances[key] = 0
+    if peaks is None:
+        for key, (lower, upper) in ranges.items():
+            in_range = (values >= lower) & (values < upper)
+            if in_range.any():
+                result[key] = values[in_range][0] 
+                distances[key] = 0
+    return result, distances
 
-def process_list(value):
+
+def get_padding(value):
     if isinstance(value, list):
         # If the list is shorter than 3, pad with zeros
         if len(value) < 3:
@@ -188,7 +188,14 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 #     plt.close()
 
 
+def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool):
+    df_peaks = df[column].apply(lambda x: x if isinstance(x, list) else [np.nan] * 3)
+    df_peaks = pd.DataFrame(df_peaks.tolist(), columns=['First Peak', 'Second Peak', 'Third Peak'])
+    if zero_replacement:
+        df_peaks.replace(0, np.nan, inplace=True)
+    df = pd.concat([df, df_peaks], axis=1)
 
+    return df
 
 
 if __name__ == "__main__":
@@ -198,20 +205,20 @@ if __name__ == "__main__":
         l1 = 40
         l2 = 1000
         # l3=3500
-        # w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
-        # lambda row: reorder_and_pad(
-        #     row["Rh at peaks (above 1 nm)"],
-        #     row["peak index (above 1 nm)"],
-        #     row["normalized intensity (0-1) corrected"],
-        #     l1=l1,
-        #     l2=l2,
-        #     # l3=l3
-        #     # threshold=100000
-        # ),
-        # axis=1
-        # ))
-        w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(process_list)
-        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
+        w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
+        lambda row: reorder_and_pad(
+            row["Rh at peaks (above 1 nm)"],
+            row["peak index (above 1 nm)"],
+            row["normalized intensity (0-1) corrected"],
+            l1=l1,
+            l2=l2,
+            # l3=l3
+            # threshold=100000
+        ),
+        axis=1
+        ))
+        w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(get_padding)
+        
         # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
 
         plot_peak_distribution(w_data,"multimodal Rh with padding",l1,l2)
@@ -221,3 +228,11 @@ if __name__ == "__main__":
         #         lambda x: isinstance(x, list) and len(x) >= 3
         #     ).sum()
         # print(f"Number of rows with lists of length 3 or more: {num_rows}")
+        if "distances" in w_data.columns:
+            w_data.drop(columns=["distances"], inplace=True)
+
+        w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True)
+
+        # print(w_data['Third Peak'].notna().sum())
+
+        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")

@@ -18,7 +18,9 @@ target_list = [
     # 'target_Rg',
     # 'target_Rh' 
     # "target_multimodal Rh",
-    "target_multimodal Rh_without_log"
+    # "target_multimodal Rh_without_log",
+    "target_multimodal Rh with padding"
+
     ]
 
 transformer_list = [
@@ -387,16 +389,16 @@ complex_models = ['XGBR', 'NGB']
                 # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
                 #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
-for peak in [0,1,2]:
-    for transformer in transformer_list:
-        for model in complex_models: 
-            for target_folder in target_list:
-                for i in scores_list:
-                    # create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                    #                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer,peak_num=peak)
+# for peak in [0,1,2]:
+#     for transformer in transformer_list:
+#         for model in complex_models: 
+#             for target_folder in target_list:
+#                 for i in scores_list:
+#                     # create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                     #                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer,peak_num=peak)
                     
-                    create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                                score=i,var='stdev',data_type='structural', transformer_type=transformer,peak_num=peak)
+#                     create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                                 score=i,var='stdev',data_type='structural', transformer_type=transformer,peak_num=peak)
 
 
 
@@ -438,9 +440,9 @@ simple_models = ['MLR','DT','RF']
 #             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-# for peak in [0,1,2]:
-#     for transformer in transformer_list:
-#         for target_folder in target_list:
-#             for i in scores_list:
-#                 create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                     score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
+for peak in [0,1,2]:
+    for transformer in transformer_list:
+        for target_folder in target_list:
+            for i in scores_list:
+                create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                    score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)

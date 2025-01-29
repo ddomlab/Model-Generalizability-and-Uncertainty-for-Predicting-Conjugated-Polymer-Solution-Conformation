@@ -256,19 +256,19 @@ if __name__ == "__main__":
     # for result_dir, ground_truth_csv in zip(["results_Hutchison", "results_Saeki"], [ground_truth_Hutchison_csv, ground_truth_Saeki_csv]):
     #     pce_results = ROOT / result_dir
     #     get_predictions(pce_results, ground_truth_csv)
-    target_to_an = 'target_multimodal Rh'
+    target_to_an = 'target_multimodal Rh with padding'
     file_n = "(PDI-Mw-concentration-temperature-solvent dP-solvent dD-solvent dH)_XGBR_mean_Robust Scaler_predictions.csv"
-    poly_representation_name = 'test_without_log'
+    poly_representation_name = 'scaler'
     truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
     fname,_ = get_file_info(truth_val_file)
     # for i in [0,1,2]:
     draw_predictions_plot(
-        target='multimodal Rh',
+        target='multimodal Rh with padding',
         predictions=truth_val_file,
         # r2_avg: float,
         # r2_stderr: float,
         root_dir=RESULTS/target_to_an,
         poly_representation_name=poly_representation_name,
-        peak_num=2,
+        peak_num=0,
         file_name=fname,
     )

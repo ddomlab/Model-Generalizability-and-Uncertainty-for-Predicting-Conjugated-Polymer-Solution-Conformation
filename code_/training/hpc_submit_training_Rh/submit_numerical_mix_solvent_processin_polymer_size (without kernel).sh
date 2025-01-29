@@ -2,8 +2,8 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=("multimodal Rh with padding")
-models_to_run=("NGB" "RF" "XGBR")
+target_to_asses=("First Peak")
+models_to_run=("XGBR")
 scaler_types=("Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
@@ -24,7 +24,7 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                     --regressor_type "${model}" \
                                     --transform_type "${scaler}" \
-                                    --numerical_feats 'PDI' 'Mn (g/mol)' 'Mw (g/mol)' 'Concentration (mg/ml)' "Temperature SANS/SLS/DLS/SEC (K)" \
+                                    --numerical_feats 'PDI' 'Mn (g/mol)' 'Mw (g/mol)' 'Concentration (mg/ml)' "Temperature SANS/SLS/DLS/SEC (K)" "polymer dP" "polymer dD" "polymer dH" "solvent dP" "solvent dD" "solvent dH" \
                                     --columns_to_impute "PDI" "Temperature SANS/SLS/DLS/SEC (K)" "Concentration (mg/ml)" \
                                     --special_impute 'Mw (g/mol)' \
                                     --imputer mean

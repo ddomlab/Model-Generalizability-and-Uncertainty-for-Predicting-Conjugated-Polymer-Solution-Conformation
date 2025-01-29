@@ -98,7 +98,9 @@ def process_scores(
         score_types: list[str] = [
             key for key in scores[first_key].keys() if key.startswith("test_")
         ]
-        if np.array(scores[42]["test_r2"]).shape[1] > 1:
+        arr = np.array(scores[42]["test_r2"])
+
+        if arr.ndim > 1 and arr.shape[1] > 1:
 
             avg_r2 = np.round(np.mean(np.vstack([arr for seed in scores.values() for arr in seed["test_r2"]]), axis=0), 3)
             stdev_r2 = np.round(np.std(np.vstack([arr for seed in scores.values() for arr in seed["test_r2"]]), axis=0), 3)
@@ -136,7 +138,7 @@ def process_scores(
             scores[f"{score}_avg"] = abs(avg) if score in ["rmse", "mae"] else avg
             scores[f"{score}_stdev"] = stdev
         
-        if np.array(scores[42]["test_r2"]).shape[1] > 1:
+        if arr.ndim > 1 and arr.shape[1] > 1:
             for score in score_types:
                 scores[f"{score}_avg_aggregate"] = np.mean(scores[f"{score}_avg"])
                 scores[f"{score}_stdev_aggregate"] = np.mean(scores[f"{score}_stdev"])
