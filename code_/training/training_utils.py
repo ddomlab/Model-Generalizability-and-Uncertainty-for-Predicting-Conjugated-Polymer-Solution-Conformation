@@ -311,8 +311,9 @@ def inverse_log_transform(X):
 def get_target_transformer(transformer,target_name) -> Pipeline:
 
     if transformer:
-
-        if any("multimodal Rh (e-5 place holder)" in target for target in target_name):
+        keywords = ("multimodal Rh (e-5 place holder)", "First Peak", "Second Peak", "Third Peak")  # Add more as needed
+        if any(any(keyword in target for keyword in keywords) for target in target_name):
+        # if any("multimodal Rh (e-5 place holder)" in target for target in target_name):
             # Apply log transformation followed by StandardScaler for Rh
             return Pipeline(steps=[
                 ("log transform", FunctionTransformer(np.log10, inverse_func=inverse_log_transform,
