@@ -19,7 +19,6 @@ w_data = pd.read_pickle(training_df_dir)
 TEST = False
 
 
-
 def get_structural_info(fp:str,poly_unit:str,radius:int=None,vector:str=None)->Tuple:
        
         if fp == "Mordred" or fp == "MACCS":

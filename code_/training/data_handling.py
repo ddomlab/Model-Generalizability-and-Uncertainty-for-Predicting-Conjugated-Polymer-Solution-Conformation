@@ -96,7 +96,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
             fname_root = f"({representation})_{regressor_type}"
     
     fname_root =f"{fname_root}_hypOFF" if hypop==False else fname_root
-    fname_root =f"{fname_root}_{transform_type}" if transform_type!=None else fname_root
+    fname_root =f"{fname_root}_{transform_type}" if transform_type else f"{fname_root}_transformerOFF"
 
     print("Filename:", fname_root)
     if scores:

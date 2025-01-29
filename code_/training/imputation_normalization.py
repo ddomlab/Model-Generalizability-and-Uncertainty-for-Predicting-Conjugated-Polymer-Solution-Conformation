@@ -74,21 +74,23 @@ def preprocessing_workflow(imputer: Optional[str]=None,
 
         ])
     # Normalization
-    transformers = []
-    if numerical_feat:
-        if 'Mn (g/mol)' in numerical_feat:
-            numerical_feat.remove('Mn (g/mol)')
-        transformers.append(
-            ("numerical_scaling", transforms[scaler], numerical_feat)
-            )
-    # elif representation_scaling_factory[representation]['callable']:
-    elif representation:
-         transformers.append(
-            ("structural_scaling", transforms[scaler], structural_feat)
-            )
-        
-    scaling = ("scaling features",
-              ColumnTransformer(transformers=[*transformers], remainder="passthrough", verbose_feature_names_out=False)
-              )
-    steps.append(scaling)
+    if scaler:
+        print('yes')
+        transformers = []
+        if numerical_feat:
+            if 'Mn (g/mol)' in numerical_feat:
+                numerical_feat.remove('Mn (g/mol)')
+            transformers.append(
+                ("numerical_scaling", transforms[scaler], numerical_feat)
+                )
+        # elif representation_scaling_factory[representation]['callable']:
+        elif representation:
+            transformers.append(
+                ("structural_scaling", transforms[scaler], structural_feat)
+                )
+            
+        scaling = ("scaling features",
+                ColumnTransformer(transformers=[*transformers], remainder="passthrough", verbose_feature_names_out=False)
+                )
+        steps.append(scaling)
     return Pipeline(steps)
