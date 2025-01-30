@@ -29,7 +29,9 @@ def main_numerical_only(
     numerical_feats: Optional[list[str]],
     imputer:Optional[str],
     kernel:str=None,
-    cutoff:Optional[str]=None
+    cutoff:Optional[str]=None,
+    second_transformer:str=None,
+
 ) -> None:
 
 
@@ -48,6 +50,7 @@ def main_numerical_only(
                                             cutoff=cutoff,
                                             hyperparameter_optimization=hyperparameter_optimization,
                                             imputer=imputer,
+                                            second_transformer=second_transformer,
                                             Test=TEST,
                                             )
     
@@ -64,7 +67,8 @@ def main_numerical_only(
                 cutoff=cutoffs,
                 TEST=TEST,
                 hypop=hyperparameter_optimization,
-                transform_type=transform_type
+                transform_type=transform_type,
+                second_transformer=second_transformer,
                 )
 
 
@@ -172,6 +176,7 @@ if __name__ == "__main__":
         numerical_feats=args.numerical_feats,  
         imputer=args.imputer,
         cutoff=None,  
+        second_transformer='Log',
     )
 
     # main_numerical_only(
