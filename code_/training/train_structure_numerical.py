@@ -60,6 +60,7 @@ def main_structural_numerical(
     kernel:str = None,
     imputer:Optional[str]=None,
     cutoff:Optional[str]=None,
+    second_transformer:str=None,
 ) -> None:
     
     structural_features, unroll_single_feat = get_structural_info(representation,oligomer_representation,radius,vector)
@@ -75,6 +76,7 @@ def main_structural_numerical(
                                                     regressor_type=regressor_type,
                                                     kernel=kernel,
                                                     transform_type=transform_type,
+                                                    second_transformer=second_transformer,
                                                     cutoff=cutoff,
                                                     hyperparameter_optimization=hyperparameter_optimization,
                                                     imputer=imputer,
@@ -96,6 +98,7 @@ def main_structural_numerical(
                 TEST=TEST,
                 hypop=hyperparameter_optimization,
                 transform_type=transform_type,
+                second_transformer=second_transformer,
                 )
 
 
@@ -223,6 +226,7 @@ if __name__ == "__main__":
     #     kernel=args.kernel,
     #     target_features=[args.target_features],  
     #     transform_type=args.transform_type,
+    #     second_transformer=None,
     #     hyperparameter_optimization=True,
     #     columns_to_impute=args.columns_to_impute,  
     #     special_impute=args.special_impute,
@@ -242,6 +246,7 @@ if __name__ == "__main__":
         regressor_type="RF",
         target_features=["First Peak"],  
         transform_type=None,
+        second_transformer="Log",
         columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
         special_impute="Mw (g/mol)",
         numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],

@@ -143,7 +143,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  output_dir_name: str = "results",
                  cutoff: Optional[Dict[str, Tuple[Optional[float], Optional[float]]]] =None,
                  hypop: Optional[bool]=True,
-                 transform_type:Optional[str]=None
+                 transform_type:Optional[str]=None,
+                 second_transformer:Optional[str]=None,
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -160,7 +161,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     if cutoff:
         cutoff_parameter = "-".join(feature_abbrev.get(key,key) for key in cutoff)
     
-    f_root_dir = f"target_{targets_dir}_with_log"
+    f_root_dir = f"target_{targets_dir}_with_{second_transformer}" if second_transformer else f"target_{targets_dir}"
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir
