@@ -8,7 +8,8 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import Lasso
 from GPR_model import GPRegressor
 # from sklearn.multioutput import MultiOutputRegressor
-
+from sklearn.preprocessing import FunctionTransformer
+import numpy as np
 from sklearn.preprocessing import (StandardScaler,
                                    QuantileTransformer,
                                    MinMaxScaler,
@@ -46,8 +47,13 @@ imputer_factory: Dict[str, TransformerMixin] = {
     "iterative": IterativeImputer(sample_posterior=True),
 }
 
+def inverse_log_transform(X):
+    return np.power(10, X)
+
 transforms: dict[str, Callable] = {
     None:                None,
+    "Log":                  FunctionTransformer(np.log10, inverse_func=inverse_log_transform,
+                                                    check_inverse=True, validate=False),
     "MinMax":               MinMaxScaler(),
     "Standard":             StandardScaler(),
     "Robust Scaler":        RobustScaler(),

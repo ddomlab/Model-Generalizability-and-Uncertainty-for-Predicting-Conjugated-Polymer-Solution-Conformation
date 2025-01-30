@@ -152,7 +152,7 @@ def _prepare_data(
     return score, combined_prediction_ground_truth, X_y_shape
 
 def run(
-    X, y, preprocessor: Union[ColumnTransformer, Pipeline], target_features:str, regressor_type: str,
+    X, y, preprocessor: Union[ColumnTransformer, Pipeline], second_transformer:str, regressor_type: str,
     transform_type: str, hyperparameter_optimization: bool = True,
     kernel:Optional[str] = None,**kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
@@ -166,7 +166,7 @@ def run(
     
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-      y_transform = get_target_transformer(transform_type,target_name=target_features)
+      y_transform = get_target_transformer(transform_type,second_transformer)
     #   inverse_transformers = get_inverse_target_transformer(target_features, transform_type)
 
       if y.shape[1] > 1:
@@ -300,31 +300,19 @@ def split_for_training(
 #     return x
 
 
-# def inverse_function(x):
-#     x = x.astype(float) 
-#     x[:, 2] = 10 ** x[:, 2] - 1e-6  
-#     return x
 
-def inverse_log_transform(X):
-    return np.power(10, X)
 
-def get_target_transformer(transformer,target_name) -> Pipeline:
-
-    # if transformer:
-        keywords = ("multimodal Rh (e-5 place holder)", "First Peak", "Second Peak", "Third Peak")  # Add more as needed
-        if any(any(keyword in target for keyword in keywords) for target in target_name):
-            print('yes')
-        # if any("multimodal Rh (e-5 place holder)" in target for target in target_name):
-            # Apply log transformation followed by StandardScaler for Rh
-            return Pipeline(steps=[
-                ("log transform", FunctionTransformer(np.log10, inverse_func=inverse_log_transform,
-                                                    check_inverse=True, validate=False)), 
-                ("y scaler", transforms[transformer])  
-                ])
-        else:
-            return Pipeline(steps=[
-                ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
-                ])
+def get_target_transformer(transformer:str,extra_transformer:str) -> Pipeline:
+    
+    if extra_transformer:
+        return Pipeline(steps=[
+            ("extra y transform", transforms[extra_transformer]), 
+            ("y scaler", transforms[transformer])  
+            ])
+    else:
+        return Pipeline(steps=[
+            ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
+            ])
 
     # return None
 
