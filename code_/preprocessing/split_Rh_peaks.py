@@ -235,5 +235,17 @@ if __name__ == "__main__":
 
         # print(w_data['Third Peak'].notna().sum())
         w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
+        # print(w_data)
+        # zero_counts = w_data["multimodal Rh (e-5 place holder)"].apply(
+        #     lambda x: [x[0] == 0 if isinstance(x, list) and len(x) > 0 else False,
+        #             x[1] == 0 if isinstance(x, list) and len(x) > 1 else False,
+        #             x[2] == 0 if isinstance(x, list) and len(x) > 2 else False]
+        # ).apply(pd.Series).sum()
+
+        # # Display results
+        # print(f"Number of zeros in the first element: {zero_counts[0]}")
+        # print(f"Number of zeros in the second element: {zero_counts[1]}")
+        # print(f"Number of zeros in the third element: {zero_counts[2]}")
+        w_data["log10 multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
         print(w_data)
         w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
