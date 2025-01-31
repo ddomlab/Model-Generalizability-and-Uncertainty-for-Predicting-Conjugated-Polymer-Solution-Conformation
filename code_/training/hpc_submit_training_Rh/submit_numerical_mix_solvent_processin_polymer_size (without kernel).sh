@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=("log First Peak" "log Second Peak"  "log Third Peak")
+target_to_asses=("log First Peak wo placeholder" "log Second Peak wo placeholder"  "log Third Peak wo placeholder")
 models_to_run=("XGBR")
 # scaler_types=("Robust Scaler")
 
