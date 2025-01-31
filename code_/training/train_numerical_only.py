@@ -176,7 +176,7 @@ if __name__ == "__main__":
         numerical_feats=args.numerical_feats,  
         imputer=args.imputer,
         cutoff=None,  
-        second_transformer='Log',
+        # second_transformer='Log',
     )
 
     # main_numerical_only(

@@ -188,9 +188,9 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 #     plt.close()
 
 
-def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool):
-    df_peaks = df[column].apply(lambda x: x if isinstance(x, list) else [np.nan] * 3)
-    df_peaks = pd.DataFrame(df_peaks.tolist(), columns=['First Peak', 'Second Peak', 'Third Peak'])
+def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool,new_columns:list):
+    df_peaks = df[column].apply(lambda x: x if isinstance(x, list) or isinstance(x, np.ndarray) else [np.nan] * 3)
+    df_peaks = pd.DataFrame(df_peaks.tolist(), columns=new_columns)
     if zero_replacement:
         df_peaks.replace(0, np.nan, inplace=True)
     df = pd.concat([df, df_peaks], axis=1)
@@ -230,8 +230,8 @@ if __name__ == "__main__":
         # print(f"Number of rows with lists of length 3 or more: {num_rows}")
         if "distances" in w_data.columns:
             w_data.drop(columns=["distances"], inplace=True)
-
-        w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True)
+        new_exanded_col_with_zero_replaced = ['First Peak', 'Second Peak', 'Third Peak']
+        w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True,new_columns=new_exanded_col_with_zero_replaced)
 
         # print(w_data['Third Peak'].notna().sum())
         w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
@@ -247,5 +247,8 @@ if __name__ == "__main__":
         # print(f"Number of zeros in the second element: {zero_counts[1]}")
         # print(f"Number of zeros in the third element: {zero_counts[2]}")
         w_data["log10 multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
+        print(w_data['First Peak'])
+        new_exanded_col_with_new_place_holder = ['log First Peak', 'log Second Peak', 'log Third Peak']
+        w_data = expand_peaks(w_data,"log10 multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
         print(w_data)
         w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")

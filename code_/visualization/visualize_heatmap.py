@@ -22,17 +22,18 @@ target_list = [
     # "target_multimodal Rh with padding",
     # "target_multimodal Rh (e-5 place holder)_with_Log",
     # "target_multimodal Rh (e-5 place holder)",
-    "target_Rh First Peak",
-    "target_Rh Second Peak",
-    "target_Rh Third Peak",
-    "target_Rh First Peak_with_Log",
-    "target_Rh Second Peak_with_Log",
-    "target_Rh Third Peak_with_Log",
+    "target_log10 multimodal Rh (e-5 place holder)"
+    # "target_Rh First Peak",
+    # "target_Rh Second Peak",
+    # "target_Rh Third Peak",
+    # "target_Rh First Peak_with_Log",
+    # "target_Rh Second Peak_with_Log",
+    # "target_Rh Third Peak_with_Log",
     ]
 
 transformer_list = [
     # "Standard",
-    "Robust Scaler",
+    # "Robust Scaler",
     "transformerOFF"
                     ]
 
@@ -442,15 +443,15 @@ def create_scaler_result(target_dir:Path,
 simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-# for peak in [0,1,2]:
-#     for transformer in transformer_list:
-#         for target_folder in target_list:
-#             for i in scores_list:
-#                 create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                     score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
+for peak in [0,1,2]:
+    for transformer in transformer_list:
+        for target_folder in target_list:
+            for i in scores_list:
+                create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                    score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
