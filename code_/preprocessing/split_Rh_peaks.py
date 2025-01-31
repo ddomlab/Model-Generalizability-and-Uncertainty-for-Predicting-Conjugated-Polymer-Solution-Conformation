@@ -249,7 +249,7 @@ if __name__ == "__main__":
         w_data["log10 multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
         new_exanded_col_with_new_place_holder = ['log First Peak', 'log Second Peak', 'log Third Peak']
         w_data = expand_peaks(w_data,"log10 multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
-        w_data[['log First Peak wo placeholder', 'Second Peak wo placeholder', 'Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
+        w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
 
         
         
