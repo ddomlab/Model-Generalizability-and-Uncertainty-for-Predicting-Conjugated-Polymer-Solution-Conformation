@@ -440,7 +440,7 @@ def create_scaler_result(target_dir:Path,
                     fname=fname
                     )
 
-simple_models = ['MLR','DT','RF']
+# simple_models = ['MLR','DT','RF']
 
 
 # for transformer in transformer_list:
@@ -449,9 +449,14 @@ simple_models = ['MLR','DT','RF']
 #             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-for peak in [0,1,2]:
-    for transformer in transformer_list:
-        for target_folder in target_list:
-            for i in scores_list:
-                create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                    score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
+# for peak in [0,1,2]:
+#     for transformer in transformer_list:
+#         for target_folder in target_list:
+#             for i in scores_list:
+#                 create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                     score=i,var='stdev',data_type='scaler',transformer_type=transformer,peak_num=peak)
+
+
+
+### comparison between targets ###
+
