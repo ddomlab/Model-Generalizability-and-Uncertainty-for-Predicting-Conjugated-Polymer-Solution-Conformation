@@ -230,7 +230,7 @@ if __name__ == "__main__":
         # print(f"Number of rows with lists of length 3 or more: {num_rows}")
         if "distances" in w_data.columns:
             w_data.drop(columns=["distances"], inplace=True)
-        new_exanded_col_with_zero_replaced = ['First Peak', 'Second Peak', 'Third Peak'] # dropped palce holder
+        new_exanded_col_with_zero_replaced = ['First Peak_wo placeholder', 'Second Peak_wo placeholder', 'Third Peak_wo placeholder'] # dropped palce holder
         w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True,new_columns=new_exanded_col_with_zero_replaced)
         # print(w_data['Third Peak'].notna().sum())
         w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
@@ -247,13 +247,13 @@ if __name__ == "__main__":
         # print(f"Number of zeros in the second element: {zero_counts[1]}")
         # print(f"Number of zeros in the third element: {zero_counts[2]}")
         w_data["log10 multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
-        new_exanded_col_with_new_place_holder = ['log First Peak', 'log Second Peak', 'log Third Peak']
+        new_exanded_col_with_new_place_holder = ['log First Peak (e-5 place holder)', 'log Second Peak (e-5 place holder)', 'log Third Peak (e-5 place holder)']
         w_data = expand_peaks(w_data,"log10 multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
         w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
 
         
         
-        print(w_data[["multimodal Rh",'log First Peak wo placeholder', 'Second Peak wo placeholder', 'Third Peak wo placeholder']])
+        print(w_data[["multimodal Rh",'log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']])
 
 
 
