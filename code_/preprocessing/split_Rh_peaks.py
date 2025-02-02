@@ -246,7 +246,7 @@ if __name__ == "__main__":
         # print(f"Number of zeros in the first element: {zero_counts[0]}")
         # print(f"Number of zeros in the second element: {zero_counts[1]}")
         # print(f"Number of zeros in the third element: {zero_counts[2]}")
-        w_data["log10 multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
+        w_data["log multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
         new_exanded_col_with_new_place_holder = ['log First Peak (e-5 place holder)', 'log Second Peak (e-5 place holder)', 'log Third Peak (e-5 place holder)']
         w_data = expand_peaks(w_data,"log10 multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
         w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
