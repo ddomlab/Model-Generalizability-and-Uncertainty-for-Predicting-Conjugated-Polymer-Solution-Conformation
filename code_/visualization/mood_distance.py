@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import os
+from visualization_setting import set_plot_style
+
+set_plot_style()
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -34,6 +37,7 @@ data = pd.DataFrame({
     "Type": ["Binary"] * len(binary_tanimoto_similarities) + ["Count-based"] * len(count_tanimoto_similarities)
 })
 
+plt.figure(figsize=(9, 6))
 sns.histplot(data, x="Similarity", hue="Type", kde=True, bins=20)
 plt.title("Comparison of Binary and Count-based Tanimoto Similarities")
 plt.xlabel("Tanimoto Similarity")

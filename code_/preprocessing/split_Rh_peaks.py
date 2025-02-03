@@ -4,6 +4,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+from split_Rh_peaks import save_path
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+from visualization.visualization_setting import save_img_path
+
 
 HERE: Path = Path(__file__).resolve().parent
 VISUALIZATION = HERE.parent/ "visualization"
@@ -12,14 +17,6 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-
-
-
-def save_path(folder_path:str, file_name:str)->None:
-    visualization_folder_path =  folder_path
-    os.makedirs(visualization_folder_path, exist_ok=True)    
-    fname = file_name
-    plt.savefig(visualization_folder_path / fname, dpi=600)
 
 
 def intensity_weighted_average_over_log(R_h, peaks, intensity):

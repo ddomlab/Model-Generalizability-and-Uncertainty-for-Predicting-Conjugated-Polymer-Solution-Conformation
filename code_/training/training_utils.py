@@ -170,7 +170,6 @@ def run(
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = get_target_transformer(transform_type,second_transformer)
-    #   inverse_transformers = get_inverse_target_transformer(target_features, transform_type)
 
       if y.shape[1] > 1:
         y_transform_regressor = TransformedTargetRegressor(

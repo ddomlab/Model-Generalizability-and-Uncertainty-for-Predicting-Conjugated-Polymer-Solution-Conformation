@@ -460,3 +460,13 @@ def create_scaler_result(target_dir:Path,
 
 ### comparison between targets ###
 
+# multimodal targets to compare: 
+# [target_log multimodal Rh (e-5 place holder),
+# target_multimodal Rh (e-5 place holder)_LogFT,
+#  target_multimodal Rh (e-5 place holder)]
+
+# separate targets to compare: 
+#[target_log First/second/third Peak (e-5 place holder), 
+# target_log First/second/third Peak wo placeholder,
+# target_Rh First/second/third Peak wo placeholder,
+# target_Rh First/second/third Peak_wo placeholder_LogFT]
