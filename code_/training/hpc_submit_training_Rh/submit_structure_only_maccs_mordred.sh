@@ -1,8 +1,10 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250204
+mkdir -p "$output_dir"
 
 regressors=("XGBR")
-targets=('log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
+targets=('log First Peak (e-5 place holder)' 'log Second Peak (e-5 place holder)' 'log Third Peak (e-5 place holder)')
+
 models=("Mordred" "MACCS")
 poly_representations=('Dimer' 'RRU Dimer')
 
@@ -33,3 +35,5 @@ EOT
   done
 done
 
+#'log First Peak (e-5 place holder)' 'log Second Peak (e-5 place holder)' 'log Third Peak (e-5 place holder)'
+#'log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder'
