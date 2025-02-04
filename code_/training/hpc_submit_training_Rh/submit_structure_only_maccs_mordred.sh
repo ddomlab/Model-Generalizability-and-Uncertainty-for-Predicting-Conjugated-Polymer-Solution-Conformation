@@ -1,9 +1,9 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250204
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 # Define arrays for regressor types, targets, and models
-# mkdir -p "$output_dir"
+
 regressors=("XGBR")
-target_to_asses=('log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
+targets=('log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
 models=("Mordred" "MACCS")
 poly_representations=('Dimer' 'RRU Dimer')
 # scaler_types=("Robust Scaler")
@@ -11,11 +11,9 @@ poly_representations=('Dimer' 'RRU Dimer')
 
 # Loop through each combination of regressor, target, and model
 for regressor in "${regressors[@]}"; do
-  for target in "${target_to_asses[@]}"; do
-    for model in "${models[@]}"; do
+  for target in "${targets[@]}"; do
+    for fp in "${models[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
-        # for scaler in "${scaler_types[@]}"; do
-          # for kernel in "${kernels[@]}"; do
               bsub <<EOT
           
 #BSUB -n 6
