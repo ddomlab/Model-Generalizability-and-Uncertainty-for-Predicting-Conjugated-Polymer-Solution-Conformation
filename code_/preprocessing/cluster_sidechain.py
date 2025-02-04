@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 from rdkit import Chem
-# from split_Rh_peaks import save_path
+from matplotlib.ticker import MaxNLocator
+
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
-
 from visualization.visualization_setting import (set_plot_style,
                                                  save_img_path)
 set_plot_style(tick_size=18)
@@ -93,9 +93,59 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
     # plt.show()
     fname = f"Distribution of {column_to_draw} over side chain type in {target}"
     fname = fname.replace("/", "_").replace("\\", "_").replace(":", "_")
-    print(fname)
     save_img_path(VISUALIZATION/"analysis and test",f"{fname}.png")
     plt.close()
+
+def plot_hanson_space(df, hsp_material:str):
+
+    dP = df[f"{hsp_material} dP"]
+    dD = df[f"{hsp_material} dD"]
+    dH = df[f"{hsp_material} dH"]
+
+    dP_freq = dP.map(dP.value_counts())
+    # dD_freq = dD.map(dD.value_counts())
+    # dH_freq = dH.map(dH.value_counts())
+
+    # Create subplots
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+    # Scatter plot for dP vs dD
+    sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis")
+    axes[0].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
+    axes[0].set_ylabel(r'$\delta D$ (MPa$^{1/2}$)')
+    axes[0].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[0].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+
+
+    # Scatter plot for dP vs dH
+    sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis")
+    axes[1].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
+    axes[1].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
+    axes[1].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[1].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+
+
+    # Scatter plot for dD vs dH
+    sc = axes[2].scatter(dD, dH, c=dP_freq, cmap="viridis")
+    axes[2].set_xlabel(r'$\delta D$ (MPa$^{1/2}$)')
+    axes[2].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
+    axes[2].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[2].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    cbar3 = fig.colorbar(sc, ax=axes[2], orientation="vertical", shrink=0.7, aspect=25)
+    cbar3.set_label("Frequency")
+
+    fig.suptitle(f"{hsp_material} Hansen Solubility Parameters", fontsize=14, fontweight="bold")
+
+    plt.tight_layout()
+    # plt.show()
+    fname = f"Scattering of {hsp_material} Hansen Solubility Parameters"
+    save_img_path(VISUALIZATION/"analysis and test",f"{fname}.png")
+    plt.close()
+
+
+
+
+
 
 
 
@@ -131,50 +181,4 @@ if __name__ == "__main__":
 
     #     plot_peak_distribution(Rh_data,'multimodal Rh', feats)
     # import matplotlib.pyplot as plt
-    from matplotlib.ticker import MaxNLocator
-    def plot_hanson_space(df,material:str):
-
-        # df = Rg_data
-        p = 'polymer'
-        dP = df[f"{p} dP"]
-        dD = df[f"{p} dD"]
-        dH = df[f"{p} dH"]
-
-        # Compute repetition frequency for each value in dP, dD, and dH
-        dP_freq = dP.map(dP.value_counts())
-        dD_freq = dD.map(dD.value_counts())
-        dH_freq = dH.map(dH.value_counts())
-
-        # Create subplots
-        fig, axes = plt.subplots(1, 3, figsize=(12, 3))
-
-        # Scatter plot for dP vs dD
-        sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis")
-        axes[0].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
-        axes[0].set_ylabel(r'$\delta D$ (MPa$^{1/2}$)')
-        axes[0].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-        axes[0].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-
-
-        # Scatter plot for dP vs dH
-        sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis")
-        axes[1].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
-        axes[1].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
-        axes[1].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-        axes[1].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-
-
-        # Scatter plot for dD vs dH
-        sc = axes[2].scatter(dD, dH, c=dP_freq, cmap="viridis")
-        axes[2].set_xlabel(r'$\delta D$ (MPa$^{1/2}$)')
-        axes[2].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
-        axes[2].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-        axes[2].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-        cbar3 = fig.colorbar(sc, ax=axes[2], orientation="vertical", shrink=0.7, aspect=25)
-        cbar3.set_label("Frequency")
-
-        # Set overall title
-        fig.suptitle(f"{p} Hansen Solubility Parameters", fontsize=14, fontweight="bold")
-
-        plt.tight_layout()
-        plt.show()
+    plot_hanson_space(Rg_data,'solvent')
