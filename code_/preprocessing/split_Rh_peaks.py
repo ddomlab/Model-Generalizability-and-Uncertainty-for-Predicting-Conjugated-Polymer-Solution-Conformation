@@ -4,7 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-from split_Rh_peaks import save_path
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
 from visualization.visualization_setting import save_img_path
@@ -107,7 +106,7 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     box_inset.legend_.remove()
     box_inset.tick_params(axis='x', labelsize=20)
     plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after padding.png")
+    save_img_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after padding.png")
     plt.close()
 
 
@@ -135,7 +134,7 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
     plt.xticks(fontsize=25)
     plt.yticks(fontsize=25)
     plt.tight_layout()
-    save_path(VISUALIZATION/"analysis and test",f"Non-Zero Counts at different peak orders with padding.png")
+    save_img_path(VISUALIZATION/"analysis and test",f"Non-Zero Counts at different peak orders with padding.png")
     plt.close()
 
 
@@ -198,10 +197,10 @@ def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool,new_columns:
 if __name__ == "__main__":
     # for i1 in [40,50,70,80,90, 100]:
     # for i2 in [900,1000,1100,1200,1500, 1900,2000]:
+        # l3=3500
 
         l1 = 40
         l2 = 1000
-        # l3=3500
         w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
         lambda row: reorder_and_pad(
             row["Rh at peaks (above 1 nm)"],
@@ -209,14 +208,29 @@ if __name__ == "__main__":
             row["normalized intensity (0-1) corrected"],
             l1=l1,
             l2=l2,
-            # l3=l3
-            # threshold=100000
         ),
         axis=1
         ))
+
+
         w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(get_padding)
-        
-        # w_data.to_csv(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal_added.csv")
+    
+        if "distances" in w_data.columns:
+            w_data.drop(columns=["distances"], inplace=True)
+        new_exanded_col_with_zero_replaced = ['First Peak_wo placeholder', 'Second Peak_wo placeholder', 'Third Peak_wo placeholder'] # dropped palce holder
+        w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True,new_columns=new_exanded_col_with_zero_replaced)
+        # print(w_data['Third Peak'].notna().sum())
+        w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
+
+        w_data["log multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
+        new_exanded_col_with_new_place_holder = ['log First Peak (e-5 place holder)', 'log Second Peak (e-5 place holder)', 'log Third Peak (e-5 place holder)']
+        w_data = expand_peaks(w_data,"log multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
+        w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
+        # print(w_data[["multimodal Rh",'log First Peak (e-5 place holder)','log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']])
+
+        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
+
+
 
         # plot_peak_distribution(w_data,"multimodal Rh with padding",l1,l2)
         # plot_non_zero_counts(w_data, "multimodal Rh with padding", 3)
@@ -225,13 +239,9 @@ if __name__ == "__main__":
         #         lambda x: isinstance(x, list) and len(x) >= 3
         #     ).sum()
         # print(f"Number of rows with lists of length 3 or more: {num_rows}")
-        if "distances" in w_data.columns:
-            w_data.drop(columns=["distances"], inplace=True)
-        new_exanded_col_with_zero_replaced = ['First Peak_wo placeholder', 'Second Peak_wo placeholder', 'Third Peak_wo placeholder'] # dropped palce holder
-        w_data = expand_peaks(w_data,"multimodal Rh", zero_replacement=True,new_columns=new_exanded_col_with_zero_replaced)
-        # print(w_data['Third Peak'].notna().sum())
-        w_data["multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh"].apply(lambda x: [1e-5 if v == 0 else v for v in x] if isinstance(x, list) else x)
 
+
+        
         # print(w_data)
         # zero_counts = w_data["multimodal Rh (e-5 place holder)"].apply(
         #     lambda x: [x[0] == 0 if isinstance(x, list) and len(x) > 0 else False,
@@ -243,15 +253,3 @@ if __name__ == "__main__":
         # print(f"Number of zeros in the first element: {zero_counts[0]}")
         # print(f"Number of zeros in the second element: {zero_counts[1]}")
         # print(f"Number of zeros in the third element: {zero_counts[2]}")
-        w_data["log multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
-        new_exanded_col_with_new_place_holder = ['log First Peak (e-5 place holder)', 'log Second Peak (e-5 place holder)', 'log Third Peak (e-5 place holder)']
-        w_data = expand_peaks(w_data,"log10 multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
-        w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
-
-        
-        
-        print(w_data[["multimodal Rh",'log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']])
-
-
-
-        w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")

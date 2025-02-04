@@ -190,8 +190,10 @@ def run(
                         else regressor_factory[regressor_type],
                 transformer=y_transform,
         )
+      new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
+      print(preprocessor)
       regressor :Pipeline= Pipeline(steps=[
-                    ("preprocessor", preprocessor),
+                    ("preprocessor", new_preprocessor),
                     ("regressor", y_transform_regressor),
                         ])
 

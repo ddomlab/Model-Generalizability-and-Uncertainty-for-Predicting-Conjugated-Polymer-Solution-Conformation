@@ -109,28 +109,33 @@ def plot_hanson_space(df, hsp_material:str):
     # Create subplots
     fig, axes = plt.subplots(1, 3, figsize=(12, 4))
 
-    # Scatter plot for dP vs dD
+    maxlocator = {
+        "integer":True,
+        "prune":"lower",
+        "nbins":6,
+                  }
+    
     sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis")
     axes[0].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
     axes[0].set_ylabel(r'$\delta D$ (MPa$^{1/2}$)')
-    axes[0].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-    axes[0].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[0].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[0].yaxis.set_major_locator(MaxNLocator(**maxlocator))
 
 
     # Scatter plot for dP vs dH
     sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis")
     axes[1].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
     axes[1].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
-    axes[1].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-    axes[1].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[1].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[1].yaxis.set_major_locator(MaxNLocator(**maxlocator))
 
 
     # Scatter plot for dD vs dH
     sc = axes[2].scatter(dD, dH, c=dP_freq, cmap="viridis")
     axes[2].set_xlabel(r'$\delta D$ (MPa$^{1/2}$)')
     axes[2].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
-    axes[2].xaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
-    axes[2].yaxis.set_major_locator(MaxNLocator(integer=True, prune='lower', nbins=6))
+    axes[2].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[2].yaxis.set_major_locator(MaxNLocator(**maxlocator))
     cbar3 = fig.colorbar(sc, ax=axes[2], orientation="vertical", shrink=0.7, aspect=25)
     cbar3.set_label("Frequency")
 
@@ -168,17 +173,16 @@ if __name__ == "__main__":
     #     print(f"Rh: {group}:",len(Rh_data[Rh_data['Side Chain type']==group]))
 
 
-    # # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
-    # # plot_peak_distribution(Rh_data,'multimodal Rh',"First Peak")
-    # # plot
-    # # plot_peak_distribution(Rh_data,'multimodal Rh',"Second Peak")    
-    # # plot_peak_distribution(Rh_data,'multimodal Rh',"Third Peak")
-    # # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Temperature SANS/SLS/DLS/SEC (K)')
-    # # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
-    # # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Ra')
+    # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
+    # plot_peak_distribution(Rh_data,'multimodal Rh',"First Peak")
+    # plot
+    # plot_peak_distribution(Rh_data,'multimodal Rh',"Second Peak")    
+    # plot_peak_distribution(Rh_data,'multimodal Rh',"Third Peak")
+    # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Temperature SANS/SLS/DLS/SEC (K)')
+    # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
+    # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Ra')
     # features = ['Temperature SANS/SLS/DLS/SEC (K)','Ra', 'Concentration (mg/ml)', 'Mn (g/mol)']
     # for feats in features:
-
     #     plot_peak_distribution(Rh_data,'multimodal Rh', feats)
-    # import matplotlib.pyplot as plt
+    
     plot_hanson_space(Rg_data,'solvent')
