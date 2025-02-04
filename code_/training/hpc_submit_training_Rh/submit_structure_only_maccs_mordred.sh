@@ -1,7 +1,7 @@
 #!/bin/bash
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250204
 # Define arrays for regressor types, targets, and models
-mkdir -p "$output_dir"
+# mkdir -p "$output_dir"
 regressors=("XGBR")
 target_to_asses=('log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
 models=("Mordred" "MACCS")
