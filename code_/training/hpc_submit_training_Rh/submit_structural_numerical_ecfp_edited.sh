@@ -1,21 +1,20 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
-# Define arrays for regressor types, targets, and models
-regressors=("XGBR" "NGB")
-targets=("multimodal Rh")
-models=('ECFP')
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250205
+mkdir -p "$output_dir"
+
+regressors=("XGBR")
+targets=('log First Peak (e-5 place holder)' 'log Second Peak (e-5 place holder)' 'log Third Peak (e-5 place holder)' 'log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
+models=("ECFP")
 radii=(3) 
 vectors=("count")
-scaler_types=('Robust Scaler')
 poly_representations=('Dimer' 'RRU Dimer')
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for fp in "${models[@]}"; do
-      for scaler in "${scaler_types[@]}"; do
-        for oligo_rep in "${poly_representations[@]}"; do
-          for radius in "${radii[@]}"; do
-            for vector in "${vectors[@]}"; do
+      for oligo_rep in "${poly_representations[@]}"; do
+        for radius in "${radii[@]}"; do
+          for vector in "${vectors[@]}"; do
               bsub <<EOT
 
 
@@ -24,16 +23,15 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 72:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250123"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250123.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_${radius}_${vector}_20250123.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250205"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250205.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250205.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_structure_numerical.py --target_features "${target}" \
                                       --representation "${fp}" \
                                       --regressor_type "${regressor}" \
-                                      --transform_type "${scaler}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
@@ -45,8 +43,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
 
 
 EOT
-              done
-            done
+              
           done
         done
       done
