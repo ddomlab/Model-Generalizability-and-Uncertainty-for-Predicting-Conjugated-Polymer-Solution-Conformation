@@ -2,8 +2,8 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=('log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
-models_to_run=("XGBR")
+target_to_asses=('binary multimodal Rh')
+models_to_run=("XGBC")
 # scaler_types=("Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
@@ -15,9 +15,9 @@ for target in "${target_to_asses[@]}"; do
 #BSUB -W 25:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250131"
-#BSUB -o "${output_dir}/numerical_${model}__${target}_20250131.out"
-#BSUB -e "${output_dir}/numerical_${model}__${target}_20250131.err"
+#BSUB -J "numerical_${model}_polymer_size_feats_on_${target}_all_num_20250205"
+#BSUB -o "${output_dir}/numerical_${model}__${target}_20250207.out"
+#BSUB -e "${output_dir}/numerical_${model}__${target}_20250207.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

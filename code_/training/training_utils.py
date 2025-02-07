@@ -8,7 +8,7 @@ from sklearn.model_selection import KFold
 from sklearn.pipeline import Pipeline
 from skopt import BayesSearchCV
 from sklearn.preprocessing import FunctionTransformer
-from sklearn.multioutput import MultiOutputRegressor
+from sklearn.multioutput import MultiOutputRegressor,MultiOutputClassifier
 
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
@@ -59,6 +59,7 @@ def train_regressor(
     cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
     kernel: Optional[str] = None,
     Test:bool=False,
+    classification:bool=False,
     ) -> None:
         """
         you should change the name here for prepare
@@ -80,9 +81,10 @@ def train_regressor(
                                                     imputer=imputer,
                                                     cutoff=cutoff,
                                                     hyperparameter_optimization=hyperparameter_optimization,
-                                                    kernel=kernel
+                                                    kernel=kernel,
+                                                    classification=classification,
                                                     )
-        scores = process_scores(scores)
+        scores = process_scores(scores,classification)
   
         return scores, predictions, data_shape
         
@@ -104,6 +106,7 @@ def _prepare_data(
     hyperparameter_optimization: bool = True,
     imputer: Optional[str] = None,
     cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    classification:bool=False,
     kernel:Optional[str] = None,
     **kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
@@ -147,6 +150,7 @@ def _prepare_data(
                             hyperparameter_optimization=hyperparameter_optimization,
                             kernel=kernel,
                             **kwargs,
+                            classification=classification,
                             )
     # print(X_y_shape)
     y_frame = pd.DataFrame(y.flatten(),columns=target_features)
@@ -155,7 +159,7 @@ def _prepare_data(
     return score, combined_prediction_ground_truth, X_y_shape
 
 def run(
-    X, y, preprocessor: Union[ColumnTransformer, Pipeline], second_transformer:str, regressor_type: str,
+    X, y, preprocessor: Union[ColumnTransformer, Pipeline], classification:bool,second_transformer:str, regressor_type: str,
     transform_type: str, hyperparameter_optimization: bool = True,
     kernel:Optional[str] = None,**kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
@@ -166,32 +170,41 @@ def run(
     #     y = np.log10(y)
     search_space = get_regressor_search_space(regressor_type,kernel)
     kernel = construct_kernel(regressor_type, kernel)
-    
+
     for seed in SEEDS:
       cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = get_target_transformer(transform_type,second_transformer)
 
-      if y.shape[1] > 1:
-        y_transform_regressor = TransformedTargetRegressor(
-        regressor=MultiOutputRegressor(
-        estimator=regressor_factory[regressor_type](kernel=kernel) if kernel is not None
-        else regressor_factory[regressor_type]
-        ),
-        transformer=y_transform,
-            )
-        
-        search_space = {
-        f"regressor__regressor__estimator__{key.split('__')[-1]}": value
-        for key, value in search_space.items()
-            }
+      if classification:
+            y_transform_regressor = MultiOutputClassifier(regressor_factory[regressor_type],n_jobs=-1)
+            skop_scoring = "roc_auc"
+            search_space = {
+            f"regressor__estimator__{key.split('__')[-1]}": value
+            for key, value in search_space.items()
+                }
+
       else:
-        y_transform_regressor = TransformedTargetRegressor(
-                regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                        else regressor_factory[regressor_type],
-                transformer=y_transform,
-        )
+        skop_scoring = "r2"
+        if y.shape[1] > 1:
+            y_transform_regressor = TransformedTargetRegressor(
+            regressor=MultiOutputRegressor(
+            estimator=regressor_factory[regressor_type](kernel=kernel) if kernel is not None
+            else regressor_factory[regressor_type]
+            ),
+            transformer=y_transform,
+                )
+            
+            search_space = {
+            f"regressor__regressor__estimator__{key.split('__')[-1]}": value
+            for key, value in search_space.items()
+                }
+        else:
+            y_transform_regressor = TransformedTargetRegressor(
+                    regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+                            else regressor_factory[regressor_type],
+                    transformer=y_transform,
+            )
       new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
-      print(preprocessor)
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", new_preprocessor),
                     ("regressor", y_transform_regressor),
@@ -208,9 +221,10 @@ def run(
                 regressor_type=regressor_type,
                 search_space=search_space,
                 regressor=regressor,
+                scoring=skop_scoring
             )
             scores, predictions = cross_validate_regressor(
-                best_estimator, X, y, cv_outer
+                best_estimator, X, y, cv_outer,classification=classification
             )
             scores["best_params"] = regressor_params
 
@@ -239,7 +253,8 @@ def _pd_to_np(data):
 
 
 def _optimize_hyperparams(
-    X, y, cv_outer: KFold, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline) -> tuple:
+    X, y, cv_outer: KFold, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline,
+    scoring) -> tuple:
 
     # Splitting for outer cross-validation loop
     estimators: list[BayesSearchCV] = []
@@ -263,7 +278,7 @@ def _optimize_hyperparams(
             n_jobs=-1,
             random_state=seed,
             refit=True,
-            scoring="r2",
+            scoring=scoring,
             return_train_score=True,
         )
         bayes.fit(X_train, y_train)

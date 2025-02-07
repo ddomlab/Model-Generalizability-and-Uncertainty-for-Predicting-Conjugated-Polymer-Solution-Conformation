@@ -1,0 +1,194 @@
+{
+  "42": {
+    "fit_time": [
+      0.5487627983093262,
+      0.5474529266357422
+    ],
+    "score_time": [
+      0.06363987922668457,
+      0.03960251808166504
+    ],
+    "test_accuracy": [
+      0.5857142857142857,
+      0.6028708133971292
+    ],
+    "test_f1": [
+      [
+        0.8110236220472441,
+        0.8076923076923077,
+        0.7191011235955056
+      ],
+      [
+        0.8292682926829268,
+        0.8300395256916996,
+        0.5633802816901409
+      ]
+    ],
+    "test_roc_auc": [
+      [
+        0.7577796467619848,
+        0.7429212223156714,
+        0.7981250000000001
+      ],
+      [
+        0.7925411230856494,
+        0.784136546184739,
+        0.7211161387631977
+      ]
+    ],
+    "best_params": {
+      "estimator__objective": "binary:logistic",
+      "estimator__base_score": null,
+      "estimator__booster": null,
+      "estimator__callbacks": null,
+      "estimator__colsample_bylevel": null,
+      "estimator__colsample_bynode": null,
+      "estimator__colsample_bytree": null,
+      "estimator__device": null,
+      "estimator__early_stopping_rounds": null,
+      "estimator__enable_categorical": false,
+      "estimator__eval_metric": null,
+      "estimator__feature_types": null,
+      "estimator__gamma": null,
+      "estimator__grow_policy": null,
+      "estimator__importance_type": null,
+      "estimator__interaction_constraints": null,
+      "estimator__learning_rate": 0.0066100982954191536,
+      "estimator__max_bin": null,
+      "estimator__max_cat_threshold": null,
+      "estimator__max_cat_to_onehot": null,
+      "estimator__max_delta_step": null,
+      "estimator__max_depth": 1099,
+      "estimator__max_leaves": null,
+      "estimator__min_child_weight": null,
+      "estimator__missing": NaN,
+      "estimator__monotone_constraints": null,
+      "estimator__multi_strategy": null,
+      "estimator__n_estimators": 1561,
+      "estimator__n_jobs": -2,
+      "estimator__num_parallel_tree": null,
+      "estimator__random_state": null,
+      "estimator__reg_alpha": null,
+      "estimator__reg_lambda": null,
+      "estimator__sampling_method": null,
+      "estimator__scale_pos_weight": null,
+      "estimator__subsample": null,
+      "estimator__tree_method": null,
+      "estimator__validate_parameters": null,
+      "estimator__verbosity": null,
+      "n_jobs": -1
+    }
+  },
+  "13": {
+    "fit_time": [
+      0.3813211917877197,
+      0.3952634334564209
+    ],
+    "score_time": [
+      0.03165626525878906,
+      0.03262686729431152
+    ],
+    "test_accuracy": [
+      0.5333333333333333,
+      0.6028708133971292
+    ],
+    "test_f1": [
+      [
+        0.7851239669421488,
+        0.8106060606060606,
+        0.6666666666666666
+      ],
+      [
+        0.8185328185328186,
+        0.856,
+        0.6176470588235294
+      ]
+    ],
+    "test_roc_auc": [
+      [
+        0.7482478273058593,
+        0.7418891759977031,
+        0.76125
+      ],
+      [
+        0.7564757042919268,
+        0.8166198501872659,
+        0.7457013574660631
+      ]
+    ],
+    "best_params": {
+      "estimator__objective": "binary:logistic",
+      "estimator__base_score": null,
+      "estimator__booster": null,
+      "estimator__callbacks": null,
+      "estimator__colsample_bylevel": null,
+      "estimator__colsample_bynode": null,
+      "estimator__colsample_bytree": null,
+      "estimator__device": null,
+      "estimator__early_stopping_rounds": null,
+      "estimator__enable_categorical": false,
+      "estimator__eval_metric": null,
+      "estimator__feature_types": null,
+      "estimator__gamma": null,
+      "estimator__grow_policy": null,
+      "estimator__importance_type": null,
+      "estimator__interaction_constraints": null,
+      "estimator__learning_rate": 0.0019409357762290662,
+      "estimator__max_bin": null,
+      "estimator__max_cat_threshold": null,
+      "estimator__max_cat_to_onehot": null,
+      "estimator__max_delta_step": null,
+      "estimator__max_depth": 2148,
+      "estimator__max_leaves": null,
+      "estimator__min_child_weight": null,
+      "estimator__missing": NaN,
+      "estimator__monotone_constraints": null,
+      "estimator__multi_strategy": null,
+      "estimator__n_estimators": 1035,
+      "estimator__n_jobs": -2,
+      "estimator__num_parallel_tree": null,
+      "estimator__random_state": null,
+      "estimator__reg_alpha": null,
+      "estimator__reg_lambda": null,
+      "estimator__sampling_method": null,
+      "estimator__scale_pos_weight": null,
+      "estimator__subsample": null,
+      "estimator__tree_method": null,
+      "estimator__validate_parameters": null,
+      "estimator__verbosity": null,
+      "n_jobs": -1
+    }
+  },
+  "accuracy_avg": [
+    0.5811973114604694
+  ],
+  "accuracy_stdev": [
+    0.028508090215592287
+  ],
+  "f1_avg": [
+    0.8109871750512846,
+    0.8260844734975169,
+    0.6416987826939606
+  ],
+  "f1_stdev": [
+    0.016279149697483716,
+    0.019290115295302057,
+    0.05772085980765159
+  ],
+  "roc_auc_avg": [
+    0.7637610753613551,
+    0.7713916986713449,
+    0.7565481240573153
+  ],
+  "roc_auc_stdev": [
+    0.01701327519874282,
+    0.03118085829364905,
+    0.027945581841775403
+  ],
+  "accuracy_avg_aggregate": 0.5811973114604694,
+  "accuracy_stdev_aggregate": 0.028508090215592287,
+  "f1_avg_aggregate": 0.7595901437475874,
+  "f1_stdev_aggregate": 0.03109670826681245,
+  "roc_auc_avg_aggregate": 0.7639002993633385,
+  "roc_auc_stdev_aggregate": 0.02537990511138909
+}

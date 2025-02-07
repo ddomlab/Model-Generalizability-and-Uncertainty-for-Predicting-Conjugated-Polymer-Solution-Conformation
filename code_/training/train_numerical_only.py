@@ -31,6 +31,7 @@ def main_numerical_only(
     kernel:str=None,
     cutoff:Optional[str]=None,
     second_transformer:str=None,
+    classification:bool=False,
 
 ) -> None:
 
@@ -52,6 +53,7 @@ def main_numerical_only(
                                             imputer=imputer,
                                             second_transformer=second_transformer,
                                             Test=TEST,
+                                            classification=classification,
                                             )
     
     save_results(scores,
@@ -69,6 +71,7 @@ def main_numerical_only(
                 hypop=hyperparameter_optimization,
                 transform_type=transform_type,
                 second_transformer=second_transformer,
+                classification=classification
                 )
 
 
@@ -177,19 +180,21 @@ if __name__ == "__main__":
         imputer=args.imputer,
         cutoff=None,  
         # second_transformer='Log',
+        classification=True
     )
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="sklearn-GPR",
-    #     kernel= "matern",
-    #     target_features=['Rh (IW avg log)'],  # Can adjust based on actual usage
-    #     transform_type="Standard",
+    #     regressor_type="XGBC",
+    #     # kernel= "matern",
+    #     target_features=['binary multimodal Rh'],  # Can adjust based on actual usage
+    #     transform_type=None,
     #     hyperparameter_optimization=True,
     #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
     #     special_impute="Mw (g/mol)",
     #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
     #     imputer="mean",
+    #     classification=True,
     #     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]

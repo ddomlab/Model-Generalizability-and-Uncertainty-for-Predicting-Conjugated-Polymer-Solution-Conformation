@@ -70,7 +70,7 @@ def multioutput_cross_validate(estimator, X, y,
     Returns:
     - results: Dictionary containing scores for each fold and each scorer.
     """
-    params = _check_params_groups_deprecation(fit_params, params, groups)
+    params = _check_params_groups_deprecation(fit_params, params, groups, "1.8")
     cv = check_cv(cv, y, classifier=is_classifier(estimator))
 
     X, y = indexable(X, y)

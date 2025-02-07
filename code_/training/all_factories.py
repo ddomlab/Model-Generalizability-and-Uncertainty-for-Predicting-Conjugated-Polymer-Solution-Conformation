@@ -1,6 +1,6 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
-from xgboost import XGBRegressor
+from xgboost import XGBRegressor, XGBClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from ngboost import NGBRegressor
@@ -89,6 +89,7 @@ regressor_factory: dict[str, type]={
     "Lasso": Lasso(),
     "DT": DecisionTreeRegressor(),
     "NGB": NGBRegressor(),
+    "XGBC":XGBClassifier(),
     "GPR": GPRegressor,
     "sklearn-GPR":GaussianProcessRegressor
 }
@@ -139,6 +140,24 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__regressor__n_jobs": [-2],
         "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
     }
+
+
+    if algortihm == "XGBC":
+        return {
+        "regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
+        "regressor__max_depth": Integer(3, 10000, prior="log-uniform"),
+        "regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
+        # "classifier__classifier__subsample": Real(0.5, 1.0, prior="uniform"),
+        # "classifier__classifier__colsample_bytree": Real(0.5, 1.0, prior="uniform"),
+        # "classifier__classifier__gamma": Real(1e-8, 1.0, prior="log-uniform"),
+        # "classifier__classifier__min_child_weight": Integer(1, 10),
+        # "classifier__classifier__reg_alpha": Real(1e-5, 1.0, prior="log-uniform"),
+        # "classifier__classifier__reg_lambda": Real(1e-5, 1.0, prior="log-uniform"),
+        "regressor__n_jobs": [-2],
+        "regressor__objective":['binary:logistic']
+    }
+
+
 
     if algortihm == "DT":
         return {
@@ -204,74 +223,6 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
     else:
         return None
 
-
-
-# regressor_search_space = {
-#     "MLR": {
-#         "regressor__regressor__fit_intercept": [True, False]
-#     },
-#     "Lasso": {
-#         "regressor__alpha": Real(1e-3, 1e3, prior="log-uniform"),
-#         "regressor__fit_intercept": [True, False],
-#         "regressor__selection": Categorical(["cyclic", "random"]),
-#     },
-#     "KNN": {
-#         "regressor__n_neighbors": Integer(1, 50),
-#         "regressor__weights": Categorical(["uniform", "distance"]),
-#         "regressor__algorithm": Categorical(["ball_tree", "kd_tree", "brute"]),
-#         "regressor__leaf_size": Integer(1, 100),
-#     },
-#     "SVR": {
-#         "regressor__kernel": Categorical(["linear", "rbf"]),
-#     },
-#     "RF": {
-#         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
-#         "regressor__regressor__max_depth": [None],
-#         "regressor__regressor__min_samples_split": Real(0.05, 0.99),
-#         "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-#         "regressor__regressor__max_features": Categorical(["sqrt", "log2"]),
-#     },
-#     "XGBR": {
-#         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
-#         "regressor__regressor__max_depth": Integer(10, 10000, prior="log-uniform"),
-#         # "regressor__grow_policy": Categorical(["depthwise", "lossguide"]),
-#         "regressor__regressor__n_jobs": [-2],
-#         "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
-#     },
-#     "DT": {
-#         "regressor__regressor__min_samples_split": Real(0.05, 0.99),
-#         "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-#         "regressor__regressor__max_features": Categorical([None,"sqrt", "log2"]),
-#         "regressor__regressor__max_depth": [None],
-#         "regressor__regressor__ccp_alpha": Real(0.05, 0.99),
-#     },
-#     "NGB": {
-#         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
-#         "regressor__regressor__learning_rate": Real(1e-6, 1e-3, prior="log-uniform"),
-#         "regressor__regressor__minibatch_frac": [1],
-#         # "regressor__regressor__minibatch_size":   Integer(1, 100),
-#         #  "regressor__regressor__Base":             Categorical(["DecisionTreeRegressor", "Ridge", "Lasso",
-#         #                                            "KernelRidge", "SVR"]),
-#         "regressor__regressor__natural_gradient": [True],
-#         "regressor__regressor__verbose": [False],
-#         # "regressor__regressor__min_samples_split": Real(0.05, 0.99),
-#         # "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-#         # "regressor__regressor__tol": Real(1e-6, 1e-3, prior="log-uniform"),
-#     },
-#     "GPR": {
-#         "regressor__regressor__lr": [1e-2], 
-#         "regressor__regressor__n_epoch": [100],
-#         "regressor__regressor__lengthscale": Real(0.05, 3.0), 
-#         "regressor__regressor__nu": Real(0.5, 2.5),
-
-#     },
-
-#     "sklearn-GPR": {
-#         # "regressor__regressor__kernel__gamma": Real(1e-5, 1e0 , prior="log-uniform"),
-#         "regressor__regressor__kernel__length_scale": Real(0.05, 3.0),
-#          "regressor__regressor__kernel__nu": Real(0.5, 2.5),
-#     }
-# }
 
 
 results = {

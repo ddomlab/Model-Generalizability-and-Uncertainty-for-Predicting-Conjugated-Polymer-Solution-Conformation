@@ -145,6 +145,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  hypop: Optional[bool]=True,
                  transform_type:Optional[str]=None,
                  second_transformer:Optional[str]=None,
+                 classification:bool=None
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -160,8 +161,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     print(features_dir)
     if cutoff:
         cutoff_parameter = "-".join(feature_abbrev.get(key,key) for key in cutoff)
-    
-    f_root_dir = f"target_{targets_dir}_{second_transformer}FT" if second_transformer else f"target_{targets_dir}"
+    f_root_dir = f"classification_target_{targets_dir}" if classification else  f"target_{targets_dir}"
+    f_root_dir = f"{f_root_dir}_{second_transformer}FT" if second_transformer else f_root_dir
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir
