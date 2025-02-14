@@ -1,5 +1,5 @@
 from sklearn.linear_model import LinearRegression
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestRegressor,RandomForestClassifier
 from xgboost import XGBRegressor, XGBClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
@@ -90,6 +90,7 @@ regressor_factory: dict[str, type]={
     "DT": DecisionTreeRegressor(),
     "NGB": NGBRegressor(),
     "XGBC":XGBClassifier(),
+    "RFC": RandomForestClassifier(),
     "GPR": GPRegressor,
     "sklearn-GPR":GaussianProcessRegressor
 }
@@ -157,6 +158,12 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__objective":['binary:logistic']
     }
 
+
+    if algortihm == "RFC":
+        return {
+        "regressor__n_estimators": Integer(10, 2000, prior="log-uniform"),
+        "regressor__max_depth": Integer(2, 10000, prior="log-uniform"),
+    }
 
 
     if algortihm == "DT":

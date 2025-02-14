@@ -3,7 +3,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 
 # Correctly define models and numerical features
 target_to_asses=('binary multimodal Rh')
-models_to_run=("XGBC")
+models_to_run=("RFC")
 # scaler_types=("Robust Scaler")
 
 for target in "${target_to_asses[@]}"; do
