@@ -4,12 +4,12 @@ from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
-from sklearn.model_selection import KFold
+from sklearn.model_selection import KFold, StratifiedKFold
 from sklearn.pipeline import Pipeline
 from skopt import BayesSearchCV
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.multioutput import MultiOutputRegressor,MultiOutputClassifier
-
+from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
@@ -172,12 +172,13 @@ def run(
     kernel = construct_kernel(regressor_type, kernel)
 
     for seed in SEEDS:
-      cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+      cv_outer = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
+    #   cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = get_target_transformer(transform_type,second_transformer)
 
       if classification:
             y_transform_regressor = MultiOutputClassifier(regressor_factory[regressor_type],n_jobs=-1)
-            skop_scoring = "roc_auc"
+            skop_scoring = "f1_micro"
             search_space = {
             f"regressor__estimator__{key.split('__')[-1]}": value
             for key, value in search_space.items()
@@ -221,7 +222,8 @@ def run(
                 regressor_type=regressor_type,
                 search_space=search_space,
                 regressor=regressor,
-                scoring=skop_scoring
+                scoring=skop_scoring,
+                classification=classification
             )
             scores, predictions = cross_validate_regressor(
                 best_estimator, X, y, cv_outer,classification=classification
@@ -253,8 +255,8 @@ def _pd_to_np(data):
 
 
 def _optimize_hyperparams(
-    X, y, cv_outer: KFold, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline,
-    scoring) -> tuple:
+    X, y, cv_outer, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline, classification:bool,
+    scoring:Union[str,Callable]) -> tuple:
 
     # Splitting for outer cross-validation loop
     estimators: list[BayesSearchCV] = []
@@ -264,6 +266,7 @@ def _optimize_hyperparams(
         y_train = split_for_training(y, train_index)
         # print(X_train)
         # Splitting for inner hyperparameter optimization loop
+        cv_inner = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
         cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
         print("\n\n")
         print(
@@ -333,6 +336,10 @@ def get_target_transformer(transformer:str,extra_transformer:str) -> Pipeline:
             ("y scaler", transforms[transformer])  # StandardScaler to standardize the target
             ])
 
-    # return None
 
 
+def get_default_kfold_splitter(n_splits: int, classification:bool, random_state:int):
+    if classification:
+        return MultilabelStratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
+    else:
+        return KFold(n_splits=n_splits, shuffle=True)

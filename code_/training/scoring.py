@@ -12,7 +12,9 @@ from sklearn.metrics import (
     r2_score,
     roc_auc_score,
     accuracy_score,
-    f1_score
+    f1_score,
+    recall_score,
+    precision_score,
 )
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
@@ -97,11 +99,17 @@ def f1_scorer_multi(y_true, y_pred):
 def roc_auc_scorer_multi(y_true, y_pred):
     return roc_auc_score(y_true, y_pred, average=None)
 
+def recall_scorer_multi(y_true, y_pred):
+    return recall_score(y_true, y_pred, average=None)
+
+def precision_scorer_multi(y_true, y_pred):
+    return precision_score(y_true, y_pred, average=None)
+
 
 r_scorer = make_scorer(pearson, greater_is_better=True)
 rmse_scorer = make_scorer(rmse_score, greater_is_better=False)
 mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
-roc_auc_scorer = make_scorer(roc_auc_score)
+# roc_auc_scorer = make_scorer(roc_auc_score)
 
 
 
@@ -220,9 +228,11 @@ def cross_validate_regressor(
     ) -> tuple[dict[str, float], np.ndarray]:
         if classification:
             scorers= {
-            "accuracy": accuracy_scorer_multi,  # Accuracy score
-            "f1": f1_scorer_multi,         # F1 score with macro average
-            "roc_auc": roc_auc_scorer_multi    # ROC AUC score
+            "accuracy": accuracy_scorer_multi,  
+            "f1": f1_scorer_multi,
+            "recall": recall_scorer_multi,
+            "precision": precision_scorer_multi,
+            "roc_auc": roc_auc_scorer_multi    
             }
 
         else:
