@@ -228,6 +228,9 @@ if __name__ == "__main__":
         w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
         # print(w_data[["multimodal Rh",'log First Peak (e-5 place holder)','log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']])
         w_data["binary multimodal Rh"] = w_data["multimodal Rh"].apply(lambda x: [1 if value > 0 else 0 for value in x] if x is not None else None)
+        new_binary_separate_cols = ['binary First peak', 'binary Second peak','binary Third peak']
+        w_data = expand_peaks(w_data,"binary multimodal Rh", zero_replacement=False,new_columns=new_binary_separate_cols)
+        # print(w_data['binary First peak'])
         w_data.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl")
 
 

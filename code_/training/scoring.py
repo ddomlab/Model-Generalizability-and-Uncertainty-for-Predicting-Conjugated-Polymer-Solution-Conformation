@@ -123,7 +123,8 @@ def process_scores(
                 key for key in scores[first_key].keys() if key.startswith("test_")
             ]
         if classification:
-            arr = np.array(scores[42]['test_roc_auc'])
+            #TODO: add multi and single
+            arr = np.array(scores[42]['test_f1'])
             avg_roc_auc = np.round(np.mean(np.vstack([arr for seed in scores.values() for arr in seed["test_roc_auc"]]), axis=0), 3)
             stdev_roc_auc = np.round(np.std(np.vstack([arr for seed in scores.values() for arr in seed["test_roc_auc"]]), axis=0), 3)
             print("Average scores:\t",

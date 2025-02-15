@@ -9,7 +9,9 @@ from sklearn.pipeline import Pipeline
 from skopt import BayesSearchCV
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.multioutput import MultiOutputRegressor,MultiOutputClassifier
-from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
+# from optuna.integration import OptunaSearchCV
+
+# from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
@@ -177,12 +179,19 @@ def run(
       y_transform = get_target_transformer(transform_type,second_transformer)
 
       if classification:
+        skop_scoring = "f1"
+
+        if y.shape[1] > 1:
             y_transform_regressor = MultiOutputClassifier(regressor_factory[regressor_type],n_jobs=-1)
-            skop_scoring = "f1_micro"
             search_space = {
             f"regressor__estimator__{key.split('__')[-1]}": value
             for key, value in search_space.items()
                 }
+            
+        else:
+            y_transform_regressor = regressor_factory[regressor_type](kernel=kernel) if kernel!=None else regressor_factory[regressor_type]
+                            
+            
 
       else:
         skop_scoring = "r2"
@@ -267,7 +276,7 @@ def _optimize_hyperparams(
         # print(X_train)
         # Splitting for inner hyperparameter optimization loop
         cv_inner = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
-        cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+        # cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
         print("\n\n")
         print(
             "OPTIMIZING HYPERPARAMETERS FOR REGRESSOR", regressor_type, "\tSEED:", seed
@@ -340,6 +349,6 @@ def get_target_transformer(transformer:str,extra_transformer:str) -> Pipeline:
 
 def get_default_kfold_splitter(n_splits: int, classification:bool, random_state:int):
     if classification:
-        return MultilabelStratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
+        return StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
     else:
         return KFold(n_splits=n_splits, shuffle=True)
