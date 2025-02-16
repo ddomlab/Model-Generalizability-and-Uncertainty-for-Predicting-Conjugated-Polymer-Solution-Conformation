@@ -109,8 +109,11 @@ def precision_scorer_multi(y_true, y_pred):
 r_scorer = make_scorer(pearson, greater_is_better=True)
 rmse_scorer = make_scorer(rmse_score, greater_is_better=False)
 mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
-# roc_auc_scorer = make_scorer(roc_auc_score)
 
+f1_scorer = make_scorer(f1_score, greater_is_better=True)
+roc_auc_scorer = make_scorer(roc_auc_score, greater_is_better=True)
+recall_scorer = make_scorer(recall_score, greater_is_better=True)
+precision_scorer = make_scorer(precision_score, greater_is_better=True)
 
 
 def process_scores(
@@ -124,18 +127,36 @@ def process_scores(
             ]
         if classification:
             #TODO: add multi and single
+            print(scores)
             arr = np.array(scores[42]['test_f1'])
-            avg_roc_auc = np.round(np.mean(np.vstack([arr for seed in scores.values() for arr in seed["test_roc_auc"]]), axis=0), 3)
-            stdev_roc_auc = np.round(np.std(np.vstack([arr for seed in scores.values() for arr in seed["test_roc_auc"]]), axis=0), 3)
-            print("Average scores:\t",
-                # f"r: {avg_r}±{stdev_r}\t",
-                f"roc_auc: {avg_roc_auc}±{stdev_roc_auc}")
-            
-            avgs: list[float] = [
-                    np.mean(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+
+            if arr.ndim > 1 and arr.shape[1] > 1:
+                avg_f1 = np.round(np.mean(np.vstack([arr for seed in scores.values() for arr in seed["test_f1"]]), axis=0), 3)
+                stdev_f1 = np.round(np.std(np.vstack([arr for seed in scores.values() for arr in seed["test_f1"]]), axis=0), 3)
+                print("Average scores:\t",
+                    # f"r: {avg_r}±{stdev_r}\t",
+                    f"f1: {avg_f1}±{stdev_f1}")
+                
+                avgs: list[float] = [
+                        np.mean(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+                    ]
+                stdevs: list[float] = [
+                        np.std(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+                    ]
+                
+            else:
+                avg_f1 = round(np.mean([seed["test_f1"] for seed in scores.values()]), 2)
+                stdev_f1 = round(np.std([seed["test_f1"] for seed in scores.values()]), 2)
+                print("Average scores:\t",
+                    # f"r: {avg_r}±{stdev_r}\t",
+                    f"f1: {avg_f1}±{stdev_f1}")
+
+
+                avgs: list[float] = [
+                    np.mean([seed[score] for seed in scores.values()]) for score in score_types
                 ]
-            stdevs: list[float] = [
-                    np.std(np.vstack([arr for seed in scores.values() for arr in seed[score]]), axis=0) for score in score_types
+                stdevs: list[float] = [
+                    np.std([seed[score] for seed in scores.values()]) for score in score_types
                 ]
         else:
 
@@ -227,23 +248,25 @@ def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
 def cross_validate_regressor(
     regressor, X, y, cv,classification,
     ) -> tuple[dict[str, float], np.ndarray]:
-        if classification:
-            scorers= {
-            "accuracy": accuracy_scorer_multi,  
-            "f1": f1_scorer_multi,
-            "recall": recall_scorer_multi,
-            "precision": precision_scorer_multi,
-            "roc_auc": roc_auc_scorer_multi    
-            }
 
-        else:
-            scorers = {
+  
+        if y.shape[1]>1:
+            if classification:
+                scorers= {
+                "accuracy": accuracy_scorer_multi,  
+                "f1": f1_scorer_multi,
+                "recall": recall_scorer_multi,
+                "precision": precision_scorer_multi,
+                "roc_auc": roc_auc_scorer_multi    
+                }
+            else:
+                scorers = {
                         "r2": r2_scorer_multi,
                         "rmse": rmse_scorer_multi,
                         "mae": mae_scorer_multi
-                    }
+                        }
         
-        if y.shape[1]>1:
+
             score =  multioutput_cross_validate(
                 estimator= regressor,
                 X=X,
@@ -255,18 +278,28 @@ def cross_validate_regressor(
                 )
 
         else:
-            score: dict[str, float] = cross_validate(
-                regressor,
-                X,
-                y,
-                cv=cv,
-                scoring={
+            if classification:
+                scorers= {
+                # "accuracy": accuracy_scorer_multi,  
+                "f1": f1_scorer,
+                "recall": recall_scorer,
+                "precision": precision_scorer,
+                "roc_auc": roc_auc_scorer    
+                }
+            else:
+                scorers = {
                     #r pearson is added
                     "r": r_scorer,
                     "r2": r2_scorer,
                     "rmse": rmse_scorer,
                     "mae": mae_scorer,
-                },
+                }
+            score: dict[str, float] = cross_validate(
+                regressor,
+                X,
+                y,
+                cv=cv,
+                scoring=scorers,
                 # return_estimator=True,
                 n_jobs=-1,
                 )
