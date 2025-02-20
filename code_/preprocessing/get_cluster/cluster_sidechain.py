@@ -61,7 +61,7 @@ def determine_side_chain_type(smiles):
 
 
 
-def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
+def plot_feature_ood(data:pd.DataFrame, target:str, column_to_draw:str, hue:str):
     df= data.dropna(subset=[target]).reset_index()
     if type(df[target].loc[1]) == list or type(df[target].loc[1]) == np.array:
         reordered_df = pd.DataFrame(df[target].tolist(), columns=["First Peak", "Second Peak", "Third Peak"])
@@ -69,23 +69,23 @@ def plot_peak_distribution(data:pd.DataFrame, target:str,column_to_draw):
 
     # melted_df = reordered_df.melt(var_name="Peak Position", value_name="Value")
     # melted_df['transformed_value'] = np.log10(melted_df['Value'])
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(8, 6))
     if (df[column_to_draw] <= 0).any():
         # print("Warning: Non-positive values found in the column. Filtering them out.")
         df = df[df[column_to_draw] > 0]
     print(df[column_to_draw].notna().sum())
-    print(df[column_to_draw])
-    sns.histplot(data=df, x=np.log10(df[column_to_draw]), kde=True, hue="Side Chain type", bins=20, ax=ax)
+    # print(df[column_to_draw])
+    sns.histplot(data=df, x=np.log10(df[column_to_draw]), kde=True, hue=hue, bins=20, ax=ax)
     x_label = f'log (Rh {column_to_draw})' if 'Peak' in column_to_draw else f'log ({column_to_draw})'
 
     ax.set_xlabel(x_label)
     ax.set_ylabel('Occurrence')
-    ax.set_title(f'Distribution of  {column_to_draw} over side chain type in {target}')
+    ax.set_title(f'Distribution of  {column_to_draw}\n over {hue} {target}')
     # ax.tick_params(axis='x', labelsize=25)  # Set font size for x-axis ticks
     # ax.tick_params(axis='y', labelsize=25)  # Set font size for y-axis ticks
     
     box_inset = ax.inset_axes([0.01, -0.4, 0.99, 0.2])  
-    sns.boxplot(x=np.log10(df[column_to_draw]), data=df, hue="Side Chain type", ax=box_inset)
+    sns.boxplot(x=np.log10(df[column_to_draw]), data=df, hue=hue, ax=box_inset)
     box_inset.set(yticks=[], xlabel=None)
     box_inset.legend_.remove()
     # box_inset.tick_params(axis='x', labelsize=20)
@@ -157,32 +157,32 @@ def plot_hanson_space(df, hsp_material:str):
 if __name__ == "__main__":
     Rh_data = w_data[w_data["multimodal Rh"].notna()]
     # print(len(Rh_data['Temperature SANS/SLS/DLS/SEC (K)'].notna()))
-    # Rh_data["Side Chain type"] = Rh_data["Monomer SMILES"].apply(determine_side_chain_type)
+    # Rh_data['Side Chain cluster'] = Rh_data["Monomer SMILES"].apply(determine_side_chain_type)
 
     Rg_data = w_data[w_data['Rg1 (nm)'].notna()]
-    # Rg_data["Side Chain type"] = Rg_data["Monomer SMILES"].apply(determine_side_chain_type)
+    # Rg_data['Side Chain cluster'] = Rg_data["Monomer SMILES"].apply(determine_side_chain_type)
 
     # unique_data = w_data[['canonical_name', 'Monomer SMILES']].drop_duplicates()
-    # unique_data["Side Chain type"] = unique_data["Monomer SMILES"].apply(determine_side_chain_type)
-    # w_data["Side Chain type"] = w_data["Monomer SMILES"].apply(determine_side_chain_type)
+    # unique_data['Side Chain cluster'] = unique_data["Monomer SMILES"].apply(determine_side_chain_type)
+    # w_data['Side Chain cluster'] = w_data["Monomer SMILES"].apply(determine_side_chain_type)
     
     # for group in ['non-polar', 'polar', 'ionic']:
-    #     # print(f"{group}:",len(w_data[w_data['Side Chain type']==group]))
-    #     # print(f"unique {group}:",len(unique_data[unique_data['Side Chain type']==group]))
-    #     print(f"Rg: {group}:",len(Rg_data[Rg_data['Side Chain type']==group]))
-    #     print(f"Rh: {group}:",len(Rh_data[Rh_data['Side Chain type']==group]))
+    #     # print(f"{group}:",len(w_data[w_data['Side Chain cluster']==group]))
+    #     # print(f"unique {group}:",len(unique_data[unique_data['Side Chain cluster']==group]))
+    #     print(f"Rg: {group}:",len(Rg_data[Rg_data['Side Chain cluster']==group]))
+    #     print(f"Rh: {group}:",len(Rh_data[Rh_data['Side Chain cluster']==group]))
 
 
-    # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
-    # plot_peak_distribution(Rh_data,'multimodal Rh',"First Peak")
+    # plot_feature_ood(Rg_data,'Rg1 (nm)','Rg1 (nm)')
+    # plot_feature_ood(Rh_data,'multimodal Rh',"First Peak")
     # plot
-    # plot_peak_distribution(Rh_data,'multimodal Rh',"Second Peak")    
-    # plot_peak_distribution(Rh_data,'multimodal Rh',"Third Peak")
-    # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Temperature SANS/SLS/DLS/SEC (K)')
-    # plot_peak_distribution(Rg_data,'Rg1 (nm)','Rg1 (nm)')
-    # plot_peak_distribution(Rg_data,'Rg1 (nm)', 'Ra')
+    # plot_feature_ood(Rh_data,'multimodal Rh',"Second Peak")    
+    # plot_feature_ood(Rh_data,'multimodal Rh',"Third Peak")
+    # plot_feature_ood(Rg_data,'Rg1 (nm)', 'Temperature SANS/SLS/DLS/SEC (K)')
+    # plot_feature_ood(Rg_data,'Rg1 (nm)','Rg1 (nm)')
+    # plot_feature_ood(Rg_data,'Rg1 (nm)', 'Ra')
     # features = ['Temperature SANS/SLS/DLS/SEC (K)','Ra', 'Concentration (mg/ml)', 'Mn (g/mol)']
     # for feats in features:
-    #     plot_peak_distribution(Rh_data,'multimodal Rh', feats)
+    #     plot_feature_ood(Rh_data,'multimodal Rh', feats, hue='Side Chain cluster')
     
     plot_hanson_space(Rg_data,'solvent')

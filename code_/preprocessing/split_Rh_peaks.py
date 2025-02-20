@@ -39,7 +39,6 @@ def reorder_and_pad(values, peaks, intensity,l1,l2):
     }
 
     result = [0, 0, 0]
-
     for key, (lower, upper) in ranges.items():
         in_range = (values >= lower) & (values < upper)
         range_values = values[in_range]
@@ -65,7 +64,7 @@ def reorder_and_pad(values, peaks, intensity,l1,l2):
 
 
 def get_padding(value):
-    if isinstance(value, list):
+    if isinstance(value, list) or isinstance(value, np.ndarray):
         # If the list is shorter than 3, pad with zeros
         if len(value) < 3:
             return value + [0] * (3 - len(value))
@@ -76,11 +75,36 @@ def get_padding(value):
         else:
             return value
     # Preserve NaN values
-    elif pd.isna(value):
-        return np.nan
+    # elif pd.isna(value):
+    #     return np.nan
     # Handle unexpected cases gracefully
     else:
-        raise ValueError("The column contains unexpected non-list, non-NaN values.")
+        return value
+
+def calculate_Rh(row):
+    # Check if the 'peak index (above 1 nm)' is NaN or empty
+    if row['peak index (above 1 nm)'] is None or isinstance(row['peak index (above 1 nm)'], float):
+        # If there's no peak index or it's a single value, return the value in 'Rh at peaks (above 1 nm)'
+        if isinstance(row['Rh at peaks (above 1 nm)'], (list,np.ndarray)):
+          return float(row['Rh at peaks (above 1 nm)'])
+        return row['Rh at peaks (above 1 nm)']
+    else:
+        # If there is a peak index, we need to find the highest intensity
+        intensities = row['normalized intensity (0-1) corrected']  # This is a NumPy array
+        peak_indices = row['peak index (above 1 nm)']  # This should be a NumPy array or a list
+        
+        # Find the index of the highest intensity
+        find_max_int = intensities[peak_indices]
+        max_intensity_idx = np.argmax(find_max_int)
+        
+        # Get the corresponding Rh value using the highest intensity index
+        Rh_values = row['Rh at peaks (above 1 nm)']  # This should also be a NumPy array
+        return Rh_values[max_intensity_idx]
+
+
+
+
+
     
 
 def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
@@ -185,7 +209,7 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 
 
 def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool,new_columns:list):
-    df_peaks = df[column].apply(lambda x: x if isinstance(x, list) or isinstance(x, np.ndarray) else [np.nan] * 3)
+    df_peaks = df[column].map(lambda x: x if isinstance(x, list) or isinstance(x, np.ndarray) else [np.nan] * 3)
     df_peaks = pd.DataFrame(df_peaks.tolist(), columns=new_columns)
     if zero_replacement:
         df_peaks.replace(0, np.nan, inplace=True)
@@ -198,7 +222,9 @@ if __name__ == "__main__":
     # for i1 in [40,50,70,80,90, 100]:
     # for i2 in [900,1000,1100,1200,1500, 1900,2000]:
         # l3=3500
-
+        columns_to_transform = ["Rh at peaks (above 1 nm)", "peak index (above 1 nm)", "normalized intensity (0-1) corrected"]
+        w_data[columns_to_transform] = w_data[columns_to_transform].map(lambda x: np.array(x) if isinstance(x, list) else x)
+        # print(type(w_data["Rh at peaks (above 1 nm)"].loc[739]))
         l1 = 40
         l2 = 1000
         w_data["multimodal Rh"], w_data["distances"] = zip(*w_data.apply(
@@ -214,7 +240,8 @@ if __name__ == "__main__":
 
 
         w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(get_padding)
-    
+        w_data['Rh (highest intensity)'] = w_data.apply(calculate_Rh, axis=1)
+        # print(w_data['Rh (highest intensity)'].notna().sum())
         if "distances" in w_data.columns:
             w_data.drop(columns=["distances"], inplace=True)
         new_exanded_col_with_zero_replaced = ['First Peak_wo placeholder', 'Second Peak_wo placeholder', 'Third Peak_wo placeholder'] # dropped palce holder
@@ -225,7 +252,7 @@ if __name__ == "__main__":
         w_data["log multimodal Rh (e-5 place holder)"] = w_data["multimodal Rh (e-5 place holder)"].apply(lambda x: np.log10(x) if isinstance(x, list) else x)
         new_exanded_col_with_new_place_holder = ['log First Peak (e-5 place holder)', 'log Second Peak (e-5 place holder)', 'log Third Peak (e-5 place holder)']
         w_data = expand_peaks(w_data,"log multimodal Rh (e-5 place holder)", zero_replacement=False,new_columns=new_exanded_col_with_new_place_holder)
-        w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].applymap(lambda x: np.log10(x) if x > 0 else None)
+        w_data[['log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']] = w_data[new_exanded_col_with_zero_replaced].map(lambda x: np.log10(x) if x > 0 else None)
         # print(w_data[["multimodal Rh",'log First Peak (e-5 place holder)','log First Peak wo placeholder', 'log Second Peak wo placeholder', 'log Third Peak wo placeholder']])
         w_data["binary multimodal Rh"] = w_data["multimodal Rh"].apply(lambda x: [1 if value > 0 else 0 for value in x] if x is not None else None)
         new_binary_separate_cols = ['binary First peak', 'binary Second peak','binary Third peak']

@@ -470,3 +470,134 @@ def create_scaler_result(target_dir:Path,
 # target_log First/second/third Peak wo placeholder,
 # target_Rh First/second/third Peak wo placeholder,
 # target_Rh First/second/third Peak_wo placeholder_LogFT]
+
+
+def generate_annotations(num: float) -> str:
+    """
+    Args:
+        num: Number to annotate
+
+    Returns:
+        String to annotate heatmap
+    """
+    if isinstance(num, float) and not np.isnan(num):
+        num_txt: str = f"{round(num, 2)}"
+    else:
+        num_txt = "NaN"
+    return num_txt
+
+# Data
+# avg_scores_data = {
+#     "f1": [
+#         0.8550117562576581,
+#         0.83602299745736,
+#         0.669985826461003
+#     ],
+#     "roc_auc": [
+#         0.8274288849888349,
+#         0.7899552398200742,
+#         0.7842088864051447
+#     ],
+# }
+
+# std_scores_data = {
+#     "f1": [
+#         0.033211296589146976,
+#         0.03316085926647565,
+#         0.10417244551725248
+#     ],
+#     "roc_auc": [
+#         0.03631999215865959,
+#         0.030949777896313757,
+#         0.06522971940645816
+#     ],
+# }
+
+
+# avg_scores = pd.DataFrame(avg_scores_data, index=["First peak", "Second peak", "Third peak"])
+# std_scores = pd.DataFrame(std_scores_data, index=["First peak", "Second peak", "Third peak"])
+
+# # Generate annotations
+# annotations = pd.DataFrame("", index=avg_scores.index, columns=avg_scores.columns)
+
+# for y in avg_scores.index:
+#     for x in avg_scores.columns:
+#         avg = avg_scores.loc[y, x]
+#         std = std_scores.loc[y, x]
+#         avg_txt: str = generate_annotations(avg)
+#         std_txt: str = generate_annotations(std)
+#         annotations.loc[y, x] = f"{avg_txt}\n±{std_txt}"
+
+# # Function to create heatmap
+# def _create_heatmap(
+#     root_dir: Path,
+#     score: str,
+#     var: str,
+#     avg_scores: pd.DataFrame,
+#     annotations: pd.DataFrame,
+#     figsize: tuple[int, int],
+#     fig_title: str,
+#     x_title: str,
+#     y_title: str,
+#     fname: str,
+#     vmin: float = None,
+#     vmax: float = None,
+# ) -> None:
+#     fig, ax = plt.subplots(figsize=figsize)
+#     palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
+#     custom_cmap = sns.color_palette(palette, as_cmap=True)
+#     custom_cmap.set_bad(color="lightgray")
+
+#     hmap = sns.heatmap(
+#         avg_scores,
+#         annot=annotations,
+#         fmt="",
+#         cmap=custom_cmap,
+#         cbar=True,
+#         vmin=vmin,
+#         vmax=vmax,
+#         ax=ax,
+#         mask=avg_scores.isnull(),
+#         annot_kws={"fontsize": 25},
+#     )
+
+#     # Set axis labels
+#     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
+#     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
+#     ax.set_xticklabels(avg_scores.columns, rotation=45, ha="right", fontsize=14, fontweight="bold")
+#     ax.set_yticklabels(avg_scores.index, rotation=0, ha="right", fontsize=14, fontweight="bold")
+
+#     # Set plot and axis titles
+#     plt.title(fig_title, fontsize=18, fontweight="bold")
+#     ax.set_xlabel(x_title, fontsize=16, fontweight="bold")
+#     ax.set_ylabel(y_title, fontsize=16, fontweight="bold")
+
+#     # Set colorbar title
+#     score_txt: str = "$R^2$" if score == "r2" else score
+#     cbar = hmap.collections[0].colorbar
+#     cbar.set_label(f"Average {score_txt.upper()} ± {var}", rotation=270, labelpad=20, fontsize=16, fontweight="bold")
+#     cbar.ax.tick_params(labelsize=14)
+
+#     visualization_folder_path = root_dir / "heatmap"
+#     os.makedirs(visualization_folder_path, exist_ok=True)
+#     plt.tight_layout()
+#     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
+#     plt.show()
+#     plt.close()
+
+# # Example usage
+# root_dir = Path("./")
+# _create_heatmap(
+#     root_dir=root_dir,
+#     score="r2",
+#     var="Standard Deviation",
+#     avg_scores=avg_scores,
+#     annotations=annotations,
+#     figsize=(10, 10),
+#     fig_title="R² Scores for classification of Rh peaks",
+#     x_title="Transformation Name",
+#     y_title="Peak Type",
+#     fname="heatmap",
+#     vmin=0.5,
+#     vmax=0.9,
+# )
