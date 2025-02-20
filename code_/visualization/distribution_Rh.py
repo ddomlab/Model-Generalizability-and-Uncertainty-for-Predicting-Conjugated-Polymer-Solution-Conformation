@@ -33,10 +33,10 @@ def plot_single_distribution(df,target:str):
     plt.xlabel("log (Rh (nm))", fontsize=14)
     plt.ylabel("Frequency", fontsize=14)
     plt.xlim(0)
-    plt.gca().xaxis.set_major_locator(MaxNLocator(nbins=25))  # Adjust `nbins` as needed
+    plt.gca().xaxis.set_major_locator(MaxNLocator(nbins=10))  # Adjust `nbins` as needed
     save_path(Vis_path,f"Distribution of {target}")
     plt.close()
 
-plot_single_distribution(working_data, target="Rh (IW avg log)")
+plot_single_distribution(working_data, target='Rh (1_1000 nm) (highest intensity)')
 
 # plot_single_distribution()

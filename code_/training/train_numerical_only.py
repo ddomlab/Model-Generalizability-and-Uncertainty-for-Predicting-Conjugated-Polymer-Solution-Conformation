@@ -172,7 +172,7 @@ if __name__ == "__main__":
         regressor_type=args.regressor_type,
         kernel=args.kernel,
         target_features=[args.target_features],  
-        transform_type=None,
+        transform_type='Standard',
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
@@ -180,21 +180,21 @@ if __name__ == "__main__":
         imputer=args.imputer,
         cutoff=None,  
         # second_transformer='Log',
-        classification=True
+        classification=False
     )
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="RFC",
+    #     regressor_type="XGBR",
     #     # kernel= "matern",
-    #     target_features=['binary First peak'],  # Can adjust based on actual usage
-    #     transform_type=None,
+    #     target_features=['Rh (1_1000 nm) (highest intensity)'],  # Can adjust based on actual usage
+    #     transform_type='Standard',
     #     hyperparameter_optimization=True,
     #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
     #     special_impute="Mw (g/mol)",
     #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
     #     imputer="mean",
-    #     classification=True,
+    #     classification=False,
     #     cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]

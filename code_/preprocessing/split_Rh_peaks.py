@@ -81,31 +81,62 @@ def get_padding(value):
     else:
         return value
 
-def calculate_Rh(row):
-    # Check if the 'peak index (above 1 nm)' is NaN or empty
-    if row['peak index (above 1 nm)'] is None or isinstance(row['peak index (above 1 nm)'], float):
-        # If there's no peak index or it's a single value, return the value in 'Rh at peaks (above 1 nm)'
-        if isinstance(row['Rh at peaks (above 1 nm)'], (list,np.ndarray)):
-          return float(row['Rh at peaks (above 1 nm)'])
-        return row['Rh at peaks (above 1 nm)']
-    else:
-        # If there is a peak index, we need to find the highest intensity
-        intensities = row['normalized intensity (0-1) corrected']  # This is a NumPy array
-        peak_indices = row['peak index (above 1 nm)']  # This should be a NumPy array or a list
-        
-        # Find the index of the highest intensity
-        find_max_int = intensities[peak_indices]
-        max_intensity_idx = np.argmax(find_max_int)
-        
-        # Get the corresponding Rh value using the highest intensity index
-        Rh_values = row['Rh at peaks (above 1 nm)']  # This should also be a NumPy array
-        return Rh_values[max_intensity_idx]
 
 
-
-
-
+def calculate_most_intense_Rh(row, apply_mask=False, threshold=(1, 1000)):
+    """
+    Calculate the Rh value corresponding to the highest intensity.
     
+    Parameters:
+        row (pd.Series): A row from the DataFrame.
+        apply_mask (bool): Whether to apply the Rh range filter.
+        threshold (tuple): Min and max range for valid Rh values.
+        
+    Returns:
+        float: Rh value corresponding to the highest intensity peak.
+    """
+    # Check if the 'peak index (above 1 nm)' is NaN or empty
+    min_thresh, max_thresh = threshold
+    if row['peak index (above 1 nm)'] is None:
+        Rh_value = row['Rh at peaks (above 1 nm)']
+        if Rh_value is None:
+            return Rh_value
+        else:
+            Rh_value = float(Rh_value[0])  # Convert list/array to float (taking first value)
+            if apply_mask and not (min_thresh <= Rh_value <= max_thresh):
+                return np.nan
+            return Rh_value
+
+    else:
+        # Extract peak indices and Rh values
+        peak_indices = np.array(row['peak index (above 1 nm)'])  # Convert to NumPy array if not already
+        Rh_values = np.array(row['Rh at peaks (above 1 nm)'])  # Convert to NumPy array if not already
+        intensities = row['normalized intensity (0-1) corrected']  # NumPy array
+
+        if apply_mask:
+            # Apply the restriction using the provided threshold
+            min_thresh, max_thresh = threshold
+            valid_mask = (Rh_values >= min_thresh) & (Rh_values <= max_thresh)
+            # print(valid_mask)
+            # print(Rh_values)
+            if not np.any(valid_mask):  # If no valid Rh values, return NaN
+                return np.nan
+
+            # Keep only valid peak indices and corresponding intensities
+            valid_peak_indices = peak_indices[valid_mask]
+            valid_Rh_values = Rh_values[valid_mask]
+        else:
+            valid_peak_indices = peak_indices
+            valid_Rh_values = Rh_values
+
+        # Get intensities at valid peak indices and find the highest intensity index
+        valid_intensities = intensities[valid_peak_indices]
+        max_intensity_idx = np.argmax(valid_intensities)
+
+        # Return the corresponding Rh value with highest intensity
+        return valid_Rh_values[max_intensity_idx]
+
+
 
 def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     df= data.dropna(subset=[column_name])
@@ -132,7 +163,6 @@ def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     plt.tight_layout()
     save_img_path(VISUALIZATION/"analysis and test",f"Distribution of Rh Peak Values after padding.png")
     plt.close()
-
 
 
 def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
@@ -163,49 +193,49 @@ def plot_non_zero_counts(df:pd.DataFrame, column:str, num_indices:int=3):
 
 
 
-# def plot_violin_with_swarm(data, distance_column):
+def plot_violin_with_swarm(data, distance_column):
 
-#     first_distances = [np.log10(d[0]) for d in data[distance_column] if d[0] is not None and d[0] > 0]
-#     second_distances = [np.log10(d[1]) for d in data[distance_column] if d[1] is not None and d[1] > 0]
-#     third_distances = [np.log10(d[2]) for d in data[distance_column] if d[2] is not None and d[2] > 0]
-#     print("numer of instances in first peaks", len(first_distances))
-#     print("numer of instances in second peaks", len(second_distances))
-#     print("numer of instances in third peaks", len(third_distances))
+    first_distances = [np.log10(d[0]) for d in data[distance_column] if d[0] is not None and d[0] > 0]
+    second_distances = [np.log10(d[1]) for d in data[distance_column] if d[1] is not None and d[1] > 0]
+    third_distances = [np.log10(d[2]) for d in data[distance_column] if d[2] is not None and d[2] > 0]
+    print("numer of instances in first peaks", len(first_distances))
+    print("numer of instances in second peaks", len(second_distances))
+    print("numer of instances in third peaks", len(third_distances))
 
     
-#     plot_data = pd.DataFrame({
-#         "Value": first_distances + second_distances + third_distances,
-#         "peak_order": (["First"] * len(first_distances) +
-#                       ["Second"] * len(second_distances) +
-#                       ["Third"] * len(third_distances)),
+    plot_data = pd.DataFrame({
+        "Value": first_distances + second_distances + third_distances,
+        "peak_order": (["First"] * len(first_distances) +
+                      ["Second"] * len(second_distances) +
+                      ["Third"] * len(third_distances)),
 
-#     })
+    })
 
-#     plt.figure(figsize=(14, 7))
-#     sns.violinplot(x="peak_order", y="Value", data=plot_data,
-#                    split=True, palette="Set2")
+    plt.figure(figsize=(14, 7))
+    sns.violinplot(x="peak_order", y="Value", data=plot_data,
+                   split=True, palette="Set2")
 
-#     sns.swarmplot(x="peak_order", y="Value", data=plot_data,
-#                   dodge=True, color="k", alpha=0.6, size=4)
+    sns.swarmplot(x="peak_order", y="Value", data=plot_data,
+                  dodge=True, color="k", alpha=0.6, size=4)
 
-#     annotation_y = max(plot_data["Value"]) + 1  # Position above the maximum value
-#     plt.annotate(f"{len(first_distances)} instances", xy=(0, annotation_y),
-#                  xytext=(0, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
-#     plt.annotate(f"{len(second_distances)} instances", xy=(1, annotation_y),
-#                  xytext=(1, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
-#     plt.annotate(f"{len(third_distances)} instances", xy=(2, annotation_y),
-#                  xytext=(2, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+    annotation_y = max(plot_data["Value"]) + 1  # Position above the maximum value
+    plt.annotate(f"{len(first_distances)} instances", xy=(0, annotation_y),
+                 xytext=(0, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+    plt.annotate(f"{len(second_distances)} instances", xy=(1, annotation_y),
+                 xytext=(1, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
+    plt.annotate(f"{len(third_distances)} instances", xy=(2, annotation_y),
+                 xytext=(2, annotation_y + 0.1), ha='center', fontsize=20, color='blue')
 
 
-#     plt.title(f"Distribution of distances between Rh in the same range after spliting (limits of {l1}-{l2} nm)", fontsize=20)
-#     plt.xlabel("Peak order", fontsize=30)
-#     plt.ylabel("Log10(distance)", fontsize=30)
-#     plt.xticks(fontsize=25)
-#     plt.yticks(fontsize=25)
-#     plt.grid(axis='y', linestyle='--', alpha=0.7)
-#     plt.tight_layout()
-#     save_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
-#     plt.close()
+    plt.title(f"Distribution of distances between Rh in the same range after spliting (limits of {l1}-{l2} nm)", fontsize=20)
+    plt.xlabel("Peak order", fontsize=30)
+    plt.ylabel("Log10(distance)", fontsize=30)
+    plt.xticks(fontsize=25)
+    plt.yticks(fontsize=25)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.tight_layout()
+    save_img_path(VISUALIZATION/"analysis and test",f"Distribution Rh distance (limits of {l1}-{l2} nm).png")
+    plt.close()
 
 
 def expand_peaks(df:pd.DataFrame, column:str, zero_replacement:bool,new_columns:list):
@@ -223,7 +253,7 @@ if __name__ == "__main__":
     # for i2 in [900,1000,1100,1200,1500, 1900,2000]:
         # l3=3500
         columns_to_transform = ["Rh at peaks (above 1 nm)", "peak index (above 1 nm)", "normalized intensity (0-1) corrected"]
-        w_data[columns_to_transform] = w_data[columns_to_transform].map(lambda x: np.array(x) if isinstance(x, list) else x)
+        w_data[columns_to_transform] = w_data[columns_to_transform].map(lambda x: np.array(x) if isinstance(x, (list,float)) else x)
         # print(type(w_data["Rh at peaks (above 1 nm)"].loc[739]))
         l1 = 40
         l2 = 1000
@@ -240,7 +270,10 @@ if __name__ == "__main__":
 
 
         w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(get_padding)
-        w_data['Rh (highest intensity)'] = w_data.apply(calculate_Rh, axis=1)
+        w_data['Rh (highest intensity)'] = w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=False), axis=1)
+        w_data['Rh (1_1000 nm) (highest intensity)'] =  w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=True, threshold=(1, 1000)), axis=1)
+        print(w_data['Rh (1_1000 nm) (highest intensity)'].notna().sum())
+        print(w_data['Rh (1_1000 nm) (highest intensity)'])
         # print(w_data['Rh (highest intensity)'].notna().sum())
         if "distances" in w_data.columns:
             w_data.drop(columns=["distances"], inplace=True)
