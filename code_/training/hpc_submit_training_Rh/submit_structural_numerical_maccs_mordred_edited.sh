@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Define arrays for regressor types, targets, and models
 regressors=("XGBR")
-targets=("target_Rh (1_1000 nm) (highest intensity)_LogFT")
+targets=('Rh (1_1000 nm) (highest intensity)')
 models=("Mordred" "MACCS")
 poly_representations=('Dimer' 'RRU Dimer')
 

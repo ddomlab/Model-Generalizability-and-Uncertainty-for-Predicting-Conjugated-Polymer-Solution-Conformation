@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
 
 # Correctly define models and numerical features
-target_to_asses=('Rh (1_1000 nm) (smallest rh)')
+target_to_asses=('Rh (1_1000 nm) (highest intensity)')
 models_to_run=("RF" "XGBR")
 # scaler_types=("Robust Scaler")
 
