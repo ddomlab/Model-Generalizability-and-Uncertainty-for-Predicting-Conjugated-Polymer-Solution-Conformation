@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Define arrays for regressor types, targets, and models
 regressors=("XGBR")
-targets=('log First Peak (e-5 place holder)' 'log Second Peak (e-5 place holder)' 'log Third Peak (e-5 place holder)' 'log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
+targets=("target_Rh (1_1000 nm) (highest intensity)_LogFT")
 models=("Mordred" "MACCS")
 poly_representations=('Dimer' 'RRU Dimer')
 
@@ -20,9 +20,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 50:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250122"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_20250122.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250122.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250221"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_20250221.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${scaler}_${oligo_rep}_20250221.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

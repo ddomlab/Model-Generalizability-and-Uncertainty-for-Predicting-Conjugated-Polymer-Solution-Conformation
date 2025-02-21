@@ -226,7 +226,7 @@ if __name__ == "__main__":
         kernel=args.kernel,
         target_features=[args.target_features],  
         transform_type=None,
-        second_transformer=None,
+        second_transformer='Log',
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,

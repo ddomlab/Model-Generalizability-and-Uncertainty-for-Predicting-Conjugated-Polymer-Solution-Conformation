@@ -54,7 +54,7 @@ def train_regressor(
     unroll: Union[dict[str, str], list[dict[str, str]], None],
     regressor_type: str,
     target_features: str,
-    transform_type: str,
+    transform_type: str=None,
     second_transformer:str=None,
     hyperparameter_optimization: bool=True,
     imputer: Optional[str] = None,
