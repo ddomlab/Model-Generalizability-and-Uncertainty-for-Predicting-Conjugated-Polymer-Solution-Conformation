@@ -272,8 +272,9 @@ if __name__ == "__main__":
         w_data["multimodal Rh with padding"] = w_data["Rh at peaks (above 1 nm)"].apply(get_padding)
         w_data['Rh (highest intensity)'] = w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=False), axis=1)
         w_data['Rh (1_1000 nm) (highest intensity)'] =  w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=True, threshold=(1, 1000)), axis=1)
+        w_data['Rh (10_1000 nm) (highest intensity)'] =  w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=True, threshold=(10, 1000)), axis=1)
         print(w_data['Rh (1_1000 nm) (highest intensity)'].notna().sum())
-        print(w_data['Rh (1_1000 nm) (highest intensity)'])
+        # print(w_data['Rh (1_1000 nm) (highest intensity)'])
         # print(w_data['Rh (highest intensity)'].notna().sum())
         if "distances" in w_data.columns:
             w_data.drop(columns=["distances"], inplace=True)
