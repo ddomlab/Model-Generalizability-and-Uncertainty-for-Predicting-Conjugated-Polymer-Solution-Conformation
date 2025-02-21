@@ -172,14 +172,14 @@ if __name__ == "__main__":
         regressor_type=args.regressor_type,
         kernel=args.kernel,
         target_features=[args.target_features],  
-        transform_type='Standard',
+        # transform_type='Standard',
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
         numerical_feats=args.numerical_feats,  
         imputer=args.imputer,
         cutoff=None,  
-        # second_transformer='Log',
+        second_transformer='Log',
         classification=False
     )
 
