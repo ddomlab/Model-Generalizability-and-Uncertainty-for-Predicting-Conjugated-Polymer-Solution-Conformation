@@ -102,16 +102,15 @@ def calculate_most_intense_Rh(row, apply_mask=False, threshold=(1, 1000)):
         if Rh_value is None:
             return Rh_value
         else:
-            Rh_value = float(Rh_value[0])  # Convert list/array to float (taking first value)
+            Rh_value = float(Rh_value)  
             if apply_mask and not (min_thresh <= Rh_value <= max_thresh):
                 return np.nan
             return Rh_value
 
     else:
-        # Extract peak indices and Rh values
-        peak_indices = np.array(row['peak index (above 1 nm)'])  # Convert to NumPy array if not already
-        Rh_values = np.array(row['Rh at peaks (above 1 nm)'])  # Convert to NumPy array if not already
-        intensities = row['normalized intensity (0-1) corrected']  # NumPy array
+        peak_indices = np.array(row['peak index (above 1 nm)']) 
+        Rh_values = np.array(row['Rh at peaks (above 1 nm)'])  
+        intensities = row['normalized intensity (0-1) corrected']  
 
         if apply_mask:
             # Apply the restriction using the provided threshold
@@ -119,17 +118,16 @@ def calculate_most_intense_Rh(row, apply_mask=False, threshold=(1, 1000)):
             valid_mask = (Rh_values >= min_thresh) & (Rh_values <= max_thresh)
             # print(valid_mask)
             # print(Rh_values)
-            if not np.any(valid_mask):  # If no valid Rh values, return NaN
+            if not np.any(valid_mask):  
                 return np.nan
 
-            # Keep only valid peak indices and corresponding intensities
+      
             valid_peak_indices = peak_indices[valid_mask]
             valid_Rh_values = Rh_values[valid_mask]
         else:
             valid_peak_indices = peak_indices
             valid_Rh_values = Rh_values
 
-        # Get intensities at valid peak indices and find the highest intensity index
         valid_intensities = intensities[valid_peak_indices]
         max_intensity_idx = np.argmax(valid_intensities)
 
@@ -137,6 +135,35 @@ def calculate_most_intense_Rh(row, apply_mask=False, threshold=(1, 1000)):
         return valid_Rh_values[max_intensity_idx]
 
 
+def get_smallest_Rh(row, apply_mask=False, threshold=(1, 1000)):
+
+    min_thresh, max_thresh = threshold
+    if row['peak index (above 1 nm)'] is None:
+        Rh_value = row['Rh at peaks (above 1 nm)']
+        if Rh_value is None:
+            return Rh_value
+        else:
+            Rh_value = float(Rh_value)  
+            if apply_mask and not (min_thresh <= Rh_value <= max_thresh):
+                return np.nan
+            return Rh_value
+
+    else:
+            Rh_values = np.array(row['Rh at peaks (above 1 nm)'])  
+            if apply_mask:
+                # Apply the restriction using the provided threshold
+                min_thresh, max_thresh = threshold
+                valid_mask = (Rh_values >= min_thresh) & (Rh_values <= max_thresh)
+                # print(valid_mask)
+                # print(Rh_values)
+                if not np.any(valid_mask):  
+                    return np.nan
+                valid_Rh_values = Rh_values[valid_mask]
+            else:
+                valid_Rh_values = Rh_values
+
+            min_Rh = np.min(valid_Rh_values)
+            return min_Rh
 
 def plot_peak_distribution(data:pd.DataFrame, column_name:str,l1:int,l2:int):
     df= data.dropna(subset=[column_name])
@@ -273,7 +300,9 @@ if __name__ == "__main__":
         w_data['Rh (highest intensity)'] = w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=False), axis=1)
         w_data['Rh (1_1000 nm) (highest intensity)'] =  w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=True, threshold=(1, 1000)), axis=1)
         w_data['Rh (10_1000 nm) (highest intensity)'] =  w_data.apply(lambda row: calculate_most_intense_Rh(row, apply_mask=True, threshold=(10, 1000)), axis=1)
-        print(w_data['Rh (1_1000 nm) (highest intensity)'].notna().sum())
+        w_data['Rh (1_1000 nm) (smallest rh)'] =  w_data.apply(lambda row: get_smallest_Rh(row, apply_mask=True, threshold=(1, 1000)), axis=1)
+
+        print(w_data['Rh (1_1000 nm) (smallest rh)'].notna().sum())
         # print(w_data['Rh (1_1000 nm) (highest intensity)'])
         # print(w_data['Rh (highest intensity)'].notna().sum())
         if "distances" in w_data.columns:

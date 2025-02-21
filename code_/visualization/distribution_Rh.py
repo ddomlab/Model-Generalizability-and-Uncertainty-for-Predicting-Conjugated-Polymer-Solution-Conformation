@@ -37,6 +37,6 @@ def plot_single_distribution(df,target:str):
     save_path(Vis_path,f"Distribution of {target}")
     plt.close()
 
-plot_single_distribution(working_data, target='Rh (1_1000 nm) (highest intensity)')
+plot_single_distribution(working_data, target='Rh (1_1000 nm) (smallest rh)')
 
 # plot_single_distribution()
