@@ -3,11 +3,11 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 mkdir -p "$output_dir"
 
 regressors=("XGBR")
-targets=('log First Peak (e-5 place holder)' 'log Second Peak (e-5 place holder)' 'log Third Peak (e-5 place holder)' 'log First Peak wo placeholder' 'log Second Peak wo placeholder' 'log Third Peak wo placeholder')
+targets=('Rh (1_1000 nm) (highest intensity)')
 models=("ECFP")
 radii=(3) 
 vectors=("count")
-poly_representations=('Dimer' 'RRU Dimer')
+poly_representations=('Dimer' 'RRU Dimer' 'Monomer' 'RRU Monomer' 'Trimer' 'RRU Trimer')
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
