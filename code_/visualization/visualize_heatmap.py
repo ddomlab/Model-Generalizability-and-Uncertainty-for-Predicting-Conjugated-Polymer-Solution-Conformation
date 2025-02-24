@@ -22,13 +22,14 @@ target_list = [
     # "target_multimodal Rh with padding",
     # "target_multimodal Rh (e-5 place holder)_with_Log",
     # "target_multimodal Rh (e-5 place holder)",
-    "target_log10 multimodal Rh (e-5 place holder)"
+    # "target_log10 multimodal Rh (e-5 place holder)"
     # "target_Rh First Peak",
     # "target_Rh Second Peak",
     # "target_Rh Third Peak",
     # "target_Rh First Peak_with_Log",
     # "target_Rh Second Peak_with_Log",
     # "target_Rh Third Peak_with_Log",
+    'target_Rh (1_1000 nm) (highest intensity)_LogFT'
     ]
 
 transformer_list = [
@@ -370,8 +371,7 @@ def create_structural_scaler_result(target_dir:Path,
                                        peak_number=peak_num)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    peak_n = peak_num+1
-    reg_name = f'{regressor_model} on peak {peak_n}' if peak_num else regressor_model
+    reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
     fname= f"PolymerRepresentation vs (Fingerprint-numerical) trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
     _create_heatmap(root_dir=target_dir,
                     score=score,
@@ -386,15 +386,15 @@ def create_structural_scaler_result(target_dir:Path,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
-complex_models = ['XGBR', 'NGB']
+complex_models = ['XGBR']
 
 
-# for transformer in transformer_list:
-#     for model in complex_models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
-#                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
+                create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
                 # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
                 #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
