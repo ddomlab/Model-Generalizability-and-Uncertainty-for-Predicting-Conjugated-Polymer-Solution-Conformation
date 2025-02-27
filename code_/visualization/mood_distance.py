@@ -13,22 +13,22 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 training_df_dir: Path = DATASETS/ "training_dataset"
 
-working_data = pd.read_pickle(training_df_dir/"Rg_training_data.pkl")
+working_data = pd.read_pickle(training_df_dir/'dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl')
 
-
-unique_df = working_data.drop_duplicates(subset="canonical_name")
+Rg_data = working_data[working_data["Rg1 (nm)"].notna()]
+unique_df = Rg_data.drop_duplicates(subset="canonical_name")
 print(len(unique_df))
-binary_vectors = np.array(unique_df["Monomer_ECFP12_binary_4096bits"].tolist())
-count_vectors = np.array(unique_df["Monomer_ECFP12_count_4096bits"].tolist())
+binary_vectors = np.array(unique_df["Monomer_ECFP6_binary_512bits"].tolist())
+count_vectors = np.array(unique_df['Monomer_ECFP6_count_512bits'].tolist())
 
 binary_tanimoto_similarities = 1 - pdist(binary_vectors, metric="jaccard")
 
 
 
-def weighted_jaccard(u, v):
+def weighted_jaccard(u, v, eps:float=1e-6) -> float:
     min_sum = np.sum(np.minimum(u, v))
     max_sum = np.sum(np.maximum(u, v))
-    return 1 - (min_sum / max_sum) if max_sum != 0 else 0
+    return 1 - ((min_sum + eps)/ (max_sum + eps)) 
 
 count_tanimoto_similarities = 1 - pdist(count_vectors, metric=weighted_jaccard)
 
@@ -43,13 +43,13 @@ plt.title("Comparison of Binary and Count-based Tanimoto Similarities")
 plt.xlabel("Tanimoto Similarity")
 plt.ylabel("Frequency")
 plt.tight_layout()
-visualization_folder_path =  HERE/"analysis and test"
-os.makedirs(visualization_folder_path, exist_ok=True)    
-fname = "Comparison of Binary and Count-based Tanimoto Similarities (over Rg)"
-plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
-plt.close()
+# visualization_folder_path =  HERE/"analysis and test"
+# os.makedirs(visualization_folder_path, exist_ok=True)    
+# fname = "Comparison of Binary and Count-based Tanimoto Similarities (over Rg)"
+# plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
+# plt.close()
 
-   
+plt.show()
 
 
 
