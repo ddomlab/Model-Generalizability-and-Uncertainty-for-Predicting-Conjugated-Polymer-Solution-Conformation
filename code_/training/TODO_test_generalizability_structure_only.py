@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from train_generalizability_utils import get_generalizability_predictions
+from code_.training.TODO_train_generalizability_utils import get_generalizability_predictions
 from all_factories import radius_to_bits,cutoffs
 import sys
 import json
