@@ -246,7 +246,7 @@ def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
 
 
 def cross_validate_regressor(
-    regressor, X, y, cv,classification,
+    regressor, X, y, cv,classification=False,
     ) -> tuple[dict[str, float], np.ndarray]:
 
   
@@ -343,3 +343,6 @@ def get_score_func(score: str, output: str) -> Callable:
     return score_func
 
 
+
+def train_and_predict_ood():
+    pass

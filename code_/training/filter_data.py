@@ -33,8 +33,8 @@ def apply_cutoff(data: pd.DataFrame, cutoffs: Dict[str, Tuple[Optional[float], O
 
 
 def sanitize_dataset(
-    training_features: pd.DataFrame, targets:pd.Series, dropna: bool, **kwargs
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+    df: pd.DataFrame, target_feat:list, dropna: bool, **kwargs
+) -> pd.DataFrame:
     """
     Sanitize the training features and targets in case the target features contain NaN values.
 
@@ -48,21 +48,21 @@ def sanitize_dataset(
         Sanitized training features and targets.
     """
     if dropna:
-        targets: pd.Series = targets.dropna()
-        training_features: pd.DataFrame =training_features.loc[targets.index]
-        return training_features, targets
+        df: pd.DataFrame = df.dropna(subset=target_feat)
+        return df
     else:
-        return training_features, targets
+        return df
 
 
 def filter_dataset(
     raw_dataset: pd.DataFrame,
     structure_feats: Optional[list[str]], # can be None
-    scalar_feats: Optional[list[str]], # like conc, temp
-    target_feats: list[str], # lp
+    scalar_feats: Optional[list[str]], # like conc, temp,
+    target_feats: list[str], 
     cutoff: Dict[str, Tuple[Optional[float], Optional[float]]],
     dropna: bool = True,
     unroll: Union[dict, list, None] = None,
+    cluster_type:Optional[str]= None,
     **kwargs,
 ) -> tuple[pd.DataFrame, np.ndarray, list[str]]:
     """
@@ -84,8 +84,13 @@ def filter_dataset(
         if feat_list
         for feat in feat_list
     ]
+    if cluster_type:
+        all_feats.append(cluster_type)
 
     dataset: pd.DataFrame = raw_dataset[all_feats]
+    dataset = sanitize_dataset(
+        target_feats, dropna=dropna, **kwargs
+        )
     if cutoff:
         dataset = apply_cutoff(dataset,cutoff)
 
@@ -112,30 +117,33 @@ def filter_dataset(
             )
         else:
             raise ValueError(f"Unroll must be a dict or list, not {type(unroll)}")
+    
+
+    
     elif structure_feats:
         structure_features: pd.DataFrame = dataset[structure_feats]
     else:
         structure_features: pd.DataFrame = dataset[[]]
 
     if scalar_feats:
-      scalar_features: pd.DataFrame = dataset[scalar_feats]
+        scalar_features: pd.DataFrame = dataset[scalar_feats]
     else:
-      scalar_features: pd.DataFrame = dataset[[]]
+        scalar_features: pd.DataFrame = dataset[[]]
 
     training_features: pd.DataFrame = pd.concat(
         [structure_features, scalar_features], axis=1
     )
 
     targets = dataset[target_feats].squeeze()
-
-    training_features, targets = sanitize_dataset(
-        training_features, targets, dropna=dropna, **kwargs
-    )
     targets = np.vstack(targets.values)
+
+    c_labels = dataset[cluster_type].squeeze().to_numpy()
     # if not (scalars_available and struct_available):
     new_struct_feats: list[str] = structure_features.columns.tolist()
     training_test_shape: Dict ={
                                 "targets_shape": targets.shape,
                                 "training_features_shape": training_features.shape
                                 }
-    return training_features, targets, new_struct_feats, training_test_shape
+    
+
+    return training_features, targets, new_struct_feats, c_labels,training_test_shape

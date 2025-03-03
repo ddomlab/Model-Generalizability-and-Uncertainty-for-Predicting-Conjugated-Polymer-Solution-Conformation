@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
 from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold, StratifiedKFold
@@ -14,12 +15,12 @@ from all_factories import (
                             construct_kernel,
                             get_regressor_search_space)
 
-
 from imputation_normalization import preprocessing_workflow
+from training_utils import get_target_transformer, split_for_training
 from scoring import (
-    cross_validate_regressor,
-    process_scores,
-)
+                    cross_validate_regressor,
+                    process_scores,
+                )
 
 
 def set_globals(Test: bool=False) -> None:
@@ -34,7 +35,180 @@ def set_globals(Test: bool=False) -> None:
         BO_ITER = 1
 
 
-def get_loco_splits(X,y, cluster_type:np.ndarray):
+def train_regressor(
+    dataset: pd.DataFrame,
+    features_impute: Optional[list[str]],
+    special_impute: Optional[str],
+    representation: Optional[str],
+    structural_features: Optional[list[str]],
+    numerical_feats: Optional[list[str]],
+    unroll: Union[dict[str, str], list[dict[str, str]], None],
+    regressor_type: str,
+    target_features: str,
+    transform_type: str=None,
+    second_transformer:str=None,
+    hyperparameter_optimization: bool=True,
+    imputer: Optional[str] = None,
+    cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    kernel: Optional[str] = None,
+    Test:bool=False,
+    classification:bool=False,
+    ) -> None:
+        """
+        you should change the name here for prepare
+        """
+            #seed scores and seed prediction
+        set_globals(Test)
+        scores, predictions = _prepare_data(
+                                            dataset=dataset,
+                                            representation=representation,
+                                            structural_features=structural_features,
+                                            unroll=unroll,
+                                            numerical_feats = numerical_feats,
+                                            target_features=target_features,
+                                            regressor_type=regressor_type,
+                                            transform_type=transform_type,
+                                            second_transformer=second_transformer,
+                                            cutoff=cutoff,
+                                            hyperparameter_optimization=hyperparameter_optimization,
+                                            kernel=kernel,
+                                            )
+        scores = process_scores(scores)
+  
+        return scores, predictions
+
+
+
+def _prepare_data(
+    dataset: pd.DataFrame,
+    target_features: str,
+    regressor_type: str,
+    features_impute: Optional[list[str]]=None,
+    special_impute: Optional[str]=None,
+    representation: Optional[str]=None,
+    structural_features: Optional[list[str]]=None,
+    numerical_feats: Optional[list[str]]=None,
+    unroll: Union[dict, list, None] = None,
+    transform_type: str = "Standard",
+    second_transformer:str = None,
+    hyperparameter_optimization: bool = True,
+    imputer: Optional[str] = None,
+    cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    kernel:Optional[str] = None,
+    **kwargs,
+    ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
+
+
+    """
+    here you should change the names
+    """
+
+
+
+    X, y, unrolled_feats, cluster_labels, X_y_shape = filter_dataset(
+                                                    raw_dataset=dataset,
+                                                    structure_feats=structural_features,
+                                                    scalar_feats=numerical_feats,
+                                                    target_feats=target_features,
+                                                    cutoff=cutoff,
+                                                    dropna = True,
+                                                    unroll=unroll,
+                                                    )
+
+    # Pipline workflow here and preprocessor
+    # preprocessor: Pipeline = preprocessing_workflow(imputer=imputer,
+    #                                                 feat_to_impute=features_impute,
+    #                                                 representation = representation,
+    #                                                 numerical_feat=numerical_feats,
+    #                                                 structural_feat = unrolled_feats,
+    #                                                 special_column=special_impute,
+    #                                                 scaler=transform_type
+    #                                                 )
+    
+
+
+    # preprocessor.set_output(transform="pandas")
+    # preprocessor = transformer?
+    score,predication= run_loco_cv(
+                            X,
+                            y,
+                            preprocessor=preprocessor,
+                            second_transformer=second_transformer,
+                            regressor_type=regressor_type,
+                            transform_type=transform_type,
+                            hyperparameter_optimization=hyperparameter_optimization,
+                            kernel=kernel,
+                            cluster_labels=cluster_labels,
+                            **kwargs,
+                            )
+    # print(X_y_shape)
+    y_frame = pd.DataFrame(y.flatten(),columns=target_features)
+    combined_prediction_ground_truth = pd.concat([predication, y_frame], axis=1)
+    score['data shape'] = X_y_shape
+    return score, combined_prediction_ground_truth
+
+
+
+
+def run_loco_cv(X, y, 
+                preprocessor: Union[ColumnTransformer, Pipeline], 
+                transform_type: Optional[str],
+                second_transformer:Optional[str],
+                regressor_type: str,
+                cluster_labels: np.ndarray,
+                hyperparameter_optimization: bool = True,
+                kernel:Optional[str] = None,
+                **kwargs,
+                ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
+
+    seed_scores: dict[int, dict[str, float]] = {}
+    seed_predictions: dict[int, np.ndarray] = {}
+    search_space = get_regressor_search_space(regressor_type,kernel)
+    kernel = construct_kernel(regressor_type, kernel)
+    
+    loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
+    for cluster, (tv_idx,test_idx) in loco_split_idx.items():
+        cluster_tv_labels = cluster_labels[tv_idx]
+        X_tv, y_tv = X[tv_idx], y[tv_idx]
+        X_test, y_test = X[test_idx], y[test_idx]
+        for seed in SEEDS:
+            y_transform = get_target_transformer(transform_type,second_transformer)
+            skop_scoring = "r2"
+
+            y_transform_regressor = TransformedTargetRegressor(
+                        regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+                                else regressor_factory[regressor_type],
+                        transformer=y_transform,
+                )
+            new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
+            regressor :Pipeline= Pipeline(steps=[
+                        ("preprocessor", new_preprocessor),
+                        ("regressor", y_transform_regressor),
+                            ])
+            regressor.set_output(transform="pandas")
+            if hyperparameter_optimization:
+
+                best_estimator, regressor_params = optimize_ood_hp(
+                    X_tv,
+                    y_tv,
+                    seed=seed,
+                    regressor_type=regressor_type,
+                    search_space=search_space,
+                    regressor=regressor,
+                    scoring=skop_scoring,
+                    cluster_lables=cluster_tv_labels,
+                )
+
+                train_and_predict_ood(best_estimator, X_tv, y_tv, X_test, y_test, seed, regressor_params)
+            # scores, predictions = cross_validate_regressor(
+            #     best_estimator, X_test, y_test, cv_outer,
+            #     )   
+                scores["best_params"] = regressor_params
+            else:
+                scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
+
+
+def get_loco_splits(cluster_type:np.ndarray)-> dict[int, tuple[np.ndarray]]:
     cluster_names, counts = np.unique(cluster_type, return_counts=True)
     n_clusters = len(cluster_names)
     splits = {}
@@ -42,40 +216,42 @@ def get_loco_splits(X,y, cluster_type:np.ndarray):
         # use stratified
         for  n in cluster_names:
             mask = cluster_type == n
-            test_indices = np.where(mask)[0]
-            train_indices = np.where(np.logical_not(mask))[0]
-            X_train, y_train = X[train_indices], y[train_indices]
-            X_test, y_test = X[test_indices], y[test_indices]
-            splits[n] = (X_train, y_train, X_test, y_test)
+            test_idxs = np.where(mask)[0]
+            tv_idxs= np.where(np.logical_not(mask))[0]
+            splits[n] = (tv_idxs, test_idxs)
     else:
         rare_cluster = cluster_names[np.argmin(counts)]  # Identify the rare cluster
         mask = cluster_type == rare_cluster
-        test_indices = np.where(mask)[0]
-        train_indices = np.where(np.logical_not(mask))[0]
-        X_train, y_train = X[train_indices], y[train_indices]
-        X_test, y_test = X[test_indices], y[test_indices]
-        splits[rare_cluster] = (X_train, y_train, X_test, y_test)
+        test_idxs = np.where(mask)[0]
+        tv_idxs = np.where(np.logical_not(mask))[0]
+        splits[rare_cluster] = (tv_idxs, test_idxs)
     return splits
 
 
-def get_optimization_split(X_tr,y_tr,n_cluster,n_split_size,seed):
-    if n_cluster>2:
-        
-# fit.(x_train,y_train)
-# predict.(x_test,y_test)
 
-# for cluster, (X_train, y_train, X_test, y_test) in splits.items():
-    # optimize(x_train,y_train,n_splits=len(splits),seed)
-    # fit.(x_train,y_train)
-    # predict.(x_test,y_test)
-
-def optimize(regressor, search_space, scoring, x_train,y_train,cluster_lables:np.ndarray, n_split_size, seed):
+def optimize_ood_hp(
+                    x_train_val,
+                    y_train_val,
+                    regressor,
+                    regressor_type,
+                    search_space,
+                    scoring,
+                    cluster_lables:np.ndarray,
+                    seed)-> tuple[Pipeline, dict]:
+    
     estimators: list[BayesSearchCV] = []
-    if n_split_size>2:
-        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
-        for train_index, val_index in cv.split(x_train, cluster_lables):
-                X_tv = x_train[train_index]
-                y_tv = y_train[train_index]  
+    if cluster_lables>1:
+        cv = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+        for train_index, val_index in cv.split(x_train_val, cluster_lables):
+                X_t = x_train_val[train_index]
+                y_t = y_train_val[train_index]  
+
+
+                print("\n\n")
+                print("-"*50,
+                    "\nOPTIMIZING HYPERPARAMETERS FOR REGRESSOR", regressor_type, "\tSEED:", seed
+                )
+
 
                 bayes = BayesSearchCV(
                 regressor,
@@ -93,7 +269,7 @@ def optimize(regressor, search_space, scoring, x_train,y_train,cluster_lables:np
                 print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
                 estimators.append(bayes)
     else: 
-        cv = KFold(n_splits=5, shuffle=True, random_state=seed)
+        cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
         for train_index, val_index in cv.split(x_train, y_train):
             X_tv = x_train[train_index]
             y_tv = y_train[train_index]     
