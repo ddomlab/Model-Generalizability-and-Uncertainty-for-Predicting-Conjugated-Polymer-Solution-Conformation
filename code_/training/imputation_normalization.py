@@ -29,7 +29,7 @@ def preprocessing_workflow(imputer: Optional[str]=None,
                            numerical_feat: Optional[list] = None,
                            structural_feat: Optional[list] = None,
                            special_column: Optional[str] = None,
-                           scaler: str = "Standard",
+                           scaler: str = None,
                            ) -> Pipeline:
     # structure_feats and scalar_feats for scaling
     # all_columns = list(set(columns_to_impute)|set(special_column))

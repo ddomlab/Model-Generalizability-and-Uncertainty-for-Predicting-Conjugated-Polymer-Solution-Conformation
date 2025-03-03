@@ -88,7 +88,7 @@ def filter_dataset(
         all_feats.append(cluster_type)
 
     dataset: pd.DataFrame = raw_dataset[all_feats]
-    dataset = sanitize_dataset(
+    dataset = sanitize_dataset(dataset,
         target_feats, dropna=dropna, **kwargs
         )
     if cutoff:

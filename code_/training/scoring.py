@@ -3,7 +3,7 @@ from typing import Callable, Union
 
 import numpy as np
 import pandas as pd
-from scipy.stats import pearsonr
+from scipy.stats import pearsonr, spearmanr, kendalltau
 from sklearn.metrics import (
     make_scorer,
     mean_absolute_error,
@@ -16,6 +16,8 @@ from sklearn.metrics import (
     recall_score,
     precision_score,
 )
+
+
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
 from sklearn.model_selection import learning_curve
@@ -335,14 +337,35 @@ def get_incremental_split(
     return training_sizes, training_scores, testing_scores
 
 
-def get_score_func(score: str, output: str) -> Callable:
-    """
-    Returns the appropriate scoring function for the given output.
-    """
-    score_func: Callable = score_lookup[score][output]
-    return score_func
+# def get_score_func(score: str, output: str) -> Callable:
+#     """
+#     Returns the appropriate scoring function for the given output.
+#     """
+#     score_func: Callable = score_lookup[score][output]
+#     return score_func
 
 
 
-def train_and_predict_ood():
-    pass
+def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, seed):
+    regressor.fit(X_train_val, y_train_val)
+    
+    y_pred = regressor.predict(X_test)
+    scores = get_prediction_scores(y_test, y_pred)
+    
+    return scores, y_pred
+
+
+def get_prediction_scores(y_test, y_pred):
+    return {
+        "test_mad": (y_test - y_test.mean()).abs().mean(),
+        "test_std": y_test.std(),
+        "test_mae": mae_scorer(y_test, y_pred),
+        "test_rmse": rmse_scorer(y_test, y_pred),
+        "test_r2": r2_score(y_test, y_pred),
+        "test_pearson_r": pearsonr(y_test, y_pred)[0],
+        "test_pearson_p_value": pearsonr(y_test, y_pred)[1],
+        "test_spearman_r": spearmanr(y_test, y_pred)[0],
+        "test_spearman_p_value": spearmanr(y_test, y_pred)[1],
+        "test_kendall_r": kendalltau(y_test, y_pred)[0],
+        "test_kendall_p_value": kendalltau(y_test, y_pred)[1],
+    }
