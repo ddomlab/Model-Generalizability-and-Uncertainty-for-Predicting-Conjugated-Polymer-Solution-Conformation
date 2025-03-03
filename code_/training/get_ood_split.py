@@ -35,6 +35,18 @@ def set_globals(Test: bool=False) -> None:
         BO_ITER = 1
 
 
+class StratifiedKFoldWithLabels(StratifiedKFold):
+    def __init__(self, labels, n_splits=5, shuffle=True, random_state=None):
+        super().__init__(n_splits=n_splits, shuffle=shuffle, random_state=random_state)
+        self.labels = labels
+
+    def split(self, X, y=None, groups=None):
+        # Use the labels instead of the target variable (y)
+        return super().split(X, self.labels)
+
+
+
+
 def train_regressor(
     dataset: pd.DataFrame,
 
@@ -249,7 +261,7 @@ def optimize_ood_hp(
     
     estimators: list[BayesSearchCV] = []
     if cluster_lables>1:
-        cv = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+        cv = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
         for train_index, val_index in cv.split(x_train_val, cluster_lables):
                 X_t = x_train_val[train_index]
                 y_t = y_train_val[train_index]  
@@ -265,7 +277,7 @@ def optimize_ood_hp(
                 regressor,
                 search_space,
                 n_iter=BO_ITER,
-                cv=None,
+                cv=cv,
                 n_jobs=-1,
                 random_state=seed,
                 refit=True,
@@ -285,7 +297,7 @@ def optimize_ood_hp(
                     regressor,
                     search_space,
                     n_iter=BO_ITER,
-                    cv=None,
+                    cv=cv,
                     n_jobs=-1,
                     random_state=seed,
                     refit=True,
@@ -306,4 +318,6 @@ def optimize_ood_hp(
         regressor_params = {"bad params": "couldn't get them"}
 
     return best_estimator, regressor_params
+
+
 

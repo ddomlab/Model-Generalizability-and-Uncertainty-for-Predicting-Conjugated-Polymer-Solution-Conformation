@@ -137,7 +137,7 @@ if __name__ == "__main__":
         target_features=['Rg1 (nm)'],  
         transform_type=None,
         second_transformer=None,
-        numerical_feats=['Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
+        numerical_feats=['Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
         hyperparameter_optimization=True,
         oligomer_representation="Monomer",
         clustering_method="KMeans"
