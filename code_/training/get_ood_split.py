@@ -69,7 +69,7 @@ def get_optimization_split(X_tr,y_tr,n_cluster,n_split_size,seed):
     # fit.(x_train,y_train)
     # predict.(x_test,y_test)
 
-def optimize(regressor, search_space, scoring, x_train,y_train,cluster_lables:np.ndarray,n_split_size,seed):
+def optimize(regressor, search_space, scoring, x_train,y_train,cluster_lables:np.ndarray, n_split_size, seed):
     estimators: list[BayesSearchCV] = []
     if n_split_size>2:
         cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
