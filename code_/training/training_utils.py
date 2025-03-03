@@ -352,4 +352,4 @@ def get_default_kfold_splitter(n_splits: int, classification:bool, random_state:
     if classification:
         return StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=random_state)
     else:
-        return KFold(n_splits=n_splits, shuffle=True)
+        return KFold(n_splits=n_splits, shuffle=True, random_state=random_state)

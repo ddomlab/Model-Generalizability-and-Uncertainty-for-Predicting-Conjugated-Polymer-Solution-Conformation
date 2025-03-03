@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
+from sklearn.pipeline import Pipeline
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import KFold, StratifiedKFold
@@ -33,19 +34,92 @@ def set_globals(Test: bool=False) -> None:
         BO_ITER = 1
 
 
-def get_cluster_splits(df, cluster_type:str):
-    clusters = df[cluster_type].to_numpy()
-    cluster_names = np.unique(clusters)
-    n_clusters =  len(np.unique(clusters))
+def get_loco_splits(X,y, cluster_type:np.ndarray):
+    cluster_names, counts = np.unique(cluster_type, return_counts=True)
+    n_clusters = len(cluster_names)
     splits = {}
-
     if n_clusters>2:
         # use stratified
         for  n in cluster_names:
-            mask = 
-            # splits[name] = (train, test)
+            mask = cluster_type == n
+            test_indices = np.where(mask)[0]
+            train_indices = np.where(np.logical_not(mask))[0]
+            X_train, y_train = X[train_indices], y[train_indices]
+            X_test, y_test = X[test_indices], y[test_indices]
+            splits[n] = (X_train, y_train, X_test, y_test)
     else:
-        # use CV
-        mask = # the one which is rare
-        # splits[name] = (train, test)
+        rare_cluster = cluster_names[np.argmin(counts)]  # Identify the rare cluster
+        mask = cluster_type == rare_cluster
+        test_indices = np.where(mask)[0]
+        train_indices = np.where(np.logical_not(mask))[0]
+        X_train, y_train = X[train_indices], y[train_indices]
+        X_test, y_test = X[test_indices], y[test_indices]
+        splits[rare_cluster] = (X_train, y_train, X_test, y_test)
     return splits
+
+
+def get_optimization_split(X_tr,y_tr,n_cluster,n_split_size,seed):
+    if n_cluster>2:
+        
+# fit.(x_train,y_train)
+# predict.(x_test,y_test)
+
+# for cluster, (X_train, y_train, X_test, y_test) in splits.items():
+    # optimize(x_train,y_train,n_splits=len(splits),seed)
+    # fit.(x_train,y_train)
+    # predict.(x_test,y_test)
+
+def optimize(regressor, search_space, scoring, x_train,y_train,cluster_lables:np.ndarray,n_split_size,seed):
+    estimators: list[BayesSearchCV] = []
+    if n_split_size>2:
+        cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=seed)
+        for train_index, val_index in cv.split(x_train, cluster_lables):
+                X_tv = x_train[train_index]
+                y_tv = y_train[train_index]  
+
+                bayes = BayesSearchCV(
+                regressor,
+                search_space,
+                n_iter=BO_ITER,
+                cv=None,
+                n_jobs=-1,
+                random_state=seed,
+                refit=True,
+                scoring=scoring,
+                return_train_score=True,
+                )
+                bayes.fit(X_tv, y_tv)
+                
+                print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
+                estimators.append(bayes)
+    else: 
+        cv = KFold(n_splits=5, shuffle=True, random_state=seed)
+        for train_index, val_index in cv.split(x_train, y_train):
+            X_tv = x_train[train_index]
+            y_tv = y_train[train_index]     
+            bayes = BayesSearchCV(
+                    regressor,
+                    search_space,
+                    n_iter=BO_ITER,
+                    cv=None,
+                    n_jobs=-1,
+                    random_state=seed,
+                    refit=True,
+                    scoring=scoring,
+                    return_train_score=True,
+                    )
+            
+            bayes.fit(X_tv, y_tv)
+            print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
+            estimators.append(bayes)
+
+    best_idx: int = np.argmax([est.best_score_ for est in estimators])
+    best_estimator: Pipeline = estimators[best_idx].best_estimator_
+    try:
+        regressor_params: dict = best_estimator.named_steps.regressor.get_params()
+        regressor_params = remove_unserializable_keys(regressor_params)
+    except:
+        regressor_params = {"bad params": "couldn't get them"}
+
+    return best_estimator, regressor_params
+
