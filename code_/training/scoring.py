@@ -119,7 +119,7 @@ precision_scorer = make_scorer(precision_score, greater_is_better=True)
 
 
 def process_scores(
-    scores: dict[int, dict[str, float]],classification,
+    scores: dict[int, dict[str, float]],classification:bool=False,
     ) -> dict[Union[int, str], dict[str, float]]:
         # print(scores)
         # 'test_roc_auc'
@@ -208,6 +208,39 @@ def process_scores(
                 scores[f"{score}_stdev_aggregate"] = np.mean(scores[f"{score}_stdev"])
         # print(scores)
         return scores
+
+
+def process_ood_scores(
+    scores: dict[int, dict[str, float]]
+    ) -> dict[Union[int, str], dict[str, float]]:
+    for cluster, seed_data in scores.items():
+        if cluster.startswith("CO_"):
+            test_metrics = {}
+
+            # Collect test scores across seeds
+            for seed, metrics in seed_data.items():
+                for key, value in metrics.items():
+                    if key.startswith("test_") and not isinstance(value, dict):  # Ignore 'best_params'
+                        test_metrics.setdefault(key, []).append(value)
+
+            # Compute mean and std deviation
+            summary_stats = {}
+            for metric, values in test_metrics.items():
+                values = np.array(values, dtype=np.float64)  # Convert to NumPy array for handling NaNs
+                valid_values = values[~np.isnan(values)]  # Remove NaNs before computing stats
+                
+                if valid_values.size > 0:  # Ensure we have valid values
+                    summary_stats[f"{metric}_mean"] = np.mean(valid_values)
+                    summary_stats[f"{metric}_std"] = np.std(valid_values)
+                else:
+                    summary_stats[f"{metric}_mean"] = np.nan
+                    summary_stats[f"{metric}_std"] = np.nan
+
+            # Store back in the cluster dictionary
+            scores[cluster]['summary_stats'] = summary_stats
+
+
+    return scores
 
 
 def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
@@ -357,10 +390,10 @@ def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, s
 
 def get_prediction_scores(y_test, y_pred):
     return {
-        "test_mad": (y_test - y_test.mean()).abs().mean(),
+        "test_mad": np.abs(y_test - y_test.mean()).mean(),
         "test_std": y_test.std(),
-        "test_mae": mae_scorer(y_test, y_pred),
-        "test_rmse": rmse_scorer(y_test, y_pred),
+        "test_mae": mean_absolute_error(y_test, y_pred),
+        "test_rmse": root_mean_squared_error(y_test, y_pred),
         "test_r2": r2_score(y_test, y_pred),
         "test_pearson_r": pearsonr(y_test, y_pred)[0],
         "test_pearson_p_value": pearsonr(y_test, y_pred)[1],

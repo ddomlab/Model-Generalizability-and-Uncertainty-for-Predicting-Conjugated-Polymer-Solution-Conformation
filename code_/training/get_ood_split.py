@@ -20,7 +20,8 @@ from training_utils import get_target_transformer, split_for_training
 from scoring import (
                     cross_validate_regressor,
                     process_scores,
-                    train_and_predict_ood
+                    train_and_predict_ood,
+                    process_ood_scores
                 )
 
 def set_globals(Test: bool=False) -> None:
@@ -88,8 +89,8 @@ def train_regressor(
                                             kernel=kernel,
                                             clustering_method=clustering_method,
                                             )
-        scores = process_scores(scores)
-  
+        scores = process_ood_scores(scores)
+        print(scores)
         return scores, predictions, cluster_y_ture
 
 
@@ -130,6 +131,7 @@ def _prepare_data(
                                                     unroll=unroll,
                                                     cluster_type=clustering_method,
                                                     )
+    
 
     preprocessor: Pipeline = preprocessing_workflow(imputer=None,
                                                     feat_to_impute=None,
@@ -157,6 +159,7 @@ def _prepare_data(
                                             **kwargs,
                                             )
     score['overall data shape'] = X_y_shape
+    print(score)
     return score, predication, cluster_y_ture
 
 
@@ -182,13 +185,19 @@ def run_loco_cv(X, y,
     
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
-        cluster_tv_labels = cluster_labels[tv_idx]
-        X_tv, y_tv = X[tv_idx], y[tv_idx]
-        X_test, y_test = X[test_idx], y[test_idx]
+        cluster_tv_labels = split_for_training(cluster_labels,tv_idx)
+        X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y,tv_idx)
+        X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
 
-        cluster_scores[f'C{cluster}'] = {}
-        cluster_predictions[f'C{cluster}'] = {}
-        cluster_y_test[f'C{cluster}'] = y_test
+        cluster_scores[f'CO_{cluster}'] = {}
+        cluster_predictions[f'CO_{cluster}'] = {}
+        cluster_y_test[f'CO_{cluster}'] = y_test
+
+
+        print("\n\n")
+        print("-"*50,
+            "\nOOD TEST ON", cluster
+        )
 
         for seed in SEEDS:
             y_transform = get_target_transformer(transform_type,second_transformer)
@@ -222,9 +231,8 @@ def run_loco_cv(X, y,
                 scores["best_params"] = regressor_params
             else:
                 scores, predictions = train_and_predict_ood(regressor, X_tv, y_tv, X_test, y_test, seed)
-            cluster_scores[cluster][seed] = scores
-            cluster_predictions[cluster][seed] = predictions.flatten()
-
+            cluster_scores[f'CO_{cluster}'][seed] = scores
+            cluster_predictions[f'CO_{cluster}'][seed] = predictions.flatten()
     return cluster_scores, cluster_predictions, cluster_y_test
 
 
@@ -259,50 +267,51 @@ def optimize_ood_hp(
                     seed)-> tuple[Pipeline, dict]:
     
     estimators: list[BayesSearchCV] = []
-    if cluster_lables>1:
+    print("\n\n")
+    print("-"*50,
+        "\nOPTIMIZING HYPERPARAMETERS FOR REGRESSOR", regressor_type, "\tSEED:", seed
+    )
+    n_cluster = len(np.unique(cluster_lables))
+    if n_cluster>1:
         cv = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
         for train_index, val_index in cv.split(x_train_val, cluster_lables):
-                X_t = x_train_val[train_index]
-                y_t = y_train_val[train_index]  
+            X_t = split_for_training(x_train_val,train_index)
+            y_t = split_for_training(y_train_val,train_index)
+            cluster_label_t = split_for_training(cluster_lables,train_index)
+            cv_inner = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_label_t,shuffle=True, random_state=seed)
 
+            bayes = BayesSearchCV(
+            regressor,
+            search_space,
+            n_iter=BO_ITER,
+            cv=cv_inner,
+            n_jobs=-1,
+            random_state=seed,
+            refit=True,
+            scoring=scoring,
+            return_train_score=True,
+            )
 
-                print("\n\n")
-                print("-"*50,
-                    "\nOPTIMIZING HYPERPARAMETERS FOR REGRESSOR", regressor_type, "\tSEED:", seed
-                )
-
-
-                bayes = BayesSearchCV(
+            bayes.fit(X_t, y_t)
+            print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
+            estimators.append(bayes)
+    else: 
+        cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+        for train_index, val_index in cv.split(x_train_val, y_train_val):
+            X_t = split_for_training(x_train_val,train_index)
+            y_t = split_for_training(y_train_val,train_index)
+            cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+            bayes = BayesSearchCV(
                 regressor,
                 search_space,
                 n_iter=BO_ITER,
-                cv=cv,
+                cv=cv_inner,
                 n_jobs=-1,
                 random_state=seed,
                 refit=True,
                 scoring=scoring,
                 return_train_score=True,
                 )
-                bayes.fit(X_t, y_t)
-                
-                print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
-                estimators.append(bayes)
-    else: 
-        cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-        for train_index, val_index in cv.split(x_train_val, y_train_val):
-            X_t = x_train_val[train_index]
-            y_t = y_train_val[train_index]     
-            bayes = BayesSearchCV(
-                    regressor,
-                    search_space,
-                    n_iter=BO_ITER,
-                    cv=cv,
-                    n_jobs=-1,
-                    random_state=seed,
-                    refit=True,
-                    scoring=scoring,
-                    return_train_score=True,
-                    )
             
             bayes.fit(X_t, y_t)
             print(f"\n\nBest parameters: {bayes.best_params_}\n\n")

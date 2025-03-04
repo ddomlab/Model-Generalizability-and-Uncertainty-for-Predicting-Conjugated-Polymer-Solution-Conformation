@@ -14,13 +14,18 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
+# clusters = 'KM4 ECFP6_Count_512bit cluster'	
+# 'KM3 Mordred cluster'	'substructure cluster'
+# 'EG-Ionic-Based Cluster'
+# 'KM5 polymer_solvent HSP and polysize cluster'	
+# 'KM4 polymer_solvent HSP cluster'
+# 'KM4 Mordred_Polysize cluster'
 
 
-
-TEST = False
+TEST = True
 
 # def get_structural_info(fp:str,poly_unit:str,radius:int=None,vector:str=None)->Tuple:
        
@@ -66,7 +71,7 @@ def main_structural_numerical(
 ) -> None:
     
     structural_features, unroll_single_feat = get_structural_info(representation,oligomer_representation,radius,vector)
-    scores, predictions,cluster_y_truth  = train_regressor(
+    scores, predictions, cluster_y_truth  = train_regressor(
                                                     dataset=dataset,
                                                     representation=representation,
                                                     structural_features=structural_features,
@@ -140,5 +145,5 @@ if __name__ == "__main__":
         numerical_feats=['Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
         hyperparameter_optimization=True,
         oligomer_representation="Monomer",
-        clustering_method="KMeans"
+        clustering_method='EG-Ionic-Based Cluster'
     )
