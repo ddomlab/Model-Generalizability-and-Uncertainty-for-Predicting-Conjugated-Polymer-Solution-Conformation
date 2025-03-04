@@ -233,7 +233,6 @@ def get_loco_splits(cluster_type:np.ndarray)-> dict[int, tuple[np.ndarray]]:
     n_clusters = len(cluster_names)
     splits = {}
     if n_clusters>2:
-        # use stratified
         for  n in cluster_names:
             mask = cluster_type == n
             test_idxs = np.where(mask)[0]
