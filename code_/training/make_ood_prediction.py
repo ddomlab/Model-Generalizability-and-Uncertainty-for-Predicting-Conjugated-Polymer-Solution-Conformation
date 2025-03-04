@@ -87,9 +87,12 @@ def main_structural_numerical(
                                                     clustering_method=clustering_method,
                                                     Test=TEST,
                                                 )
+    # print(predictions)
+    # print(cluster_y_truth)
     save_results(scores,
                 predictions=predictions,
                 representation= representation,
+                ground_truth=cluster_y_truth,
                 pu_type= oligomer_representation,
                 target_features=target_features,
                 regressor_type=regressor_type,
@@ -104,7 +107,7 @@ def main_structural_numerical(
                 second_transformer=second_transformer,
                 clustering_method=clustering_method
                 )
-    
+    #TODO: Plot the results
 
 
 
@@ -145,5 +148,5 @@ if __name__ == "__main__":
         numerical_feats=['Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
         hyperparameter_optimization=True,
         oligomer_representation="Monomer",
-        clustering_method='EG-Ionic-Based Cluster'
+        clustering_method='KM4 polymer_solvent HSP cluster'
     )

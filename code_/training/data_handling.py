@@ -54,6 +54,7 @@ class NumpyArrayEncoder(json.JSONEncoder):
 
 def _save(scores: Optional[Dict[int, Dict[str, float]]],
           predictions: Optional[pd.DataFrame],
+          ground_truth: Optional[Dict],
           df_shapes: Optional[Dict],
           generalizability_score:Optional[Dict],
           results_dir: Path,
@@ -105,11 +106,24 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
         print(scores_file)
 
-    if predictions is not None and not predictions.empty:
-        predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
-        predictions.to_csv(predictions_file, index=False)
-        print(predictions_file)
+    if predictions is not None:
+        if isinstance(predictions, pd.DataFrame):
+            predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
+            predictions.to_csv(predictions_file, index=False)
+            print(predictions_file)
+        elif isinstance(predictions, dict):
+            predictions_file: Path = results_dir / f"{fname_root}_predictions.json"
+            with open(predictions_file, "w") as f:
+                json.dump(predictions, f, cls=NumpyArrayEncoder, indent=2)
+            print(predictions_file)
 
+
+    if ground_truth:
+        # print(ground_truth)
+        cluster_ground_truth:Path = results_dir / f"{fname_root}_ClusterTruth.json"
+        with open(cluster_ground_truth, "w") as f:
+            json.dump(ground_truth, f, cls=NumpyArrayEncoder, indent=2)
+        print(cluster_ground_truth)
     
     if df_shapes:
         data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
@@ -128,6 +142,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
 
 def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  predictions: Optional[pd.DataFrame]=None,
+                 ground_truth: Optional[pd.DataFrame]=None,
                  df_shapes:Optional[Dict]=None,
                  generalizability_score:Optional[Dict]=None,
                  target_features: list=None,
@@ -176,6 +191,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
 
     _save(scores=scores,
           predictions=predictions,
+          ground_truth=ground_truth,
           results_dir=results_dir,
           df_shapes=df_shapes,
           generalizability_score=generalizability_score,
