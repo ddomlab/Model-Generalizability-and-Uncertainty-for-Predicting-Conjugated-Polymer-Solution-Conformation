@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
-
+from pathlib import Path
+from typing import Union
 
 def set_plot_style(
     font_family="sans-serif",
@@ -40,8 +41,8 @@ def set_plot_style(
 
 
 
-def save_img_path(folder_path:str, file_name:str)->None:
-    visualization_folder_path =  folder_path
-    os.makedirs(visualization_folder_path, exist_ok=True)    
-    fname = file_name
-    plt.savefig(visualization_folder_path / fname, dpi=600)
+def save_img_path(folder_path:Union[str, Path], file_name:str)->None:
+    folder_path = Path(folder_path)
+    os.makedirs(folder_path, exist_ok=True)
+    plt.savefig(folder_path / file_name, dpi=600)
+    

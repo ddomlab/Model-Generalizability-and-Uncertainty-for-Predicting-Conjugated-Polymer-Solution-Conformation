@@ -391,7 +391,7 @@ def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, s
 def get_prediction_scores(y_test, y_pred):
     return {
         "test_mad": np.abs(y_test - y_test.mean()).mean(),
-        "test_std": y_test.std(),
+        "test_ystd": y_test.std(),
         "test_mae": mean_absolute_error(y_test, y_pred),
         "test_rmse": root_mean_squared_error(y_test, y_pred),
         "test_r2": r2_score(y_test, y_pred),

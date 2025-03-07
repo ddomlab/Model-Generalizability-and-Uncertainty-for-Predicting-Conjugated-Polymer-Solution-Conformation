@@ -6,7 +6,11 @@ from all_factories import radius_to_bits,cutoffs
 from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
 import sys
-sys.path.append("../cleaning")
+import os
+
+# sys.path.append("../cleaning")
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../visualization")))
+from visualize_ood_scores import plot_splits_scores
 from argparse import ArgumentParser
 from data_handling import save_results
 
@@ -87,9 +91,8 @@ def main_structural_numerical(
                                                     clustering_method=clustering_method,
                                                     Test=TEST,
                                                 )
-    # print(predictions)
-    # print(cluster_y_truth)
-    save_results(scores,
+
+    saving_folder = save_results(scores,
                 predictions=predictions,
                 representation= representation,
                 ground_truth=cluster_y_truth,
@@ -108,8 +111,12 @@ def main_structural_numerical(
                 clustering_method=clustering_method
                 )
     #TODO: Plot the results
-
-
+    scores_criteria: list= ['mad', 'mae', 'rmse',
+                            'r2', 'ystd', 'pearson_r', 
+                            'pearson_p_value', 'spearman_r',
+                            'spearman_p_value', 'kendall_r', 'kendall_p_value']
+    plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=saving_folder)
+    print("Plotted the comparitive results of cluster scores")
 
 
 if __name__ == "__main__":
@@ -148,5 +155,5 @@ if __name__ == "__main__":
         numerical_feats=['Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
         hyperparameter_optimization=True,
         oligomer_representation="Monomer",
-        clustering_method='KM4 polymer_solvent HSP cluster'
+        clustering_method='EG-Ionic-Based Cluster'
     )

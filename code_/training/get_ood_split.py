@@ -90,7 +90,6 @@ def train_regressor(
                                             clustering_method=clustering_method,
                                             )
         scores = process_ood_scores(scores)
-        print(scores)
         return scores, predictions, cluster_y_ture
 
 
