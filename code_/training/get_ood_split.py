@@ -190,8 +190,7 @@ def run_loco_cv(X, y,
 
         cluster_scores[f'CO_{cluster}'] = {}
         cluster_predictions[f'CO_{cluster}'] = {}
-        cluster_y_test[f'CO_{cluster}'] = y_test
-
+        cluster_y_test[f'CO_{cluster}'] = y_test.flatten()
 
         print("\n\n")
         print("-"*50,

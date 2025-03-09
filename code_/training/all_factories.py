@@ -37,6 +37,20 @@ cutoffs = {
         }
 
 
+unrolling_feature_factory: dict[str, list[str]] = {
+                                                "polysize": ['Mw (g/mol)', 'PDI'],
+                                                "HSPs": ['polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+                                                "Ra": ["Ra"],
+                                                "solvent properties": ['Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)'],
+                                                 }
+
+
+def generate_acronym_string(feats):
+    acronym_list = []
+    for key, values in unrolling_feature_factory.items():
+        if any(feat in feats for feat in values):
+            acronym_list.append(key)
+    return "_".join(acronym_list)
 
 imputer_factory: Dict[str, TransformerMixin] = {
     "mean": SimpleImputer(strategy="mean"),

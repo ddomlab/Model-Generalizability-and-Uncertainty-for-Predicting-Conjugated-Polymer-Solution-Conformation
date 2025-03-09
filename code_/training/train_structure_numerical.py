@@ -210,6 +210,13 @@ def parse_arguments():
         help='Type of vector (default: count)'
     )
 
+    parser.add_argument(
+        'clustering_method',
+        type=str,
+        nargs='?',
+        help='Type of clustering method'
+    )
+
 
     return parser.parse_args()
 
