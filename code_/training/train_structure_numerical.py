@@ -211,7 +211,7 @@ def parse_arguments():
     )
 
     parser.add_argument(
-        'clustering_method',
+        '--clustering_method',
         type=str,
         nargs='?',
         help='Type of clustering method'
