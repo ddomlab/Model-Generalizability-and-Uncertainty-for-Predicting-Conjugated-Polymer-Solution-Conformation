@@ -1,0 +1,318 @@
+usage: train_structure_numerical.py [-h] --target_features TARGET_FEATURES
+                                    --regressor_type
+                                    {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR}
+                                    --numerical_feats {Mn (g/mol),Mw
+                                    (g/mol),PDI,Temperature SANS/SLS/DLS/SEC
+                                    (K),Concentration (mg/ml),solvent
+                                    dP,polymer dP,solvent dD,polymer
+                                    dD,solvent dH,polymer dH,Ra,abs(solvent dD
+                                    - polymer dD),abs(solvent dP - polymer
+                                    dP),abs(solvent dH - polymer dH)}
+                                    [{Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH)} ...]
+                                    [--columns_to_impute [{Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                                    [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                                    [--special_impute [{Mw (g/mol),None}]]
+                                    [--transform_type {Standard,Robust Scaler}]
+                                    [--kernel KERNEL] --representation
+                                    {ECFP,MACCS,Mordred}
+                                    --oligomer_representation
+                                    {Monomer,Dimer,Trimer,RRU Monomer,RRU
+                                    Dimer,RRU Trimer} [--radius [{3,4,5,6}]]
+                                    [--vector [{count,binary}]]
+                                    [clustering_method]
+train_structure_numerical.py: error: unrecognized arguments: --clustering_method
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3805, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "index.pyx", line 167, in pandas._libs.index.IndexEngine.get_loc
+  File "index.pyx", line 196, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7081, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7089, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: None
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_structure_numerical.py", line 226, in <module>
+    main_structural_numerical(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_structure_numerical.py", line 67, in main_structural_numerical
+    scores, predictions,data_shapes  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 71, in train_regressor
+    scores, predictions, data_shape = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 123, in _prepare_data
+    X, y, unrolled_feats, X_y_shape = filter_dataset(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/filter_data.py", line 140, in filter_dataset
+    c_labels = dataset[cluster_type].squeeze().to_numpy()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/frame.py", line 4102, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3812, in get_loc
+    raise KeyError(key) from err
+KeyError: None
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.001565360406230398, 1, 138, True, 0.0005340531932464406, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0017321725750309874, 1, 1316, True, 4.677381213589525e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.038631556590045184, 1, 73, True, 0.0007189173428044632, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0008955093406573589, 1, 1279, True, 1.4107522751335412e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.025111847844584537, 1, 56, True, 8.6275459575808e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0565901706429108, 1, 77, True, 1.8733859997877286e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.08998417718188347, 1, 976, True, 0.00010552633711655599, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00019546966077956156, 1, 1571, True, 1.0442908768448449e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00012180117889702719, 1, 1563, True, 5.595178954604561e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.03864962748473445, 1, 262, True, 0.000775823593395194, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.004575221000908755, 1, 745, True, 8.94642869521139e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00016642139219102934, 1, 614, True, 2.5654233747396943e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00015043353524485278, 1, 167, True, 6.053921486537493e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0005135378835922466, 1, 65, True, 1.0664867854963207e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0771607557119841, 1, 507, True, 0.00044127331692587, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.010240932447778264, 1, 89, True, 0.00039904391118901836, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00019239951745127426, 1, 57, True, 4.6310558069161516e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.010252388012499248, 1, 474, True, 0.00065743940328587, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0005439736904921165, 1, 268, True, 0.0006508288297695006, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.00048068261178315307, 1, 798, True, 3.0495478221931123e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.006902430329415916, 1, 952, True, 1.2000424232480508e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0007969202679040701, 1, 85, True, 0.0006460822959256869, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0003296569238620194, 1, 127, True, 9.522516945680815e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0024073472154202504, 1, 721, True, 4.904287713363758e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0006096116950702183, 1, 73, True, 1.0878530736005373e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00014594209105447373, 1, 97, True, 0.00010858619420586525, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0007969202679040701, 1, 85, True, 0.0006460822959256869, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.026627701781420945, 1, 861, True, 4.727235549031084e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0007803491636693451, 1, 129, True, 0.00010817325433886604, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00012144804496155966, 1, 1998, True, 0.0004692508656116422, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00010569282473734942, 1, 1943, True, 0.00010357258772308408, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0047996912756746056, 1, 73, True, 5.340237887235552e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.002892221195897241, 1, 55, True, 8.004026985014924e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0047996912756746056, 1, 73, True, 5.340237887235552e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0004630420326253605, 1, 154, True, 0.0005556823496023869, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00024676799262813464, 1, 89, True, 1.9047430570243545e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.002038451807822412, 1, 297, True, 1.275430781557973e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0008162911462762215, 1, 759, True, 1.588427280518983e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.06610392791400534, 1, 462, True, 7.826801972460072e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.03000244660585327, 1, 426, True, 0.00013160408885153297, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.005243640592251073, 1, 357, True, 1.541108759949908e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.07406915811517857, 1, 98, True, 0.000350648841926105, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.013713648897731476, 1, 96, True, 8.767617716411702e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.045373413739326254, 1, 436, True, 2.9282581415271997e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.001186795380217221, 1, 1197, True, 8.876318054021814e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0023997910064361525, 1, 152, True, 3.822729909902378e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.022151823410285133, 1, 706, True, 1.1779032555102984e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.000123339686169303, 1, 386, True, 6.319607910747145e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0023168891853805724, 1, 616, True, 3.417652540921954e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.00019204019211973623, 1, 421, True, 0.00018628569440321856, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.00010649302664302677, 1, 371, True, 5.840646065800784e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.003702040333418697, 1, 196, True, 0.00012758318151892645, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.017865846766430802, 1, 411, True, 2.5966383733877323e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0003486056776844495, 1, 444, True, 0.00034136756511214087, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.009474039223792398, 1, 83, True, 4.148209728695861e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.002038451807822412, 1, 297, True, 1.275430781557973e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.09576715256950358, 1, 1009, True, 1.224339393133218e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.005243640592251073, 1, 357, True, 1.541108759949908e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.04344318237439526, 1, 365, True, 1.97426291569893e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.006589782098966217, 1, 551, True, 7.4988328788681e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.005912393135778136, 1, 71, True, 1.0007604354543995e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.010977784060844218, 1, 243, True, 0.0004188585741608, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00015540232499270995, 1, 68, True, 2.250491521285756e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.001565360406230398, 1, 138, True, 0.0005340531932464406, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0016667636449710559, 1, 538, True, 4.994029470894879e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00011894845639230813, 1, 183, True, 5.34245603459432e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0023997910064361525, 1, 152, True, 3.822729909902378e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.000123339686169303, 1, 386, True, 6.319607910747145e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00010649302664302677, 1, 371, True, 5.840646065800784e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.003702040333418697, 1, 196, True, 0.00012758318151892645, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.017865846766430802, 1, 411, True, 2.5966383733877323e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.001186795380217221, 1, 1197, True, 8.876318054021814e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.0023997910064361525, 1, 152, True, 3.822729909902378e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.00021314675578620318, 1, 825, True, 3.7656796121728256e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.02894415721391065, 1, 387, True, 8.900860296402717e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.037162530354341146, 1, 1044, True, 2.2260119010517472e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.06774234198490584, 1, 56, True, 1.5161894762333625e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.000991479485872398, 1, 720, True, 1.3958188269386655e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.0001607795878913531, 1, 154, True, 0.0001996128158735629, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.0021953637158518, 1, 1302, True, 8.31642669622864e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.00044644811635399806, 1, 255, True, 8.297144571547108e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0011362870225116335, 1, 221, True, 1.9430018018449314e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.004383563747774247, 1, 366, True, 3.71459228288051e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.020984474178588005, 1, 226, True, 0.000383465781773048, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.008283419842830465, 1, 77, True, 3.61509626399564e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.009591866001509308, 1, 290, True, 0.0002487907936370736, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.004383563747774247, 1, 366, True, 3.71459228288051e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.00011277192640934277, 1, 1380, True, 7.492888118666533e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.00263495225274163, 1, 297, True, 0.0006056789849038491, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.0003486056776844495, 1, 444, True, 0.00034136756511214087, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.009474039223792398, 1, 83, True, 4.148209728695861e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.002038451807822412, 1, 297, True, 1.275430781557973e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.0008162911462762215, 1, 759, True, 1.588427280518983e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.03000244660585327, 1, 426, True, 0.00013160408885153297, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.005243640592251073, 1, 357, True, 1.541108759949908e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.013713648897731476, 1, 96, True, 8.767617716411702e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 1e-06, False] before, using random point [0.045373413739326254, 1, 436, True, 2.9282581415271997e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.04344318237439526, 1, 365, True, 1.97426291569893e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.0028496107584338034, 1, 75, True, 3.020571928092705e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.0016563508637755017, 1, 187, True, 7.3506100214241e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.006589782098966217, 1, 551, True, 7.4988328788681e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.005912393135778136, 1, 71, True, 1.0007604354543995e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.002035976545974694, 1, 939, True, 2.7549550761131238e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.00011458389881987909, 1, 1819, True, 6.495516055605069e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 50, True, 0.001, False] before, using random point [0.02467616828726502, 1, 705, True, 2.212706945611108e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0014043559229705738, 1, 95, True, 4.4882220559517476e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.00015175857136425625, 1, 512, True, 1.3419751525849327e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.07719633407109262, 1, 1115, True, 5.687059770369923e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.001257312437861901, 1, 288, True, 3.9771781735441875e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0011010842076964464, 1, 176, True, 7.530770699782633e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0012578950114513104, 1, 514, True, 0.0004228998434568543, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0014043559229705738, 1, 95, True, 4.4882220559517476e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00015175857136425625, 1, 512, True, 1.3419751525849327e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.08998417718188347, 1, 976, True, 0.00010552633711655599, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.009591866001509308, 1, 290, True, 0.0002487907936370736, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.004383563747774247, 1, 366, True, 3.71459228288051e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.008283419842830465, 1, 77, True, 3.61509626399564e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.007027350677695911, 1, 149, True, 0.00016644628005878817, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.023293342481067108, 1, 891, True, 0.0004350670140238162, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.0016912512518917433, 1, 76, True, 0.00015860430175598173, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.01145397798468445, 1, 632, True, 3.341876152457657e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0005675474097420118, 1, 330, True, 0.00026185243100107004, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.002278168866500747, 1, 232, True, 0.0003136992731718017, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0284172866447641, 1, 192, True, 2.056198663712488e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0004033666960746797, 1, 52, True, 3.791641629014269e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.00012148763873078419, 1, 1668, True, 0.00033307186413965544, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.006618799174953843, 1, 685, True, 2.9055327218130034e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.09557674663573557, 1, 848, True, 4.7988338306357485e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.04344318237439526, 1, 365, True, 1.97426291569893e-06, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 1e-06, False] before, using random point [0.005912393135778136, 1, 71, True, 1.0007604354543995e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.016513856395813514, 1, 105, True, 0.00043845552559097567, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0003977889989001273, 1, 210, True, 1.3654617016751838e-05, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0022221614237953285, 1, 348, True, 0.00040261724114884484, False]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 1, 2000, True, 0.001, False] before, using random point [0.0008536714600266263, 1, 1007, True, 0.0003862157613264864, False]
+  warnings.warn(

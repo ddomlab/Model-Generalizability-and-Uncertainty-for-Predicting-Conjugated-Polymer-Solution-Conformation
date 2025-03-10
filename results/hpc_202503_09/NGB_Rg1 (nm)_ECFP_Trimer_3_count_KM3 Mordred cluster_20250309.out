@@ -1,0 +1,843 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n04>
+Subject: Job 257313: <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> in cluster <Hazel> Exited
+
+Job <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> was submitted from host <c012n03> by user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:02:05 2025
+Job was executed on host(s) <8*c200n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:02:06 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun Mar  9 18:02:06 2025
+Terminated at Sun Mar  9 18:02:16 2025
+Results reported at Sun Mar  9 18:02:16 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "Rg1 (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 2.
+
+Resource usage summary:
+
+    CPU time :                                   4.59 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            11 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n06>
+Subject: Job 257346: <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> in cluster <Hazel> Exited
+
+Job <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> was submitted from host <c012n03> by user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:06:00 2025
+Job was executed on host(s) <8*c200n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:06:01 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun Mar  9 18:06:01 2025
+Terminated at Sun Mar  9 18:06:20 2025
+Results reported at Sun Mar  9 18:06:20 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "Rg1 (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   4.55 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   28 sec.
+    Turnaround time :                            20 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08646479880356304), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 847), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00036941418309087464), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04953382935016489), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.018590114710603612), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06801892908859508), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1265), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 8.919392823538414e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 484), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04885810025446611), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 101), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1210), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.014399376996414689), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1204), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.013455862196090115), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1248), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 348), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.02534912931571235), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 994), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.018259270662680703), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 169), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.027364528220782454), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 454), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 3.7081473573792404e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.01361481586564074), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.025804023695842553), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 392), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07766887275120815), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1261), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.057144126594455315), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 691), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.011760991054425771), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 215), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09916905311609203), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 332), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.3738488850101727e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 784), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05913781436124809), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1123), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.71006616411378e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07226837918541061), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 200), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.1531578887972428e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.017708586763082155), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05031803706349649), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 940), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.039423805840998596), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 608), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.026447400043278564), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 747), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 381), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0388504984085987), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1506), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.01715650030565658), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 977), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 473), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.022226150605816022), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 282), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 1
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04723673000753139), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1033), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09903838503058007), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1971), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00010735810383923193), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03284581782582149), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 472), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.2077087465471001e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08646479880356304), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 847), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00036941418309087464), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09804430717996003), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1988), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.0389721818853617e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0315367578841672), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1971), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.265825526460322e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.062045328872983495), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04400612829709529), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 186), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03427875576462554), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07217357714448899), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07268527004864872), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1497), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1173), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 437), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.050674284305013556), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 3.144881815364186e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.052002999150308614), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 371), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 988), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 162), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0012936072153775196), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 613), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.039134620046389665), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 221), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.026387059622392874), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 510), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03644209526387685), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 417), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0481846280312207), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 397), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.5972591099440336e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 227), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0007113875558274315), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09865914300773106), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1330), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.0363856675198008e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0753285511933004), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06449854041502759), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 82), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.4103076091788285e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05494082149691836), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 517), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.015288211451101917), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1089), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06799299499918662), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 74), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08015099110431322), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04840384121254582), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 365), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 2
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04302476339006563), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 241), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.4817960590803802e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.017055681868143588), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 947), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.00043779951422316074), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 82), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 98), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0008181706924791629), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 596), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 429), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0055908384734446506), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0009410739402878169), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07693173041362837), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 289), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 4.1200688201979395e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06991692945397764), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 586), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 3.541254600438871e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03439906283807179), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 170), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 6.201385660246212e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03465826962762287), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1116), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.008029968544746899), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 343), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.022132086982838025), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 63), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 9.925659921419261e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0001), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 292), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09926435979176988), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 344), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00038661061377471157), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09939793013929618), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 161), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.3527825731996607e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0026155023293087587), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 114), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 351), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0999298097384997), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 283), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.0576791575844794e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06598852139129478), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 746), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.466453067614428e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08667200640515596), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0056072336136178775), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 121), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 384), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0005485066645878785), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 94), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 186), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.004317934888576479), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 99), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09750120263847373), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 57), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.6390744951892975e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.007706368867257013), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0002639724754750597), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 278), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00017375316694023666), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.00022590082400223487), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0005733142105523157), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 61), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09496603544955502), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 51), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 4.935470392634864e-06), ('regressor__regressor__verbose', False)])
+
+
+{'CO_0': {6: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 77.44605706098085, 'test_rmse': 160.3125545309094, 'test_r2': -0.3824057284970377, 'test_pearson_r': array([-0.09696034]), 'test_pearson_p_value': array([0.21396469]), 'test_spearman_r': 0.0718060930505546, 'test_spearman_p_value': 0.3579107381104212, 'test_kendall_r': 0.07167333297473288, 'test_kendall_p_value': 0.17430741949027728, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 847, 'regressor__learning_rate': 0.08646479880356304, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 13: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 76.28131146370869, 'test_rmse': 157.51730649054034, 'test_r2': -0.3346180970710191, 'test_pearson_r': array([-0.08852335]), 'test_pearson_p_value': array([0.2567302]), 'test_spearman_r': 0.047320873690577074, 'test_spearman_p_value': 0.5449005572772797, 'test_kendall_r': 0.03568051088089793, 'test_kendall_p_value': 0.49956657216820943, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 1248, 'regressor__learning_rate': 0.013455862196090115, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 42: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 75.94720565724249, 'test_rmse': 158.5948099740087, 'test_r2': -0.3529395656087262, 'test_pearson_r': array([-0.09516336]), 'test_pearson_p_value': array([0.22261683]), 'test_spearman_r': 0.07293007391355188, 'test_spearman_p_value': 0.35041623493537666, 'test_kendall_r': 0.06404069560632013, 'test_kendall_p_value': 0.22600915523163168, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 454, 'regressor__learning_rate': 0.027364528220782454, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 69: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 78.14769037314076, 'test_rmse': 158.70873780041168, 'test_r2': -0.35488405328670414, 'test_pearson_r': array([-0.08564748]), 'test_pearson_p_value': array([0.27256727]), 'test_spearman_r': 0.06614951968103042, 'test_spearman_p_value': 0.39712623626036414, 'test_kendall_r': 0.049958450238555545, 'test_kendall_p_value': 0.34466886878923564, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 691, 'regressor__learning_rate': 0.057144126594455315, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 420: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 76.38082502612305, 'test_rmse': 159.14134371332582, 'test_r2': -0.36228036547810816, 'test_pearson_r': array([-0.09780271]), 'test_pearson_p_value': array([0.20999266]), 'test_spearman_r': 0.11226213313995052, 'test_spearman_p_value': 0.14986086625068507, 'test_kendall_r': 0.10601935515742407, 'test_kendall_p_value': 0.04525091861315789, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 1123, 'regressor__learning_rate': 0.05913781436124809, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 1234567890: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 76.87882934707395, 'test_rmse': 158.35976850341882, 'test_r2': -0.3489323567285234, 'test_pearson_r': array([-0.08664737]), 'test_pearson_p_value': array([0.26698752]), 'test_spearman_r': 0.07640814223382258, 'test_spearman_p_value': 0.32785554802498573, 'test_kendall_r': 0.06981326902544557, 'test_kendall_p_value': 0.18610072200910577, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 2000, 'regressor__learning_rate': 0.05031803706349649, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 473129: {'test_mad': 69.48759226157642, 'test_ystd': 136.34831400977086, 'test_mae': 76.52165003289822, 'test_rmse': 158.30451825186782, 'test_r2': -0.3479912610003999, 'test_pearson_r': array([-0.09509387]), 'test_pearson_p_value': array([0.22295633]), 'test_spearman_r': 0.0675861622588456, 'test_spearman_p_value': 0.386930860013728, 'test_kendall_r': 0.03432263865548109, 'test_kendall_p_value': 0.5157364844028551, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 473, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}}, 'CO_1': {6: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 87.35221358860646, 'test_rmse': 151.48685800958847, 'test_r2': -42.78140037979508, 'test_pearson_r': array([-0.19056744]), 'test_pearson_p_value': array([0.43452397]), 'test_spearman_r': 0.16886550066776562, 'test_spearman_p_value': 0.48951192167584523, 'test_kendall_r': 0.1071447552739574, 'test_kendall_p_value': 0.5273559970445866, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 1988, 'regressor__learning_rate': 0.09804430717996003, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 13: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 66.17461751228915, 'test_rmse': 122.4285904582545, 'test_r2': -27.596009426092525, 'test_pearson_r': array([-0.1884819]), 'test_pearson_p_value': array([0.43966261]), 'test_spearman_r': 0.16358845377189793, 'test_spearman_p_value': 0.5033762705183495, 'test_kendall_r': 0.13095470089039238, 'test_kendall_p_value': 0.43981704152643053, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 1971, 'regressor__learning_rate': 0.0315367578841672, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 42: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 55.547611483617004, 'test_rmse': 101.30387616865617, 'test_r2': -18.57906096620409, 'test_pearson_r': array([-0.1135895]), 'test_pearson_p_value': array([0.64335351]), 'test_spearman_r': 0.1495163287162508, 'test_spearman_p_value': 0.5412449146614797, 'test_kendall_r': 0.08333480965752242, 'test_kendall_p_value': 0.6230075792719086, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 1497, 'regressor__learning_rate': 0.07268527004864872, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 69: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 81.43508145540372, 'test_rmse': 159.90273094339696, 'test_r2': -47.78108938278657, 'test_pearson_r': array([-0.2346509]), 'test_pearson_p_value': array([0.33355714]), 'test_spearman_r': -0.012313109423691241, 'test_spearman_p_value': 0.9600989199176596, 'test_kendall_r': -0.011904972808217491, 'test_kendall_p_value': 0.9440126078772925, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 162, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 420: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 112.66325927915396, 'test_rmse': 195.32453873543562, 'test_r2': -71.78692084158294, 'test_pearson_r': array([-0.2119328]), 'test_pearson_p_value': array([0.38373547]), 'test_spearman_r': 0.11961306297300064, 'test_spearman_p_value': 0.6257321832783133, 'test_kendall_r': 0.08333480965752242, 'test_kendall_p_value': 0.6230075792719086, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 227, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 1234567890: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 68.1471152348832, 'test_rmse': 121.20537995389954, 'test_r2': -27.0274461858803, 'test_pearson_r': array([-0.18095938]), 'test_pearson_p_value': array([0.45845813]), 'test_spearman_r': 0.23394907905013362, 'test_spearman_p_value': 0.33504686076067935, 'test_kendall_r': 0.13095470089039238, 'test_kendall_p_value': 0.43981704152643053, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 82, 'regressor__learning_rate': 0.06449854041502759, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 473129: {'test_mad': 17.112243767313018, 'test_ystd': 22.894445721077116, 'test_mae': 59.53067941346932, 'test_rmse': 124.17695430865348, 'test_r2': -28.418582308773097, 'test_pearson_r': array([-0.21246726]), 'test_pearson_p_value': array([0.3825091]), 'test_spearman_r': 0.18469664135536862, 'test_spearman_p_value': 0.4490696439056011, 'test_kendall_r': 0.17857459212326232, 'test_kendall_p_value': 0.29215216207042904, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 365, 'regressor__learning_rate': 0.04840384121254582, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}}, 'CO_2': {6: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 128.4990875495917, 'test_rmse': 171.72440382132112, 'test_r2': -3.271107977323524, 'test_pearson_r': array([-0.38800979]), 'test_pearson_p_value': array([0.00063587]), 'test_spearman_r': -0.6232808336670245, 'test_spearman_p_value': 3.0136140033052867e-09, 'test_kendall_r': -0.46265533321200103, 'test_kendall_p_value': 6.1830023997622805e-09, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 947, 'regressor__learning_rate': 0.017055681868143588, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 13: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 113.18101190224418, 'test_rmse': 147.9533354600784, 'test_r2': -2.170487439505927, 'test_pearson_r': array([-0.36797623]), 'test_pearson_p_value': array([0.00125737]), 'test_spearman_r': -0.4697592462136118, 'test_spearman_p_value': 2.4157034169886077e-05, 'test_kendall_r': -0.33741706221101603, 'test_kendall_p_value': 2.2074615885383517e-05, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 596, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 42: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 120.69235383274197, 'test_rmse': 157.6083618665576, 'test_r2': -2.597783507061103, 'test_pearson_r': array([-0.38037913]), 'test_pearson_p_value': array([0.00082863]), 'test_spearman_r': -0.5815057739473383, 'test_spearman_p_value': 5.543091308468543e-08, 'test_kendall_r': -0.4244827210043065, 'test_kendall_p_value': 1.0006747197507858e-07, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 170, 'regressor__learning_rate': 0.03439906283807179, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 69: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 116.02784145015185, 'test_rmse': 144.90489067554222, 'test_r2': -2.0411833451036236, 'test_pearson_r': array([-0.41943072]), 'test_pearson_p_value': array([0.00019943]), 'test_spearman_r': -0.5555925906870428, 'test_spearman_p_value': 2.773911496126391e-07, 'test_kendall_r': -0.405572212468242, 'test_kendall_p_value': 3.4463946855417953e-07, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 344, 'regressor__learning_rate': 0.09926435979176988, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 420: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 139.23466709451768, 'test_rmse': 197.17057952542368, 'test_r2': -4.6306786478957225, 'test_pearson_r': array([-0.36321924]), 'test_pearson_p_value': array([0.00146911]), 'test_spearman_r': -0.5540497533692457, 'test_spearman_p_value': 3.0400263142502275e-07, 'test_kendall_r': -0.40571710560686525, 'test_kendall_p_value': 3.3673874344642673e-07, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 384, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 1234567890: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 122.0756877624548, 'test_rmse': 161.45792377793936, 'test_r2': -2.7756805550742554, 'test_pearson_r': array([-0.38876259]), 'test_pearson_p_value': array([0.00061926]), 'test_spearman_r': -0.5419934411526429, 'test_spearman_p_value': 6.123288448067728e-07, 'test_kendall_r': -0.39680840429436326, 'test_kendall_p_value': 6.050135751352576e-07, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 186, 'regressor__learning_rate': 0.1, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}, 473129: {'test_mad': 73.12898100803508, 'test_ystd': 83.09248394512653, 'test_mae': 91.88344789311938, 'test_rmse': 115.73794322238183, 'test_r2': -0.9401175167851838, 'test_pearson_r': array([-0.35356991]), 'test_pearson_p_value': array([0.00200012]), 'test_spearman_r': -0.4025893326850553, 'test_spearman_p_value': 0.00037657355922630865, 'test_kendall_r': -0.27376068931008785, 'test_kendall_p_value': 0.0005906386265065798, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__natural_gradient': True, 'regressor__n_estimators': 51, 'regressor__learning_rate': 0.09496603544955502, 'regressor__minibatch_frac': 1, 'regressor__col_sample': 1.0, 'regressor__verbose': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler': None}}}, 'overall data shape': {'targets_shape': (259, 1), 'training_features_shape': (259, 522)}}
+Trimer_scaler
+Filename: (ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_transformerOFF
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/OOD_target_Rg/KM3 Mordred cluster/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_transformerOFF_scores.json
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/OOD_target_Rg/KM3 Mordred cluster/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_transformerOFF_predictions.json
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/OOD_target_Rg/KM3 Mordred cluster/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_transformerOFF_ClusterTruth.json
+Done Saving scores!
+---------------------------------------- 
+Plotted Comparitive Cluster Scores!
+____________________ 
+Plotted Parity Plots!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n04>
+Subject: Job 257401: <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> in cluster <Hazel> Done
+
+Job <NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309> was submitted from host <c012n03> by user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:11:13 2025
+Job was executed on host(s) <8*c200n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:11:14 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun Mar  9 18:11:14 2025
+Terminated at Mon Mar 10 11:24:00 2025
+Results reported at Mon Mar 10 11:24:00 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_Rg1 (nm)_ECFP_Trimer_KM3 Mordred cluster_20250309"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "Rg1 (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   267897.62 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             2.00 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               14.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   61989 sec.
+    Turnaround time :                            61967 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250309.err> for stderr output of this job.
+

@@ -1,0 +1,138 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n06>
+Subject: Job 257312: <NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309> in cluster <Hazel> Exited
+
+Job <NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309> was submitted from host <c012n03> by user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:02:05 2025
+Job was executed on host(s) <8*c200n06>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:02:06 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun Mar  9 18:02:06 2025
+Terminated at Sun Mar  9 18:02:49 2025
+Results reported at Sun Mar  9 18:02:49 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "Rg1 (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM4 ECFP6_Count_512bit cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 2.
+
+Resource usage summary:
+
+    CPU time :                                   4.59 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   62 sec.
+    Turnaround time :                            44 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n14>
+Subject: Job 257345: <NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309> in cluster <Hazel> Exited
+
+Job <NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309> was submitted from host <c012n03> by user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:06:00 2025
+Job was executed on host(s) <8*c201n14>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun Mar  9 18:06:01 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun Mar  9 18:06:01 2025
+Terminated at Sun Mar  9 18:06:20 2025
+Results reported at Sun Mar  9 18:06:20 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_Rg1 (nm)_ECFP_Trimer_KM4 ECFP6_Count_512bit cluster_20250309"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "Rg1 (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM4 ECFP6_Count_512bit cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   6.64 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            20 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_202503_09/NGB_Rg1 (nm)_ECFP_Trimer_3_count_KM4 ECFP6_Count_512bit cluster_20250309.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
