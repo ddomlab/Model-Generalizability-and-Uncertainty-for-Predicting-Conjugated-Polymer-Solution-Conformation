@@ -94,11 +94,12 @@ def main_structural_numerical(
                             'pearson_p_value', 'spearman_r',
                             'spearman_p_value', 'kendall_r', 'kendall_p_value']
     suffix = f"{regressor_type}_{representation}" if representation else f'{regressor_type}'
+    suffix = f"{suffix}_{transform_type}" if transform_type else suffix
     feats_abbv = generate_acronym_string(numerical_feats) if numerical_feats else None
     suffix = f"{suffix}_{feats_abbv}" if feats_abbv else suffix
     score_plot_folder = saving_folder/ f'comparitive cluster scores ({suffix})'
     plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=score_plot_folder)
-    print("-"*40
+    print("-"*30
           ,"\nPlotted Comparitive Cluster Scores!")
     
 
@@ -108,7 +109,7 @@ def main_structural_numerical(
                         score=scores,
                         folder=parity_folder)
     
-    print("_"*20,
+    print("_"*30,
           "\nPlotted Parity Plots!")
 
 
@@ -124,7 +125,7 @@ if __name__ == "__main__":
         regressor_type=args.regressor_type,
         kernel=args.kernel,
         target_features=[args.target_features],  
-        transform_type=None,
+        transform_type='Standard',
         second_transformer=None,
         hyperparameter_optimization=True,
         numerical_feats=args.numerical_feats, 
