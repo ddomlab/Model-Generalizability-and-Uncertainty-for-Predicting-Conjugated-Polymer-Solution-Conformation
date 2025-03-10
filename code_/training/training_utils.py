@@ -255,15 +255,6 @@ def run(
     return seed_scores, seed_predictions
 
 
-def _pd_to_np(data):
-    if isinstance(data, pd.DataFrame):
-        return data.values
-    elif isinstance(data, np.ndarray):
-        return data
-    else:
-        raise ValueError("Data must be either a pandas DataFrame or a numpy array.")
-
-
 def _optimize_hyperparams(
     X, y, cv_outer, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline, classification:bool,
     scoring:Union[str,Callable]) -> tuple:
@@ -325,6 +316,13 @@ def split_for_training(
     return split_data
 
 
+def _pd_to_np(data):
+    if isinstance(data, pd.DataFrame):
+        return data.values
+    elif isinstance(data, np.ndarray):
+        return data
+    else:
+        raise ValueError("Data must be either a pandas DataFrame or a numpy array.")
 
 # def custom_function(x):
 #     x = x.astype(float)  
