@@ -32,8 +32,6 @@ conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_prediction.py --target_features "${target}" \
                                       --representation "${fp}" \
                                       --regressor_type "${regressor}" \
-                                      --radius "${radius}" \
-                                      --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
                                       --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --clustering_method "${group}" \
@@ -41,8 +39,6 @@ python ../make_ood_prediction.py --target_features "${target}" \
 
 
 EOT
-            done
-          done
         done
       done
     done
