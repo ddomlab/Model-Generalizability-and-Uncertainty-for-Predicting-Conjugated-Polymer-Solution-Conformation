@@ -224,10 +224,13 @@ def run(
       # set_output on dataframe
       regressor.set_output(transform="pandas")
       if hyperparameter_optimization:
+            cv_in = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
             best_estimator, regressor_params = _optimize_hyperparams(
                 X,
                 y,
                 cv_outer=cv_outer,
+                cv_in=cv_in,
+                n_iter=BO_ITER,
                 seed=seed,
                 regressor_type=regressor_type,
                 search_space=search_space,
@@ -256,7 +259,7 @@ def run(
 
 
 def _optimize_hyperparams(
-    X, y, cv_outer, seed: int, regressor_type:str, search_space:dict, regressor: Pipeline, classification:bool,
+    X, y, cv_outer, cv_in,seed: int,n_iter:int,  regressor_type:str, search_space:dict, regressor: Pipeline, classification:bool,
     scoring:Union[str,Callable]) -> tuple:
 
     # Splitting for outer cross-validation loop
@@ -267,7 +270,6 @@ def _optimize_hyperparams(
         y_train = split_for_training(y, train_index)
         # print(X_train)
         # Splitting for inner hyperparameter optimization loop
-        cv_inner = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
         # cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
         print("\n\n")
         print(
@@ -277,8 +279,8 @@ def _optimize_hyperparams(
         bayes = BayesSearchCV(
             regressor,
             search_space,
-            n_iter=BO_ITER,
-            cv=cv_inner,
+            n_iter=n_iter,
+            cv=cv_in,
             n_jobs=-1,
             random_state=seed,
             refit=True,

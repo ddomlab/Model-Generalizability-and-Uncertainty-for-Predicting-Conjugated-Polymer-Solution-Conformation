@@ -31,7 +31,7 @@ clusters = 'KM4 ECFP6_Count_512bit cluster'
 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 
 
@@ -99,6 +99,7 @@ def main_structural_numerical(
     suffix = f"{suffix}_{feats_abbv}" if feats_abbv else suffix
     score_plot_folder = saving_folder/ f'comparitive cluster scores ({suffix})'
     plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=score_plot_folder)
+
     print("-"*30
           ,"\nPlotted Comparitive Cluster Scores!")
     
@@ -114,37 +115,37 @@ def main_structural_numerical(
 
 
 if __name__ == "__main__":
-    args = parse_arguments()
+    # args = parse_arguments()
 
-    main_structural_numerical(
-        dataset=w_data,
-        representation=args.representation,
-        radius=args.radius,
-        vector=args.vector,
-        oligomer_representation = args.oligomer_representation,
-        regressor_type=args.regressor_type,
-        kernel=args.kernel,
-        target_features=[args.target_features],  
-        transform_type='Standard',
-        second_transformer=None,
-        hyperparameter_optimization=True,
-        numerical_feats=args.numerical_feats, 
-        clustering_method=args.clustering_method,
-    )
+    # main_structural_numerical(
+    #     dataset=w_data,
+    #     representation=args.representation,
+    #     radius=args.radius,
+    #     vector=args.vector,
+    #     oligomer_representation = args.oligomer_representation,
+    #     regressor_type=args.regressor_type,
+    #     kernel=args.kernel,
+    #     target_features=[args.target_features],  
+    #     transform_type='Standard',
+    #     second_transformer=None,
+    #     hyperparameter_optimization=True,
+    #     numerical_feats=args.numerical_feats, 
+    #     clustering_method=args.clustering_method,
+    # )
 
 # # TODO: Update the dataset to include the clustering methods
 
-#         main_structural_numerical(
-#         dataset=w_data,
-#         representation="MACCS",
-#         # radius=3,
-#         # vector="count",
-#         regressor_type="RF",
-#         target_features=['Rg1 (nm)'],  
-#         transform_type=None,
-#         second_transformer=None,
-#         numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
-#         hyperparameter_optimization=True,
-#         oligomer_representation="Trimer",
-#         clustering_method='substructure cluster'
-#     )
+        main_structural_numerical(
+        dataset=w_data,
+        representation="MACCS",
+        # radius=3,
+        # vector="count",
+        regressor_type="RF",
+        target_features=['Rg1 (nm)'],  
+        transform_type=None,
+        second_transformer=None,
+        numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+        hyperparameter_optimization=True,
+        oligomer_representation="Trimer",
+        clustering_method='substructure cluster'
+    )

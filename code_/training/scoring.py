@@ -1,5 +1,5 @@
 from itertools import product
-from typing import Callable, Union
+from typing import Callable, Union, Dict, List
 
 import numpy as np
 import pandas as pd
@@ -69,18 +69,46 @@ def rmse_score(y_test: pd.Series, y_pred: pd.Series) -> float:
 #     return r
 
 
-def pearson(y_true: pd.Series, y_pred: np.ndarray) -> float:
-    if isinstance(y_true, pd.Series) or isinstance(y_true, pd.DataFrame):
-        y_true = y_true.to_numpy()
-    y_true = y_true.flatten()
-    y_pred = y_pred.flatten()
-    r = pearsonr(y_true, y_pred)[0]
-    return r
+# def pearson(y_true: pd.Series, y_pred: np.ndarray) -> float:
+#     if isinstance(y_true, pd.Series) or isinstance(y_true, pd.DataFrame):
+#         y_true = y_true.to_numpy()
+#     y_true = y_true.flatten()
+#     y_pred = y_pred.flatten()
+#     r = pearsonr(y_true, y_pred)[0]
+#     return r
+
+def flatten_array(arr):
+    if isinstance(arr, (pd.Series, pd.DataFrame)):
+        arr = arr.to_numpy()
+    return arr.flatten()
+
+def pearson_r(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return pearsonr(y_true, y_pred)[0]
+
+def pearson_p(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return pearsonr(y_true, y_pred)[1]
+
+def spearman_r(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return spearmanr(y_true, y_pred)[0]
+
+def spearman_p(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return spearmanr(y_true, y_pred)[1]
+
+def kendall_r(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return kendalltau(y_true, y_pred)[0]
+
+def kendall_p(y_true, y_pred):
+    y_true, y_pred = flatten_array(y_true), flatten_array(y_pred)
+    return kendalltau(y_true, y_pred)[1]
 
 
-# r_scorer = make_scorer(r_regression, greater_is_better=True)
-# r_scorer = make_scorer(np_r, greater_is_better=True)
-# r2_score_multiopt = r2_score(y_true, y_pred, multioutput="raw_values")
+
+# multiouput regression scorers and classification scorers
 def r2_scorer_multi(y_true, y_pred):
     return r2_score(y_true, y_pred, multioutput="raw_values")
 
@@ -108,9 +136,20 @@ def precision_scorer_multi(y_true, y_pred):
     return precision_score(y_true, y_pred, average=None)
 
 
-r_scorer = make_scorer(pearson, greater_is_better=True)
-rmse_scorer = make_scorer(rmse_score, greater_is_better=False)
+r_scorer = make_scorer(pearson_r, greater_is_better=True)
+spearman_scorer = make_scorer(spearman_r, greater_is_better=True)
+kendall_scorer = make_scorer(kendall_r, greater_is_better=True)
+rmse_scorer = make_scorer(root_mean_squared_error, greater_is_better=False)
 mae_scorer = make_scorer(mean_absolute_error, greater_is_better=False)
+r2_scorer = make_scorer(r2_score, greater_is_better=True)
+
+
+# P-value scorers (not typically used for optimization but useful for logging)
+pearson_p_scorer = make_scorer(pearson_p, greater_is_better=False)
+spearman_p_scorer = make_scorer(spearman_p, greater_is_better=False)
+kendall_p_scorer = make_scorer(kendall_p, greater_is_better=False)
+
+
 
 f1_scorer = make_scorer(f1_score, greater_is_better=True)
 roc_auc_scorer = make_scorer(roc_auc_score, greater_is_better=True)
@@ -210,35 +249,48 @@ def process_scores(
         return scores
 
 
+def compute_summary_stats(test_metrics: Dict[str, list[float]]) -> Dict[str, float]:
+    """
+    Helper function to compute the mean and standard deviation of the test metrics.
+    """
+    summary_stats = {}
+    
+    for metric, values in test_metrics.items():
+        values = np.array(values, dtype=np.float64)  # Convert to NumPy array for handling NaNs
+        valid_values = values[~np.isnan(values)]  # Remove NaNs before computing stats
+        
+        if valid_values.size > 0:
+            summary_stats[f"{metric}_mean"] = abs(np.mean(valid_values))  if metric in ["test_rmse", "test_mae"] else np.mean(valid_values)
+            summary_stats[f"{metric}_std"] = np.std(valid_values)
+        else:
+            summary_stats[f"{metric}_mean"] = np.nan
+            summary_stats[f"{metric}_std"] = np.nan
+
+    return summary_stats
+
+
 def process_ood_scores(
-    scores: dict[int, dict[str, float]]
-    ) -> dict[Union[int, str], dict[str, float]]:
+    scores: Dict[int, Dict[str, Union[float, list]]]
+) -> Dict[Union[int, str], Dict[str, float]]:
     for cluster, seed_data in scores.items():
-        if cluster.startswith("CO_"):
+        if cluster.startswith("CO_") or cluster.startswith("ID_"):
             test_metrics = {}
 
             # Collect test scores across seeds
             for seed, metrics in seed_data.items():
-                for key, value in metrics.items():
-                    if key.startswith("test_") and not isinstance(value, dict):  # Ignore 'best_params'
-                        test_metrics.setdefault(key, []).append(value)
+                if isinstance(seed, int):
+                    for key, value in metrics.items():
+                        if key.startswith("test_") and not isinstance(value, dict):
+                            if isinstance(value, list):
+                                test_metrics.setdefault(key, []).extend(value)
+                            else:
+                                test_metrics.setdefault(key, []).append(value)
 
-            # Compute mean and std deviation
-            summary_stats = {}
-            for metric, values in test_metrics.items():
-                values = np.array(values, dtype=np.float64)  # Convert to NumPy array for handling NaNs
-                valid_values = values[~np.isnan(values)]  # Remove NaNs before computing stats
-                
-                if valid_values.size > 0:  # Ensure we have valid values
-                    summary_stats[f"{metric}_mean"] = np.mean(valid_values)
-                    summary_stats[f"{metric}_std"] = np.std(valid_values)
-                else:
-                    summary_stats[f"{metric}_mean"] = np.nan
-                    summary_stats[f"{metric}_std"] = np.nan
-
-            # Store back in the cluster dictionary
+            # Compute summary statistics for the cluster
+            summary_stats = compute_summary_stats(test_metrics)
+            
+            # Store the results back in the scores dictionary
             scores[cluster]['summary_stats'] = summary_stats
-
 
     return scores
 
@@ -323,11 +375,15 @@ def cross_validate_regressor(
                 }
             else:
                 scorers = {
-                    #r pearson is added
-                    "r": r_scorer,
-                    "r2": r2_scorer,
+                    "pearson_r": r_scorer,
+                    "pearson_p": pearson_p_scorer,
+                    "spearman_r": spearman_scorer,
+                    "spearman_p": spearman_p_scorer,
+                    "kendall_r": kendall_scorer,
+                    "kendall_p": kendall_p_scorer,
                     "rmse": rmse_scorer,
                     "mae": mae_scorer,
+                    "r2": r2_scorer,
                 }
             score: dict[str, float] = cross_validate(
                 regressor,

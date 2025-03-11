@@ -16,7 +16,7 @@ from all_factories import (
                             get_regressor_search_space)
 
 from imputation_normalization import preprocessing_workflow
-from training_utils import get_target_transformer, split_for_training
+from training_utils import get_target_transformer, split_for_training,_optimize_hyperparams
 from scoring import (
                     cross_validate_regressor,
                     process_scores,
@@ -181,25 +181,37 @@ def run_loco_cv(X, y,
 
     search_space = get_regressor_search_space(regressor_type,kernel)
     kernel = construct_kernel(regressor_type, kernel)
-    
+
+    cluster_y_test[f'ID_y_true'] = y.flatten()
+
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
         cluster_tv_labels = split_for_training(cluster_labels,tv_idx)
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y,tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
 
+        #OOD section
         cluster_scores[f'CO_{cluster}'] = {}
         cluster_predictions[f'CO_{cluster}'] = {}
         cluster_y_test[f'CO_{cluster}'] = y_test.flatten()
+        cluster_scores[f'CO_{cluster}']['cluster size (%)'] = round(len(y_test)/len(y)*100)
+
+        ##IID section
+        cluster_scores[f'ID_{cluster}'] = {}
+        cluster_predictions[f'ID_{cluster}'] = {}
+        cluster_scores[f'ID_{cluster}']['cluster size (%)'] = round((1/round(len(y)/len(y_test)))*100)
+
+
+
 
         print("\n\n")
         print("-"*50,
             "\nOOD TEST ON", cluster
         )
-
+        
         for seed in SEEDS:
             y_transform = get_target_transformer(transform_type,second_transformer)
-            skop_scoring = "r2"
+            skop_scoring = "neg_root_mean_squared_error"
 
             y_transform_regressor = TransformedTargetRegressor(
                         regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
@@ -212,9 +224,12 @@ def run_loco_cv(X, y,
                         ("regressor", y_transform_regressor),
                             ])
             regressor.set_output(transform="pandas")
+
+            ID_n_split = round(len(y)/len(y_test))
+            IID_cv_baseline = KFold(n_splits=ID_n_split, shuffle=True, random_state=seed)
             if hyperparameter_optimization:
                 #TODO: GET the BASELINE FOR OOD!!!!!!!!!!!!!!!
-                best_estimator, regressor_params = optimize_ood_hp(
+                OOD_best_estimator, OOD_regressor_params = optimize_ood_hp(
                     X_tv,
                     y_tv,
                     seed=seed,
@@ -225,12 +240,45 @@ def run_loco_cv(X, y,
                     cluster_lables=cluster_tv_labels,
                 )
 
-                scores, predictions = train_and_predict_ood(best_estimator, X_tv, y_tv, X_test, y_test, seed) 
-                scores["best_params"] = regressor_params
+                OOD_scores, OOD_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test, y_test, seed) 
+                OOD_scores["best_params"] = OOD_regressor_params
+
+                ID_cv_outer  =  KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+                ID_cv_in = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+                best_estimator, regressor_params = _optimize_hyperparams(
+                    X,
+                    y,
+                    cv_outer=ID_cv_outer,
+                    cv_in=ID_cv_in,
+                    seed=seed,
+                    n_iter=BO_ITER,
+                    regressor_type=regressor_type,
+                    search_space=search_space,
+                    regressor=regressor,
+                    scoring=skop_scoring,
+                    classification=False
+                )
+
+                
+                ID_scores, ID_predictions = cross_validate_regressor(
+                    best_estimator, X, y, IID_cv_baseline, classification=False
+                )
+                ID_scores["best_params"] = regressor_params
+
             else:
-                scores, predictions = train_and_predict_ood(regressor, X_tv, y_tv, X_test, y_test, seed)
-            cluster_scores[f'CO_{cluster}'][seed] = scores
-            cluster_predictions[f'CO_{cluster}'][seed] = predictions.flatten()
+                OOD_scores, OOD_predictions = train_and_predict_ood(regressor, X_tv, y_tv, X_test, y_test, seed)
+                
+                ID_scores, ID_predictions = cross_validate_regressor(
+                                            regressor, X, y, IID_cv_baseline, classification=False
+                                            )
+
+
+            cluster_scores[f'CO_{cluster}'][seed] = OOD_scores
+            cluster_predictions[f'CO_{cluster}'][seed] = OOD_predictions.flatten()
+
+            cluster_scores[f'ID_{cluster}'][seed] = ID_scores
+            cluster_predictions[f'ID_{cluster}'][seed] = ID_predictions.flatten()
+
     return cluster_scores, cluster_predictions, cluster_y_test
 
 
