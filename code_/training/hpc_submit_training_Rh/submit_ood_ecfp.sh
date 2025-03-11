@@ -3,7 +3,7 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 mkdir -p "$output_dir"
 
 regressors=("XGBR" "NGB")
-targets=('Rg1 (nm)')
+targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
 vectors=("count")
