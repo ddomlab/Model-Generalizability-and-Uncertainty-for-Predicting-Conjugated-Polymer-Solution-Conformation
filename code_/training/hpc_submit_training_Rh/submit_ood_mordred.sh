@@ -4,11 +4,9 @@ mkdir -p "$output_dir"
 
 regressors=("XGBR" "NGB")
 targets=('Rg1 (nm)')
-models=("ECFP")
-radii=(3) 
-vectors=("count")
+models=("Mordred")
 poly_representations=('Trimer')
-group_out=('KM4 ECFP6_Count_512bit cluster'  'substructure cluster' 'EG-Ionic-Based Cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster') 
+group_out=('KM3 Mordred cluster' 'KM4 Mordred_Polysize cluster' 'substructure cluster' 'EG-Ionic-Based Cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster') 
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
 
@@ -16,8 +14,6 @@ for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for fp in "${models[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
-        for radius in "${radii[@]}"; do
-          for vector in "${vectors[@]}"; do
             for group in "${group_out[@]}"; do
               bsub <<EOT
 
@@ -28,8 +24,8 @@ for regressor in "${regressors[@]}"; do
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250311"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250309.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250309.err"
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250311.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250311.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

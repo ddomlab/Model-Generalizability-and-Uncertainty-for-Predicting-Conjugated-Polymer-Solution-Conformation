@@ -30,48 +30,6 @@ def get_score(scores: Dict, cluster: str, score: str) -> float:
 
 
 
-# def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder: Path)->None:
-#     """
-#     Plot the scores of the splits with error bars for standard deviation.
-
-#     Parameters:
-#     scores (dict): Dictionary containing scores for different clusters.
-#     scores_criteria (List[str]): List of scoring criteria to plot (e.g., ['mad', 'mae', 'rmse', 'r2', 'std']).
-#     """
-#     # Extract relevant clusters
-#     clusters = [cluster for cluster in scores.keys() if cluster.startswith("CO_")]
-
-#     # Initialize data storage
-#     data_mean = {score: [] for score in scores_criteria}
-#     data_std = {score: [] for score in scores_criteria}
-
-#     # Extract mean and std values
-#     for cluster in clusters:
-#         for score in scores_criteria:
-#             mean_key = f"test_{score}_mean"
-#             std_key = f"test_{score}_std"
-#             data_mean[score].append(scores[cluster]["summary_stats"].get(mean_key, 0))
-#             data_std[score].append(scores[cluster]["summary_stats"].get(std_key, 0))
-
-#     # Plot each score criterion separately
-#     for score in scores_criteria:
-#         if all(np.isnan(value) or value == 0 for value in data_mean[score]):
-#             continue
-#         plt.figure(figsize=(6, 4))
-#         sns.lineplot(x=clusters, y=data_mean[score], marker="o", linewidth=2)
-#         plt.errorbar(clusters, data_mean[score], yerr=data_std[score], fmt="none", capsize=3, alpha=0.7)
-
-#         # Labels and title
-#         plt.ylabel(f"{score.upper()} Score")
-#         plt.xlabel("Clusters")
-#         plt.xticks(rotation=0)
-#         plt.title(f"{score.upper()} Score Across Clusters")
-#         plt.tight_layout()
-#         if folder:
-#             save_img_path(folder, f"Comparitive clusters {score} scores.png")
-        
-#         plt.close()
-
 def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder:Path=None) -> None:
     """
     Plot the scores of the splits with error bars for standard deviation, showing CO_{cluster} and ID_{cluster} scores on the same column.
@@ -119,10 +77,11 @@ def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder:Path=Non
         plt.errorbar(clusters, id_data_mean[score], yerr=id_data_std[score], fmt="none", capsize=3, alpha=0.7, color='orange')
 
         # Customize labels, title, and legend
-        plt.ylabel(f"{score.upper()} Score", fontsize=14)
-        plt.xlabel("Clusters", fontsize=14)
-        plt.xticks(rotation=0)
-        plt.title(f"{score.upper()} Score Across Clusters", fontsize=14)
+        plt.ylabel(f"{score.upper()} Score", fontsize=20)
+        plt.xlabel("Clusters", fontsize=20)
+        plt.xticks(rotation=0,fontsize=18)
+        plt.yticks(fontsize=18)
+        plt.title(f"{score.upper()} Score Across Clusters", fontsize=22)
         plt.legend()
         plt.tight_layout()
         if folder:
