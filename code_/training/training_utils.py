@@ -195,7 +195,7 @@ def run(
             
 
       else:
-        skop_scoring = "r2"
+        skop_scoring = "rmse"
         if y.shape[1] > 1:
             y_transform_regressor = TransformedTargetRegressor(
             regressor=MultiOutputRegressor(
