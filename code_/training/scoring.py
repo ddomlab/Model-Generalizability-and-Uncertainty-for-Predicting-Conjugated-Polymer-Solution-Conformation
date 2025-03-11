@@ -336,7 +336,7 @@ def cross_validate_regressor(
     regressor, X, y, cv,classification=False,
     ) -> tuple[dict[str, float], np.ndarray]:
 
-  
+        # MULTIOUPUT 
         if y.shape[1]>1:
             if classification:
                 scorers= {
@@ -364,6 +364,7 @@ def cross_validate_regressor(
                 verbose=0
                 )
 
+        # SINGLE OUTPUT
         else:
             if classification:
                 scorers= {
