@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 # from matplotlib import rc
-
+from visualization_setting import set_plot_style
 
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
@@ -23,11 +23,15 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 # score_bounds: dict[str, int] = {"r": 1, "r2": 1, "mae": 7.5, "rmse": 7.5}
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = ['target_Rg']
-models = ['XGBR','RF','NGB']
+models = [
+    # 'XGBR'
+        #   ,'RF',
+        'NGB'
+          ]
 
 
 
-
+set_plot_style()
 
 
 # file = Path(r'C:\Users\sdehgha2\Desktop\PhD code\pls-dataset-project\PLS-Dataset\results\target_Lp\Trimer\(ECFP8)_count_1024_RF_scores.json')
@@ -139,8 +143,8 @@ def _create_learning_curve(
     plt.figure(figsize=figsize)
 
     # Plot training scores
-    ax = sns.lineplot(x="train_sizes_fraction", y="train_scores_mean", data=df, label="Training Score", marker='o', color="blue")
-    sns.lineplot(x="train_sizes_fraction", y="test_scores_mean", data=df, label="Test Score", marker='o', color="orange")
+    ax = sns.lineplot(x="train_sizes_fraction", y="train_scores_mean", data=df, label="Training Score", marker='o', markersize=10,linewidth=3,color="blue")
+    sns.lineplot(x="train_sizes_fraction", y="test_scores_mean", data=df, label="Test Score", marker='v', markersize=10,linewidth=3,color="orange")
 
 
     plt.fill_between(df["train_sizes_fraction"],
@@ -155,21 +159,21 @@ def _create_learning_curve(
 
 
 
-    plt.title(fig_title, fontsize=16, fontweight='bold')  # Plot title with size and bold
-    ax.set_xlabel("Training set size", fontsize=14, fontweight='bold')  # X-axis label
-    ax.set_ylabel("$R^2$", fontsize=14, fontweight='bold')  # Y-axis label
+    plt.title(fig_title, fontsize=22, fontweight='bold')  # Plot title with size and bold
+    ax.set_xlabel("Training set size", fontsize=18, fontweight='bold')  # X-axis label
+    ax.set_ylabel("$R^2$", fontsize=18, fontweight='bold')  # Y-axis label
 
     # Customizing tick labels
     ax.tick_params(axis='both', which='major', labelsize=12)  # Set tick label size
-    plt.xticks(fontsize=12)  # Set x-tick labels bold
-    plt.yticks(fontsize=12)  # Set y-tick labels bold
+    plt.xticks(fontsize=16)  # Set x-tick labels bold
+    plt.yticks(fontsize=16)  # Set y-tick labels bold
 
     plt.legend(fontsize=16)
 
     print(hyp_status)
     # make folder and save the files
     saving_file_path =_save_path(features=features,
-                                       result_type="learning curves",
+                                       result_type=f"learning curves of {model}",
                                        model=model, 
                                        root_dir=root_dir, 
                                        hyp_status=hyp_status,
@@ -209,15 +213,15 @@ def save_learning_curve(target_dir: Path,
                                        hyper_param_status,
                                        poly_representation_name,
                                        learning_score_data,
-                                       figsize=(12, 8),
+                                       figsize=(8, 6),
                                        fig_title ="Learning Curve"
                                        )
 
 
 
 
-# for target_folder in target_list:
-#     save_learning_curve(target_dir=RESULTS/target_folder)
+for target_folder in target_list:
+    save_learning_curve(target_dir=RESULTS/target_folder)
 
 
 
