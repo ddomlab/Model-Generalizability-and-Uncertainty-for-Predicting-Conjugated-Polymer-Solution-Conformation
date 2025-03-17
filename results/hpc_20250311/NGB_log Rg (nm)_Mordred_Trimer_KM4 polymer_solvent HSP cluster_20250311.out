@@ -67,3 +67,722 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250311/NGB_log Rg (nm)_Mordred_Trimer_KM4 polymer_solvent HSP cluster_20250311.err> for stderr output of this job.
 
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.023696508958208663), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 176), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06243344626737913), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04219740958686788), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09977604702763535), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 693), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0004666611399926698), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04745768604521185), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1428), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.062176670694588085), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1447), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08034891281081914), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.034769668589043685), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1119), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.861376425553951e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06991692945397764), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 586), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 3.541254600438871e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04460649237010557), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1367), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04254565457262954), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.034769668589043685), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1119), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.861376425553951e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1372), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09701762666231041), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0003180614538446503), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 334), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.2578880169086277e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06734469813210106), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 241), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0651454501689819), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 117), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0353476791704779), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 808), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06037044803959038), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 834), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07352481813242628), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1246), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.390574606467376e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09735715926187881), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1773), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.8847509165378106e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.005111289224655466), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07535209684582653), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 366), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.000768085400118163), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 91), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.060886346807094725), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09939793013929618), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 161), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.3527825731996607e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05764390326947681), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.021826363230806868), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0639772130083123), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 590), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 840), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05490597104602404), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 599), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09795849365433103), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1991), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.116964444346862e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05613717372098833), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1480), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 527), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06669043620675741), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 573), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.038383227291558485), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 454), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03742143472864552), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1208), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 667), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06943881095687969), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 985), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05995688930008203), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06449854041502759), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 82), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.4103076091788285e-05), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 747), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.050268634824939325), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 453), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06099245997138851), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1317), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09875302458953115), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1783), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1.4038373772822614e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05630063059538137), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.023810502284325095), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 6.751952734352674e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09806386016722225), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 549), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00028211984782890783), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.026888480124487992), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1473), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05111527168721677), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 514), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0008060428188982054), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06781301196862932), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 605), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.022371277634528293), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1548), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05856364257160111), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07282431330042041), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 1
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08646479880356304), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 847), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00036941418309087464), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 319), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06074227899282915), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1495), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09893363665892795), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 212), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001631849069567083), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1272), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.02597056452315638), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09696628411840752), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 211), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0008186354019821059), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.053935123466136374), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 576), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0009109127238559544), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08646479880356304), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 847), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00036941418309087464), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 113), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.045271406195049047), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 384), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0007446767393349163), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06209026692432958), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 620), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05677666497241606), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 328), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 394), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1212), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03198859611946592), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06403066081797505), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1153), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0009841675720281202), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03986095106190162), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09942872008610594), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1214), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 2.316829066893263e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.04357683426277615), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1185), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.001), ('regressor__regressor__verbose', False)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06318814911352401), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 1e-06), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
