@@ -41,6 +41,5 @@ w_data['log Rg (nm)'] = np.log10(w_data['Rg1 (nm)'])
 w_data['DP'] = w_data.apply(
     lambda row: calculate_dp(row['Monomer SMILES'], row['Mw (g/mol)']), axis=1
 )
-print(w_data['DP'])
 w_data.to_pickle(training_df_dir)
 
