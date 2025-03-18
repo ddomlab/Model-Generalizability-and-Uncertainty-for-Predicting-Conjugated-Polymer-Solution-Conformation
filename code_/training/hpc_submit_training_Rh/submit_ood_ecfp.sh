@@ -8,7 +8,7 @@ models=("ECFP")
 radii=(3) 
 vectors=("count")
 poly_representations=('Trimer')
-group_out=('KM4 ECFP6_Count_512bit cluster'  'substructure cluster' 'EG-Ionic-Based Cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster') 
+group_out=('KM4 ECFP6_Count_512bit cluster' 'substructure cluster' 'EG-Ionic-Based Cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster') 
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
 
