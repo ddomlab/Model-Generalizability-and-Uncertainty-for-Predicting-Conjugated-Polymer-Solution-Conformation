@@ -11,10 +11,10 @@ for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 6
+#BSUB -n 4
 #BSUB -W 9:01
 #BSUB -R span[hosts=1]
-#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250317"
 #BSUB -o "${output_dir}/numerical_${model}_polymer_${target}_20250317.out"
 #BSUB -e "${output_dir}/numerical_${model}_polymer_${target}_20250317.err"
@@ -23,7 +23,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Mw (g/mol)' 'PDI' \
+                                  --numerical_feats "polymer dP" "polymer dD" "polymer dH" \
 
 
 conda deactivate
