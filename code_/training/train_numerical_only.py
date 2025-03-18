@@ -16,7 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = True
+TEST = False
 
 def main_numerical_only(
     dataset: pd.DataFrame,
