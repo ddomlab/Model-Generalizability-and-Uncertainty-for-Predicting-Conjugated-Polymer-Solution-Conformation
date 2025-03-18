@@ -21,7 +21,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -n 6
 #BSUB -W 30:01
 #BSUB -R span[hosts=1]
-#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "rusage[mem=8GB]"
 #BSUB -J "${fp}_${regressor}_${oligo_rep}_${target}_${radius}_${vector}_20250204"  
 #BSUB -o "${output_dir}/${fp}_${regressor}_${oligo_rep}_${target}_${radius}_${vector}_20250317.out"
 #BSUB -e "${output_dir}/${fp}_${regressor}_${oligo_rep}_${target}_${radius}_${vector}_20250317.err"
