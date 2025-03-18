@@ -1,8 +1,9 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317
+mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
-target_to_assess=("Rh (IW avg log)")
+target_to_assess=('log Rg (nm)')
 models_to_run=("RF" "MLR" "DT")
 
 
@@ -10,23 +11,19 @@ for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 8
-#BSUB -W 30:01
-#BSUB -R span[ptile=4]
-##BSUB -x
-#BSUB -R "rusage[mem=32GB]"
-#BSUB -J numerical_${model}_with_feats_on_${target}
-#BSUB -o ${output_dir}/numerical_${model}_polymer_${target}.out
-#BSUB -e ${output_dir}/numerical_${model}_polymer_${target}.err
+#BSUB -n 6
+#BSUB -W 9:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "numerical_${model}_with_feats_on_${target}_20250317"
+#BSUB -o "${output_dir}/numerical_${model}_polymer_${target}_20250317.out"
+#BSUB -e "${output_dir}/numerical_${model}_polymer_${target}_20250317.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Mn (g/mol)' 'PDI' 'Mw (g/mol)' \
-                                  --columns_to_impute 'PDI' \
-                                  --special_impute 'Mw (g/mol)' \
-                                  --imputer mean
+                                  --numerical_feats 'PDI' 'Mw (g/mol)' \
 
 
 conda deactivate

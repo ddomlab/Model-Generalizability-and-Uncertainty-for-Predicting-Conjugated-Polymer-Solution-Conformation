@@ -13,10 +13,10 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -24,10 +24,10 @@ def main_numerical_only(
     target_features: list[str],
     transform_type: str,
     hyperparameter_optimization: bool,
-    columns_to_impute: Optional[list[str]],
-    special_impute: Optional[str],
     numerical_feats: Optional[list[str]],
-    imputer:Optional[str],
+    columns_to_impute: Optional[list[str]]=None,
+    special_impute: Optional[str]=None,
+    imputer:Optional[str]=None,
     kernel:str=None,
     cutoff:Optional[str]=None,
     second_transformer:str=None,
@@ -172,7 +172,7 @@ if __name__ == "__main__":
         regressor_type=args.regressor_type,
         kernel=args.kernel,
         target_features=[args.target_features],  
-        transform_type='Robust Scaler',
+        transform_type='Standard',
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
@@ -187,13 +187,13 @@ if __name__ == "__main__":
     #     dataset=w_data,
     #     regressor_type="XGBR",
     #     # kernel= "matern",
-    #     target_features=['Rh (1_1000 nm) (highest intensity)'],  # Can adjust based on actual usage
+    #     target_features=['log Rg (nm)'],  # Can adjust based on actual usage
     #     transform_type='Standard',
     #     hyperparameter_optimization=True,
-    #     columns_to_impute=["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"],
-    #     special_impute="Mw (g/mol)",
-    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
-    #     imputer="mean",
+    #     columns_to_impute=None,
+    #     special_impute=None,
+    #     numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
+    #     imputer=None,
     #     classification=False,
     #     cutoff=None)
 
