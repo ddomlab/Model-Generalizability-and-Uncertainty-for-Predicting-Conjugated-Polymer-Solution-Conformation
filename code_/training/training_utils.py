@@ -195,10 +195,10 @@ def run(
             
 
       else:
-        skop_scoring = "rmse"
+        skop_scoring = "neg_root_mean_squared_error"
         if y.shape[1] > 1:
             y_transform_regressor = TransformedTargetRegressor(
-            regressor=MultiOutputRegressor(
+            regressor = MultiOutputRegressor(
             estimator=regressor_factory[regressor_type](kernel=kernel) if kernel is not None
             else regressor_factory[regressor_type]
             ),

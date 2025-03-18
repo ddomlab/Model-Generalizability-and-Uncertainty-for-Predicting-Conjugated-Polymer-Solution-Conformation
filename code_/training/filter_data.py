@@ -137,7 +137,6 @@ def filter_dataset(
     targets = dataset[target_feats].squeeze()
     targets = np.vstack(targets.values)
 
-    c_labels = dataset[cluster_type].squeeze().to_numpy()
     # if not (scalars_available and struct_available):
     new_struct_feats: list[str] = structure_features.columns.tolist()
     training_test_shape: Dict ={
@@ -145,5 +144,8 @@ def filter_dataset(
                                 "training_features_shape": training_features.shape
                                 }
     
-
-    return training_features, targets, new_struct_feats, c_labels,training_test_shape
+    if cluster_type:
+        c_labels = dataset[cluster_type].squeeze().to_numpy()
+        return training_features, targets, new_struct_feats, c_labels,training_test_shape
+    
+    return training_features, targets, new_struct_feats,training_test_shape

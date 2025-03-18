@@ -13,7 +13,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped_peaks_appended_multimodal (40-1000 nm)_added.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
 TEST = False
@@ -49,11 +49,11 @@ def main_structural_numerical(
     regressor_type: str,
     target_features: list[str],
     transform_type: str,
-    columns_to_impute: Optional[list[str]],
-    special_impute: Optional[str],
-    numerical_feats: Optional[list[str]],
     representation:str,
     oligomer_representation: str,
+    columns_to_impute: Optional[list[str]]=None,
+    special_impute: Optional[str]=None,
+    numerical_feats: Optional[list[str]]=None,
     hyperparameter_optimization: bool=True,
     radius:int=None,
     vector:str=None,
@@ -232,8 +232,8 @@ if __name__ == "__main__":
         regressor_type=args.regressor_type,
         kernel=args.kernel,
         target_features=[args.target_features],  
-        transform_type=None,
-        second_transformer='Log',
+        transform_type='Standard',
+        second_transformer=None,
         hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
@@ -251,15 +251,15 @@ if __name__ == "__main__":
     #     # radius=3,
     #     # vector="count",
     #     regressor_type="RF",
-    #     target_features=['log First Peak (e-5 place holder)'],  
+    #     target_features=['log Rg (nm)'],  
     #     transform_type=None,
     #     second_transformer=None,
-    #     columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
-    #     special_impute="Mw (g/mol)",
-    #     numerical_feats=['Mn (g/mol)', 'PDI', 'Mw (g/mol)', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
-    #     imputer='mean',
+    #     # columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
+    #     # special_impute="Mw (g/mol)",
+    #     numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
+    #     # imputer='mean',
     #     hyperparameter_optimization=True,
-    #     oligomer_representation="Monomer",
+    #     oligomer_representation="Trimer",
     # )
 
 
