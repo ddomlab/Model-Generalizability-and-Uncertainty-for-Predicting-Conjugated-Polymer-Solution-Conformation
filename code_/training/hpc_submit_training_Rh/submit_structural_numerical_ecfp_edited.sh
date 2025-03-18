@@ -20,7 +20,7 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 8
-#BSUB -W 50
+#BSUB -W 48:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250317"  
