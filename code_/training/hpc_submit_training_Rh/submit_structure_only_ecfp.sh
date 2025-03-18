@@ -19,7 +19,7 @@ for regressor in "${regressors[@]}"; do
             bsub <<EOT
           
 #BSUB -n 6
-#BSUB -W 40:01
+#BSUB -W 30:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${fp}_${regressor}_${oligo_rep}_${target}_${radius}_${vector}_20250204"  
