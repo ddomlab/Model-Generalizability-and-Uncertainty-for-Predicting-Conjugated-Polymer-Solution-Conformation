@@ -1,0 +1,441 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c067n02>
+Subject: Job 371127: <NGB_log Rg (nm)_ECFP_Trimer_20250317> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_20250317> was submitted from host <c067n04> by user <sdehgha2> in cluster <Hazel> at Mon Mar 17 20:50:23 2025
+Job was executed on host(s) <8*c067n02>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Mon Mar 17 20:50:24 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Mon Mar 17 20:50:24 2025
+Terminated at Mon Mar 17 20:51:26 2025
+Results reported at Mon Mar 17 20:51:26 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 50
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_20250317"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   3.79 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   88 sec.
+    Turnaround time :                            63 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09624989750239829), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 421), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00010003211470672152), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09974208139548679), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1012), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0010961371636476862), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05125439169622265), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1216), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03225466657340103), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1349), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09882563314994519), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 135), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.007987439132601389), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06319861093598371), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.055127528904555516), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03750209773960347), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 714), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0839595948176321), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 289), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00025700188789342884), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 893), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 219), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 352), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.08146216961026964), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1246), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0005782684919514924), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.010965206708916904), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1958), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0071274066164468235), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09920333232148797), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1842), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.009422276357012588), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.020602120334077847), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09509143300526347), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 664), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.009889218431769565), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.06350485574238347), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.037829836728193456), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09548726217363084), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1011), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00010155210599761175), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0989198037683859), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 548), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00010926681666919205), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05819844376001157), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 379), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00997155678826946), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.07045473403216711), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1123), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0009022355377025671), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05547970712720382), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1359), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.01166686414143856), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1125), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.0995226159438809), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 761), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00010928654409755477), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.03176617769768811), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1994), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.004031152397228815), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09987790100345635), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1848), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0022582650659693985), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.09697434635623288), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1263), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001702949420248915), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05017599668017813), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.0001), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.035485145447511184), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 1931), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.00012525316356085795), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__learning_rate', 0.05312350390322621), ('regressor__regressor__minibatch_frac', 1), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__natural_gradient', True), ('regressor__regressor__tol', 0.01), ('regressor__regressor__verbose', False)])
+
+
+Average scores:	 r: 0.94±0.05	 r2: 0.88±0.09
+Trimer_scaler
+Filename: (ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/Trimer_scaler/(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_shape.json
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n12>
+Subject: Job 379072: <NGB_log Rg (nm)_ECFP_Trimer_20250317> in cluster <Hazel> Done
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_20250317> was submitted from host <c201n08> by user <sdehgha2> in cluster <Hazel> at Tue Mar 18 12:40:36 2025
+Job was executed on host(s) <8*c205n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Mar 18 18:40:28 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Mar 18 18:40:28 2025
+Terminated at Wed Mar 19 03:08:12 2025
+Results reported at Wed Mar 19 03:08:12 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 48:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_20250317"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_structure_numerical.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   132013.16 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.98 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   30491 sec.
+    Turnaround time :                            52056 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_ECFP_Trimer_3_count_20250317.err> for stderr output of this job.
+

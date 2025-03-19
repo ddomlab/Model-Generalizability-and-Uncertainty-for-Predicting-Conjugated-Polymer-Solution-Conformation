@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_structure_numerical.py", line 3, in <module>
+    from training_utils import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 7, in <module>
+    from sklearn.model_selection import KFold, StratifiedKFold
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/__init__.py", line 5, in <module>
+    from ._classification_threshold import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_classification_threshold.py", line 14, in <module>
+    from ..metrics import (
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/metrics/__init__.py", line 46, in <module>
+    from ._regression import (
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 879, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 975, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1074, in get_data
+KeyboardInterrupt
