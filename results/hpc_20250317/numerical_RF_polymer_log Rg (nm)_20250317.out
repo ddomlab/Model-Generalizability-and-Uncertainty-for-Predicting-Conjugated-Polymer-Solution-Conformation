@@ -3139,3 +3139,439 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.err> for stderr output of this job.
 
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c034n04>
+Subject: Job 410333: <numerical_RF_with_feats_on_log Rg (nm)_20250317> in cluster <Hazel> Done
+
+Job <numerical_RF_with_feats_on_log Rg (nm)_20250317> was submitted from host <c034n04> by user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:22:44 2025
+Job was executed on host(s) <4*c034n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:23:45 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Mar 20 11:23:45 2025
+Terminated at Thu Mar 20 11:24:53 2025
+Results reported at Thu Mar 20 11:24:53 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 9:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_RF_with_feats_on_log Rg (nm)_20250317"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "RF"                                   --numerical_feats 'DP' 
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6.35 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   74 sec.
+    Turnaround time :                            129 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.052586655856728254), ('regressor__regressor__min_samples_split', 0.05857852332143467), ('regressor__regressor__n_estimators', 71)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.07762741506686664), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.07248131576652173), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.050196051166875026), ('regressor__regressor__min_samples_split', 0.08489264567299774), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.08882264742978849), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.0793490520901572), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.10307246377902396), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.06848702854690587), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 62)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 680)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05699737421290662), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05068588468134518), ('regressor__regressor__min_samples_split', 0.050657287233799586), ('regressor__regressor__n_estimators', 59)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.08046470965567565), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05130483162063525), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05167777767913638), ('regressor__regressor__min_samples_split', 0.0821690431577244), ('regressor__regressor__n_estimators', 100)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05224462046071882), ('regressor__regressor__min_samples_split', 0.09093361063236274), ('regressor__regressor__n_estimators', 58)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.06685674793487967), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.07334972330854689), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 67)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05041714068915762), ('regressor__regressor__min_samples_split', 0.06880992504342154), ('regressor__regressor__n_estimators', 70)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05), ('regressor__regressor__n_estimators', 50)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.050951969945574827), ('regressor__regressor__min_samples_split', 0.06019628225395855), ('regressor__regressor__n_estimators', 64)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.051573525829792286), ('regressor__regressor__min_samples_split', 0.05875825248391485), ('regressor__regressor__n_estimators', 405)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.06661701046757482), ('regressor__regressor__n_estimators', 2000)])
+
+
+Average scores:	 r: 0.7±0.07	 r2: 0.47±0.11
+scaler
+Filename: (DP)_RF_Standard
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_RF_Standard_scores.json
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_RF_Standard_predictions.csv
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_RF_Standard_shape.json
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n02>
+Subject: Job 410585: <numerical_RF_with_feats_on_log Rg (nm)_20250317> in cluster <Hazel> Done
+
+Job <numerical_RF_with_feats_on_log Rg (nm)_20250317> was submitted from host <c207n04> by user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:40:46 2025
+Job was executed on host(s) <4*c207n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:40:46 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Mar 20 11:40:46 2025
+Terminated at Thu Mar 20 12:25:07 2025
+Results reported at Thu Mar 20 12:25:07 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 9:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_RF_with_feats_on_log Rg (nm)_20250317"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "RF"                                   --numerical_feats 'DP' 
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7748.00 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.98 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               6.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   2688 sec.
+    Turnaround time :                            2661 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_RF_polymer_log Rg (nm)_20250317.err> for stderr output of this job.
+

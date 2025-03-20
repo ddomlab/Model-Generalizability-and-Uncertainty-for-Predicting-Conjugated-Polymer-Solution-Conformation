@@ -3139,3 +3139,382 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_DT_polymer_log Rg (nm)_20250317.err> for stderr output of this job.
 
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05001754285622589), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.07053751655224247)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05497309272933423)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.06954531533302445), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.07039026597409188), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05207359451950442), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.052219953747250095), ('regressor__regressor__min_samples_split', 0.054894539133297254)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.08807744375680283)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.08196258045890145), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.15015583318312037), ('regressor__regressor__min_samples_split', 0.2693925587745625)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.1733123256105294)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05968200669328623), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.08425117388936883), ('regressor__regressor__min_samples_split', 0.9680350423593257)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.08956925129214406), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.06349758398171729), ('regressor__regressor__min_samples_split', 0.1834719421581546)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.06685562769124487), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.10415861992207509)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.06744920289878872), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.05128411732830865), ('regressor__regressor__min_samples_split', 0.12217404301813199)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.073576063096812), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.07097987843468126), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.18515661227175922)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.05), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.05), ('regressor__regressor__min_samples_split', 0.05)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR DT 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__ccp_alpha', 0.08792411299300039), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0738687175621914), ('regressor__regressor__min_samples_split', 0.2880703081896029)])
+
+
+Average scores:	 r: 0.65±0.08	 r2: 0.39±0.12
+scaler
+Filename: (DP)_DT_Standard
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_DT_Standard_scores.json
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_DT_Standard_predictions.csv
+/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/target_log Rg (nm)/scaler/(DP)_DT_Standard_shape.json
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n05>
+Subject: Job 410587: <numerical_DT_with_feats_on_log Rg (nm)_20250317> in cluster <Hazel> Done
+
+Job <numerical_DT_with_feats_on_log Rg (nm)_20250317> was submitted from host <c207n04> by user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:40:46 2025
+Job was executed on host(s) <4*c205n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Mar 20 11:50:43 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Mar 20 11:50:43 2025
+Terminated at Thu Mar 20 12:18:21 2025
+Results reported at Thu Mar 20 12:18:21 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 9:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_DT_with_feats_on_log Rg (nm)_20250317"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_DT_polymer_log Rg (nm)_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_DT_polymer_log Rg (nm)_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "DT"                                   --numerical_feats 'DP' 
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1871.47 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.97 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               6.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   1682 sec.
+    Turnaround time :                            2255 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/numerical_DT_polymer_log Rg (nm)_20250317.err> for stderr output of this job.
+
