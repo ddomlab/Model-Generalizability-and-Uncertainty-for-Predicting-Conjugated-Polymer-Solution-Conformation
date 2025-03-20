@@ -316,7 +316,7 @@ def create_structural_result(target_dir:Path,
                              var:str,
                              data_type:str,
                              transformer_type:str,
-                             peak_num:int
+                             peak_num:int=None
                              ) -> None:
     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
                                        ,regressor_model=regressor_model, transformer_type=transformer_type,
