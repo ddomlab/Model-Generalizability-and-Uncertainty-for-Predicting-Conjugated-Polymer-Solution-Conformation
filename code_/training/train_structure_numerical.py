@@ -137,7 +137,7 @@ def parse_arguments():
     parser.add_argument(
         '--columns_to_impute',
         type=str,
-        choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
+        choices=['DP','Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
                   'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH', 'Ra'],
 
         nargs='*',  # This allows 0 or more values
