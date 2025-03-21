@@ -6,7 +6,7 @@ regressors=("NGB")
 targets=('log Rg (nm)')
 models=("Mordred")
 poly_representations=('Trimer')
-group_out=('substructure cluster') 
+group_out=('KM5 polymer_solvent HSP and polysize cluster') 
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
 
