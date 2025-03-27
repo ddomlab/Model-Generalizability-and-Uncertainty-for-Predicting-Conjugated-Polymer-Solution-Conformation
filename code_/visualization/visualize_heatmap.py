@@ -387,7 +387,7 @@ def create_structural_scaler_result(target_dir:Path,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
-complex_models = ['NGB']
+complex_models = ['RF']
 
 
 for transformer in transformer_list:
@@ -396,8 +396,8 @@ for transformer in transformer_list:
             for i in scores_list:
                 # create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
                 #                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
+                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 # for peak in [0,1,2]:
 #     for transformer in transformer_list:
