@@ -1,0 +1,70 @@
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n12>
+Subject: Job 432655: <NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317> was submitted from host <c028n04> by user <sdehgha2> in cluster <Hazel> at Fri Mar 21 14:31:17 2025
+Job was executed on host(s) <10*c202n12>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri Mar 21 14:45:34 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Fri Mar 21 14:45:34 2025
+Terminated at Mon Mar 24 14:50:23 2025
+Results reported at Mon Mar 24 14:50:23 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 10
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                       --representation "Mordred"                                       --regressor_type "NGB"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM5 polymer_solvent HSP and polysize cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   1145723.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.99 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   259502 sec.
+    Turnaround time :                            260346 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317/NGB_log Rg (nm)_Mordred_Trimer_KM5 polymer_solvent HSP and polysize cluster_20250317.err> for stderr output of this job.
+
