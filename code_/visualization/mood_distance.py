@@ -92,6 +92,7 @@ cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
 cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
 cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
 cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
+
 naming: dict = {
         'mordred vector': cov_mordred_vector_scaled,
         'ECFP vector': cov_ECFP_vector,
@@ -100,10 +101,10 @@ naming: dict = {
 }
 
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
-cluster_types = 'KM4 ECFP6_Count_512bit cluster'
+cluster_types = 'KM5 polymer_solvent HSP and polysize cluster'
 scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
 # print(os.path.exists(scores_path))
-score_file = scores_folder_path/ '(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
+score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
 
 def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
      
@@ -115,6 +116,7 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
     data = []
     for cluster_id in rg_data[cluster_types].unique():
         if cluster_id == 'rest':
+            print('yes')
             continue
         labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
         metric = weighted_jaccard if co_vector == 'ECFP vector' else 'euclidean'
@@ -164,7 +166,7 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
 
 if __name__ == "__main__":
     score_metrics = ["rmse", "r2"]
-    co_vectors = ['numerical vector', 'ECFP vector']
+    co_vectors = ['numerical vector', 'mordred vector', 'combined mordred-numerical vector']
     for ml_metric in score_metrics:
         for co_vector in co_vectors:
             plot_OOD_Score_vs_distance(ml_metric, co_vector)
