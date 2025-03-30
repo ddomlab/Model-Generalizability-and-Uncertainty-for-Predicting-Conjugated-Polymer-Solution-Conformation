@@ -29,10 +29,10 @@ training_df_dir: Path = DATASETS/ "training_dataset"
 
 
 
-# def weighted_jaccard(u, v, eps:float=1e-6) -> float:
-#     min_sum = np.sum(np.minimum(u, v))
-#     max_sum = np.sum(np.maximum(u, v))
-#     return 1 - ((min_sum + eps)/ (max_sum + eps)) 
+def weighted_jaccard(u, v,eps: float = 1e-6):
+    min_sum = np.sum(np.minimum(u, v))
+    max_sum = np.sum(np.maximum(u, v))
+    return 1 - ((min_sum+eps) / (max_sum+eps))
 
 # count_tanimoto_similarities = 1 - pdist(count_vectors, metric=weighted_jaccard)
 
@@ -100,10 +100,10 @@ naming: dict = {
 }
 
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
-cluster_types = 'KM3 Mordred cluster'
+cluster_types = 'KM4 ECFP6_Count_512bit cluster'
 scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
 # print(os.path.exists(scores_path))
-score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
+score_file = scores_folder_path/ '(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
 
 def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
      
@@ -114,8 +114,11 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
 
     data = []
     for cluster_id in rg_data[cluster_types].unique():
+        if cluster_id == 'rest':
+            continue
         labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
-        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric='euclidean')
+        metric = weighted_jaccard if co_vector == 'ECFP vector' else 'euclidean'
+        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
 
         cluster_data = {
             "Cluster": cluster_id,
@@ -130,25 +133,20 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
         
         data.append(cluster_data)
 
-    # Convert to DataFrame
     df = pd.DataFrame(data)
 
-    # Set color palette
     num_clusters = df["Cluster"].nunique()
     palette = sns.color_palette("husl", num_clusters)
     color_map = {cluster: palette[i] for i, cluster in enumerate(sorted(df["Cluster"].unique()))}
 
-    # Precompute legend elements (sorted by cluster ID)
     legend_elements = [
         plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color_map[cluster], markersize=10, label=f"CO {cluster}")
         for cluster in sorted(df["Cluster"].unique())
     ]
 
-    # Generate plots for each clustering score and model score
     for clustering_metric in clustering_score_metrics:
         plt.figure(figsize=(8, 6))
         
-        # Scatter plot with error bars
         for _, row in df.iterrows():
             plt.errorbar(row[clustering_metric], row[f"{ml_score_metric}_mean"], 
                         yerr=row[f"{ml_score_metric}_std"], fmt='o', 
@@ -160,13 +158,13 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
         plt.legend(handles=legend_elements, loc="best", fontsize=16)
         plt.tight_layout()
         save_img_path(scores_folder_path/'score vs distance (NGB_Mordred_polysize_HSPs_solvent properties_Standard)', f"{ml_score_metric} vs ({clustering_metric}) using {co_vector}.png")
-        plt.show()
+        plt.close()
 
 
 
 if __name__ == "__main__":
     score_metrics = ["rmse", "r2"]
-    co_vectors = ['mordred vector', 'numerical vector', 'combined mordred-numerical vector']
-    for metric in score_metrics:
+    co_vectors = ['numerical vector', 'ECFP vector']
+    for ml_metric in score_metrics:
         for co_vector in co_vectors:
-            plot_OOD_Score_vs_distance(metric, co_vector)
+            plot_OOD_Score_vs_distance(ml_metric, co_vector)
