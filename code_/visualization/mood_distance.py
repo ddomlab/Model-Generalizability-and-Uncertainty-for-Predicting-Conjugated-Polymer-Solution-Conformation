@@ -5,11 +5,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import os
-from visualization_setting import set_plot_style
+from visualization_setting import set_plot_style, save_img_path
 from typing import Callable, Optional, Union, Dict, Tuple
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
-
-set_plot_style()
+from sklearn.preprocessing import StandardScaler
+import json
+from visualize_ood_scores import get_score
+set_plot_style(tick_size=16)
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -58,7 +60,6 @@ training_df_dir: Path = DATASETS/ "training_dataset"
 ## Train-Test OOD Distance
 
 rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters.pkl')
-print(rg_data['EG-Ionic-Based Cluster'])
 
 
 def get_cluster_scores(fp_vector:np.ndarray, predicted_clusters, metric: Union[str, Callable]):
@@ -83,10 +84,89 @@ clusters = ['KM4 ECFP6_Count_512bit cluster'
 'KM4 Mordred_Polysize cluster']
 
 
+sd_caler = StandardScaler()
 cov_continuous_vector = rg_data[covarience_features].to_numpy(dtype=float)
+cov_continuous_vector_scaled = sd_caler.fit_transform(cov_continuous_vector)
 cov_mordred_vector = pd.DataFrame(rg_data['Trimer_Mordred'].tolist()).to_numpy(dtype=float)
-cov_mordred_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
+cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
+cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
+cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
+cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
+naming: dict = {
+        'mordred vector': cov_mordred_vector_scaled,
+        'ECFP vector': cov_ECFP_vector,
+        'numerical vector': cov_continuous_vector_scaled,
+        'combined mordred-numerical vector': cov_mordred_and_continuous_vector_scaled,
+}
 
-mask
+results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
+cluster_types = 'KM3 Mordred cluster'
+scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
+# print(os.path.exists(scores_path))
+score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
 
-for 
+def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
+     
+    with open(score_file, "r") as f:
+        scores = json.load(f)
+
+    clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
+
+    data = []
+    for cluster_id in rg_data[cluster_types].unique():
+        labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
+        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric='euclidean')
+
+        cluster_data = {
+            "Cluster": cluster_id,
+            "Silhouette": si_score,
+            "Davies-Bouldin": db_score,
+            "Calinski-Harabasz": ch_score
+        }
+        
+        mean, std = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
+        cluster_data[f"{ml_score_metric}_mean"] = mean
+        cluster_data[f"{ml_score_metric}_std"] = std
+        
+        data.append(cluster_data)
+
+    # Convert to DataFrame
+    df = pd.DataFrame(data)
+
+    # Set color palette
+    num_clusters = df["Cluster"].nunique()
+    palette = sns.color_palette("husl", num_clusters)
+    color_map = {cluster: palette[i] for i, cluster in enumerate(sorted(df["Cluster"].unique()))}
+
+    # Precompute legend elements (sorted by cluster ID)
+    legend_elements = [
+        plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color_map[cluster], markersize=10, label=f"CO {cluster}")
+        for cluster in sorted(df["Cluster"].unique())
+    ]
+
+    # Generate plots for each clustering score and model score
+    for clustering_metric in clustering_score_metrics:
+        plt.figure(figsize=(8, 6))
+        
+        # Scatter plot with error bars
+        for _, row in df.iterrows():
+            plt.errorbar(row[clustering_metric], row[f"{ml_score_metric}_mean"], 
+                        yerr=row[f"{ml_score_metric}_std"], fmt='o', 
+                        color=color_map[row["Cluster"]], capsize=4, capthick=1.2, markersize=10)
+
+        plt.xlabel(f"Train-Test Distance ({clustering_metric})")
+        plt.ylabel(f"{ml_score_metric.upper()} Score")
+        plt.title(f"Cluster {ml_score_metric.upper()} vs. Train-Test Distance ({clustering_metric})")
+        plt.legend(handles=legend_elements, loc="best", fontsize=16)
+        plt.tight_layout()
+        save_img_path(scores_folder_path/'score vs distance (NGB_Mordred_polysize_HSPs_solvent properties_Standard)', f"{ml_score_metric} vs ({clustering_metric}) using {co_vector}.png")
+        plt.show()
+
+
+
+if __name__ == "__main__":
+    score_metrics = ["rmse", "r2"]
+    co_vectors = ['mordred vector', 'numerical vector', 'combined mordred-numerical vector']
+    for metric in score_metrics:
+        for co_vector in co_vectors:
+            plot_OOD_Score_vs_distance(metric, co_vector)

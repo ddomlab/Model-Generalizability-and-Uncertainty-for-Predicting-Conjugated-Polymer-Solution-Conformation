@@ -16,13 +16,13 @@ from visualization_setting import set_plot_style, save_img_path
 set_plot_style()
 
 
-def get_score(scores: Dict, cluster: str, score: str) -> float:
+def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
     """
     Helper function to get the mean or std score for a given cluster and score type.
     Returns 0 if not available.
     """
-    mean_key = f"test_{score}_mean"
-    std_key = f"test_{score}_std"
+    mean_key = f"test_{score_metric}_mean"
+    std_key = f"test_{score_metric}_std"
     return (
         scores.get(cluster, {}).get("summary_stats", {}).get(mean_key, 0),
         scores.get(cluster, {}).get("summary_stats", {}).get(std_key, 0),
