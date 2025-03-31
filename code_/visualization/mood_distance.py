@@ -101,7 +101,7 @@ naming: dict = {
 }
 
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
-cluster_types = 'KM5 polymer_solvent HSP and polysize cluster'
+cluster_types = 'substructure cluster'
 scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
 # print(os.path.exists(scores_path))
 score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
@@ -112,14 +112,11 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
         scores = json.load(f)
 
     clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
+    metric = weighted_jaccard if co_vector == 'ECFP vector' else 'euclidean'
 
     data = []
     for cluster_id in rg_data[cluster_types].unique():
-        if cluster_id == 'rest':
-            print('yes')
-            continue
         labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
-        metric = weighted_jaccard if co_vector == 'ECFP vector' else 'euclidean'
         si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
 
         cluster_data = {
@@ -130,6 +127,25 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
         }
         
         mean, std = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
+        cluster_data[f"{ml_score_metric}_mean"] = mean
+        cluster_data[f"{ml_score_metric}_std"] = std
+        
+        data.append(cluster_data)
+
+    if cluster_types == 'substructure cluster':
+        labels = np.where(rg_data['EG-Ionic-Based Cluster'] == 'ionic-EG', "test", "train")
+        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
+        cluster_data = {
+            "Cluster": 'polar',
+            "Silhouette": si_score,
+            "Davies-Bouldin": db_score,
+            "Calinski-Harabasz": ch_score
+        }
+        
+        score_file_ionic_EG = results_path / 'EG-Ionic-Based Cluster'/ 'Trimer_scaler'/'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
+        with open(score_file_ionic_EG, "r") as f:
+            scores = json.load(f)
+        mean, std = get_score(scores, f"CO_ionic-EG", ml_score_metric)
         cluster_data[f"{ml_score_metric}_mean"] = mean
         cluster_data[f"{ml_score_metric}_std"] = std
         
