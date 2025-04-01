@@ -436,7 +436,7 @@ def get_incremental_split(
 
 
 
-def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, seed):
+def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test):
     regressor.fit(X_train_val, y_train_val)
     
     y_pred = regressor.predict(X_test)

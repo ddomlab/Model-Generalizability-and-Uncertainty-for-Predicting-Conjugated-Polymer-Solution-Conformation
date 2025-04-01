@@ -59,10 +59,11 @@ def set_globals(Test: bool=False) -> None:
             train_ratios.append(min_ratio_to_compare)
 
         for train_ratio in train_ratios:
+            ##### TODO: USE CV stratified
             if train_ratio >0.7:
                 random_state_list = np.arange(3)
             elif train_ratio >0.5:
-                random_state_list = np.arange(4)
+                random_state_list = np.arange(4).
             elif train_ratio >0.3:
                 random_state_list = np.arange(6)
             elif train_ratio >=0.1:
@@ -76,13 +77,15 @@ def set_globals(Test: bool=False) -> None:
                     X_train,y_train = X_tv, y_tv
                 else:
                     X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio, random_state=seed,stratify=cluster_tv_labels)   
-
-
+                
                 model = optimized_models('NGB',random_state=seed)
-                model.fit(X_train, y_train)
-                y_pred_ood = model.predict(X_test)
-                learning_curve_scores = [f'CO_{cluster}'][f'ratio_{train_ratio}'][f'seed_{seed}'] = 
+                scores, y_pred_ood = train_and_predict_ood(model,X_train, y_train,X_test, y_test)
+                learning_curve_scores[f'CO_{cluster}'][f'ratio_{train_ratio}'][f'seed_{seed}'] = scores
                 learning_curve_results[f'CO_{cluster}'][f'ratio_{train_ratio}'][f'seed_{seed}'] = {
                     'y_true': y_test,
                     'y_pred': y_pred_ood
                 }
+
+
+
+
