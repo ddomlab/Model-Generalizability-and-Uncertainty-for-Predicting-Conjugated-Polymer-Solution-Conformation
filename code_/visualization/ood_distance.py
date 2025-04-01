@@ -182,7 +182,7 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
 
 if __name__ == "__main__":
     score_metrics = ["rmse", "r2"]
-    co_vectors = ['numerical vector', 'mordred vector', 'combined mordred-numerical vector']
+    co_vectors = ['ECFP vector']
     for ml_metric in score_metrics:
         for co_vector in co_vectors:
             plot_OOD_Score_vs_distance(ml_metric, co_vector)
