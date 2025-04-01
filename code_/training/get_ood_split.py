@@ -16,14 +16,13 @@ from all_factories import (
                             get_regressor_search_space)
 
 from imputation_normalization import preprocessing_workflow
-from training_utils import get_target_transformer, split_for_training,_optimize_hyperparams
+from training_utils import get_target_transformer, split_for_training,_optimize_hyperparams,set_globals
 from scoring import (
                     cross_validate_regressor,
                     process_scores,
                     train_and_predict_ood,
                     process_ood_scores
                 )
-
 def set_globals(Test: bool=False) -> None:
     global SEEDS, N_FOLDS, BO_ITER
     if not Test:
