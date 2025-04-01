@@ -459,3 +459,24 @@ def get_prediction_scores(y_test, y_pred):
         "test_kendall_r": kendalltau(y_test, y_pred)[0],
         "test_kendall_p_value": kendalltau(y_test, y_pred)[1],
     }
+
+
+
+
+
+
+def fixed_test_learning_curve(
+    estimator,
+    X,
+    y,
+    train_sizes:np.ndarray,
+    cv=None,
+    scoring=None,
+    n_jobs=None,
+    shuffle=False,
+    random_state=None,
+    ):
+
+
+
+    return

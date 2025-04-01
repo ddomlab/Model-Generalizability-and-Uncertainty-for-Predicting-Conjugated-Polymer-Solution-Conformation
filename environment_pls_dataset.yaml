@@ -6,25 +6,35 @@ channels:
   - rdkit
   - bioconda
 
-# TODO: Make sure that this is correct.
+channels:
+  - rapidsai
+  - conda-forge
+  - nvidia
+  - rdkit
+  - bioconda
+  - defaults
+  - pip
+
 dependencies:
-  - python=3.10
-  - numpy=1.23.5
+  - python>=3.10
+  - rapids=25.02
+  - cuda-version>=12.0,<=12.8
+  - numpy>=1.20
   - pandas>=1.0.3
   - pip>=20.0.2
-  - rdkit=2024.3.3
+  - rdkit=2024
   - scipy>=1.4.1
   - scikit-optimize>=0.9.0
   - matplotlib
   - pandas
   - scikit-learn
-  - numpy
   - ipython
   - scikit-optimize
   - seaborn
   - xgboost
   - ngboost
-  - mordred=1.2.0
+  - mordred>=1.2.0
   - Pandarallel
   - openpyxl
   - gpytorch
+
