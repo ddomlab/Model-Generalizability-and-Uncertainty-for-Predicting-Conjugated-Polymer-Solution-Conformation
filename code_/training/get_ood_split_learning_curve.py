@@ -23,7 +23,7 @@ from scoring import (
                     train_and_predict_ood,
                     process_ood_scores
                 )
-
+from all_factories import optimized_models
 
 from get_ood_split import (StratifiedKFoldWithLabels,
                             get_loco_splits)
@@ -47,7 +47,8 @@ def set_globals(Test: bool=False) -> None:
     cluster_names, counts = np.unique(cluster_labels, return_counts=True)
     train_ratios =[.1, .3, .5, .7,.9]
     min_train_size = len(cluster_labels) - min(counts)
-
+    learning_curve_results = {}
+    learning_curve_scores = {}
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
         cluster_tv_labels = split_for_training(cluster_labels,tv_idx)
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y,tv_idx)
@@ -58,17 +59,30 @@ def set_globals(Test: bool=False) -> None:
             train_ratios.append(min_ratio_to_compare)
 
         for train_ratio in train_ratios:
-            if train_ratio >0.3:
+            if train_ratio >0.7:
+                random_state_list = np.arange(3)
+            elif train_ratio >0.5:
                 random_state_list = np.arange(4)
-            elif train_ratio >0.16:
-                random_state_list = np.arange(5)
-            elif train_ratio >0.1:
+            elif train_ratio >0.3:
                 random_state_list = np.arange(6)
+            elif train_ratio >=0.1:
+                random_state_list = np.arange(10)
+
+            else:
+                random_state_list = np.arange(15)
 
             for seed in random_state_list:
                 if train_ratio ==1:
                     X_train,y_train = X_tv, y_tv
                 else:
-                    X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio, random_state=seed)   
+                    X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio, random_state=seed,stratify=cluster_tv_labels)   
 
 
+                model = optimized_models('NGB',random_state=seed)
+                model.fit(X_train, y_train)
+                y_pred_ood = model.predict(X_test)
+                learning_curve_scores = [f'CO_{cluster}'][f'ratio_{train_ratio}'][f'seed_{seed}'] = 
+                learning_curve_results[f'CO_{cluster}'][f'ratio_{train_ratio}'][f'seed_{seed}'] = {
+                    'y_true': y_test,
+                    'y_pred': y_pred_ood
+                }

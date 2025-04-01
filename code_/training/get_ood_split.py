@@ -227,7 +227,6 @@ def run_loco_cv(X, y,
             ID_n_split = round(len(y)/len(y_test))
             IID_cv_baseline = KFold(n_splits=ID_n_split, shuffle=True, random_state=seed)
             if hyperparameter_optimization:
-                #TODO: GET the BASELINE FOR OOD!!!!!!!!!!!!!!!
                 OOD_best_estimator, OOD_regressor_params = optimize_ood_hp(
                     X_tv,
                     y_tv,
