@@ -87,7 +87,7 @@ def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder:Path=Non
         if folder:
             save_img_path(folder, f"Comparitive clusters {score} scores.png")
         # Display plot
-        plt.show()
+        # plt.show()
         plt.close()
 
 
@@ -167,3 +167,6 @@ def plot_splits_parity(predicted_values: dict,
 
 
 
+def plot_ood_learning_curve(scores: Dict, scores_criteria: str, folder:Path=None) -> None:
+
+    return None

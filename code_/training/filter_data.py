@@ -86,6 +86,8 @@ def filter_dataset(
     ]
     if cluster_type:
         all_feats.append(cluster_type)
+        if cluster_type=="substructure cluster":
+            all_feats.append("EG-Ionic-Based Cluster")
 
     dataset: pd.DataFrame = raw_dataset[all_feats]
     dataset = sanitize_dataset(dataset,
@@ -145,7 +147,13 @@ def filter_dataset(
                                 }
     
     if cluster_type:
-        c_labels = dataset[cluster_type].squeeze().to_numpy()
+        if cluster_type == "substructure cluster":
+            substructure_labels = dataset[cluster_type].squeeze().to_numpy()
+            side_chian_labels = dataset["EG-Ionic-Based Cluster"].squeeze().to_numpy()
+            c_labels = {"substructure cluster": substructure_labels,
+                        "EG-Ionic-Based Cluster": side_chian_labels}
+        else:    
+            c_labels = dataset[cluster_type].squeeze().to_numpy()
         return training_features, targets, new_struct_feats, c_labels,training_test_shape
     
     return training_features, targets, new_struct_feats,training_test_shape

@@ -295,29 +295,40 @@ def process_ood_scores(
     return scores
 
 
+from collections import defaultdict
 
-def process_ood_learning_curve_score(scores:dict[int, dict[str, float]]
-                                        ) -> dict[int, dict[str, float]]:
+def process_ood_learning_curve_score(scores: dict) -> dict:
+    """
+    Processes the input dictionary, aggregates scores for each training ratio across different seeds,
+    and computes summary statistics for both test and train metrics.
+    """
+    summary_scores = {}
 
-    for cluster, training_ratios in scores.items():
+    for cluster, ratios in scores.items():
         if cluster.startswith("CO_") or cluster.startswith("ID_"):
-            for train_ratio, seeds in training_ratios.items():
-                test_metrics = {}
+            summary_scores[cluster] = {}
+            
+            for train_ratio, seeds in ratios.items():
+                test_metrics = defaultdict(list)
+                train_metrics = defaultdict(list)
 
-                # Collect all metric values across different seeds
-                for seed, metrics in seeds.items():
-                    for metric, value in metrics.items():
-                        if metric not in test_metrics:
-                            test_metrics[metric] = []
+                for seed, (test_results, train_results) in seeds.items():
+                    for metric, value in test_results.items():
+                        if isinstance(value, np.ndarray):  # Handle numpy arrays (e.g., Pearson correlations)
+                            value = value.item()
                         test_metrics[metric].append(value)
 
-                # Compute summary statistics
-                summary_stats = compute_summary_stats(test_metrics)
+                    for metric, value in train_results.items():
+                        if isinstance(value, np.ndarray):
+                            value = value.item()
+                        train_metrics[metric].append(value)
 
-                # Store summary statistics
-                scores[cluster][train_ratio]['summary_stats'] = summary_stats
+                summary_scores[cluster][train_ratio] = {
+                    "test_summary_stats": compute_summary_stats(test_metrics),
+                    "train_summary_stats": compute_summary_stats(train_metrics),
+                }
 
-    return scores
+    return summary_scores
 
 
 
@@ -464,28 +475,34 @@ def get_incremental_split(
 
 
 
-def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test):
+def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, return_train_pred:bool=False):
     regressor.fit(X_train_val, y_train_val)
     
-    y_pred = regressor.predict(X_test)
-    scores = get_prediction_scores(y_test, y_pred)
+    y_test_pred = regressor.predict(X_test)
+    y_train_pred = regressor.predict(X_train_val)
+
     
-    return scores, y_pred
+    test_scores = get_prediction_scores(y_test, y_test_pred,'test')
+    if return_train_pred:
+        train_scores = get_prediction_scores(y_train_val, y_train_pred,'train')
+        return test_scores, train_scores,y_test_pred
+    
+    return test_scores,y_test_pred
 
 
-def get_prediction_scores(y_test, y_pred):
+def get_prediction_scores(y_test, y_pred, score_set:str='test'):
     return {
-        "test_mad": np.abs(y_test - y_test.mean()).mean(),
-        "test_ystd": y_test.std(),
-        "test_mae": mean_absolute_error(y_test, y_pred),
-        "test_rmse": root_mean_squared_error(y_test, y_pred),
-        "test_r2": r2_score(y_test, y_pred),
-        "test_pearson_r": pearsonr(y_test, y_pred)[0],
-        "test_pearson_p_value": pearsonr(y_test, y_pred)[1],
-        "test_spearman_r": spearmanr(y_test, y_pred)[0],
-        "test_spearman_p_value": spearmanr(y_test, y_pred)[1],
-        "test_kendall_r": kendalltau(y_test, y_pred)[0],
-        "test_kendall_p_value": kendalltau(y_test, y_pred)[1],
+        f"{score_set}_mad": np.abs(y_test - y_test.mean()).mean(),
+        f"{score_set}_ystd": y_test.std(),
+        f"{score_set}_mae": mean_absolute_error(y_test, y_pred),
+        f"{score_set}_rmse": root_mean_squared_error(y_test, y_pred),
+        f"{score_set}_r2": r2_score(y_test, y_pred),
+        f"{score_set}_pearson_r": pearsonr(y_test, y_pred)[0],
+        f"{score_set}_pearson_p_value": pearsonr(y_test, y_pred)[1],
+        f"{score_set}_spearman_r": spearmanr(y_test, y_pred)[0],
+        f"{score_set}_spearman_p_value": spearmanr(y_test, y_pred)[1],
+        f"{score_set}_kendall_r": kendalltau(y_test, y_pred)[0],
+        f"{score_set}_kendall_p_value": kendalltau(y_test, y_pred)[1],
     }
 
 

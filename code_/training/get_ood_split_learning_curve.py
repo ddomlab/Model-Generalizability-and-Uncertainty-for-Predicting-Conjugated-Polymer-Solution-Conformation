@@ -1,3 +1,5 @@
+%load_ext cuml.accel
+
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
 from sklearn.pipeline import Pipeline
@@ -119,7 +121,7 @@ def prepare_data(
 def run_ood_learning_curve(
                             X:np.ndarray,
                             y:np.ndarray,
-                            cluster_labels:np.ndarray,
+                            cluster_labels:Union[np.ndarray, dict[str, np.ndarray]],
                             model_name:str,
                             transform_type:str = None,
                             second_transformer:str = None,
@@ -130,15 +132,22 @@ def run_ood_learning_curve(
 
 
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
-    cluster_names, counts = np.unique(cluster_labels, return_counts=True)
-    train_ratios =[.1, .3, .5, .7,.9]
-    min_train_size = len(cluster_labels) - max(counts)
+    # cluster_names, counts = np.unique(cluster_labels, return_counts=True)
+    train_ratios =[.1, .3, .5, .7, .9]
+    train_sizes = [len(tv_idxs) for tv_idxs, _ in loco_split_idx.values()]
+    min_train_size= min(train_sizes)
     learning_curve_predictions = {}
     learning_curve_scores = {}
-    ### TODO: some modification and exception for substraucture and side chain
+    print(loco_split_idx)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
-        cluster_tv_labels = split_for_training(cluster_labels,tv_idx)
-        X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y,tv_idx)
+        if cluster=='ionic-EG':
+            cluster_tv_labels = split_for_training(cluster_labels['EG-Ionic-Based Cluster'],tv_idx)
+        elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
+            cluster_tv_labels = split_for_training(cluster_labels['substructure cluster'],tv_idx)
+        else:
+            cluster_tv_labels = split_for_training(cluster_labels,tv_idx)
+
+        X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y, tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
 
         min_ratio_to_compare = min_train_size/len(X_tv)
@@ -162,7 +171,8 @@ def run_ood_learning_curve(
                 if train_ratio ==1:
                     X_train,y_train = X_tv, y_tv
                 else:
-                    X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio, random_state=seed,stratify=cluster_tv_labels)   
+                    X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
+                                                              random_state=seed,stratify=cluster_tv_labels)   
                 
 
 
@@ -181,13 +191,13 @@ def run_ood_learning_curve(
                                         ])
                 regressor.set_output(transform="pandas")
 
-                scores, y_pred_ood = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test)
-                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = scores
+                train_scores, test_score, y_test_pred_ood = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test,return_train_pred=True)
+                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_score)
                 learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
                     'y_true': y_test,
-                    'y_pred': y_pred_ood
+                    'y_test_pred': y_test_pred_ood
                 }
-        print(learning_curve_scores)
+            # print(learning_curve_scores)
     return learning_curve_scores, learning_curve_predictions
 
 
