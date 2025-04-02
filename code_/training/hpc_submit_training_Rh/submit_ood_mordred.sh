@@ -1,5 +1,5 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250402
 mkdir -p "$output_dir"
 
 regressors=("NGB")
@@ -19,14 +19,13 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 1
-#BSUB -W 5:00
-BSUB -R span[hosts=1]
+#BSUB -n 6
+#BSUB -W 00:30
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -gpu "num=1:mode=shared:mps=yes"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250317"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250317.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250317.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
