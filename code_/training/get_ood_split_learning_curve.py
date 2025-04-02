@@ -131,7 +131,6 @@ def run_ood_learning_curve(
 
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     # cluster_names, counts = np.unique(cluster_labels, return_counts=True)
-    train_ratios =[.1, .3, .5, .7, .9]
     train_sizes = [len(tv_idxs) for tv_idxs, _ in loco_split_idx.values()]
     min_train_size= min(train_sizes)
     learning_curve_predictions = {}
@@ -147,7 +146,8 @@ def run_ood_learning_curve(
 
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y, tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
-
+        
+        train_ratios =[.1, .3, .5, .7, .9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
@@ -158,12 +158,12 @@ def run_ood_learning_curve(
             elif train_ratio >0.5:
                 random_state_list = np.arange(4)
             elif train_ratio >0.3:
-                random_state_list = np.arange(6)
+                random_state_list = np.arange(7)
             elif train_ratio >=0.1:
-                random_state_list = np.arange(10)
+                random_state_list = np.arange(15)
 
             else:
-                random_state_list = np.arange(15)
+                random_state_list = np.arange(30)
 
             for seed in random_state_list:
                 if train_ratio ==1:

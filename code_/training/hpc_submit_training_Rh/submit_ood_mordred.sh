@@ -22,7 +22,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -n 1
 #BSUB -W 1:30
 #BSUB -R "select[gtx1080]"
-#BSUB -gpu "num=2:mode=shared:mps=yes"
+#BSUB -gpu "num=1:mode=shared:mps=yes"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.out"
 #BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.err"

@@ -302,11 +302,9 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
     Processes the input dictionary, aggregates scores for each training ratio across different seeds,
     and computes summary statistics for both test and train metrics.
     """
-    summary_scores = {}
 
     for cluster, ratios in scores.items():
         if cluster.startswith("CO_") or cluster.startswith("ID_"):
-            summary_scores[cluster] = {}
             
             for train_ratio, seeds in ratios.items():
                 test_metrics = defaultdict(list)
@@ -323,12 +321,12 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
                             value = value.item()
                         train_metrics[metric].append(value)
 
-                summary_scores[cluster][train_ratio] = {
+                scores[cluster][train_ratio] = {
                     "test_summary_stats": compute_summary_stats(test_metrics),
                     "train_summary_stats": compute_summary_stats(train_metrics),
-                }
+                    }
 
-    return summary_scores
+    return scores
 
 
 
