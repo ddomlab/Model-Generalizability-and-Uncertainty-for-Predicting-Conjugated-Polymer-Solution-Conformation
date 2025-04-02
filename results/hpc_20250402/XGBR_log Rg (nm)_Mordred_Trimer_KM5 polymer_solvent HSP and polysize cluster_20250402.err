@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_learning_curve.py", line 3, in <module>
+    from get_ood_split_learning_curve import train_ood_learning_curve
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 1
+    %load_ext cuml.accel
+    ^
+SyntaxError: invalid syntax
