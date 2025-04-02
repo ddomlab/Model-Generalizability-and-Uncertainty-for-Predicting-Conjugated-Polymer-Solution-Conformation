@@ -111,11 +111,12 @@ regressor_factory: dict[str, type]={
 
 def optimized_models(model_name:str,random_state:int=0, **kwargs):
     if 'NGB'==model_name:
-        return NGBRegressor(n_estimators=500, learning_rate=0.01, tol=1e-4, random_state=0, **kwargs),
-    elif 'XGBR'==model_name:
-        return  XGBRegressor(eval_metric="rmse", n_estimators=500, learning_rate=0.01, max_depth=10000, random_state=random_state, **kwargs)
+        return NGBRegressor(n_estimators=500, learning_rate=0.01, tol=1e-4, random_state=random_state, verbose=False,**kwargs)
+    if 'XGBR'==model_name:
+        return  XGBRegressor(eval_metric="rmse", n_estimators=500,
+                              learning_rate=0.01, max_depth=10000, random_state=random_state, n_jobs=-2,**kwargs)
 
-
+    return None
 
 def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
     if algortihm == "MLR":

@@ -67,7 +67,8 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
           vector : Optional[str],
           numerical_feats: Optional[list[str]],
           hypop: bool=True,
-          transform_type:Optional[str]=None
+          transform_type:Optional[str]=None,
+          learning_curve:bool=False,
           ) -> None:
     
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -98,24 +99,21 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     
     fname_root =f"{fname_root}_hypOFF" if hypop==False else fname_root
     fname_root =f"{fname_root}_{transform_type}" if transform_type else f"{fname_root}_transformerOFF"
-
+    fname_root = f"{fname_root}_lc" if learning_curve else fname_root
     print("Filename:", fname_root)
     if scores:
         scores_file: Path = results_dir / f"{fname_root}_scores.json"
         with open(scores_file, "w") as f:
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
-        print(scores_file)
 
     if predictions is not None:
         if isinstance(predictions, pd.DataFrame):
             predictions_file: Path = results_dir / f"{fname_root}_predictions.csv"
             predictions.to_csv(predictions_file, index=False)
-            print(predictions_file)
         elif isinstance(predictions, dict):
             predictions_file: Path = results_dir / f"{fname_root}_predictions.json"
             with open(predictions_file, "w") as f:
                 json.dump(predictions, f, cls=NumpyArrayEncoder, indent=2)
-            print(predictions_file)
 
 
     if ground_truth:
@@ -123,19 +121,17 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
         cluster_ground_truth:Path = results_dir / f"{fname_root}_ClusterTruth.json"
         with open(cluster_ground_truth, "w") as f:
             json.dump(ground_truth, f, cls=NumpyArrayEncoder, indent=2)
-        print(cluster_ground_truth)
     
     if df_shapes:
         data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
         with open(data_shape_file, "w") as f:
             json.dump(df_shapes, f, cls=NumpyArrayEncoder, indent=2)
-        print(data_shape_file)
     
-    if generalizability_score:
-        generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizability_scores.json"
-        with open(generalizibility_scores_file, "w") as f:
-            json.dump(generalizability_score, f, cls=NumpyArrayEncoder, indent=2)
-        print(generalizibility_scores_file)
+    # if generalizability_score:
+    #     generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizability_scores.json"
+    #     with open(generalizibility_scores_file, "w") as f:
+    #         json.dump(generalizability_score, f, cls=NumpyArrayEncoder, indent=2)
+    #     print(generalizibility_scores_file)
     
     print('Done Saving scores!')
 
@@ -144,7 +140,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  predictions: Optional[pd.DataFrame]=None,
                  ground_truth: Optional[pd.DataFrame]=None,
                  df_shapes:Optional[Dict]=None,
-                 generalizability_score:Optional[Dict]=None,
+                #  generalizability_score:Optional[Dict]=None,
                  target_features: list=None,
                  regressor_type: str=None,
                  kernel: Optional[str]=None,
@@ -162,6 +158,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  second_transformer:Optional[str]=None,
                  classification:bool=False,
                  clustering_method:str=None,
+                 learning_curve:bool=False,
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -174,7 +171,6 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     if numerical_feats:
         feature_ids.append('scaler')
     features_dir: str = "_".join(feature_ids)
-    print(features_dir)
     if cutoff:
         cutoff_parameter = "-".join(feature_abbrev.get(key,key) for key in cutoff)
     f_root_dir = f"classification_target_{targets_dir}" if classification else  f"target_{targets_dir}"
@@ -194,7 +190,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
           ground_truth=ground_truth,
           results_dir=results_dir,
           df_shapes=df_shapes,
-          generalizability_score=generalizability_score,
+        #   generalizability_score=generalizability_score,
           regressor_type=regressor_type,
           imputer=imputer,
           representation=representation,
@@ -203,7 +199,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
           vector=vector,
           numerical_feats=numerical_feats,
           hypop=hypop,
-          transform_type=transform_type
+          transform_type=transform_type,
+          learning_curve=learning_curve,
           )
     return results_dir
 

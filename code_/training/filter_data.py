@@ -59,7 +59,7 @@ def filter_dataset(
     structure_feats: Optional[list[str]], # can be None
     scalar_feats: Optional[list[str]], # like conc, temp,
     target_feats: list[str], 
-    cutoff: Dict[str, Tuple[Optional[float], Optional[float]]],
+    cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=False,
     dropna: bool = True,
     unroll: Union[dict, list, None] = None,
     cluster_type:Optional[str]= None,

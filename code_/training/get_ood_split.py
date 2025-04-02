@@ -49,7 +49,6 @@ class StratifiedKFoldWithLabels(StratifiedKFold):
 
 def train_regressor(
     dataset: pd.DataFrame,
-
     representation: Optional[str],
     structural_features: Optional[list[str]],
     numerical_feats: Optional[list[str]],
@@ -157,7 +156,6 @@ def _prepare_data(
                                             **kwargs,
                                             )
     score['overall data shape'] = X_y_shape
-    print(score)
     return score, predication, cluster_y_ture
 
 

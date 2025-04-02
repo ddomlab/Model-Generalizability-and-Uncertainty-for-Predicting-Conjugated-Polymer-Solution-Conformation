@@ -295,6 +295,34 @@ def process_ood_scores(
     return scores
 
 
+
+def process_ood_learning_curve_score(scores:dict[int, dict[str, float]]
+                                        ) -> dict[int, dict[str, float]]:
+
+    for cluster, training_ratios in scores.items():
+        if cluster.startswith("CO_") or cluster.startswith("ID_"):
+            for train_ratio, seeds in training_ratios.items():
+                test_metrics = {}
+
+                # Collect all metric values across different seeds
+                for seed, metrics in seeds.items():
+                    for metric, value in metrics.items():
+                        if metric not in test_metrics:
+                            test_metrics[metric] = []
+                        test_metrics[metric].append(value)
+
+                # Compute summary statistics
+                summary_stats = compute_summary_stats(test_metrics)
+
+                # Store summary statistics
+                scores[cluster][train_ratio]['summary_stats'] = summary_stats
+
+    return scores
+
+
+
+
+
 def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
      # Initialize arrays for aggregation
     train_scores_mean = None
@@ -462,21 +490,3 @@ def get_prediction_scores(y_test, y_pred):
 
 
 
-
-
-
-def fixed_test_learning_curve(
-    estimator,
-    X,
-    y,
-    train_sizes:np.ndarray,
-    cv=None,
-    scoring=None,
-    n_jobs=None,
-    shuffle=False,
-    random_state=None,
-    ):
-
-
-
-    return
