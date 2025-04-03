@@ -182,7 +182,7 @@ def process_summary_scores(summary_scores, metric="rmse"):
             
             # Calculate the training set size based on the ratio and cluster size
             train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round(int(train_ratio * cluster_size))
+            train_set_size = round(float(train_ratio * cluster_size),1)
             # Add the calculated train_set_size to the set of each cluster
             cluster_train_sizes[cluster].add(train_set_size)
             
@@ -210,7 +210,7 @@ def process_summary_scores(summary_scores, metric="rmse"):
     return pd.DataFrame(data), cluster_train_sizes
 
 # Function to plot dynamically based on metric and number of clusters
-def plot_ood_learning_scores(summary_scores, metric="rmse"):
+def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> None:
     df, cluster_train_sizes = process_summary_scores(summary_scores, metric)
 
     if df.empty:
@@ -219,7 +219,6 @@ def plot_ood_learning_scores(summary_scores, metric="rmse"):
 
     # Find the common training set size across all clusters
     common_train_sizes = set.intersection(*cluster_train_sizes.values())
-    
     if common_train_sizes:
         # If there's a shared training size, take the first one from the set
         shared_train_size = common_train_sizes.pop()
@@ -229,9 +228,9 @@ def plot_ood_learning_scores(summary_scores, metric="rmse"):
 
     # Determine the number of clusters and set col_wrap dynamically
     num_clusters = df['Cluster'].nunique()
-    col_wrap = min(num_clusters, 4)  # Ensure we don't exceed 4 columns for readability
+    # col_wrap = min(num_clusters, 4)  # Ensure we don't exceed 4 columns for readability
 
-    g = sns.FacetGrid(df, col="Cluster", col_wrap=col_wrap, height=4, sharey=True)
+    g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
 
     def plot_with_shaded_area(data, **kwargs):
         ax = plt.gca()
@@ -241,6 +240,9 @@ def plot_ood_learning_scores(summary_scores, metric="rmse"):
         )
         
         for score_type, sub_df in data.groupby("Score Type"):
+            # Sort values to ensure correct shading
+            sub_df = sub_df.sort_values("Train Set Size")
+
             ax.fill_between(
                 sub_df["Train Set Size"], 
                 sub_df["Score"] - sub_df["Std"], 
@@ -250,25 +252,77 @@ def plot_ood_learning_scores(summary_scores, metric="rmse"):
         
         # If there's a shared training set size, highlight it on the plot
         if shared_train_size is not None:
-            ax.axvline(shared_train_size, color='r', linestyle='--', label="Shared Train Size")
-            ax.legend()
+            ax.axvline(shared_train_size, color='r', linestyle='--', label="eq train size")
+            # shared_point = data[data["Train Set Size"] == shared_train_size]
+            # if not shared_point.empty:
+            #     test_score = shared_point["Score"].values[0]
+                
+            #     # Find max score for positioning in upper right
+            #     max_score = data["Score"].max()
+            #     upper_right_x = data["Train Set Size"].max()  # Rightmost x-value
+                
+            #     ax.annotate(
+            #         f"{test_score:.2f}",
+            #         xy=(upper_right_x, max_score), 
+            #         xycoords="data",
+            #         xytext=(20, 20), textcoords="offset points",  # Offset for better visibility
+            #         fontsize=12, fontweight="bold",
+            #         color="black",
+            #         bbox=dict(facecolor="white", edgecolor="black", boxstyle="round,pad=0.3"),
+            #         ha="right", va="top"  # Align text to the top-right
+            #     )
+        ax.legend(loc="upper left")
 
     g.map_dataframe(plot_with_shaded_area)
     g.set_axis_labels("Training Set Size", metric.upper())
     g.set_titles(col_template="{col_name}")
     g.add_legend()
 
+    # g._legend.set_bbox_to_anchor((1.01, .48))  # Moves legend outside the plot (right side)
+    # g._legend.set_title("Score Type")  # Set legend title
+
+
+    plt.tight_layout()
+    if folder:
+            save_img_path(folder, f"learning curve {metric}.png")
     plt.show()
+    # plt.close()
 
 
 HERE: Path = Path(__file__).resolve().parent
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
-cluster_types = 'substructure cluster'
-scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
-# print(os.path.exists(scores_path))
-score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc_scores.json'
-with open(score_file, "r") as f:
+cluster_list = [
+                # 'KM4 ECFP6_Count_512bit cluster',	
+                'KM3 Mordred cluster',
+                'substructure cluster',
+                # 'EG-Ionic-Based Cluster',
+                'KM5 polymer_solvent HSP and polysize cluster',
+                'KM4 polymer_solvent HSP cluster',
+                'KM4 Mordred_Polysize cluster',
+                ]
+
+def ensure_long_path(path):
+    """Ensures Windows handles long paths by adding '\\?\' if needed."""
+    path_str = str(path)
+    if os.name == 'nt' and len(path_str) > 250:  # Apply only on Windows if the path is long
+        return Path(f"\\\\?\\{path_str}")
+    return path
+
+for cluster in cluster_list:
+    scores_folder_path = results_path / cluster / 'Trimer_scaler'
+    model = 'NGB'
+    score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+
+    score_file = ensure_long_path(score_file)  # Ensure long path support
+
+    if not os.path.exists(score_file):
+        print(f"File not found: {score_file}")
+        continue  # Skip to the next cluster if the file is missing
+
+    with open(score_file, "r") as f:
         scores = json.load(f)
 
+    saving_folder = scores_folder_path / f'learning curve ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
+    plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder)
 
-plot_ood_learning_scores(scores, metric="rmse")
+
