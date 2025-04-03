@@ -169,4 +169,9 @@ def plot_splits_parity(predicted_values: dict,
 
 def plot_ood_learning_curve(scores: Dict, scores_criteria: str, folder:Path=None) -> None:
 
+    data = []
+    for cluster, ratios in scores.items():
+        for ratio, stats in ratios.items():
+            train_ratio = float(ratio.replace('ratio_', ''))
+
     return None

@@ -97,36 +97,36 @@ def main_structural_numerical(
 
 
 if __name__ == "__main__":
-    args = parse_arguments()
+    # args = parse_arguments()
 
-    main_structural_numerical(
-        dataset=w_data,
-        representation=args.representation,
-        radius=args.radius,
-        vector=args.vector,
-        oligomer_representation = args.oligomer_representation,
-        regressor_type=args.regressor_type,
-        target_features=[args.target_features],  
-        transform_type='Standard',
-        second_transformer=None,
-        numerical_feats=args.numerical_feats, 
-        clustering_method=args.clustering_method,
-    )
+    # main_structural_numerical(
+    #     dataset=w_data,
+    #     representation=args.representation,
+    #     radius=args.radius,
+    #     vector=args.vector,
+    #     oligomer_representation = args.oligomer_representation,
+    #     regressor_type=args.regressor_type,
+    #     target_features=[args.target_features],  
+    #     transform_type='Standard',
+    #     second_transformer=None,
+    #     numerical_feats=args.numerical_feats, 
+    #     clustering_method=args.clustering_method,
+    # )
 
 
 # # TODO: Update the dataset to include the clustering methods
 
-    #     main_structural_numerical(
-    #     dataset=w_data,
-    #     representation="MACCS",
-    #     # radius=3,
-    #     # vector="count",
-    #     regressor_type="NGB",
-    #     target_features=['log Rg (nm)'],  
-    #     transform_type='Standard',
-    #     second_transformer=None,
-    #     numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
-    #     oligomer_representation="Trimer",
-    #     clustering_method='substructure cluster'
-    # )
+        main_structural_numerical(
+        dataset=w_data,
+        representation="MACCS",
+        # radius=3,
+        # vector="count",
+        regressor_type="NGB",
+        target_features=['log Rg (nm)'],  
+        transform_type='Standard',
+        second_transformer=None,
+        numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+        oligomer_representation="Trimer",
+        clustering_method='substructure cluster'
+    )
         

@@ -135,7 +135,6 @@ def run_ood_learning_curve(
     min_train_size= min(train_sizes)
     learning_curve_predictions = {}
     learning_curve_scores = {}
-    print(loco_split_idx)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
         if cluster=='ionic-EG':
             cluster_tv_labels = split_for_training(cluster_labels['EG-Ionic-Based Cluster'],tv_idx)
