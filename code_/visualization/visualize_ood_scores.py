@@ -167,11 +167,108 @@ def plot_splits_parity(predicted_values: dict,
 
 
 
-def plot_ood_learning_curve(scores: Dict, scores_criteria: str, folder:Path=None) -> None:
-
+def process_summary_scores(summary_scores, metric="rmse"):
     data = []
-    for cluster, ratios in scores.items():
+    # Store the set of unique training set sizes for each cluster
+    cluster_train_sizes = {}
+    
+    for cluster, ratios in summary_scores.items():
+        cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
+        cluster_train_sizes[cluster] = set()  # Initialize set for each cluster
+        
         for ratio, stats in ratios.items():
-            train_ratio = float(ratio.replace('ratio_', ''))
+            if ratio == "Cluster size":
+                continue  # Skip the cluster size entry, as it's not a ratio
+            
+            # Calculate the training set size based on the ratio and cluster size
+            train_ratio = float(ratio.replace("ratio_", ""))
+            train_set_size = round(int(train_ratio * cluster_size))
+            # Add the calculated train_set_size to the set of each cluster
+            cluster_train_sizes[cluster].add(train_set_size)
+            
+            metric_test = f"test_{metric}_mean"
+            metric_train = f"train_{metric}_mean"
+            std_test = f"test_{metric}_std"
+            std_train = f"train_{metric}_std"
 
-    return None
+            if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
+                data.append({
+                    "Cluster": cluster,
+                    "Train Set Size": train_set_size,
+                    "Score": stats["test_summary_stats"][metric_test],
+                    "Std": stats["test_summary_stats"][std_test],
+                    "Score Type": "Test"
+                })
+                data.append({
+                    "Cluster": cluster,
+                    "Train Set Size": train_set_size,
+                    "Score": stats["train_summary_stats"][metric_train],
+                    "Std": stats["train_summary_stats"][std_train],
+                    "Score Type": "Train"
+                })
+
+    return pd.DataFrame(data), cluster_train_sizes
+
+# Function to plot dynamically based on metric and number of clusters
+def plot_ood_learning_scores(summary_scores, metric="rmse"):
+    df, cluster_train_sizes = process_summary_scores(summary_scores, metric)
+
+    if df.empty:
+        print(f"No data found for metric '{metric}'.")
+        return
+
+    # Find the common training set size across all clusters
+    common_train_sizes = set.intersection(*cluster_train_sizes.values())
+    
+    if common_train_sizes:
+        # If there's a shared training size, take the first one from the set
+        shared_train_size = common_train_sizes.pop()
+    else:
+        # If there's no shared training size, ignore and continue
+        shared_train_size = None
+
+    # Determine the number of clusters and set col_wrap dynamically
+    num_clusters = df['Cluster'].nunique()
+    col_wrap = min(num_clusters, 4)  # Ensure we don't exceed 4 columns for readability
+
+    g = sns.FacetGrid(df, col="Cluster", col_wrap=col_wrap, height=4, sharey=True)
+
+    def plot_with_shaded_area(data, **kwargs):
+        ax = plt.gca()
+        sns.lineplot(
+            data=data, x="Train Set Size", y="Score", hue="Score Type", 
+            style="Score Type", markers=True, ax=ax
+        )
+        
+        for score_type, sub_df in data.groupby("Score Type"):
+            ax.fill_between(
+                sub_df["Train Set Size"], 
+                sub_df["Score"] - sub_df["Std"], 
+                sub_df["Score"] + sub_df["Std"], 
+                alpha=0.2
+            )
+        
+        # If there's a shared training set size, highlight it on the plot
+        if shared_train_size is not None:
+            ax.axvline(shared_train_size, color='r', linestyle='--', label="Shared Train Size")
+            ax.legend()
+
+    g.map_dataframe(plot_with_shaded_area)
+    g.set_axis_labels("Training Set Size", metric.upper())
+    g.set_titles(col_template="{col_name}")
+    g.add_legend()
+
+    plt.show()
+
+
+HERE: Path = Path(__file__).resolve().parent
+results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
+cluster_types = 'substructure cluster'
+scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
+# print(os.path.exists(scores_path))
+score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc_scores.json'
+with open(score_file, "r") as f:
+        scores = json.load(f)
+
+
+plot_ood_learning_scores(scores, metric="rmse")

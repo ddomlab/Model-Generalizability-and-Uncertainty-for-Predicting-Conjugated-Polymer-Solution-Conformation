@@ -189,7 +189,8 @@ def run_ood_learning_curve(
                 regressor.set_output(transform="pandas")
 
                 train_scores, test_score, y_test_pred_ood = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test,return_train_pred=True)
-                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_score)
+                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {'train':train_scores,
+                                                                                                                                 'test':test_score}
                 learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
                     'y_true': y_test,
                     'y_test_pred': y_test_pred_ood

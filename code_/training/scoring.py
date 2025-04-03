@@ -249,18 +249,19 @@ def process_scores(
         return scores
 
 
-def compute_summary_stats(test_metrics: Dict[str, list[float]]) -> Dict[str, float]:
+def compute_summary_stats(metrics: Dict[str, list[float]]) -> Dict[str, float]:
     """
-    Helper function to compute the mean and standard deviation of the test metrics.
+    Helper function to compute the mean and standard deviation of the test/train metrics.
     """
     summary_stats = {}
     
-    for metric, values in test_metrics.items():
+    for metric, values in metrics.items():
         values = np.array(values, dtype=np.float64)  # Convert to NumPy array for handling NaNs
         valid_values = values[~np.isnan(values)]  # Remove NaNs before computing stats
         
         if valid_values.size > 0:
-            summary_stats[f"{metric}_mean"] = abs(np.mean(valid_values))  if metric in ["test_rmse", "test_mae"] else np.mean(valid_values)
+            # Use absolute mean for RMSE and MAE
+            summary_stats[f"{metric}_mean"] = abs(np.mean(valid_values)) if metric in ["test_rmse", "train_rmse", "test_mae", "train_mae"] else np.mean(valid_values)
             summary_stats[f"{metric}_std"] = np.std(valid_values)
         else:
             summary_stats[f"{metric}_mean"] = np.nan
@@ -298,20 +299,26 @@ def process_ood_scores(
 from collections import defaultdict
 
 def process_ood_learning_curve_score(scores: dict) -> dict:
-    """
-    Processes the input dictionary, aggregates scores for each training ratio across different seeds,
-    and computes summary statistics for both test and train metrics.
-    """
+
     for cluster, ratios in scores.items():
         if cluster.startswith("CO_") or cluster.startswith("ID_"):
 
             for train_ratio, seeds in ratios.items():
                 if train_ratio == "Cluster size":  
                     continue
+                
                 test_metrics = defaultdict(list)
                 train_metrics = defaultdict(list)
 
-                for seed, (train_results, test_results) in seeds.items():  
+                for seed, results in seeds.items():  
+                    # Access train and test scores
+                    train_results = results.get('train')
+                    test_results = results.get('test')
+                    
+                    if train_results is None or test_results is None:
+                        continue  # Skip invalid data
+                    
+                    # Collect metrics for both test and train
                     for metric, value in test_results.items():
                         value = value.item() if isinstance(value, np.ndarray) else value
                         test_metrics[metric].append(value)
@@ -320,6 +327,7 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
                         value = value.item() if isinstance(value, np.ndarray) else value
                         train_metrics[metric].append(value)
 
+                # Update the scores with summary statistics for both test and train metrics
                 scores[cluster][train_ratio].update({
                     "test_summary_stats": compute_summary_stats(test_metrics),
                     "train_summary_stats": compute_summary_stats(train_metrics),
