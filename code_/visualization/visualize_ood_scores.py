@@ -251,26 +251,26 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
             )
         
         # If there's a shared training set size, highlight it on the plot
-        if shared_train_size is not None:
-            ax.axvline(shared_train_size, color='r', linestyle='--', label="eq train size")
-            # shared_point = data[data["Train Set Size"] == shared_train_size]
-            # if not shared_point.empty:
-            #     test_score = shared_point["Score"].values[0]
+        # if shared_train_size is not None:
+        #     ax.axvline(shared_train_size, color='r', linestyle='--', label="eq train size")
+        #     shared_point = data[data["Train Set Size"] == shared_train_size]
+        #     if not shared_point.empty:
+        #         test_score = shared_point["Score"].values[0]
                 
-            #     # Find max score for positioning in upper right
-            #     max_score = data["Score"].max()
-            #     upper_right_x = data["Train Set Size"].max()  # Rightmost x-value
+        #         # Find max score for positioning in upper right
+        #         max_score = data["Score"].max()
+        #         upper_right_x = data["Train Set Size"].max()  # Rightmost x-value
                 
-            #     ax.annotate(
-            #         f"{test_score:.2f}",
-            #         xy=(upper_right_x, max_score), 
-            #         xycoords="data",
-            #         xytext=(20, 20), textcoords="offset points",  # Offset for better visibility
-            #         fontsize=12, fontweight="bold",
-            #         color="black",
-            #         bbox=dict(facecolor="white", edgecolor="black", boxstyle="round,pad=0.3"),
-            #         ha="right", va="top"  # Align text to the top-right
-            #     )
+        #         ax.annotate(
+        #             f"{test_score:.2f}",
+        #             xy=(upper_right_x, max_score), 
+        #             xycoords="data",
+        #             xytext=(20, 20), textcoords="offset points",  # Offset for better visibility
+        #             fontsize=12, fontweight="bold",
+        #             color="black",
+        #             bbox=dict(facecolor="white", edgecolor="black", boxstyle="round,pad=0.3"),
+        #             ha="right", va="top"  # Align text to the top-right
+        #         )
         ax.legend(loc="upper left")
 
     g.map_dataframe(plot_with_shaded_area)
@@ -285,20 +285,20 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
     plt.tight_layout()
     if folder:
             save_img_path(folder, f"learning curve {metric}.png")
-    plt.show()
-    # plt.close()
+    # plt.show()
+    plt.close()
 
 
 HERE: Path = Path(__file__).resolve().parent
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
 cluster_list = [
-                # 'KM4 ECFP6_Count_512bit cluster',	
-                'KM3 Mordred cluster',
-                'substructure cluster',
+                'KM4 ECFP6_Count_512bit cluster',	
+                # 'KM3 Mordred cluster',
+                # 'substructure cluster',
                 # 'EG-Ionic-Based Cluster',
-                'KM5 polymer_solvent HSP and polysize cluster',
-                'KM4 polymer_solvent HSP cluster',
-                'KM4 Mordred_Polysize cluster',
+                # 'KM5 polymer_solvent HSP and polysize cluster',
+                # 'KM4 polymer_solvent HSP cluster',
+                # 'KM4 Mordred_Polysize cluster',
                 ]
 
 def ensure_long_path(path):
@@ -311,8 +311,8 @@ def ensure_long_path(path):
 for cluster in cluster_list:
     scores_folder_path = results_path / cluster / 'Trimer_scaler'
     model = 'NGB'
-    score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-
+    # score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+    score_file = scores_folder_path / f'(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
     score_file = ensure_long_path(score_file)  # Ensure long path support
 
     if not os.path.exists(score_file):
