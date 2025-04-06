@@ -2,10 +2,10 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250321
 mkdir -p "$output_dir"
 
-regressors=("NGB" "RF" "XGBR") 
+regressors=("RF") 
 targets=('log Rg (nm)')
 vectors=("count" 'binary')
-radii=(4 5 6) 
+radii=(3 4 5 6) 
 models=("ECFP")
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Trimer' 'RRU Dimer')
 
