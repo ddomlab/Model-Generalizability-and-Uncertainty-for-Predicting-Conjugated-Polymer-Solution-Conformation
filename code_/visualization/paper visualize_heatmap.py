@@ -1,0 +1,535 @@
+import json
+from itertools import product
+from pathlib import Path
+from typing import List, Optional
+import os 
+# import cmcrameri.cm as cmc
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import seaborn as sns
+# from matplotlib import rc
+
+
+HERE: Path = Path(__file__).resolve().parent
+RESULTS: Path = HERE.parent.parent/ 'results'
+
+target_list = [
+    # 'target_Rg',
+    # 'target_Rh' 
+    # "target_multimodal Rh",
+    # "target_multimodal Rh_without_log",
+    # "target_multimodal Rh with padding",
+    # "target_multimodal Rh (e-5 place holder)_with_Log",
+    # "target_multimodal Rh (e-5 place holder)",
+    # "target_log10 multimodal Rh (e-5 place holder)"
+    # "target_Rh First Peak",
+    # "target_Rh Second Peak",
+    # "target_Rh Third Peak",
+    # "target_Rh First Peak_with_Log",
+    # "target_Rh Second Peak_with_Log",
+    # "target_Rh Third Peak_with_Log",
+    "target_log Rg (nm)"
+    # 'target_Rh (1_1000 nm) (highest intensity)_LogFT'
+    ]
+
+transformer_list = [
+    "Standard",
+    # "Robust Scaler",
+    # "transformerOFF"
+                    ]
+
+scores_list: list = [
+                    # "r2", 
+                    # "mae", 
+                    "rmse"
+                     ] 
+var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
+
+
+def parse_property_string(prop_string):
+    # Define the categories and their components
+    categories = {
+        'polysize': ['Mw', 'PDI'],
+        'solvent_properties': ['concentration', 'temperature'],
+        'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
+        'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
+        'Ra': ['Ra']
+    }
+    
+    # Split the input string by hyphens
+    parts = prop_string.split('-')
+    
+    # Reconstruct the original component names (handling cases like 'polymer dP')
+    components = []
+    i = 0
+    while i < len(parts):
+        if i + 1 < len(parts) and parts[i] in ['polymer', 'solvent'] and parts[i+1] in ['dP', 'dD', 'dH']:
+            components.append(f"{parts[i]} {parts[i+1]}")
+            i += 2
+        else:
+            components.append(parts[i])
+            i += 1
+    
+    # Find which categories are present
+    present_categories = []
+    
+    # Check each category
+    for cat_name, cat_components in categories.items():
+        # Check if all components of this category are present
+        if all(comp in components for comp in cat_components):
+            present_categories.append(cat_name)
+    
+    # Handle special cases where we might have partial matches
+    # (though your examples suggest categories are either fully present or not)
+    
+    # Join the present categories with '+'
+    if present_categories:
+        return ' + '.join(present_categories)
+    else:
+        return "unknown format"
+    
+
+
+def get_total(prop_string: str) -> Optional[str]:
+    """
+    Maps full property string to a simplified label for structural_scaler features.
+    """
+    mapping = {
+        'ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'ECFP6.count.512 + best continuous features',
+        'MACCS-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'MACCS + best continuous features',
+        'Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'Mordred + best continuous features',
+    }
+    return mapping.get(prop_string)
+
+
+def correct_ecfp_name(prop_string):
+    if 'ECFP' in prop_string:
+        parts = prop_string.split('.')
+        ecfp_part = parts[0]  # e.g., 'ECFP3'
+        ecfp_text = ecfp_part[:4]  # 'ECFP'
+        ecfp_num = int(ecfp_part[4:])  # extract number
+        corrected_ecfp = f"{ecfp_text}{ecfp_num * 2}"  # multiply by 2
+        return '.'.join([corrected_ecfp] + parts[1:])
+    return prop_string
+       
+    
+def get_results_from_file(
+    file_path: Path,
+    score: str,
+    var: str,
+    peak_number:int=None,
+    # impute: bool = False,
+) :
+    """
+    Args:
+        root_dir: Root directory containing all results
+        representation: Representation for which to get scores
+        model: Model for which to get scores.
+        score: Score to plot
+        var: Variance to plot
+
+    Returns:
+        Average and variance of score
+    """
+    if not file_path.exists():
+        features, model = None, None
+        avg, std = np.nan, np.nan
+    else:
+        # for just scaler features
+        if "scaler" == file_path.parent.name:
+            model:str = file_path.name.split("_")[1] 
+            features:str = file_path.name.split("_")[0].replace("(", "", 1)[::-1].replace(")", "", 1)[::-1]
+            features = parse_property_string(features)
+        # for mixture of scaler and structural 
+        elif "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
+            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            model:str = file_path.name.split("_")[1]
+
+        # for structural only
+        else:
+            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            model:str = file_path.name.split("_")[1]
+            features=correct_ecfp_name(features)
+
+       
+        with open(file_path, "r") as f:
+            data = json.load(f)
+
+
+        avg = data[f"{score}_avg"]
+        # print(avg)
+        if var == "stdev":
+            std = data[f"{score}_stdev"]
+        elif var == "stderr":
+            std = data[f"{score}_stderr"]
+        else:
+            raise ValueError(f"Unknown variance type: {var}")
+        
+
+        avg = avg[peak_number] if isinstance(avg, list) else avg
+        std = std[peak_number] if isinstance(std, list) else std
+        if score in ["mae", "rmse"]:
+            avg, std = abs(avg), abs(std)
+        return features, model, avg, std
+
+
+def generate_annotations(num: float) -> str:
+    """
+    Args:
+        num: Number to annotate
+
+    Returns:
+        String to annotate heatmap
+    """
+    if isinstance(num, float) and not np.isnan(num):
+        num_txt: str = f"{round(num, 2)}"
+    else:
+        num_txt = "NaN"
+    return num_txt
+
+
+
+def _create_heatmap(
+    root_dir: Path,
+    score: str,
+    var: str,
+    avg_scores: pd.DataFrame,
+    annotations: pd.DataFrame,
+    figsize: tuple[int, int],
+    fig_title: str,
+    x_title: str,
+    y_title: str,
+    fname: str,
+    vmin: float = None,
+    vmax: float = None,
+    feature_order: list[str] = None,
+    model_order: list[str] = None,
+    num_ticks: int = 3,
+    **kwargs,
+) -> None:
+    """
+    Args:
+        root_dir: Root directory containing all results
+        score: Score to plot ("r", "r2", "mae", etc.)
+        var: Variance type to annotate ("std", "sem", etc.)
+        avg_scores: DataFrame of average scores
+        annotations: DataFrame of annotations (e.g., standard deviations)
+        figsize: Tuple of figure size (width, height)
+        fig_title: Title for the plot
+        x_title: Label for the x-axis
+        y_title: Label for the y-axis
+        fname: Filename to save the figure (without extension)
+        vmin: Minimum value for color scaling
+        vmax: Maximum value for color scaling
+        feature_order: List specifying the desired order of features (columns)
+        model_order: List specifying the desired order of ML models (rows)
+    """
+
+    # Reorder DataFrames if specific order is provided
+    if feature_order is not None:
+        avg_scores = avg_scores[feature_order]
+        annotations = annotations[feature_order]
+
+    if model_order is not None:
+        avg_scores = avg_scores.loc[model_order]
+        annotations = annotations.loc[model_order]
+
+    # Create heatmap
+    fig, ax = plt.subplots(figsize=figsize)
+    palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
+    custom_cmap = sns.color_palette(palette, as_cmap=True)
+    custom_cmap.set_bad(color="lightgray")
+
+    hmap = sns.heatmap(
+        avg_scores,
+        annot=annotations,
+        fmt="",
+        cmap=custom_cmap,
+        cbar=True,
+        vmin=vmin,
+        vmax=vmax,
+        ax=ax,
+        mask=avg_scores.isnull(),
+        annot_kws={"fontsize": 16},
+    )
+
+    # Set axis labels and tick labels
+    ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
+    ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
+    x_tick_labels: list[str] = avg_scores.columns.tolist()
+    y_tick_labels: list[str] = avg_scores.index.tolist()
+
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
+
+    # Set plot and axis titles
+    plt.title(fig_title, fontsize=18)
+    ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
+
+    # Set colorbar title and custom ticks
+    score_txt: str = "$R^2$" if score == "r2" else score
+    cbar = hmap.collections[0].colorbar
+
+    if vmin is None:
+        vmin = np.nanmin(avg_scores.values)
+    if vmax is None:
+        vmax = np.nanmax(avg_scores.values)
+
+    num_ticks = num_ticks
+    ticks = np.linspace(vmin, vmax, num_ticks)
+    cbar.set_ticks(ticks)
+
+    cbar.set_label(
+        f"Average {score_txt.upper()} ± {var_titles.get(var, var)}",
+        rotation=270,
+        labelpad=20,
+        fontsize=14,
+        fontweight='bold',
+    )
+    cbar.ax.tick_params(labelsize=16)
+
+    # Save the figure
+    visualization_folder_path = root_dir / "paper heatmap"
+    os.makedirs(visualization_folder_path, exist_ok=True)
+    plt.tight_layout()
+    plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
+
+    # Close the plot
+    plt.show()
+    plt.close()
+
+
+
+
+def creat_result_df(target_dir: Path,
+                    score: str,
+                    var: str,
+                    data_type: str,
+                    transformer_type: str,
+                    regressor_model: Optional[str] = None,
+                    peak_number: Optional[int] = None
+) -> tuple[pd.DataFrame, pd.DataFrame, list]:
+    
+    avg_scores: pd.DataFrame = pd.DataFrame()
+    std_scores: pd.DataFrame = pd.DataFrame()
+    annotations: pd.DataFrame = pd.DataFrame()
+    models = set()
+    pattern: str = "*_scores.json"
+    
+    for representation in os.listdir(target_dir):
+        score_files = []
+        if data_type == 'structural':
+            if 'test' not in representation and 'scaler' not in representation:
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
+                score_files = list(Path(representation_dir).rglob(pattern))
+
+        elif data_type == 'scaler':
+            if 'scaler' == representation:
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
+                score_files = list(Path(representation_dir).rglob(pattern))
+
+        elif data_type == 'structural_scaler':
+            if 'scaler' in representation and 'scaler' != representation:
+                filterd_rep = representation
+                representation_dir = os.path.join(target_dir, representation)
+                score_files = list(Path(representation_dir).rglob(pattern))
+
+        for file_path in score_files:
+            if "generalizability" in file_path.name or "test" in file_path.name:
+                continue
+
+            if data_type == 'structural':
+                if regressor_model != file_path.name.split("_")[1]:
+                    continue
+                if transformer_type not in file_path.name:
+                    continue
+
+                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, var=var, peak_number=peak_number)
+                models.add(model)
+
+                if data_type == 'structural':
+                    if feats not in ['MACCS', 'Mordred', 'ECFP6.count.512']:
+                        continue
+
+                  
+
+            elif data_type in ['scaler', 'structural_scaler']:  
+                if transformer_type not in file_path.name:
+                    continue
+
+                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, var=var, peak_number=peak_number)
+                models.add(model)
+                
+                if data_type == 'scaler':
+                    exclude_feats = ["unknown format", "polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Ra"]
+                    if feats in exclude_feats:
+                        continue
+                else:
+                    simplified_feats = get_total(feats)
+                    if simplified_feats is None:
+                        continue
+                    feats = simplified_feats
+
+            if data_type in ['scaler', 'structural_scaler']:
+                if feats not in avg_scores.columns:
+                    avg_scores.loc[model, feats] = av
+                    std_scores.loc[model, feats] = std
+                else:
+                    avg_scores.at[model, feats] = av
+                    std_scores.at[model, feats] = std
+            else:  # structural
+                if feats not in avg_scores.columns:
+                    avg_scores.loc[filterd_rep, feats] = av
+                    std_scores.loc[filterd_rep, feats] = std
+                else:
+                    avg_scores.at[filterd_rep, feats] = av
+                    std_scores.at[filterd_rep, feats] = std
+
+    for x, y in product(avg_scores.columns.to_list(), avg_scores.index.to_list()):
+        avg: float = avg_scores.loc[y, x]
+        std: float = std_scores.loc[y, x]
+        avg_txt: str = generate_annotations(avg)
+        std_txt: str = generate_annotations(std)
+        annotations.loc[y, x] = f"{avg_txt}\n±{std_txt}"
+
+    avg_scores = avg_scores.astype(float)
+    annotations = annotations.astype(str)
+    return avg_scores, annotations, list(models)
+
+
+
+
+def create_structural_result(target_dir:Path,
+                             regressor_model:str,
+                             target:str,
+                             score:str,
+                             var:str,
+                             data_type:str,
+                             transformer_type:str,
+                             peak_num:int=None
+                             ) -> None:
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+                                       ,regressor_model=regressor_model, transformer_type=transformer_type,
+                                       peak_number=peak_num)
+    
+    model_in_title:str =  ",".join(model)
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
+    fname= f"selected PolymerRepresentation vs Fingerprint trained by {reg_name} search heatmap_{score} score"
+    _create_heatmap(root_dir=HERE,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(9, 8),
+                    fig_title=f"",
+                    x_title="Molecular Representations",
+                    y_title="Polymer Unit Representation",
+                    fname=fname,
+                    vmin=.55,
+                    vmax=.57)
+
+
+def create_structural_scaler_result(target_dir:Path,
+                                    # regressor_model:str,
+                                    target:str,
+                                    score:str,
+                                    var:str,
+                                    data_type:str,
+                                    transformer_type:str,
+                                    peak_num:int=None
+                                    ) -> None:
+
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+                                       , transformer_type=transformer_type,
+                                       peak_number=peak_num)
+    model_in_title:str =  ",".join(model)
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
+    fname= f"selected PolymerRepresentation vs all features search heatmap_{score} score"
+    _create_heatmap(root_dir=HERE,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(10, 8),
+                    fig_title=f"\n",
+                    x_title="Feature Space",
+                    y_title="Regression Models",
+                    fname=fname,
+                    )
+
+#    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
+complex_models = ['NGB', 'XGBR', 'RF']
+
+
+# for transformer in transformer_list:
+#     for model in complex_models: 
+#         for target_folder in target_list:
+#             for i in scores_list:
+#                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+#                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+
+
+
+def create_scaler_result(target_dir:Path,
+                        score:str,
+                        target:str,
+                        var:str,
+                        data_type:str,
+                        transformer_type:str,
+                        peak_num:int=None
+                        )->None:
+
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
+                                       regressor_model=None,transformer_type=transformer_type,
+                                       peak_number=peak_num)
+    model_in_title:str =  ",".join(model)
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    # reg_name = f'{regressor_model} on {peak_num}' if peak_num else regressor_model
+    fname= f"selected Regression Models vs numerical features search heatmap_{score}"
+    fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
+    print(ave.columns.tolist())
+
+    _create_heatmap(root_dir=HERE,
+                    score=score,
+                    var=var,
+                    avg_scores=ave,
+                    annotations=anot,
+                    figsize=(12, 9),
+                    fig_title=f" \n ",
+                    x_title="Feature Space",
+                    y_title="Regression Models",
+                    fname=fname,
+                    vmin=.4,
+                    vmax=.6,
+                    feature_order=['polysize','solvent_properties','polymer_HSPs','solvent_HSPs','polymer_HSPs + solvent_HSPs','solvent_properties + polymer_HSPs + solvent_HSPs','polysize + solvent_properties + polymer_HSPs + solvent_HSPs'],
+                    model_order=['RF','DT','MLR'],
+                    num_ticks=3,
+                    v
+                    )
+
+# simple_models = ['MLR','DT','RF']
+
+
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            
+
+
+
+
