@@ -434,7 +434,8 @@ def create_structural_result(target_dir:Path,
                     y_title="Polymer Unit Representation",
                     fname=fname,
                     vmin=.55,
-                    vmax=.57)
+                    vmax=.57
+                    )
 
 
 def create_structural_scaler_result(target_dir:Path,
@@ -464,6 +465,9 @@ def create_structural_scaler_result(target_dir:Path,
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
+                    num_ticks=5,
+                    vmin=0.2,
+                    vmax=0.6,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
@@ -515,7 +519,7 @@ def create_scaler_result(target_dir:Path,
                     feature_order=['polysize','solvent_properties','polymer_HSPs','solvent_HSPs','polymer_HSPs + solvent_HSPs','solvent_properties + polymer_HSPs + solvent_HSPs','polysize + solvent_properties + polymer_HSPs + solvent_HSPs'],
                     model_order=['RF','DT','MLR'],
                     num_ticks=3,
-                    v
+            
                     )
 
 # simple_models = ['MLR','DT','RF']
