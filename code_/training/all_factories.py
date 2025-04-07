@@ -52,6 +52,7 @@ def generate_acronym_string(feats):
             acronym_list.append(key)
     return "_".join(acronym_list)
 
+
 imputer_factory: Dict[str, TransformerMixin] = {
     "mean": SimpleImputer(strategy="mean"),
     "median": SimpleImputer(strategy="median"),

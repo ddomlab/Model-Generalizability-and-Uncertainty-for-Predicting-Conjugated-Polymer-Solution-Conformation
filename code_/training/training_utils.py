@@ -221,7 +221,6 @@ def run(
                     ("regressor", y_transform_regressor),
                         ])
 
-      # set_output on dataframe
       regressor.set_output(transform="pandas")
       if hyperparameter_optimization:
             cv_in = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)

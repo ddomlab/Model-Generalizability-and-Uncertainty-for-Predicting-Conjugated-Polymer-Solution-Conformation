@@ -1,86 +1,44 @@
-import json
-import platform
+
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
-from itertools import product
 
 import numpy as np
 import pandas as pd
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from sklearn.model_selection import KFold
-# from sklearn.multioutput import MultiOutputRegressor
 from sklearn.pipeline import Pipeline
-# from sklearn.preprocessing import MinMaxScaler, QuantileTransformer, StandardScaler
-from skopt import BayesSearchCV
-# from skorch.regressor import NeuralNetRegressor
-# from sklearn.model_selection import learning_curve
-import matplotlib.pyplot as plt
-import time
 
-# from data_handling import remove_unserializable_keys, save_results
+import matplotlib.pyplot as plt
+
 from filter_data import filter_dataset
 from all_factories import (
                             regressor_factory,
-                            regressor_search_space,
                             transforms)
 
 from training_utils import (
      _optimize_hyperparams,
      split_for_training,
-
-)
-
-
+     get_target_transformer
+    )
+from all_factories import optimized_models
 from imputation_normalization import preprocessing_workflow
 from scoring import (
-    # cross_validate_regressor,
     process_learning_score,
     get_incremental_split
-)
-
-from scipy.stats import pearsonr
-
-# from sklearn.metrics import (
-#     mean_absolute_error,
-#     mean_squared_error,
-#     r2_score,
-# )
+    )
 
 
+def set_globals(Test: bool=False) -> None:
+    global SEEDS, N_FOLDS, BO_ITER
+    if not Test:
+        SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
+        N_FOLDS = 5
+        BO_ITER = 42
+    else:
+        SEEDS = [42,13]
+        N_FOLDS = 2
+        BO_ITER = 1
 
-# TODO: Combine with the training_utiles
-
-
-
-
-
-
-HERE: Path = Path(__file__).resolve().parent
-
-# os_type: str = platform.system().lower()
-TEST=False
-
-# Seeds for generating random states
-if TEST==False:
-    SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
-else:    
-    SEEDS = [42]
-N_FOLDS: int = 5 if not TEST else 2
-
-# Number of iterations for Bayesian optimization
-BO_ITER: int = 42 if not TEST else 1
-
-# Number of folds for cross-validation
-# N_FOLDS: int = 5 if not TEST else 2
-
-# # Number of iterations for Bayesian optimization
-# BO_ITER: int = 42 if not TEST else 1
-
-# Path to config for Pytorch model
-# CONFIG_PATH: Path = HERE / "ANN_config.json"
-
-# Set seed for PyTorch model
-# torch.manual_seed(0)
 
 def get_generalizability_predictions(
     dataset: pd.DataFrame,
@@ -93,30 +51,34 @@ def get_generalizability_predictions(
     regressor_type: str,
     target_features: str,
     transform_type: str,
+    second_transformer:str=None,
     hyperparameter_optimization: bool=True,
     imputer: Optional[str] = None,
     cutoff:Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    Test:bool=False,
     # output_dir_name: str = "results",
     ) -> None:
         """
         you should change the name here for prepare
         """
             #seed scores and seed prediction
+        set_globals(Test)
         learning_score = _prepare_data(
-                                            dataset=dataset,
-                                            features_impute= features_impute,
-                                            special_impute= special_impute,
-                                            representation=representation,
-                                            structural_features=structural_features,
-                                            unroll=unroll,
-                                            numerical_feats = numerical_feats,
-                                            target_features=target_features,
-                                            regressor_type=regressor_type,
-                                            transform_type=transform_type,
-                                            imputer=imputer,
-                                            cutoff=cutoff,
-                                            hyperparameter_optimization=hyperparameter_optimization,
-                                            )
+                                        dataset=dataset,
+                                        features_impute= features_impute,
+                                        special_impute= special_impute,
+                                        representation=representation,
+                                        structural_features=structural_features,
+                                        unroll=unroll,
+                                        numerical_feats = numerical_feats,
+                                        target_features=target_features,
+                                        regressor_type=regressor_type,
+                                        transform_type=transform_type,
+                                        second_transformer=second_transformer,
+                                        imputer=imputer,
+                                        cutoff=cutoff,
+                                        hyperparameter_optimization=hyperparameter_optimization,
+                                        )
         
         
         scores = process_learning_score(learning_score)
@@ -139,6 +101,7 @@ def _prepare_data(
     hyperparameter_optimization: bool = True,
     imputer: Optional[str] = None,
     cutoff: Dict[str, Tuple[Optional[float], Optional[float]]]=None,
+    second_transformer:str=None,
     **kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
 
@@ -176,6 +139,7 @@ def _prepare_data(
                                     regressor_type=regressor_type,
                                     transform_type=transform_type,
                                     hyperparameter_optimization=hyperparameter_optimization,
+                                    second_transformer=second_transformer,
                                     **kwargs,
                                     )
 
@@ -183,29 +147,35 @@ def _prepare_data(
 
 def run_leaning(
     X, y, preprocessor: Union[ColumnTransformer, Pipeline], regressor_type: str,
-    transform_type: str, hyperparameter_optimization: bool = True,
+    transform_type: str, second_transformer:str=None, hyperparameter_optimization: bool = True,
     **kwargs,
     ) -> dict[int, dict[str, float]]:
 
     seed_learning_curve_scores:dict[int, dict] = {}
 
     for seed in SEEDS:
+        print(f' REGRESSOR {regressor_type}, \tSEED:, {seed}')
         cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-        y_transform = Pipeline(
-                    steps=[("y scaler",transforms[transform_type]),
-                        ])
+        y_transform = get_target_transformer(transform_type,second_transformer)
 
-        y_transform_regressor: TransformedTargetRegressor = TransformedTargetRegressor(
-                regressor=regressor_factory[regressor_type],
-                transformer=y_transform,
+        if hyperparameter_optimization:
+            y_transform_regressor = TransformedTargetRegressor(
+                        regressor=regressor_factory[regressor_type],
+                        transformer=y_transform,
                 )
-        #   print('yes')
+            
+        else:
+            model = optimized_models(regressor_type, random_state=seed)
+            y_transform_regressor = TransformedTargetRegressor(
+                        regressor=model,
+                        transformer=y_transform,
+                )
+        new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
         regressor :Pipeline= Pipeline(steps=[
-                        ("preprocessor", preprocessor),
-                        ("regressor", y_transform_regressor),
-                            ])
-
-        # set_output on dataframe
+                    ("preprocessor", new_preprocessor),
+                    ("regressor", y_transform_regressor),
+                        ])
+        
         regressor.set_output(transform="pandas")
         if hyperparameter_optimization:
                 best_estimator, regressor_params = _optimize_hyperparams(
@@ -241,7 +211,7 @@ def run_leaning(
                     "test_scores": test_scores,  # 2D array of validation (cross-validation) scores
                     "best_params": regressor_params if hyperparameter_optimization else "Default"
                 }
-
+        print(seed_learning_curve_scores)
     return seed_learning_curve_scores
 
 
