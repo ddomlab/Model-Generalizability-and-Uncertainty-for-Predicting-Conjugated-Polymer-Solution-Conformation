@@ -89,7 +89,17 @@ def parse_property_string(prop_string):
     else:
         return "unknown format"
     
-
+def correct_ecfp_name(prop_string):
+    if 'ECFP' in prop_string:
+        parts = prop_string.split('.')
+        ecfp_part = parts[0]  # e.g., 'ECFP3'
+        ecfp_text = ecfp_part[:4]  # 'ECFP'
+        ecfp_num = int(ecfp_part[4:])  # extract number
+        corrected_ecfp = f"{ecfp_text}{ecfp_num * 2}"  # multiply by 2
+        return '.'.join([corrected_ecfp] + parts[1:])
+    return prop_string
+       
+    
 def get_results_from_file(
     file_path: Path,
     score: str,
@@ -125,6 +135,7 @@ def get_results_from_file(
         else:
             features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
             model:str = file_path.name.split("_")[1]
+            features=correct_ecfp_name(features)
 
        
         with open(file_path, "r") as f:
