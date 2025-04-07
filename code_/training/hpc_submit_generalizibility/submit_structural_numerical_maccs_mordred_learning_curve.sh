@@ -28,10 +28,10 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 
 python ../train_structure_numerical_leaning_curve.py --target_features "${target}" \
-                                      --representation "${fp}" \
-                                      --regressor_type "${regressor}" \
-                                      --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
+                                                    --representation "${fp}" \
+                                                    --regressor_type "${regressor}" \
+                                                    --oligomer_representation "${oligo_rep}" \
+                                                    --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
 
 EOT
       done
