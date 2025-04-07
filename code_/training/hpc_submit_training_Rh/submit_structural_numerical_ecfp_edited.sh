@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250317
 mkdir -p "$output_dir"
 
-regressors=("NGB")
+regressors=("NGB" "XGBR")
 targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
@@ -35,7 +35,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+                                      --numerical_feats 'DP' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
 
 
 EOT
