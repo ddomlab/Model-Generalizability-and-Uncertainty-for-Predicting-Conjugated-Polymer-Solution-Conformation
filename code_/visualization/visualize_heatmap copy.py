@@ -231,13 +231,13 @@ def _create_heatmap(
     x_tick_labels: list[str] = [col for col in avg_scores.columns]
     y_tick_labels: list[str] = avg_scores.index.to_list()
 
-    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=14, fontweight='bold')
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=14, fontweight='bold')
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
 
     # Set plot and axis titles
-    plt.title(fig_title, fontsize=18, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=16, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=16, fontweight='bold')
+    plt.title(fig_title, fontsize=18)
+    ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
 
     # Set colorbar title and custom ticks
     score_txt: str = "$R^2$" if score == "r2" else score
@@ -257,10 +257,10 @@ def _create_heatmap(
         f"Average {score_txt.upper()} ± {var_titles[var]}", rotation=270, labelpad=20, 
         fontsize=16, fontweight='bold'
     )
-    cbar.ax.tick_params(labelsize=14)
+    cbar.ax.tick_params(labelsize=16)
 
     # Save the figure
-    visualization_folder_path = root_dir / "heatmap"
+    visualization_folder_path = root_dir / "paper heatmap"
     os.makedirs(visualization_folder_path, exist_ok=True)
     plt.tight_layout()
     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
@@ -397,7 +397,7 @@ def create_structural_result(target_dir:Path,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(12, 8),
+                    figsize=(9, 8),
                     fig_title=f"",
                     x_title="Molecular Representations",
                     y_title="Polymer Unit Representation",
