@@ -21,8 +21,6 @@ from visualization_setting import set_plot_style
 set_plot_style()
 
 
-
-
 def get_file_info(file_path:Path)-> tuple[str, str]:
     # return file name and polymer representation
     return file_path.stem , file_path.parent.name
@@ -52,8 +50,6 @@ def get_prediction_plot(results_directory: Path, ground_truth_file: Path, target
                                     results_directory,
                                     polymer_representation,
                                     file_name)
-
-
 
 
 
@@ -147,93 +143,78 @@ def draw_predictions_plot(
     plt.close()
 
 
-# def draw_predictions_plot(
-#                         target:str,
-#                         prediction_path: Path,
-#                         # r2_avg: float,
-#                         # r2_stderr: float,
-#                         root_dir:Path,
-#                         poly_representation_name:str,
-#                         file_name:str,
-#                         log_scale:bool,
-#                         x_y_target_name:str,
-#                         peak_num:Optional[int]=None,
-#                            ) -> None:
-#     # Load the data from CSV files
-#     r2_avg, r2_stderr = get_scores(prediction_path,peak_number=peak_num)
-#     predicted_values = pd.read_csv(prediction_path)
-#     seeds = predicted_values.drop(target, axis=1).columns 
-#     if peak_num:
-#         file_name = f"{file_name}_{peak_num}.png"  
-#         predicted_values = pd.DataFrame({
-#         col: predicted_values[col].values.reshape(-1, 3).tolist()  # Reshape each column
-#         for col in predicted_values.columns
-#         })
-#         predicted_values[target] = predicted_values[target].apply(lambda x: eval(x)[peak_num] if isinstance(x, str) else x[peak_num])
+def draw_single_parity_plot(
+                        target:str,
+                        prediction_path: Path,
+                        # r2_avg: float,
+                        # r2_stderr: float,
+                        root_dir:Path,
+                        poly_representation_name:str,
+                        file_name:str,
+                        log_scale:bool,
+                        x_y_target_name:str,
+                        peak_num:Optional[int]=None,
+                           ) -> None:
+    # Load the data from CSV files
+    r2_avg, r2_stderr = get_scores(prediction_path,peak_number=peak_num)
+    predicted_values = pd.read_csv(prediction_path)
+    seeds = predicted_values.drop(target, axis=1).columns 
+    if peak_num:
+        file_name = f"{file_name}_{peak_num}.png"  
+        predicted_values = pd.DataFrame({
+        col: predicted_values[col].values.reshape(-1, 3).tolist()  # Reshape each column
+        for col in predicted_values.columns
+        })
+        predicted_values[target] = predicted_values[target].apply(lambda x: eval(x)[peak_num] if isinstance(x, str) else x[peak_num])
 
-#     # There are 7 columns in predicted_values, each corresponding to a different seed
-#     # Create a Series consisting of the ground truth values repeated 7 times
-#     # Create a Series consisting of the predicted values, with the column names as the index
-#         predicted_values_ext = pd.concat([predicted_values[col].apply(lambda x: eval(x)[peak_num] if isinstance(x, str) else x[peak_num]) for col in seeds], axis=0, ignore_index=True)
-#     else:
-#         predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
-#     true_values_ext = pd.concat([predicted_values[target]] * len(seeds), ignore_index=True)
-#     combined_data = pd.concat([true_values_ext, predicted_values_ext], axis=1)
-#     if log_scale:
-#         combined_data = np.log10(combined_data)
-
-
-# #     true_values_ext = pd.concat([predicted_values[target]] * len(seeds), ignore_index=True)
-# #     predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
-
-# #     ext_comb_df = pd.concat([true_values_ext, predicted_values_ext], axis=1)
+        predicted_values_ext = pd.concat([predicted_values[col].apply(lambda x: eval(x)[peak_num] if isinstance(x, str) else x[peak_num]) for col in seeds], axis=0, ignore_index=True)
+    else:
+        predicted_values_ext = pd.concat([predicted_values[col] for col in seeds], axis=0, ignore_index=True)
+    true_values_ext = pd.concat([predicted_values[target]] * len(seeds), ignore_index=True)
+    combined_data = pd.concat([true_values_ext, predicted_values_ext], axis=1)
+    if log_scale:
+        combined_data = np.log10(combined_data)
     
-#     g = sns.jointplot(data=combined_data, x=target, y=0,
-#                       kind="hex",
-#                     #   cmap="Purples",
-#                       joint_kws={"gridsize": 30, "cmap": "Blues"},
-#                     #   joint_kws={"gridsize": (40,30)},
-#                       marginal_kws={"bins": 25},
-#                     #   gridsize=150,  # Reduce gridsize for larger hexagons
-#                       )
-#     ax_max = ceil(max(combined_data.max()))
-#     ax_min = ceil(min(combined_data.min()))
-#     g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
-#     g.ax_joint.annotate(f"$R^2$ = {r2_avg} ± {r2_stderr}",
-#                         xy=(0.1, 0.9), xycoords='axes fraction',
-#                         ha='left', va='center',
-#                         bbox={'boxstyle': 'round', 'fc': 'powderblue', 'ec': 'navy'}
-#                         )
-#     #  kwargs: linewidth=0.2, edgecolor='white',  mincnt=1
-#     # plt.text(0.95, 0.05, f"$R^2$ = {r2_avg} ± {r2_stderr}",
-#     #          horizontalalignment='right',
-#     #          verticalalignment='bottom',
-#     #          transform=g.ax_joint.transAxes,
-#     #          )
-#     # g.plot_marginals(sns.kdeplot, color="blue")
-#     # Set plot limits to (0, 15) for both axes
-#     g.set_axis_labels(f"log True {x_y_target_name}" if log_scale else f"True {x_y_target_name}",
-#                        f"log Predicted {x_y_target_name}" if log_scale else f"Predicted {x_y_target_name}")
-#     g.ax_joint.set_xlim(ax_min, ax_max)
-#     g.ax_joint.set_ylim(ax_min, ax_max)
-#     # plt.tight_layout()
-#     # g.ax_joint.set_xscale("log")
-#     # g.ax_joint.set_yscale("log")
-#     plt.show()
+    g = sns.jointplot(data=combined_data, x=target, y=0,
+                      kind="hex",
+                    #   cmap="Purples",
+                      joint_kws={"gridsize": 19, "cmap": "Blues"},
+                    #   joint_kws={"gridsize": (40,30)},
+                      marginal_kws={"bins": 25},
+                      )
+    ax_max = ceil(max(combined_data.max()))
+    ax_min = ceil(min(combined_data.min()))
+    g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
+    g.ax_joint.annotate(f"$R^2$ = {r2_avg} ± {r2_stderr}",
+                        xy=(0.1, 0.9), xycoords='axes fraction',
+                        ha='left', va='center',
+                        fontsize=18,
+                        bbox={'boxstyle': 'round', 'fc': 'white', 'ec': 'white'}
+                        )
+
+    # Set plot limits to (0, 15) for both axes
+    g.set_axis_labels(f"log True {x_y_target_name}" if log_scale else f"True {x_y_target_name}",
+                       f"log Predicted {x_y_target_name}" if log_scale else f"Predicted {x_y_target_name}")
+    g.ax_joint.set_xlim(ax_min, ax_max)
+    g.ax_joint.set_ylim(ax_min, ax_max)
+    # plt.tight_layout()
+    # g.ax_joint.set_xscale("log")
+    # g.ax_joint.set_yscale("log")
+    plt.show()
 
 
-#     visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
-#     os.makedirs(visualization_folder_path, exist_ok=True)
+    visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
+    os.makedirs(visualization_folder_path, exist_ok=True)
 
-#     saving_path = visualization_folder_path/ file_name
+    saving_path = visualization_folder_path/ file_name
 
-#     try:
-#         g.savefig(saving_path, dpi=600)
-#         print(f"Saved {saving_path}")
-#     except Exception as e:
-#         print(f"Failed to save {saving_path} due to {e}")
+    try:
+        g.savefig(saving_path, dpi=600)
+        print(f"Saved {saving_path}")
+    except Exception as e:
+        print(f"Failed to save {saving_path} due to {e}")
 
-#     plt.close()
+    plt.close()
 
 
 
@@ -242,26 +223,26 @@ def draw_predictions_plot(
 if __name__ == "__main__":
 
 
-    training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
-    for target_folder in target_list:
-        get_prediction_plot(RESULTS/target_folder, training_df_dir,"Rg1 (nm)")
+    # training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
+    # for target_folder in target_list:
+    #     get_prediction_plot(RESULTS/target_folder, training_df_dir,"Rg1 (nm)")
 
 
-    # target_to_an = 'target_log First Peak wo placeholder'
-    # file_n = "(PDI-Mw-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_mean_transformerOFF_predictions.csv"
-    # poly_representation_name = 'scaler'
-    # truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
-    # fname,_ = get_file_info(truth_val_file)
-    # # for i in [0,1,2]:
-    # draw_predictions_plot(
-    #     target='log First Peak wo placeholder',
-    #     x_y_target_name='log Rh First Peak',
-    #     prediction_path=truth_val_file,
-    #     # r2_avg: float,
-    #     # r2_stderr: float,
-    #     root_dir=RESULTS/target_to_an,
-    #     poly_representation_name=poly_representation_name,
-    #     # peak_num=0,
-    #     file_name=fname,
-    #     log_scale=False
-    # )
+    target_to_an = 'target_log Rg (nm)'
+    file_n = "(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv"
+    poly_representation_name = 'Trimer_scaler'
+    truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
+    fname,_ = get_file_info(truth_val_file)
+    # for i in [0,1,2]:
+    draw_single_parity_plot(
+        target='log Rg (nm)',
+        x_y_target_name='log Rg (nm)',
+        prediction_path=truth_val_file,
+        # r2_avg: float,
+        # r2_stderr: float,
+        root_dir=RESULTS/target_to_an,
+        poly_representation_name=poly_representation_name,
+        # peak_num=0,
+        file_name=fname,
+        log_scale=False
+    )

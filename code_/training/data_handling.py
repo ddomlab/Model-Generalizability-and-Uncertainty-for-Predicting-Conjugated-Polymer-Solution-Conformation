@@ -56,10 +56,8 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
           predictions: Optional[pd.DataFrame],
           ground_truth: Optional[Dict],
           df_shapes: Optional[Dict],
-        #   generalizability_score:Optional[Dict],
           results_dir: Path,
           regressor_type: str,
-        #   hyperparameter_optimization: Optional[bool],
           imputer: Optional[str],
           representation: str,
           pu_type : Optional[str],
@@ -126,12 +124,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
         data_shape_file:Path = results_dir / f"{fname_root}_shape.json"
         with open(data_shape_file, "w") as f:
             json.dump(df_shapes, f, cls=NumpyArrayEncoder, indent=2)
-    
-    # if generalizability_score:
-    #     generalizibility_scores_file: Path = results_dir / f"{fname_root}_generalizability_scores.json"
-    #     with open(generalizibility_scores_file, "w") as f:
-    #         json.dump(generalizability_score, f, cls=NumpyArrayEncoder, indent=2)
-    #     print(generalizibility_scores_file)
+
     
     print('Done Saving scores!')
 
@@ -140,7 +133,6 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  predictions: Optional[pd.DataFrame]=None,
                  ground_truth: Optional[pd.DataFrame]=None,
                  df_shapes:Optional[Dict]=None,
-                #  generalizability_score:Optional[Dict]=None,
                  target_features: list=None,
                  regressor_type: str=None,
                  kernel: Optional[str]=None,
@@ -190,7 +182,6 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
           ground_truth=ground_truth,
           results_dir=results_dir,
           df_shapes=df_shapes,
-        #   generalizability_score=generalizability_score,
           regressor_type=regressor_type,
           imputer=imputer,
           representation=representation,
