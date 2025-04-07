@@ -18,7 +18,7 @@ for regressor in "${regressors[@]}"; do
           for vector in "${vectors[@]}"; do
             bsub <<EOT
           
-#BSUB -n 6
+#BSUB -n 4
 #BSUB -W 30:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
