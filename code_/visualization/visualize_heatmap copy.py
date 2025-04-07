@@ -50,7 +50,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['Mw', 'PDI'],
+        'polysize': ['DP', 'Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -311,6 +311,9 @@ def creat_result_df(target_dir: Path,
 
                         feats, model, av , std = get_results_from_file(file_path=file_path, score=score, var=var, peak_number=peak_number)  
                         models.add(model)
+                        exlude_feats = ["unknown format","polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Ra"]
+                        if feats in exlude_feats:
+                            continue
                     else:
                             continue
                 # for scaler features only
