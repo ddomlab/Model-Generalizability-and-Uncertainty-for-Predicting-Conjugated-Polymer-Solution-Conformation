@@ -179,11 +179,8 @@ def _create_heatmap(
     root_dir: Path,
     score: str,
     var: str,
-    avg_scores:pd.DataFrame,
-    annotations:pd.DataFrame,
-    # x_labels: list[str],
-    # y_labels: list[str],
-    # parent_dir_labels: list[str],
+    avg_scores: pd.DataFrame,
+    annotations: pd.DataFrame,
     figsize: tuple[int, int],
     fig_title: str,
     x_title: str,
@@ -198,23 +195,23 @@ def _create_heatmap(
         root_dir: Root directory containing all results
         score: Score to plot
         var: Variance to plot
-        x_labels: Labels for x-axis
-        y_labels: Labels for y-axis
+        avg_scores: DataFrame of average scores
+        annotations: DataFrame of annotations (e.g., standard deviations)
         figsize: Figure size
         fig_title: Figure title
         x_title: X-axis title
         y_title: Y-axis title
         fname: Filename to save figure
+        vmin: Minimum value for color scaling
+        vmax: Maximum value for color scaling
     """
 
     # Create heatmap
-
     fig, ax = plt.subplots(figsize=figsize)
     palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
-    # # palette: str = "cmc.batlow" if score in ["r", "r2"] else "cmc.batlow_r"
-    # palette: str = "cmc.batlow_r" if score in ["r", "r2"] else "cmc.batlow"
     custom_cmap = sns.color_palette(palette, as_cmap=True)
     custom_cmap.set_bad(color="lightgray")
+
     hmap = sns.heatmap(
         avg_scores,
         annot=annotations,
@@ -227,39 +224,51 @@ def _create_heatmap(
         mask=avg_scores.isnull(),
         annot_kws={"fontsize": 16},
     )
-    
+
     # Set axis labels and tick labels
     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
     x_tick_labels: list[str] = [col for col in avg_scores.columns]
-    # try:  # handles models as y-axis
-    # except:  # handles targets as y-axis
-    #     y_tick_labels: list[str] = [target_abbrev_to_full[x] for x in avg_scores.index]
     y_tick_labels: list[str] = avg_scores.index.to_list()
 
     ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=14, fontweight='bold')
     ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=14, fontweight='bold')
 
     # Set plot and axis titles
-    plt.title(fig_title,fontsize=18, fontweight='bold')
+    plt.title(fig_title, fontsize=18, fontweight='bold')
     ax.set_xlabel(x_title, fontsize=16, fontweight='bold')
     ax.set_ylabel(y_title, fontsize=16, fontweight='bold')
-    # Set colorbar title
+
+    # Set colorbar title and custom ticks
     score_txt: str = "$R^2$" if score == "r2" else score
     cbar = hmap.collections[0].colorbar
+
+    # Handle vmin/vmax if not set
+    if vmin is None:
+        vmin = np.nanmin(avg_scores.values)
+    if vmax is None:
+        vmax = np.nanmax(avg_scores.values)
+
+    num_ticks = 3  # Change to 3 if you want fewer ticks
+    ticks = np.linspace(vmin, vmax, num_ticks)
+    cbar.set_ticks(ticks)
+
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles[var]}", rotation=270, labelpad=20, 
         fontsize=16, fontweight='bold'
     )
     cbar.ax.tick_params(labelsize=14)
-    visualization_folder_path =  root_dir/"heatmap"
-    os.makedirs(visualization_folder_path, exist_ok=True)    
+
+    # Save the figure
+    visualization_folder_path = root_dir / "heatmap"
+    os.makedirs(visualization_folder_path, exist_ok=True)
     plt.tight_layout()
     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
 
-    # Show the heatmap
-    # plt.show()
+    # Close the plot
+    plt.show()
     plt.close()
+
 
 
 
@@ -393,8 +402,8 @@ def create_structural_result(target_dir:Path,
                     x_title="Molecular Representations",
                     y_title="Polymer Unit Representation",
                     fname=fname,
-                    vmin=18,
-                    vmax=20)
+                    vmin=.55,
+                    vmax=.57)
 
 
 def create_structural_scaler_result(target_dir:Path,
