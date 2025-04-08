@@ -115,7 +115,7 @@ def plot_hanson_space(df, hsp_material:str):
         "nbins":6,
                   }
     
-    sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis")
+    sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis",edgecolors='none')
     axes[0].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
     axes[0].set_ylabel(r'$\delta D$ (MPa$^{1/2}$)')
     axes[0].xaxis.set_major_locator(MaxNLocator(**maxlocator))
@@ -123,7 +123,7 @@ def plot_hanson_space(df, hsp_material:str):
 
 
     # Scatter plot for dP vs dH
-    sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis")
+    sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis",edgecolors='none')
     axes[1].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
     axes[1].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
     axes[1].xaxis.set_major_locator(MaxNLocator(**maxlocator))
@@ -131,14 +131,14 @@ def plot_hanson_space(df, hsp_material:str):
 
 
     # Scatter plot for dD vs dH
-    sc = axes[2].scatter(dD, dH, c=dP_freq, cmap="viridis")
+    sc = axes[2].scatter(dD, dH, c=dP_freq, cmap='viridis',edgecolors='none')
     axes[2].set_xlabel(r'$\delta D$ (MPa$^{1/2}$)')
     axes[2].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
     axes[2].xaxis.set_major_locator(MaxNLocator(**maxlocator))
     axes[2].yaxis.set_major_locator(MaxNLocator(**maxlocator))
     cbar3 = fig.colorbar(sc, ax=axes[2], orientation="vertical", shrink=0.7, aspect=25)
     cbar3.set_label("Frequency")
-
+    cbar3.set_ticks(np.linspace(cbar3.vmin, cbar3.vmax, 3))  # <-- set 3 ticks
     fig.suptitle(f"{hsp_material} Hansen Solubility Parameters", fontsize=14, fontweight="bold")
 
     plt.tight_layout()

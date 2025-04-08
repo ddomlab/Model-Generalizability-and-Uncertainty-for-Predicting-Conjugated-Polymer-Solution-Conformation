@@ -97,11 +97,19 @@ def get_total(prop_string: str) -> Optional[str]:
     """
     mapping = {
         'ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'ECFP6.count.512 + best continuous features',
+            'ECFP6.count.512 + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
+        'ECFP3.count.512-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'ECFP6.count.512 + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
         'MACCS-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'MACCS + best continuous features',
+            'MACCS + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
+
+        'MACCS-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'MACCS + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
+
         'Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'Mordred + best continuous features',
+            'Mordred + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
+        'Mordred-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
+            'Mordred + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
     }
     return mapping.get(prop_string)
 
@@ -159,7 +167,7 @@ def get_results_from_file(
         with open(file_path, "r") as f:
             data = json.load(f)
 
-
+        print()
         avg = data[f"{score}_avg"]
         # print(avg)
         if var == "stdev":
@@ -342,7 +350,7 @@ def creat_result_df(target_dir: Path,
                 score_files = list(Path(representation_dir).rglob(pattern))
 
         for file_path in score_files:
-            if "generalizability" in file_path.name or "test" in file_path.name:
+            if "generalizability" in file_path.name or "test" in file_path.name or 'lc_scores' in file_path.name:
                 continue
 
             if data_type == 'structural':
@@ -454,18 +462,18 @@ def create_structural_scaler_result(target_dir:Path,
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
-    fname= f"selected PolymerRepresentation vs all features search heatmap_{score} score"
-    _create_heatmap(root_dir=HERE,
+    fname= f"all PolymerRepresentation vs all features search heatmap_{score} score"
+    _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(10, 8),
+                    figsize=(16,12),
                     fig_title=f"\n",
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
-                    num_ticks=5,
+                    num_ticks=3,
                     vmin=0.2,
                     vmax=0.6,
                     )
@@ -519,7 +527,8 @@ def create_scaler_result(target_dir:Path,
                     feature_order=['polysize','solvent_properties','polymer_HSPs','solvent_HSPs','polymer_HSPs + solvent_HSPs','solvent_properties + polymer_HSPs + solvent_HSPs','polysize + solvent_properties + polymer_HSPs + solvent_HSPs'],
                     model_order=['RF','DT','MLR'],
                     num_ticks=3,
-            
+                    # vmin=0.4,
+                    # vmax=0.6,
                     )
 
 # simple_models = ['MLR','DT','RF']

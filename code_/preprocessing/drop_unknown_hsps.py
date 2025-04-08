@@ -16,7 +16,7 @@ unique_polymer_dataset:pd.DataFrame= pd.read_excel(unique_polymer_dir)
 
 w_data = pd.read_pickle(training_df_dir)
 
-df_missing_poly_hsp: pd.DataFrame = w_data[['Rh1 (nm)', 'Rg1 (nm)','Lp (nm)','polymer dH']].copy()
+df_missing_poly_hsp: pd.DataFrame = w_data[['Rh1 (nm)', 'Rg1 (nm)','Lp (nm)','polymer dH','canonical_name']].copy()
 
 print("Size of Rh1 and 'polymer hsp' not nan:  ",
        len(df_missing_poly_hsp[~df_missing_poly_hsp["Rh1 (nm)"].isnull()&~df_missing_poly_hsp['polymer dH'].isnull()]),
@@ -29,6 +29,14 @@ print("Size of Rg1 and 'polymer hsp' not nan:  ",
        '   Size of Rg1 not nan\t', len(df_missing_poly_hsp[~df_missing_poly_hsp['Rg1 (nm)'].isnull()]),
        '   number of reduced datapoints:\t:',
        abs(len(df_missing_poly_hsp[~df_missing_poly_hsp['Rg1 (nm)'].isnull()&~df_missing_poly_hsp['polymer dH'].isnull()])-len(df_missing_poly_hsp[~df_missing_poly_hsp['Rg1 (nm)'].isnull()])) )
+
+reduced_df = df_missing_poly_hsp[~df_missing_poly_hsp['Rg1 (nm)'].isnull() & df_missing_poly_hsp['polymer dH'].isnull()]
+
+# Show unique polymer names/types that are reduced
+reduced_polymer_types = reduced_df['canonical_name'].unique()
+
+print(f"Reduced polymer types:{reduced_polymer_types}")
+
 
 print("Size of Lp and 'polymer hsp' not nan:  ",
        len(df_missing_poly_hsp[~df_missing_poly_hsp['Lp (nm)'].isnull()&~df_missing_poly_hsp['polymer dH'].isnull()]),
