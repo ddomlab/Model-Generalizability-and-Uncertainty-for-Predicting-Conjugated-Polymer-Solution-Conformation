@@ -193,8 +193,11 @@ def draw_single_parity_plot(
                         )
 
     # Set plot limits to (0, 15) for both axes
-    g.set_axis_labels(f"log True {x_y_target_name}" if log_scale else f"True {x_y_target_name}",
-                       f"log Predicted {x_y_target_name}" if log_scale else f"Predicted {x_y_target_name}")
+    xlabel = f"log True {x_y_target_name}" if log_scale else f"True {x_y_target_name}"
+    ylabel = f"log Predicted {x_y_target_name}" if log_scale else f"Predicted {x_y_target_name}"
+
+    g.ax_joint.set_xlabel(xlabel, fontdict={'fontsize': 16, 'fontweight': 'bold'})
+    g.ax_joint.set_ylabel(ylabel, fontdict={'fontsize': 16, 'fontweight': 'bold'})
     g.ax_joint.set_xlim(ax_min, ax_max)
     g.ax_joint.set_ylim(ax_min, ax_max)
     # plt.tight_layout()
