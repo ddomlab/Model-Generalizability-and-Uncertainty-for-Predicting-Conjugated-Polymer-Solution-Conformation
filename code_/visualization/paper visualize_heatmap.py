@@ -40,8 +40,8 @@ transformer_list = [
                     ]
 
 scores_list: list = [
-                    # "r2", 
-                    # "mae", 
+                    "r2", 
+                    "mae", 
                     "rmse"
                      ] 
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
@@ -275,7 +275,7 @@ def _create_heatmap(
     ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
 
     # Set plot and axis titles
-    plt.title(fig_title, fontsize=18)
+    plt.title(fig_title, fontsize=18, fontweight='bold')
     ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
     ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
 
@@ -290,7 +290,7 @@ def _create_heatmap(
 
     num_ticks = num_ticks
     ticks = np.linspace(vmin, vmax, num_ticks)
-    cbar.set_ticks(ticks)
+    cbar.set_ticks(np.round(ticks,1))
 
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles.get(var, var)}",
@@ -302,7 +302,7 @@ def _create_heatmap(
     cbar.ax.tick_params(labelsize=16)
 
     # Save the figure
-    visualization_folder_path = root_dir / "paper heatmap"
+    visualization_folder_path = root_dir / "heatmap"
     os.makedirs(visualization_folder_path, exist_ok=True)
     plt.tight_layout()
     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
@@ -462,20 +462,32 @@ def create_structural_scaler_result(target_dir:Path,
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
-    fname= f"all PolymerRepresentation vs all features search heatmap_{score} score"
+    fname= f"selected PolymerRepresentation vs all features search heatmap_{score} score"
+    if score == "r2":
+        vmax= .9
+        vmin= .3
+        n_cbar_tick = 4  
+    elif score == "mae":
+        vmax= .5
+        vmin= 0.1
+        n_cbar_tick = 5  
+    elif score == "rmse":
+        vmax= .6
+        vmin= 0.2 
+        n_cbar_tick = 5  
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(16,12),
-                    fig_title=f"\n",
+                    fig_title=f"Average {score_txt} of Rg with structural+continuous features",
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
-                    num_ticks=3,
-                    vmin=0.2,
-                    vmax=0.6,
+                    num_ticks=n_cbar_tick,
+                    vmin=vmin,
+                    vmax=vmax,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"

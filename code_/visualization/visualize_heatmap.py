@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 # from matplotlib import rc
-
+from visualization_setting import set_plot_style, save_img_path
 
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
@@ -180,8 +180,13 @@ def _create_heatmap(
 
     # If r2: force vmin and prepare masked grey values
     if score == "r2":
-        vmin = 0.0
-        grey_mask = avg_scores < vmin
+        
+        grey_mask = avg_scores < 0.0
+
+    elif score == "rmse":
+        grey_mask = avg_scores > 0.6
+    elif score == "mae":
+        grey_mask = avg_scores > .5
     else:
         grey_mask = pd.DataFrame(False, index=avg_scores.index, columns=avg_scores.columns)
 
@@ -200,10 +205,10 @@ def _create_heatmap(
     )
 
     # Overlay grey boxes for < 0 values in r2
-    if score == "r2":
+    if grey_mask.any().any():
         for i in range(avg_scores.shape[0]):
             for j in range(avg_scores.shape[1]):
-                if avg_scores.iloc[i, j] < 0:
+                if grey_mask.iloc[i, j]:
                     rect = plt.Rectangle((j, i), 1, 1, facecolor="lightgray", edgecolor="white", lw=0.5)
                     ax.add_patch(rect)
                     ax.text(
@@ -224,34 +229,32 @@ def _create_heatmap(
     x_tick_labels: list[str] = [col for col in avg_scores.columns]
     y_tick_labels: list[str] = avg_scores.index.to_list()
 
-    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=14, fontweight='bold')
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=14, fontweight='bold')
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
 
     # Titles
-    plt.title(fig_title, fontsize=18, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=16, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=16, fontweight='bold')
+    plt.title(fig_title, fontsize=28, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=24, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=24, fontweight='bold')
 
     # Colorbar
     score_txt: str = "$R^2$" if score == "r2" else score
     cbar = hmap.collections[0].colorbar
-
-    # Ensure vmin and vmax are set
-    if vmin is None:
-        vmin = np.nanmin(avg_scores.values)
-    if vmax is None:
-        vmax = np.nanmax(avg_scores.values)
-
-    ticks = np.round(np.linspace(vmin, vmax, num_ticks), 1)
-    cbar.set_ticks(ticks)
+    
+    # if vmin is not None and vmax is not None:
+    #     num_ticks = round((vmax - vmin) / 0.1)
+    
+    cbar.set_ticks(np.round(np.linspace(vmin, vmax, num_ticks), 2))
+    
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles[var]}",
         rotation=270,
         labelpad=20,
-        fontsize=16,
+        fontsize=18,
         fontweight='bold',
     )
-    cbar.ax.tick_params(labelsize=14)
+
+    cbar.ax.tick_params(labelsize=20)
 
     # Save
     visualization_folder_path = root_dir / "heatmap"
@@ -360,7 +363,10 @@ def creat_result_df(target_dir: Path,
     return avg_scores, annotations, list(models)
 
 
+# def set_minmax_cbar(score_type):
 
+
+#     return vmin, vmax
 
 def create_structural_result(target_dir:Path,
                              regressor_model:str,
@@ -379,39 +385,69 @@ def create_structural_result(target_dir:Path,
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
     fname= f"PolymerRepresentation vs Fingerprint trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
+    # vmin, vmax = set_minmax_cbar(score)
+   
+    if score == "r2":
+        vmax= .2
+        vmin= .0
+    elif score == "mae":
+        vmax= .55
+        vmin= 0.45
+    
+    elif score == "rmse":
+        vmax= .65
+        vmin= 0.50 
+
+
+
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(14, 8),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint Predicting {target} using {model_in_title} model(s)",
+                    fig_title=f"Average {score_txt} of {target.split('_')[1]} with strctural features (model: {model_in_title})",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
+                    vmax=vmax,
+                    vmin=vmin,
+                    num_ticks=4,
                     fname=fname)
 
 
 
-# for i in scores_list:
-#     create_structural_result(target_dir=target_dir,target='Lp (nm) with filteration on concentation and Lp',score=i,var='stdev',data_type='structural')
+# def create_structural_scaler_result(target_dir:Path,
+#                                     regressor_model:str,
+#                                     target:str,
+#                                     score:str,
+#                                     var:str,
+#                                     data_type:str,
+#                                     transformer_type:str,
+#                                     peak_num:int=None
+#                                     ) -> None:
 
+#     ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
+#                                        regressor_model=regressor_model, transformer_type=transformer_type,
+#                                        peak_number=peak_num)
+#     model_in_title:str =  ",".join(model)
+#     score_txt: str = "$R^2$" if score == "r2" else score.upper()
+#     reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
+#     fname= f"PolymerRepresentation vs (Fingerprint-numerical) trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
+#     _create_heatmap(root_dir=target_dir,
+#                     score=score,
+#                     var=var,
+#                     avg_scores=ave,
+#                     annotations=anot,
+#                     figsize=(20, 16),
+#                     fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
+#                     x_title="Fingerprint-numerical Representations",
+#                     y_title="Polymer Unit Representation",
+#                     fname=fname
+#                     )
 
-# feat, model, av, std = get_results_from_file(file,score='r2', var='stdev')
-
-
-
-# for model in models: 
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                             score=i,var='stdev',data_type='structural')
-
-
-
-
-
+# for fixed PU with different models
 def create_structural_scaler_result(target_dir:Path,
-                                    regressor_model:str,
+                                    # regressor_model:str,
                                     target:str,
                                     score:str,
                                     var:str,
@@ -420,26 +456,34 @@ def create_structural_scaler_result(target_dir:Path,
                                     peak_num:int=None
                                     ) -> None:
 
-    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type,
-                                       regressor_model=regressor_model, transformer_type=transformer_type,
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+                                       , transformer_type=transformer_type,
                                        peak_number=peak_num)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
-    fname= f"PolymerRepresentation vs (Fingerprint-numerical) trained by {reg_name}  with {transformer_type} search heatmap_{score} score"
+    # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
+    fname= f"all PolymerRepresentation vs all features search heatmap_{score} score"
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(20, 16),
-                    fig_title=f"Average {score_txt} Scores for Fingerprint-numerical Predicting {target} using {model_in_title} model",
-                    x_title="Fingerprint-numerical Representations",
-                    y_title="Polymer Unit Representation",
-                    fname=fname
+                    figsize=(16,12),
+                    fig_title=f"\n",
+                    x_title="Feature Space",
+                    y_title="Regression Models",
+                    fname=fname,
+                    num_ticks=3,
+                    vmin=0.2,
+                    vmax=0.6,
                     )
 
-#    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
+        
+        
+        
+        
+        
+        #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
 complex_models = ['XGBR','RF', 'NGB']
 
 
@@ -449,8 +493,8 @@ complex_models = ['XGBR','RF', 'NGB']
 #             for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-#                 create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-#                                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder}',
+                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 # for peak in [0,1,2]:
 #     for transformer in transformer_list:
@@ -482,18 +526,32 @@ def create_scaler_result(target_dir:Path,
     # reg_name = f'{regressor_model} on {peak_num}' if peak_num else regressor_model
     fname= f"Regression Models vs numerical features with {transformer_type} search heatmap_{score}"
     fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
+    if score == "r2":
+        vmax= .6
+        vmin= .4
+    elif score == "mae":
+        vmax= .55
+        vmin= 0.45
+    
+    elif score == "rmse":
+        vmax= .65
+        vmin= 0.50 
+    
+    # set_plot_style(title_size=40, label_size=20, tick_size=18)
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(24, 14),
-                    fig_title=f"Average {score_txt} Scores for numerical Predicting {target} using {model_in_title} model with {transformer_type}",
-                    x_title="numerical Representations",
+                    fig_title=f"Average {score_txt} of {target.split()[1]} with continuous features",
+                    x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
                     model_order=['RF', 'DT', 'MLR'],
-                    num_ticks=4,
+                    num_ticks=3,
+                    vmax=vmax,
+                    vmin=vmin,
                     )
 
 # simple_models = ['MLR','DT','RF']
@@ -502,8 +560,12 @@ def create_scaler_result(target_dir:Path,
 for transformer in transformer_list:
     for target_folder in target_list:
         for i in scores_list:
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder}',
+            #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            
+
+            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder}',
+                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
             
 # for peak in [0,1,2]:
 #     for transformer in transformer_list:
@@ -528,19 +590,19 @@ for transformer in transformer_list:
 # target_Rh First/second/third Peak_wo placeholder_LogFT]
 
 
-def generate_annotations(num: float) -> str:
-    """
-    Args:
-        num: Number to annotate
+# def generate_annotations(num: float) -> str:
+#     """
+#     Args:
+#         num: Number to annotate
 
-    Returns:
-        String to annotate heatmap
-    """
-    if isinstance(num, float) and not np.isnan(num):
-        num_txt: str = f"{round(num, 2)}"
-    else:
-        num_txt = "NaN"
-    return num_txt
+#     Returns:
+#         String to annotate heatmap
+#     """
+#     if isinstance(num, float) and not np.isnan(num):
+#         num_txt: str = f"{round(num, 2)}"
+#     else:
+#         num_txt = "NaN"
+#     return num_txt
 
 # Data
 # avg_scores_data = {
