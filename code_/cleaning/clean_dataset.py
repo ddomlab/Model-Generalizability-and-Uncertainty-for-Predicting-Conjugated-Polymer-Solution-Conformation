@@ -44,7 +44,7 @@ def main_cleaning(raw_data:pd.DataFrame) -> None:
 
     main_columns = ["Mn (g/mol)","Mw (g/mol)","PDI", "Rh1 (nm)","Rh2 (nm)","Rh3 (nm)", "Concentration (mg/ml)", "Rg1 (nm)",
                             "Lp (nm)", "Lc (nm)", "Temperature SANS/SLS/DLS/SEC (K)",
-                            "intensity weighted average Rh (nm)","intensity weighted average over log(Rh (nm))"]
+                            "intensity weighted average Rh (nm)","Rh (IW avg log)"]
 
     for value in main_columns:
         m_data[value] = m_data[value].apply(convert_value)
@@ -77,6 +77,7 @@ def drop_block_cp(m_data:pd.DataFrame):
     m_data.to_pickle(save_dir/'cleaned_data_wo_block_cp.pkl')
     print('Done with dropping block copolymers')
     print(f'block_cp dataset shape: {m_data.shape}')
+    return m_data
 
 
 
@@ -128,5 +129,7 @@ def map_derived_Rh_data(dataset, reference_data, columns_to_map):
     mapped_values_df = pd.DataFrame(list(mapped_values))
 
     dataset = pd.concat([dataset, mapped_values_df], axis=1)
+    dataset.rename(columns={"intensity weighted average over log(Rh (nm))": 'Rh (IW avg log)'}, inplace=True)
+
     return dataset
 
