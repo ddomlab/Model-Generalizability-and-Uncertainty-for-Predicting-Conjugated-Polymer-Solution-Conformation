@@ -130,16 +130,3 @@ def map_pairwise_hsp_distances(df:pd.DataFrame):
 
 
         
-# m_data["modified_solvent_format"] = m_data['Solvent(s)'].apply(sol_name_change)
-
-# pure_solvent = m_data[~m_data["modified_Solvent(s)"].str.contains(mixtures_filter, na=False)]
-# mixtures = m_data[m_data["modified_Solvent(s)"].str.contains(mixtures_filter, na=False)]
-# print(len(pure_solvent))
-# assert len(m_data) == (len(mixtures) + len(pure_solvent))
-
-# hansen_param_names = ["dP", "dD", "dH"]
-# new_sol = m_data.copy()
-# for param in hansen_param_names:
-#     new_sol[f'solvent {param}'] = new_sol["modified_Solvent(s)"].apply(lambda x: calculate_mixture_hsp(x, param))
-
-# new_sol[["modified_Solvent(s)", "dP", "dD", "dH"]]

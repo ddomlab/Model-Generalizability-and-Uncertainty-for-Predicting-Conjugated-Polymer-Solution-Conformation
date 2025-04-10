@@ -181,17 +181,6 @@ def pre_main(fp_radii: list[int], fp_bits: list[int], count_v:list[bool]):
 
 
 if __name__ == "__main__":
-    # parser = ArgumentParser()
-    # parser.add_argument(
-    #     '--num_workers',
-    #     action='store',
-    #     default=1,
-    #     type=int,
-    #     help= 'insert number of cores'
-    # )
-    
-    # FLAGS = parser.parse_args()
-    # pandarallel.initialize(nb_workers=FLAGS.num_workers)
     
     fp_radii: list[int] = [3, 4, 5, 6]
     fp_bits: list[int] = [512, 1024, 2048, 4096]

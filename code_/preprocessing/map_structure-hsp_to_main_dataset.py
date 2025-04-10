@@ -84,8 +84,8 @@ def map_structure():
     assign_canonical_name(main_data, 'name', unified_poly_name)
     print("Done with canonical name!")
     mapping_from_external(structural_data, main_data)
-    print("Done with Mapping Structure to the main dataset!")
     print(main_data.shape)
+    print("Done with Mapping Structure to the main dataset!")
     # saving the file 
     return main_data
 
