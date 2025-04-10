@@ -10,13 +10,9 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl"
 unique_polymer_dir :Path = DATASETS/'raw'/'SMILES_to_BigSMILES_Conversion_wo_block_copolymer_with_HSPs.xlsx'
 unique_polymer_dataset:pd.DataFrame= pd.read_excel(unique_polymer_dir)
-
-
-
-
 w_data = pd.read_pickle(training_df_dir)
 
-df_missing_poly_hsp: pd.DataFrame = w_data[['Rh1 (nm)', 'Rg1 (nm)','Lp (nm)','polymer dH','canonical_name']].copy()
+df_missing_poly_hsp: pd.DataFrame = w_data.copy()
 
 print("Size of Rh1 and 'polymer hsp' not nan:  ",
        len(df_missing_poly_hsp[~df_missing_poly_hsp["Rh1 (nm)"].isnull()&~df_missing_poly_hsp['polymer dH'].isnull()]),
