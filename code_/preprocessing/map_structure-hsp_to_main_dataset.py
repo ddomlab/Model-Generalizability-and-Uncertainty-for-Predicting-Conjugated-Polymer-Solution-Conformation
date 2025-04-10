@@ -22,12 +22,20 @@ sys.path.append("code_/cleaning")
 from clean_dataset import open_json
 
 
-# def open_json(dir):
-#     with open(dir,'r') as file:
-#          return json.load(file)
-    
+class NumpyArrayEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, tuple):
+            return list(obj)
+        else:
+            return super(NumpyArrayEncoder, self).default(obj)
 
-# file paths
+
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / 'datasets'
@@ -39,9 +47,10 @@ RAW_dir = DATASETS/ 'raw'
 corrected_name_dir: Path =  JSONS/'canonicalized_name.json'
 main_df_dir: Path  = CLEANED_DATASETS/'cleaned_data_wo_block_cp.pkl'
 structural_df_dir: Path =  DATASETS/'fingerprint'/'structural_features.pkl' # fingerprints data in array format
-
+data_summary_monitor_dir = JSONS/'data_summary_monitor.json'
 # reading files
 unified_poly_name: dict[str,list] = open_json(corrected_name_dir)
+data_summary_monitor:dict[str,list] = open_json(data_summary_monitor_dir)
 main_data = pd.read_pickle(main_df_dir)
 structural_data = pd.read_pickle(structural_df_dir)
 
@@ -111,6 +120,7 @@ def map_hsp(df,solvent_df,polymer_hsp):
 
     return df
 
+targets = [ 'Rh (IW avg log)', 'Rg1 (nm)', 'Lp (nm)']
 
 def generate_training_dataset():
     training_dir: Path = DATASETS/'training_dataset' 
@@ -121,10 +131,21 @@ def generate_training_dataset():
     dataset_hsp_added: pd.DataFrame = map_hsp(dataset_structure_added,raw_solvent_properties,raw_polymer_hsp)
     dataset_hsp_added.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.csv',index=False)
     dataset_hsp_added.to_pickle(training_dir/'dataset_wo_block_cp_(fp-hsp)_added.pkl')
+    
+
     dataset_hsp_added_dropped_additives = dataset_hsp_added[dataset_hsp_added['Solid additive'].isna()].reset_index(drop=True) 
+    after_dropping_additives_counts = {t: dataset_hsp_added_dropped_additives[t].notna().sum() for t in targets}
+
     dataset_hsp_added_dropped_additives.to_csv(training_dir/'dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.csv',index=False)
     dataset_hsp_added_dropped_additives.to_pickle(training_dir/'dataset_wo_block_cp_(fp-hsp)_added_additive_dropped.pkl')
     print(dataset_hsp_added_dropped_additives)
+
+
+
+    for t in targets:
+        data_summary_monitor['After dropping  solid additives'].append(after_dropping_additives_counts[t])
+    with open(JSONS/"data_summary_monitor.json", "w") as f:
+        json.dump(data_summary_monitor, f, cls=NumpyArrayEncoder, indent=2)
 
 if __name__ == "__main__":
     generate_training_dataset()
