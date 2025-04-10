@@ -85,6 +85,6 @@ if __name__ == "__main__":
 
 
     for t in targets:
-        data_summary_monitor['After dropping polymer HSPs'].append(after_dropping_polymer_hsps_counts[t])
+        data_summary_monitor['After dropping unknown polymer HSPs'].append(after_dropping_polymer_hsps_counts[t])
     with open(JSONS/"data_summary_monitor.json", "w") as f:
         json.dump(data_summary_monitor, f, cls=NumpyArrayEncoder, indent=2)

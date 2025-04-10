@@ -31,8 +31,8 @@ data_summary_monitor = {
     'Target': [],
     'Initial Cleaned': [],
     'After dropping block copolymer': [],
-    'After dropping  solid additives': [],
-    'After dropping polymer HSPs': [],
+    'After dropping solid additives': [],
+    'After dropping unknown polymer HSPs': [],
 
 }
 
