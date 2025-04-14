@@ -125,7 +125,7 @@ def plot_splits_parity(predicted_values: dict,
         range_x = combined_data["True Values (nm)"].max() - combined_data["True Values (nm)"].min()
         range_y = combined_data["Predicted Values (nm)"].max() - combined_data["Predicted Values (nm)"].min()
         max_range = max(range_x, range_y)
-        gridsize = max(5, int(max_range / 2))
+        gridsize = max(15, int(max_range / 2))
 
         # Get R² statistics
         r2_avg = score[target]["summary_stats"].get(f"test_r2_mean", 0)
@@ -150,7 +150,7 @@ def plot_splits_parity(predicted_values: dict,
         g.ax_joint.annotate(f"$R^2$ = {r2_avg:.2f} ± {r2_stderr:.2f}",
                             xy=(0.1, 0.9), xycoords='axes fraction',
                             ha='left', va='center',
-                            bbox={'boxstyle': 'round', 'fc': 'powderblue', 'ec': 'navy'})
+                            bbox={'boxstyle': 'round', 'fc': 'white', 'ec': 'white'})
 
         # Set axis labels and limits
         g.ax_joint.set_xlim(ax_min, ax_max)

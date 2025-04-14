@@ -167,7 +167,7 @@ def run_loco_cv(X, y,
                 transform_type: Optional[str],
                 second_transformer:Optional[str],
                 regressor_type: str,
-                cluster_labels: np.ndarray,
+                cluster_labels: Union[np.ndarray, dict[str, np.ndarray]],
                 hyperparameter_optimization: bool = True,
                 kernel:Optional[str] = None,
                 **kwargs,
@@ -184,8 +184,8 @@ def run_loco_cv(X, y,
 
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
-        if cluster=='ionic-EG':
-            cluster_tv_labels = split_for_training(cluster_labels['EG-Ionic-Based Cluster'],tv_idx)
+        if cluster=='Polar':
+            cluster_tv_labels = split_for_training(cluster_labels['Side Chain Cluster'],tv_idx)
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
             cluster_tv_labels = split_for_training(cluster_labels['substructure cluster'],tv_idx)
         else:
@@ -323,13 +323,13 @@ def get_loco_splits(cluster_type: Union[np.ndarray, dict[str, np.ndarray]]) -> d
         return _get_splits(cluster_type)
 
     if isinstance(cluster_type, dict):
-        if "substructure cluster" not in cluster_type or "EG-Ionic-Based Cluster" not in cluster_type:
-            raise ValueError("Expected dictionary keys: 'substructure cluster' and 'EG-Ionic-Based Cluster'.")
+        if "substructure cluster" not in cluster_type or "Side Chain Cluster" not in cluster_type:
+            raise ValueError("Expected dictionary keys: 'substructure cluster' and 'Side Chain Cluster'.")
 
         splits = _get_splits(cluster_type["substructure cluster"])
 
         # Find rarest side chain cluster and create a split
-        side_chain_labels = cluster_type["EG-Ionic-Based Cluster"]
+        side_chain_labels = cluster_type["Side Chain Cluster"]
         unique_labels, counts = np.unique(side_chain_labels, return_counts=True)
         
         if len(unique_labels) > 0:
@@ -401,6 +401,7 @@ def optimize_ood_hp(
     )
     n_cluster = len(np.unique(cluster_lables))
     if n_cluster>1:
+        # print('yes it is stratified')
         cv = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
         for train_index, val_index in cv.split(x_train_val, cluster_lables):
             X_t = split_for_training(x_train_val,train_index)

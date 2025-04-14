@@ -136,8 +136,8 @@ def run_ood_learning_curve(
     learning_curve_predictions = {}
     learning_curve_scores = {}
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
-        if cluster=='ionic-EG':
-            cluster_tv_labels = split_for_training(cluster_labels['EG-Ionic-Based Cluster'],tv_idx)
+        if cluster=='Polar':
+            cluster_tv_labels = split_for_training(cluster_labels['Side Chain Cluster'],tv_idx)
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
             cluster_tv_labels = split_for_training(cluster_labels['substructure cluster'],tv_idx)
         else:

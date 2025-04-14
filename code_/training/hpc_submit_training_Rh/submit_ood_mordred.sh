@@ -3,10 +3,10 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 mkdir -p "$output_dir"
 
 regressors=("NGB" "XGBR")
-targets=('log Rg (nm)')
-models=("Mordred")
-poly_representations=('Trimer')
-group_out=('KM3 Mordred cluster' 'substructure cluster' 'EG-Ionic-Based Cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
+targets=("log Rg (nm)")
+models=("Mordred" "MACCS")
+poly_representations=("Trimer")
+group_out=('HBD3 MACCS cluster' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
 
