@@ -1,4 +1,5 @@
 
+%load_ext cuml.accel
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
 from sklearn.pipeline import Pipeline
