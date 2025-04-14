@@ -35,7 +35,7 @@ python ../make_ood_prediction.py --target_features "${target}" \
                                                 --representation "${fp}" \
                                                 --regressor_type "${regressor}" \
                                                 --oligomer_representation "${oligo_rep}" \
-                                                --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
+                                                --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                                 --clustering_method "${group}" \
 
 
