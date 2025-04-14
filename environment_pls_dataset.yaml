@@ -17,14 +17,12 @@ dependencies:
   - numpy>=1.20.0
   - pandas>=1.0.3
   - pip>=20.0.2
-  - rdkit=2024
+  - rdkit>=2024
   - scipy>=1.4.1
   - scikit-optimize>=0.9.0
+  - scikit-learn>=1.3.0
   - matplotlib
-  - pandas
-  - scikit-learn
   - ipython
-  - scikit-optimize
   - seaborn
   - xgboost
   - ngboost
@@ -32,4 +30,5 @@ dependencies:
   - Pandarallel
   - openpyxl
   - gpytorch
+
 
