@@ -1,12 +1,12 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250402
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250414
 mkdir -p "$output_dir"
 
-regressors=("NGB")
+regressors=("NGB" "XGBR")
 targets=('log Rg (nm)')
 models=("Mordred")
 poly_representations=('Trimer')
-group_out=('KM5 polymer_solvent HSP and polysize cluster') 
+group_out=('KM3 Mordred cluster' 'substructure cluster' 'EG-Ionic-Based Cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
 
@@ -19,23 +19,22 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 1
-#BSUB -W 1:30
-#BSUB -R "select[gtx1080]"
-#BSUB -gpu "num=1:mode=shared:mps=yes"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.err"
+#BSUB -n 8
+#BSUB -W 72:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250414"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250414.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250414.err"
 
 source ~/.bashrc
-conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
-module load cuda/12.1
-python -m cuml.accel ../make_ood_prediction.py --target_features "${target}" \
-                                      --representation "${fp}" \
-                                      --regressor_type "${regressor}" \
-                                      --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
-                                      --clustering_method "${group}" \
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "${target}" \
+                                  --representation "${fp}" \
+                                  --regressor_type "${regressor}" \
+                                  --oligomer_representation "${oligo_rep}" \
+                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
+                                  --clustering_method "${group}" \
 
 
 

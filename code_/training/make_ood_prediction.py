@@ -22,13 +22,15 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-clusters = 'KM4 ECFP6_Count_512bit cluster'	
-'KM3 Mordred cluster'	
-'substructure cluster'
-'EG-Ionic-Based Cluster'
-'KM5 polymer_solvent HSP and polysize cluster'	
-'KM4 polymer_solvent HSP cluster'
-'KM4 Mordred_Polysize cluster'
+# clusters = 'KM4 ECFP6_Count_512bit cluster'	
+# 'HBD3 MACCS cluster'  do this as new
+# 'KM3 Mordred cluster'	
+# 'substructure cluster'
+# 'EG-Ionic-Based Cluster'
+# 'KM5 polymer_solvent HSP and polysize cluster'	redo this
+# 'KM4 polymer_solvent HSP and polysize cluster'    do this as new one
+# 'KM4 polymer_solvent HSP cluster'
+# 'KM4 Mordred_Polysize cluster'
 
 
 TEST = False
