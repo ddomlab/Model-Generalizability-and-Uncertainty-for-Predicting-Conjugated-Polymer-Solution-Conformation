@@ -1,3 +1,5 @@
+# %load_ext cuml.accel
+
 import pandas as pd
 from pathlib import Path
 from get_ood_split import train_regressor
