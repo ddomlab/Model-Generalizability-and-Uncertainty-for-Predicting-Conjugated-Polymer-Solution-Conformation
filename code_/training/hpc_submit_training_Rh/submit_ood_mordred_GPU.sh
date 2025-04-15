@@ -30,7 +30,7 @@ for regressor in "${regressors[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
-module load cuda/12.0
+module load cuda/12.6
 python -m cuml.accel ../make_ood_prediction.py --target_features "${target}" \
                                                 --representation "${fp}" \
                                                 --regressor_type "${regressor}" \
