@@ -191,8 +191,8 @@ def run_ood_learning_curve(
                 test_score, train_scores, y_test_pred_ood = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test,return_train_pred=True)
                 learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_score)
                 learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
-                    'y_true': y_test,
-                    'y_test_pred': y_test_pred_ood
+                    'y_true': y_test.flatten(),
+                    'y_test_pred': y_test_pred_ood.flatten()
                 }
             # print(learning_curve_scores)
         learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
