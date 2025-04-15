@@ -164,6 +164,30 @@ def plot_splits_parity(predicted_values: dict,
 
 
 
+def get_residuals_for_learning_curve(data):
+    records = []
+    for cluster, ratios in data.items():
+        cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
+        for ratio, seeds in ratios.items():
+            if ratio == "Cluster size":
+                continue 
+            train_ratio = float(ratio.replace("ratio_", ""))
+            train_set_size = round(float(train_ratio * cluster_size),1)
+            for _, predict_true in seeds.items():
+                if 'y_test_pred' in predict_true and 'y_true' in predict_true:
+                    residuals = np.array(predict_true['y_test_pred']) - np.array(predict_true['y_true'])
+
+
+                    records.append({
+                        "Cluster": cluster,
+                        "Train Set Size": train_set_size,
+                        "Residuals": residuals,
+                    })
+
+
+
+    return pd.DataFrame(records)
+
 
 
 
@@ -173,17 +197,15 @@ def process_summary_scores(summary_scores, metric="rmse"):
     cluster_train_sizes = {}
     
     for cluster, ratios in summary_scores.items():
-        cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
-        cluster_train_sizes[cluster] = set()  # Initialize set for each cluster
+        cluster_size = ratios.get("Cluster size", 0)  
+        cluster_train_sizes[cluster] = set()  
         
         for ratio, stats in ratios.items():
             if ratio == "Cluster size":
-                continue  # Skip the cluster size entry, as it's not a ratio
+                continue 
             
-            # Calculate the training set size based on the ratio and cluster size
             train_ratio = float(ratio.replace("ratio_", ""))
             train_set_size = round(float(train_ratio * cluster_size),1)
-            # Add the calculated train_set_size to the set of each cluster
             cluster_train_sizes[cluster].add(train_set_size)
             
             metric_test = f"test_{metric}_mean"
@@ -289,13 +311,33 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
     plt.close()
 
 
-def get_residuals_for_learning_curve(data):
+
+def plot_residual_distribution(prediction_data):
+    processd_residuals = get_residuals_for_learning_curve(prediction_data)
+    residuals_df = processd_residuals.explode('Residuals').copy()
+    residuals_df['Residuals'] = residuals_df['Residuals'].astype(float)
     
-    pass 
-def plot_residual_distribution():
+    # Step 2: Plot for each cluster
+    clusters = residuals_df['Cluster'].unique()
+    
+    for cluster in clusters:
+        plt.figure(figsize=(8, 5))
+        subset = residuals_df[residuals_df['Cluster'] == cluster]
+        sns.kdeplot(
+            data=subset,
+            x="Residuals",
+            hue="Train Set Size",
+            fill=True,
+            common_norm=False,
+            palette="viridis"
+        )
+        plt.title(f"KDE of Residuals - {cluster}")
+        plt.xlabel("Residual")
+        plt.ylabel("Density")
+        plt.legend(title="Train Set Size")
+        plt.tight_layout()
+        plt.show()
 
-
-    pass
 
 def plot_residuals_vs_std():
     pass
@@ -339,3 +381,4 @@ if __name__ == "__main__":
     #     plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder)
 
 
+    plot_residual_distribution()

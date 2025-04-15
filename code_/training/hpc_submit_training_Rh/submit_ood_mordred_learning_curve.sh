@@ -6,7 +6,7 @@ regressors=("NGB" "XGBR")
 targets=('log Rg (nm)')
 models=("Mordred" "MACCS")
 poly_representations=('Trimer')
-group_out=('KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
+group_out=('HBD3 MACCS cluster') 
 
 
 for regressor in "${regressors[@]}"; do
