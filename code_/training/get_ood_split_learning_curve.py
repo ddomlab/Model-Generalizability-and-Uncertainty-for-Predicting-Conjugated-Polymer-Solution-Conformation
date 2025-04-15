@@ -194,8 +194,9 @@ def run_ood_learning_curve(
                     'y_true': y_test.flatten(),
                     'y_test_pred': y_test_pred_ood.flatten()
                 }
-            # print(learning_curve_scores)
+                
         learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
+        learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
     return learning_curve_scores, learning_curve_predictions
 
 
