@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250415
 mkdir -p "$output_dir"
 
-regressors=("NGB" "XGBR")
+regressors=("NGB")
 targets=('log Rg (nm)')
 models=("Mordred" "MACCS")
 poly_representations=('Trimer')
@@ -27,7 +27,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250415.err"
 
 source ~/.bashrc
-conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
 python ../make_ood_learning_curve.py --target_features "${target}" \
                                       --representation "${fp}" \
                                       --regressor_type "${regressor}" \
