@@ -21,7 +21,6 @@ for regressor in "${regressors[@]}"; do
 #BSUB -n 1
 #BSUB -W 1:30
 #BSUB -q gpu
-#BSUB -R "select[a100]"
 #BSUB -gpu "num=2:mode=shared:mps=yes"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_gpu_20250416"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_gpu_20250416.out"
