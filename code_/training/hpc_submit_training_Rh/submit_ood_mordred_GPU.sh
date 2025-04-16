@@ -1,5 +1,5 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250402
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_gpu_20250416
 mkdir -p "$output_dir"
 
 regressors=("NGB")
@@ -24,9 +24,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -q gpu
 #BSUB -R "select[a100]"
 #BSUB -gpu "num=2:mode=shared:mps=yes"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250402.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_gpu_20250416"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_gpu_20250416.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_gpu_20250416.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
@@ -35,7 +35,7 @@ python -m cuml.accel ../make_ood_prediction.py --target_features "${target}" \
                                                 --representation "${fp}" \
                                                 --regressor_type "${regressor}" \
                                                 --oligomer_representation "${oligo_rep}" \
-                                                --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
+                                                --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                                 --clustering_method "${group}" \
 
 
