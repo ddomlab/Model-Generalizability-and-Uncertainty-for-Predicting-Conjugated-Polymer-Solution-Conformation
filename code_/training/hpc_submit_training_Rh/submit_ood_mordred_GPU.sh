@@ -7,8 +7,7 @@ targets=('log Rg (nm)')
 models=("Mordred")
 poly_representations=('Trimer')
 group_out=('KM5 polymer_solvent HSP and polysize cluster') 
-# 'KM3 Mordred cluster'
-# 'KM4 Mordred_Polysize cluster'
+
 
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
@@ -30,7 +29,6 @@ for regressor in "${regressors[@]}"; do
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
-module load cuda/12.6
 python -m cuml.accel ../make_ood_prediction.py --target_features "${target}" \
                                                 --representation "${fp}" \
                                                 --regressor_type "${regressor}" \
@@ -47,4 +45,3 @@ EOT
   done
 done
 
-# 'Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Dimer'

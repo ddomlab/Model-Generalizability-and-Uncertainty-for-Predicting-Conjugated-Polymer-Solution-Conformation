@@ -49,11 +49,11 @@ def set_plot_style(
         "legend.fontsize": legend_size,
     })
 
-    ax = plt.gca()
-    fig = plt.gcf()
-    ax.set_xlabel(x_title, fontsize=label_size, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=label_size, fontweight='bold')
-    fig.suptitle(fig_title, fontsize=title_size, fontweight='bold')
+    # ax = plt.gca()
+    # fig = plt.gcf()
+    # ax.set_xlabel(x_title, fontsize=label_size, fontweight='bold')
+    # ax.set_ylabel(y_title, fontsize=label_size, fontweight='bold')
+    # fig.suptitle(fig_title, fontsize=title_size, fontweight='bold')
     # # Local settings for an Axes object
     # if ax is not None:
     #     if x_tick_labels is not None:

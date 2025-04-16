@@ -164,7 +164,7 @@ def plot_splits_parity(predicted_values: dict,
 
 
 
-def get_residuals_for_learning_curve(data):
+def get_residuals_for_learning_curve(data)-> pd.DataFrame:
     records = []
     for cluster, ratios in data.items():
         cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
@@ -182,16 +182,86 @@ def get_residuals_for_learning_curve(data):
                         "Cluster": cluster,
                         "Train Set Size": train_set_size,
                         "Residuals": residuals,
+                        # "Prediction_std": np.std(predict_true['y_test_pred']),
                     })
-
-
 
     return pd.DataFrame(records)
 
 
+def get_residual_vs_std_full_data(predicted:Dict,
+                                  truth:Dict)->pd.DataFrame:
+    
+    results = []
+    for cluster, preds in predicted.items():
+        if cluster.startswith("ID_"):
+            continue
+        true_values = truth.get(cluster, [])
+        residuals = []
+        predictions = []
+        for seed, seed_preds in preds.items():
+            seed_residuals = np.subtract(seed_preds, true_values)
+            residuals.append(seed_residuals)
+            predictions.append(seed_preds)
+        
+        residuals = np.array(residuals)
+        predictions = np.array(predictions)
+        avg_residual = np.mean(residuals, axis=0)
+        std_predictions = np.std(predictions, axis=0)
+        std_residuals = np.std(residuals, axis=0)
+        results.append([cluster, avg_residual, std_residuals, std_predictions])
+
+    df_results = pd.DataFrame(results, columns=["Cluster", "Average Residual", "Std Residual","Std of Predictions"])
+    return df_results
 
 
-def process_summary_scores(summary_scores, metric="rmse"):
+def plot_residual_vs_std_full_data(df: pd.DataFrame, folder: Path = None) -> None:
+    n_clusters = len(df)
+    fig, axes = plt.subplots(1, n_clusters, figsize=(12, 4), sharey=True)
+
+    # Ensure axes is always iterable
+    if n_clusters == 1:
+        axes = [axes]
+
+    for ax, (_, row) in zip(axes, df.iterrows()):
+        cluster = row['Cluster']
+        avg_residual = abs(row['Average Residual'])
+        std_residual = row['Std Residual']
+        std_predictions = row['Std of Predictions']
+        
+        x_values = avg_residual
+        y_values = std_predictions
+        x_errors = std_residual
+
+        plt.sca(ax)  # Set the current axis so plt.gca() works
+        ax = plt.gca()  # Get current axis
+
+        ax.scatter(x_values, y_values, color='#1f77b430', edgecolors='none', alpha=0.2, s=80)
+        ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
+
+        max_y = max(y_values)
+        max_x = max(x_values)
+        x_line = np.linspace(0, max_x, 100)
+        ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
+
+
+        ax.set_xlabel("Average Residual", fontsize=16, fontweight='bold')
+        if ax == axes[0]:
+            ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
+        ax.set_title(f"{cluster}", fontsize=18)
+        ax.tick_params(axis='both', which='major', labelsize=14)
+        ax.set_ylim(0,max_y+.01)
+    plt.tight_layout()
+
+    if folder:
+        folder.mkdir(parents=True, exist_ok=True)
+        plt.savefig(folder / f"residual vs std.png", dpi=600)
+
+    plt.show()
+    plt.close()
+
+
+def process_summary_scores(summary_scores, 
+                           metric="rmse")-> Tuple[pd.DataFrame, Dict[str, set]]:
     data = []
     # Store the set of unique training set sizes for each cluster
     cluster_train_sizes = {}
@@ -379,9 +449,15 @@ def plot_residual_distribution(predictions, folder_to_save) -> None:
         plt.close()
 
 
-# def plot_residuals_vs_std():
+# def plot_uncertenty_in_leaning_curve(predictions, folder_to_save) -> None:
 #     pass
 
+def ensure_long_path(path):
+        """Ensures Windows handles long paths by adding '\\?\' if needed."""
+        path_str = str(path)
+        if os.name == 'nt' and len(path_str) > 250:  # Apply only on Windows if the path is long
+            return Path(f"\\\\?\\{path_str}")
+        return path
 
 if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
@@ -389,6 +465,7 @@ if __name__ == "__main__":
     cluster_list = [
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
+                    'HBD3 MACCS cluster',
                     # 'substructure cluster',
                     # 'EG-Ionic-Based Cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
@@ -396,34 +473,43 @@ if __name__ == "__main__":
                     # 'KM4 Mordred_Polysize cluster',
                     ]
 
-    def ensure_long_path(path):
-        """Ensures Windows handles long paths by adding '\\?\' if needed."""
-        path_str = str(path)
-        if os.name == 'nt' and len(path_str) > 250:  # Apply only on Windows if the path is long
-            return Path(f"\\\\?\\{path_str}")
-        return path
+
 
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
         model = 'NGB'
         # score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
         score_file = scores_folder_path / f'(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        prediction_file = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
+        prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
+        predictions = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.json'
+        truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_ClusterTruth.json'
         score_file = ensure_long_path(score_file)  # Ensure long path support
-        prediction_file= ensure_long_path(prediction_file)
+        prediction_file_lc = ensure_long_path(prediction_file_lc)
+        predictions = ensure_long_path(predictions)
+        truth = ensure_long_path(truth)
         if not os.path.exists(score_file):
             print(f"File not found: {score_file}")
             continue  # Skip to the next cluster if the file is missing
 
+
+        # with open(prediction_file_lc, "r") as f:
+        #     predictions = json.load(f)
+        # saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
+
+        # plot_residual_distribution(predictions, saving_folder)
+
+
         # with open(score_file, "r") as f:
         #     scores = json.load(f)
-        with open(prediction_file, "r") as f:
-            predictions = json.load(f)
-        saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
-
-        plot_residual_distribution(predictions, saving_folder)
     #     saving_folder = scores_folder_path / f'learning curve ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
     #     plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder)
 
+    # plot_uncertenty_in_leaning_curve()
+    with open(predictions, "r") as f:
+        predictions_data = json.load(f)
+    with open(truth, "r") as f:
+        truth_data = json.load(f)
 
+    residual_std_df = get_residual_vs_std_full_data(predictions_data,truth_data)
+    plot_residual_vs_std_full_data(residual_std_df)
  
