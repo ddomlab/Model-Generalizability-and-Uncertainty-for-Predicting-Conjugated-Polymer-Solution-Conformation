@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_prediction.py", line 5, in <module>
+    from get_ood_split import train_regressor
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split.py", line 2
+    %load_ext cuml.accel
+    ^
+SyntaxError: invalid syntax
