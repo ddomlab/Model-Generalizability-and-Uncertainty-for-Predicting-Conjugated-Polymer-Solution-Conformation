@@ -172,7 +172,7 @@ def get_residuals_for_learning_curve(data):
             if ratio == "Cluster size":
                 continue 
             train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round(float(train_ratio * cluster_size),1)
+            train_set_size = round((train_ratio * cluster_size))
             for _, predict_true in seeds.items():
                 if 'y_test_pred' in predict_true and 'y_true' in predict_true:
                     residuals = np.array(predict_true['y_test_pred']) - np.array(predict_true['y_true'])
@@ -312,32 +312,71 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
 
 
 
-def plot_residual_distribution(prediction_data):
-    processd_residuals = get_residuals_for_learning_curve(prediction_data)
-    print(processd_residuals['Train Set Size'])
-    residuals_df = processd_residuals.explode('Residuals').copy()
-    residuals_df['Residuals'] = residuals_df['Residuals'].astype(float)
-    # print(residuals_df['Train Set Size'].to_list())
-    # Step 2: Plot for each cluster
-    clusters = residuals_df['Cluster'].unique()
+
+def flatten_residuals(df):
+        rows = []
+        for _, row in df.iterrows():
+            for res in row["Residuals"]:
+                rows.append({
+                    "Cluster": row["Cluster"],
+                    "Train Set Size": float(row["Train Set Size"]),
+                    "Residual": res
+                })
+        return pd.DataFrame(rows)
+
+
+def plot_residual_distribution(predictions, folder_to_save) -> None:
+    """
+    Plots KDE of residuals for each cluster with hue based on train set size.
     
-    for cluster in clusters:
-        plt.figure(figsize=(8, 5))
-        subset = residuals_df[residuals_df['Cluster'] == cluster]
+    Parameters:
+    - df: DataFrame with columns ['Cluster', 'Train Set Size', 'Residuals']
+          where 'Residuals' is a list or array of residual values.
+    """
+
+    precossed_residuals = get_residuals_for_learning_curve(predictions)
+    flat_df = flatten_residuals(precossed_residuals)
+
+    # Ensure train sizes are sorted
+    flat_df["Train Set Size"] = flat_df["Train Set Size"].astype(int)
+    flat_df["Train Size"] = flat_df["Train Set Size"].apply(lambda x: f"{x}")
+    # hue_order = sorted(flat_df["Train Size"].unique(), key=lambda x: float(x))
+
+    # Step 2: Plot KDEs per cluster
+    for cluster in flat_df["Cluster"].unique():
+        cluster_df = flat_df[flat_df["Cluster"] == cluster].copy()
+
+        # Local hue order for this cluster
+        hue_order = sorted(cluster_df["Train Size"].unique(), key=lambda x: float(x))
+
+        # plt.figure(figsize=(8, 6))
         sns.kdeplot(
-            data=subset,
-            x="Residuals",
-            hue="Train Set Size",
+            data=cluster_df,
+            x="Residual",
+            hue="Train Size",
+            hue_order=hue_order,
+            # common_norm=False,
             fill=True,
-            common_norm=False,
-            palette="Set2"
+            palette="Set2",
+            alpha=0.2,
+            linewidth=1
         )
-        plt.title(f"KDE of Residuals - {cluster}")
-        plt.xlabel("Residual")
-        plt.ylabel("Density")
-        plt.legend()
+
+        # set_plot_style(x_tick_labels=30, y_tick_labels=20)
+        plt.title(f"KDE of Residuals for {cluster}")
+        plt.xlabel(r"$y_{\text{predict}} - y_{\text{true}}$",fontweight='bold')
+        plt.ylabel("Distribution Density",fontweight='bold')
+        y_max = plt.gca().get_ylim()[1]
+    
+        y_ticks = [round(i * 0.05, 2) for i in range(0, int(y_max / 0.05) + 2)]
+        plt.yticks(y_ticks, fontsize=16)
+        plt.xticks(fontsize=16)
+        # plt.legend(title="Train Set Size", bbox_to_anchor=(1.05, 1), loc='upper left')
+        # plt.grid(True)
         plt.tight_layout()
+        save_img_path(folder_to_save, f"KDE of Residuals for {cluster}.png")
         plt.show()
+        plt.close()
 
 
 # def plot_residuals_vs_std():
@@ -380,7 +419,9 @@ if __name__ == "__main__":
         #     scores = json.load(f)
         with open(prediction_file, "r") as f:
             predictions = json.load(f)
-        plot_residual_distribution(predictions)
+        saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
+
+        plot_residual_distribution(predictions, saving_folder)
     #     saving_folder = scores_folder_path / f'learning curve ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
     #     plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder)
 
