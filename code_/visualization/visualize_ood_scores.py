@@ -314,9 +314,10 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
 
 def plot_residual_distribution(prediction_data):
     processd_residuals = get_residuals_for_learning_curve(prediction_data)
+    print(processd_residuals['Train Set Size'])
     residuals_df = processd_residuals.explode('Residuals').copy()
     residuals_df['Residuals'] = residuals_df['Residuals'].astype(float)
-    
+    # print(residuals_df['Train Set Size'].to_list())
     # Step 2: Plot for each cluster
     clusters = residuals_df['Cluster'].unique()
     
@@ -329,26 +330,26 @@ def plot_residual_distribution(prediction_data):
             hue="Train Set Size",
             fill=True,
             common_norm=False,
-            palette="viridis"
+            palette="Set2"
         )
         plt.title(f"KDE of Residuals - {cluster}")
         plt.xlabel("Residual")
         plt.ylabel("Density")
-        plt.legend(title="Train Set Size")
+        plt.legend()
         plt.tight_layout()
         plt.show()
 
 
-def plot_residuals_vs_std():
-    pass
+# def plot_residuals_vs_std():
+#     pass
 
 
 if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
+                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
                     # 'substructure cluster',
                     # 'EG-Ionic-Based Cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
@@ -368,7 +369,7 @@ if __name__ == "__main__":
         model = 'NGB'
         # score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
         score_file = scores_folder_path / f'(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        prediction_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
+        prediction_file = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
         score_file = ensure_long_path(score_file)  # Ensure long path support
         prediction_file= ensure_long_path(prediction_file)
         if not os.path.exists(score_file):
