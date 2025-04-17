@@ -145,7 +145,7 @@ def run_ood_learning_curve(
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y, tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
         learning_curve_predictions[f'CO_{cluster}'] = {'y_true': y_test.flatten()}
-        train_ratios =[.1, .3, .5, .7, .9]
+        train_ratios =[.9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
@@ -179,7 +179,7 @@ def run_ood_learning_curve(
                 y_model = TransformedTargetRegressor(
                                     regressor=model,
                                     transformer=y_transform,
-                            )
+                                    )       
                 new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
                 regressor :Pipeline= Pipeline(steps=[
                                     ("preprocessor", new_preprocessor),
@@ -187,13 +187,14 @@ def run_ood_learning_curve(
                                         ])
                 regressor.set_output(transform="pandas")
 
+                # print(X_train)
                 test_score, train_scores, y_test_pred_ood, y_test_uncertainty = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test,
                                                                                   return_train_pred=True,algorithm=model_name)
                 
                 learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_score)
                 learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
                     'y_test_pred': y_test_pred_ood.flatten(),
-                    'y_test_uncertainty': y_test_uncertainty.flatten(),
+                    'y_test_uncertainty': y_test_uncertainty.flatten() if y_test_uncertainty is not None else None,
                 }
                 
         learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)

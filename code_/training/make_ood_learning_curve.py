@@ -96,18 +96,17 @@ if __name__ == "__main__":
     )
 
 
-# # TODO: Update the dataset to include the clustering methods
-
+# TODO: Update the dataset to include the clustering methods
         # main_structural_numerical(
         # dataset=w_data,
-        # representation="MACCS",
+        # representation="Mordred",
         # # radius=3,
         # # vector="count",
         # regressor_type="NGB",
         # target_features=['log Rg (nm)'],  
         # transform_type='Standard',
         # second_transformer=None,
-        # numerical_feats=['Xn','Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+        # numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
         # oligomer_representation="Trimer",
         # clustering_method='substructure cluster'
         # )
