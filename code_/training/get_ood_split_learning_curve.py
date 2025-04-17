@@ -152,8 +152,7 @@ def run_ood_learning_curve(
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
 
-        learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
-        learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
+
         for train_ratio in train_ratios:
             if train_ratio >0.7:
                 random_state_list = np.arange(5)
@@ -200,7 +199,8 @@ def run_ood_learning_curve(
                     'y_test_uncertainty': y_test_uncertainty.flatten() if y_test_uncertainty is not None else None,
                 }
                 
-
+        learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
+        learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
     return learning_curve_scores, learning_curve_predictions
 
 
