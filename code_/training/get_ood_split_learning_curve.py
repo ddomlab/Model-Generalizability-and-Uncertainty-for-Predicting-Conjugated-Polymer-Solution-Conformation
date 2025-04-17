@@ -66,6 +66,7 @@ def train_ood_learning_curve(
                                     second_transformer=second_transformer,
                                     clustering_method=clustering_method,
                                     )
+
     score = process_ood_learning_curve_score(score)
 
     return score, predictions
@@ -144,7 +145,7 @@ def run_ood_learning_curve(
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y, tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
         learning_curve_predictions[f'CO_{cluster}'] = {'y_true': y_test.flatten()}
-        train_ratios =[.9]
+        train_ratios =[.1, .3, .5, .7, .9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
