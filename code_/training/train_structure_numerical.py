@@ -130,7 +130,7 @@ def parse_arguments():
                   "abs(solvent dD - polymer dD)", "abs(solvent dP - polymer dP)", "abs(solvent dH - polymer dH)"],
 
         nargs='+',  # Allows multiple choices
-        required=True,
+        required=None,
         help="Numerical features: choose"
     )
     
@@ -180,7 +180,7 @@ def parse_arguments():
         '--representation', 
         type=str, 
         choices=['ECFP', 'MACCS', 'Mordred'], 
-        required=True, 
+        required=None, 
         help="Fingerprint required"
     )
 
@@ -188,7 +188,7 @@ def parse_arguments():
         '--oligomer_representation', 
         type=str, 
         choices=['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer'], 
-        required=True, 
+        required=None, 
         help="Fingerprint required"
     )
 
