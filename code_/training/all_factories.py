@@ -112,7 +112,7 @@ regressor_factory: dict[str, type]={
 
 def optimized_models(model_name:str,random_state:int=0, **kwargs):
     if 'NGB'==model_name:
-        return NGBRegressor(n_estimators=500, learning_rate=0.01, tol=1e-2,
+        return NGBRegressor(n_estimators=500, learning_rate=0.01, tol=1e-4,
                              random_state=random_state, verbose=False,**kwargs)
     if 'XGBR'==model_name:
         return  XGBRegressor(eval_metric="rmse", n_estimators=500,
