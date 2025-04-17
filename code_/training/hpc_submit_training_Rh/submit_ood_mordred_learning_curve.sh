@@ -27,7 +27,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_lc_20250417.err"
 
 source ~/.bashrc
-conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_learning_curve.py --target_features "${target}" \
                                       --representation "${fp}" \
                                       --regressor_type "${regressor}" \

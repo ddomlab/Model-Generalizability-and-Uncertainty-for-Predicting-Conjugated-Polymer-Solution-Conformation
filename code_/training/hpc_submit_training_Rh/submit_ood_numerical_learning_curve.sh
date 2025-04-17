@@ -23,7 +23,7 @@ for regressor in "${regressors[@]}"; do
 #BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${group}_numerical_20250417.err"
 
 source ~/.bashrc
-conda activate /usr/local/usrapps/ddomlab/sdehgha2/gpu-env
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_learning_curve.py --target_features "${target}" \
                                       --regressor_type "${regressor}" \
                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
