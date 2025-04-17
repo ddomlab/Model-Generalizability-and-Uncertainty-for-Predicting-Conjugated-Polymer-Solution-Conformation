@@ -74,7 +74,7 @@ def main_structural_numerical(
                                                     Test=TEST,
                                                 )
 
-    saving_folder = save_results(scores,
+    _ = save_results(scores,
                 predictions=predictions,
                 representation= representation,
                 ground_truth=cluster_y_truth,
@@ -93,29 +93,29 @@ def main_structural_numerical(
                 clustering_method=clustering_method
                 )
     #TODO: Plot the results
-    scores_criteria: list= ['mad', 'mae', 'rmse',
-                            'r2', 'ystd', 'pearson_r', 
-                            'pearson_p_value', 'spearman_r',
-                            'spearman_p_value', 'kendall_r', 'kendall_p_value']
-    suffix = f"{regressor_type}_{representation}" if representation else f'{regressor_type}'
-    suffix = f"{suffix}_{transform_type}" if transform_type else suffix
-    feats_abbv = generate_acronym_string(numerical_feats) if numerical_feats else None
-    suffix = f"{suffix}_{feats_abbv}" if feats_abbv else suffix
-    score_plot_folder = saving_folder/ f'comparitive cluster scores ({suffix})'
-    plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=score_plot_folder)
+    # scores_criteria: list= ['mad', 'mae', 'rmse',
+    #                         'r2', 'ystd', 'pearson_r', 
+    #                         'pearson_p_value', 'spearman_r',
+    #                         'spearman_p_value', 'kendall_r', 'kendall_p_value']
+    # suffix = f"{regressor_type}_{representation}" if representation else f'{regressor_type}'
+    # suffix = f"{suffix}_{transform_type}" if transform_type else suffix
+    # feats_abbv = generate_acronym_string(numerical_feats) if numerical_feats else None
+    # suffix = f"{suffix}_{feats_abbv}" if feats_abbv else suffix
+    # score_plot_folder = saving_folder/ f'comparitive cluster scores ({suffix})'
+    # plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=score_plot_folder)
 
-    print("-"*30
-          ,"\nPlotted Comparitive Cluster Scores!")
+    # print("-"*30
+    #       ,"\nPlotted Comparitive Cluster Scores!")
     
 
-    parity_folder = saving_folder/ f'parity plot ({suffix})'
-    plot_splits_parity(predicted_values=predictions,
-                        ground_truth=cluster_y_truth,
-                        score=scores,
-                        folder=parity_folder)
+    # parity_folder = saving_folder/ f'parity plot ({suffix})'
+    # plot_splits_parity(predicted_values=predictions,
+    #                     ground_truth=cluster_y_truth,
+    #                     score=scores,
+    #                     folder=parity_folder)
     
-    print("_"*30,
-          "\nPlotted Parity Plots!")
+    # print("_"*30,
+    #       "\nPlotted Parity Plots!")
 
 
 if __name__ == "__main__":

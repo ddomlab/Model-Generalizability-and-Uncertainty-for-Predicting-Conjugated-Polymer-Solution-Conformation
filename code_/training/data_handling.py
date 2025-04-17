@@ -110,6 +110,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
             predictions.to_csv(predictions_file, index=False)
         elif isinstance(predictions, dict):
             predictions_file: Path = results_dir / f"{fname_root}_predictions.json"
+            
             with open(predictions_file, "w") as f:
                 json.dump(predictions, f, cls=NumpyArrayEncoder, indent=2)
 

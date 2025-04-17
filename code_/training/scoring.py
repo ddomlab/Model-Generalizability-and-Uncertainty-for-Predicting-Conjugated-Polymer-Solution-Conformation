@@ -1,6 +1,6 @@
 from itertools import product
 from typing import Callable, Union, Dict, List
-
+from joblib import Parallel, delayed
 import numpy as np
 import pandas as pd
 from scipy.stats import pearsonr, spearmanr, kendalltau
@@ -471,21 +471,44 @@ def get_incremental_split(
 #     score_func: Callable = score_lookup[score][output]
 #     return score_func
 
+class PredictionUncertainty:
+    def __init__(self, fitted_model):
+        self.fitted_model = fitted_model
+
+    def pred_dist(self, X) -> np.ndarray:
+        X_array = X.values if hasattr(X, "values") else X
+        all_preds = Parallel(n_jobs=-1)(
+            delayed(tree.predict)(X_array) for tree in self.fitted_model.estimators_
+        )
+        return np.std(all_preds, axis=0)
+    
 
 
-def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, return_train_pred:bool=False):
+def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, 
+                          return_train_pred:bool=False, algorithm:str='NGB'):
     regressor.fit(X_train_val, y_train_val)
     
-    y_test_pred = regressor.predict(X_test)
-    y_train_pred = regressor.predict(X_train_val)
+    if algorithm == 'NGB':
+        y_test_predist = regressor.named_steps['regressor'].regressor_.pred_dist(X_test)
+        y_test_pred = y_test_predist.loc
+        y_test_pred_uncertainty = y_test_predist.var
+
+    elif algorithm == 'RF':
+        uncertainty_estimator = PredictionUncertainty(regressor.named_steps['regressor'].regressor_)
+        y_test_pred = regressor.predict(X_test)
+        y_test_pred_uncertainty = uncertainty_estimator.pred_dist(X_test)
+    else:
+        y_test_pred = regressor.predict(X_test)
+        y_test_pred_uncertainty = None
 
     
     test_scores = get_prediction_scores(y_test, y_test_pred,'test')
     if return_train_pred:
+        y_train_pred = regressor.predict(X_train_val)
         train_scores = get_prediction_scores(y_train_val, y_train_pred,'train')
-        return test_scores, train_scores,y_test_pred
+        return test_scores, train_scores, y_test_pred, y_test_pred_uncertainty
     
-    return test_scores,y_test_pred
+    return test_scores, y_test_pred, y_test_pred_uncertainty
 
 
 def get_prediction_scores(y_test, y_pred, score_set:str='test'):

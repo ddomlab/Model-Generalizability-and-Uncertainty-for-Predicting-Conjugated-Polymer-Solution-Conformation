@@ -241,7 +241,8 @@ def run_loco_cv(X, y,
                     cluster_lables=cluster_tv_labels,
                 )
 
-                OOD_scores, OOD_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test, y_test) 
+                OOD_scores, OOD_predictions, uncertenty_predoctions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test,
+                                                                     y_test, return_train_pred=False, algorithm=regressor_type) 
                 OOD_scores["best_params"] = OOD_regressor_params
 
                 ID_cv_outer  =  KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
@@ -260,14 +261,15 @@ def run_loco_cv(X, y,
                     classification=False
                 )
 
-                
                 ID_scores, ID_predictions = cross_validate_regressor(
                     best_estimator, X, y, IID_cv_baseline, classification=False
                 )
                 ID_scores["best_params"] = regressor_params
 
             else:
-                OOD_scores, OOD_predictions = train_and_predict_ood(regressor, X_tv, y_tv, X_test, y_test)
+                OOD_scores, OOD_predictions, uncertenty_predoctions = train_and_predict_ood(regressor, X_tv, y_tv, X_test,
+                                                                        y_test,return_train_pred=False,
+                                                                        algorithm=regressor_type)
                 
                 ID_scores, ID_predictions = cross_validate_regressor(
                                             regressor, X, y, IID_cv_baseline, classification=False
@@ -275,8 +277,11 @@ def run_loco_cv(X, y,
 
 
             cluster_scores[f'CO_{cluster}'][seed] = OOD_scores
-            cluster_predictions[f'CO_{cluster}'][seed] = OOD_predictions.flatten()
-
+            cluster_predictions[f'CO_{cluster}'][seed] = {
+                'y_test_prediction':OOD_predictions.flatten(),
+                'uncertainty': uncertenty_predoctions
+                }
+            print(cluster_predictions)                                  
             cluster_scores[f'ID_{cluster}'][seed] = ID_scores
             cluster_predictions[f'ID_{cluster}'][seed] = ID_predictions.flatten()
 
