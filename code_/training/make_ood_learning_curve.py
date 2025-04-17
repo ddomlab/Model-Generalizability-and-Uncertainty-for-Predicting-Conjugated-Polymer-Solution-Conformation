@@ -26,7 +26,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = True
+TEST = False
 
 
 def main_structural_numerical(
@@ -76,25 +76,6 @@ def main_structural_numerical(
                     learning_curve=True,
                     )
     
-    # scores_criteria: list= ['mae', 'rmse',
-    #                         'r2', 'spearman_r']
-
-    # suffix = f"{regressor_type}_{transform_type}" if transform_type else f'{regressor_type}'                        
-    # suffix = f"{suffix}_{representation}" if representation else suffix
-    # feats_abbv = generate_acronym_string(numerical_feats) if numerical_feats else None
-    # suffix = f"{suffix}_{feats_abbv}" if feats_abbv else suffix
-    # score_plot_folder = saving_folder/ f'comparitive cluster scores ({suffix})'
-    # plot_splits_scores(scores=scores, scores_criteria=scores_criteria, folder=score_plot_folder)
-
-    # print("-"*30
-    #       ,"\nPlotted Comparitive Cluster Scores!")
-    
-
-    # parity_folder = saving_folder/ f'parity plot ({suffix})'
-
-    
-    # print("_"*30,
-    #       "\nPlotted Parity Plots!")
 
 
 if __name__ == "__main__":
