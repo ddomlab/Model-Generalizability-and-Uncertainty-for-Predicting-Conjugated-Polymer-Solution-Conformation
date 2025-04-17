@@ -66,7 +66,6 @@ def train_ood_learning_curve(
                                     second_transformer=second_transformer,
                                     clustering_method=clustering_method,
                                     )
-    print(score)
 
     score = process_ood_learning_curve_score(score)
 
