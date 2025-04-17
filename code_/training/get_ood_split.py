@@ -279,7 +279,7 @@ def run_loco_cv(X, y,
             cluster_scores[f'CO_{cluster}'][seed] = OOD_scores
             cluster_predictions[f'CO_{cluster}'][seed] = {
                 'y_test_prediction':OOD_predictions.flatten(),
-                'uncertainty': uncertenty_predoctions
+                'uncertainty': uncertenty_predoctions.flatten()
                 }
             print(cluster_predictions)                                  
             cluster_scores[f'ID_{cluster}'][seed] = ID_scores
