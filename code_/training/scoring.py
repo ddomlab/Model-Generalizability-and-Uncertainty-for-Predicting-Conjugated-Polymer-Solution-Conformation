@@ -413,12 +413,12 @@ def cross_validate_regressor(
                 }
             else:
                 scorers = {
-                    "pearson_r": r_scorer,
-                    "pearson_p": pearson_p_scorer,
-                    "spearman_r": spearman_scorer,
-                    "spearman_p": spearman_p_scorer,
-                    "kendall_r": kendall_scorer,
-                    "kendall_p": kendall_p_scorer,
+                    # "pearson_r": r_scorer,
+                    # "pearson_p": pearson_p_scorer,
+                    # "spearman_r": spearman_scorer,
+                    # "spearman_p": spearman_p_scorer,
+                    # "kendall_r": kendall_scorer,
+                    # "kendall_p": kendall_p_scorer,
                     "rmse": rmse_scorer,
                     "mae": mae_scorer,
                     "r2": r2_scorer,
@@ -490,13 +490,13 @@ def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test,
     
     if algorithm == 'NGB':
         y_test_predist = regressor.named_steps['regressor'].regressor_.pred_dist(X_test)
-        y_test_pred = y_test_predist.loc
-        y_test_pred_uncertainty = y_test_predist.var
+        y_test_pred = np.array(y_test_predist.loc).reshape(y_test.shape)
+        y_test_pred_uncertainty = np.array(y_test_predist.var).reshape(y_test.shape)
 
     elif algorithm == 'RF':
         uncertainty_estimator = PredictionUncertainty(regressor.named_steps['regressor'].regressor_)
         y_test_pred = regressor.predict(X_test)
-        y_test_pred_uncertainty = uncertainty_estimator.pred_dist(X_test)
+        y_test_pred_uncertainty = uncertainty_estimator.pred_dist(X_test).reshape(y_test.shape)
     else:
         y_test_pred = regressor.predict(X_test)
         y_test_pred_uncertainty = None
@@ -518,12 +518,12 @@ def get_prediction_scores(y_test, y_pred, score_set:str='test'):
         f"{score_set}_mae": mean_absolute_error(y_test, y_pred),
         f"{score_set}_rmse": root_mean_squared_error(y_test, y_pred),
         f"{score_set}_r2": r2_score(y_test, y_pred),
-        f"{score_set}_pearson_r": pearsonr(y_test, y_pred)[0],
-        f"{score_set}_pearson_p_value": pearsonr(y_test, y_pred)[1],
-        f"{score_set}_spearman_r": spearmanr(y_test, y_pred)[0],
-        f"{score_set}_spearman_p_value": spearmanr(y_test, y_pred)[1],
-        f"{score_set}_kendall_r": kendalltau(y_test, y_pred)[0],
-        f"{score_set}_kendall_p_value": kendalltau(y_test, y_pred)[1],
+        # f"{score_set}_pearson_r": pearsonr(y_test, y_pred)[0],
+        # f"{score_set}_pearson_p_value": pearsonr(y_test, y_pred)[1],
+        # f"{score_set}_spearman_r": spearmanr(y_test, y_pred)[0],
+        # f"{score_set}_spearman_p_value": spearmanr(y_test, y_pred)[1],
+        # f"{score_set}_kendall_r": kendalltau(y_test, y_pred)[0],
+        # f"{score_set}_kendall_p_value": kendalltau(y_test, y_pred)[1],
     }
 
 
