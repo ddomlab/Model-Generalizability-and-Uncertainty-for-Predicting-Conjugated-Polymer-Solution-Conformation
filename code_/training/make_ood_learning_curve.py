@@ -26,7 +26,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 
 def main_structural_numerical(
@@ -35,8 +35,8 @@ def main_structural_numerical(
     target_features: list[str],
     transform_type: str,
     numerical_feats: Optional[list[str]],
-    representation:str,
-    oligomer_representation: str,
+    representation:str=None,
+    oligomer_representation: str=None,
     radius:int=None,
     vector:str=None,
     second_transformer:str=None,
@@ -58,22 +58,23 @@ def main_structural_numerical(
                                                     Test=TEST,
                                                 )
 
-    _ = save_results(scores,
-                                predictions=predictions,
-                                representation= representation,
-                                pu_type= oligomer_representation,
-                                target_features=target_features,
-                                regressor_type=regressor_type,
-                                numerical_feats=numerical_feats,
-                                radius= radius,
-                                vector =vector,
-                                TEST=TEST,
-                                hypop=False,
-                                transform_type=transform_type,
-                                second_transformer=second_transformer,
-                                clustering_method=clustering_method,
-                                learning_curve=True,
-                                )
+    _ = save_results(
+                    scores,
+                    predictions=predictions,
+                    representation= representation,
+                    pu_type= oligomer_representation,
+                    target_features=target_features,
+                    regressor_type=regressor_type,
+                    numerical_feats=numerical_feats,
+                    radius= radius,
+                    vector =vector,
+                    TEST=TEST,
+                    hypop=False,
+                    transform_type=transform_type,
+                    second_transformer=second_transformer,
+                    clustering_method=clustering_method,
+                    learning_curve=True,
+                    )
     
     # scores_criteria: list= ['mae', 'rmse',
     #                         'r2', 'spearman_r']
@@ -116,17 +117,30 @@ if __name__ == "__main__":
 
 # # TODO: Update the dataset to include the clustering methods
 
-    #     main_structural_numerical(
-    #     dataset=w_data,
-    #     representation="MACCS",
-    #     # radius=3,
-    #     # vector="count",
-    #     regressor_type="NGB",
-    #     target_features=['log Rg (nm)'],  
-    #     transform_type='Standard',
-    #     second_transformer=None,
-    #     numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
-    #     oligomer_representation="Trimer",
-    #     clustering_method='substructure cluster'
-    # )
+        # main_structural_numerical(
+        # dataset=w_data,
+        # representation="MACCS",
+        # # radius=3,
+        # # vector="count",
+        # regressor_type="NGB",
+        # target_features=['log Rg (nm)'],  
+        # transform_type='Standard',
+        # second_transformer=None,
+        # numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+        # oligomer_representation="Trimer",
+        # clustering_method='substructure cluster'
+        # )
         
+        # main_structural_numerical(
+        # dataset=w_data,
+        # representation=None,
+        # # radius=3,
+        # # vector="count",
+        # regressor_type="RF",
+        # target_features=['log Rg (nm)'],  
+        # transform_type='Standard',
+        # second_transformer=None,
+        # numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+        # oligomer_representation=None,
+        # clustering_method='substructure cluster'
+        # )
