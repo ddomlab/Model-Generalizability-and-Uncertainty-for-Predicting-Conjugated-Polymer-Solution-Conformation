@@ -1,5 +1,5 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250311
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417
 mkdir -p "$output_dir"
 
 regressors=("XGBR" "NGB")
@@ -27,9 +27,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 72:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250311"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250311.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250311.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250417"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250417.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_${group}_20250417.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
