@@ -145,23 +145,27 @@ def run_ood_learning_curve(
         X_tv, y_tv = split_for_training(X, tv_idx), split_for_training(y, tv_idx)
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
         learning_curve_predictions[f'CO_{cluster}'] = {'y_true': y_test.flatten()}
-        train_ratios =[.9]
+        train_ratios =[
+            .1,.3,.5,.7,
+            .9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
 
+        learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
+        learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
         for train_ratio in train_ratios:
             if train_ratio >0.7:
-                random_state_list = np.arange(3)
+                random_state_list = np.arange(5)
             elif train_ratio >0.5:
-                random_state_list = np.arange(4)
-            elif train_ratio >0.3:
                 random_state_list = np.arange(7)
+            elif train_ratio >0.3:
+                random_state_list = np.arange(12)
             elif train_ratio >=0.1:
-                random_state_list = np.arange(15)
+                random_state_list = np.arange(30)
 
             else:
-                random_state_list = np.arange(30)
+                random_state_list = np.arange(50)
 
             for seed in random_state_list:
                 if train_ratio ==1:
@@ -179,7 +183,7 @@ def run_ood_learning_curve(
                 y_model = TransformedTargetRegressor(
                                     regressor=model,
                                     transformer=y_transform,
-                                    )       
+                            )
                 new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
                 regressor :Pipeline= Pipeline(steps=[
                                     ("preprocessor", new_preprocessor),
@@ -187,7 +191,6 @@ def run_ood_learning_curve(
                                         ])
                 regressor.set_output(transform="pandas")
 
-                # print(X_train)
                 test_score, train_scores, y_test_pred_ood, y_test_uncertainty = train_and_predict_ood(regressor,X_train, y_train,X_test, y_test,
                                                                                   return_train_pred=True,algorithm=model_name)
                 
@@ -197,8 +200,7 @@ def run_ood_learning_curve(
                     'y_test_uncertainty': y_test_uncertainty.flatten() if y_test_uncertainty is not None else None,
                 }
                 
-        learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
-        learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
+
     return learning_curve_scores, learning_curve_predictions
 
 

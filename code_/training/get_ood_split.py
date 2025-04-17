@@ -195,7 +195,7 @@ def run_loco_cv(X, y,
         #OOD section
         cluster_scores[f'CO_{cluster}'] = {}
         cluster_predictions[f'CO_{cluster}'] = {}
-        cluster_y_test[f'CO_{cluster}'] = y_test.flatten()
+        cluster_y_test[f'CO_{cluster}']={'y_true':y_test.flatten()} 
         cluster_scores[f'CO_{cluster}']['cluster size (%)'] = round(len(y_test)/len(y)*100)
 
         ##IID section
