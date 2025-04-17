@@ -70,3 +70,46 @@ def get_calibration_confidence_interval(y_true: np.ndarray, y_pred: np.ndarray, 
 
 
 
+    # def predict(self, smi_split: types.ArraySplit, x: types.ArraySplit, y: types.ArraySplit):
+    #     uniq_smi = smi_split.values
+    #     y_mu, y_std = [], []
+
+    #     for m in self.model:
+    #         if self.task == enums.TaskType.regression:
+    #             y_dists = m.pred_dist(x.values)
+    #             y_mu.append(y_dists.loc)
+    #             y_std.append(np.sqrt(y_dists.var))
+    #         elif self.task == enums.TaskType.binary:
+    #             y_mu.append(m.predict(x.values))
+    #             y_std.append(m.predict_proba(x.values)[:, 1])
+    #         else:
+    #             raise NotImplementedError(f'{self.task} not implemented')
+
+    #     # transpose and turn into numpy array
+    #     y_mu = np.transpose(y_mu).reshape(y.values.shape)
+    #     y_std = np.transpose(y_std).reshape(y.values.shape)
+
+    #     return uniq_smi, y_mu, y_std
+
+
+    # MatFOLD take the std of predictions in different seeds and CVs
+    # def predict_baseline_uncertainty(model, X):
+    # """Predicts the uncertainty of the model.
+
+    # For GP regressors, we use the included uncertainty estimation.
+    # For classifiers, the entropy of the prediction is used as uncertainty.
+    # For regressors, the variance of the prediction is used as uncertainty.
+    # """
+    # if isinstance(model, ClassifierMixin):
+    #     uncertainty = model.predict_proba(X)
+
+    # elif isinstance(model, GaussianProcessRegressor):
+    #     std = model.predict(X, return_std=True)[1]
+    #     uncertainty = std**2
+
+    # else:
+    #     # VotingRegressor or RandomForestRegressor
+    #     preds = dm.utils.parallelized(lambda x: x.predict(X), model.estimators_, n_jobs=model.n_jobs)
+    #     uncertainty = np.var(preds, axis=0)
+
+    # return uncertainty
