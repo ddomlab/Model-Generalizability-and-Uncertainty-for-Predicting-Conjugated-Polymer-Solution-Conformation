@@ -413,9 +413,9 @@ def cross_validate_regressor(
                 }
             else:
                 scorers = {
-                    # "pearson_r": r_scorer,
+                    "pearson_r": r_scorer,
                     # "pearson_p": pearson_p_scorer,
-                    # "spearman_r": spearman_scorer,
+                    "spearman_r": spearman_scorer,
                     # "spearman_p": spearman_p_scorer,
                     # "kendall_r": kendall_scorer,
                     # "kendall_p": kendall_p_scorer,
