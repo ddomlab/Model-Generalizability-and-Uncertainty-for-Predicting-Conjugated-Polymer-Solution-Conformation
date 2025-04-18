@@ -6,8 +6,7 @@ from scipy.stats import pearsonr, spearmanr, norm, kendalltau
 
 
 class CVPPDiagram():
-    ''' Metric introduced in arXiv:2010.01118 [cs.LG] based on cross-validatory
-    predictive p-values
+    ''' Metric introduced in arXiv: https://arxiv.org/pdf/2010.01118
     '''
 
     def __init__(self, name='cvpp'):
@@ -19,7 +18,7 @@ class CVPPDiagram():
         rhs = norm.ppf(((1.0 + q) / 2.0), loc=0., scale=1.)
         return np.sum((lhs < rhs).astype(int)) / y_true.shape[0]
 
-    def compute(self, y_true, y_pred, y_err, num_bins=10):
+    def compute(self, y_true, y_pred, y_err, num_bins=10)-> Tuple[np.ndarray, np.ndarray]:
         qs = np.linspace(0, 1, num_bins)
         Cqs = np.empty(qs.shape)
         for ix, q in enumerate(qs):
@@ -28,7 +27,7 @@ class CVPPDiagram():
         return qs, Cqs
 
 
-class AbsoluteMiscalibrationArea():
+class AbsoluteMiscalibrationArea(CVPPDiagram):
     ''' absolute miscalibration area metric with CVPP
     '''
 
@@ -49,7 +48,7 @@ def get_calibration_confidence_interval(y_true: np.ndarray, y_pred: np.ndarray, 
     '''Bootstrap for 95% confidence interval.
     '''
     if n_samples == 1:
-        return metric_fn(y_true, y_pred, y_err), 0
+        return metric_fn.compute(y_true, y_pred, y_err), 0
 
     results = np.zeros((n_samples, 1))
     n = len(y_true)
@@ -112,3 +111,9 @@ def get_calibration_confidence_interval(y_true: np.ndarray, y_pred: np.ndarray, 
     #     uncertainty = np.var(preds, axis=0)
 
     # return uncertainty
+
+
+    # In MOOD :
+    # def weighted_pearson_calibration(preds, target, uncertainty, sample_weights=None):
+    # error = torch.abs(preds - target)
+    # return weighted_pearson(error, uncertainty, sample_weights)
