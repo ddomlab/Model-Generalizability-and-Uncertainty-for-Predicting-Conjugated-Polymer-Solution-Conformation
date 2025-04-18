@@ -471,53 +471,56 @@ def plot_residual_distribution_full_data(predictions, folder_to_save) -> None:
     #                     "Residuals": residuals,
     #                     # "Prediction_std": np.std(predict_true['y_test_pred']),
     #                 })
-from visualize_uncertainty_calibration import get_calibration_confidence_interval
+from visualize_uncertainty_calibration import get_calibration_confidence_interval, AbsoluteMiscalibrationArea
 
 def get_uncertenty_in_learning_curve(predictions:Dict)-> pd.DataFrame:
     results = []
     for cluster, ratios in predictions.items():
-        y_true = np.array(ratios.get("y_true", []))
         cluster_size = ratios.get("Cluster size", 0)
-        train_sizes= []
+        # train_sizes= []
         for ratio, seeds in ratios.items():
-            if ratios == "y_true" or ratios == "Cluster size":
+            if ratio == "y_true" or ratio == "Cluster size":
                 continue
-            train_ratio = float(ratios.replace("ratio_", ""))
+            train_ratio = float(ratio.replace("ratio_", ""))
             train_set_size = round((train_ratio * cluster_size))
-            train_sizes.append(train_set_size)
+            # train_sizes.append(train_set_size)
             y_predictions= []
             uncertainties = []
+            y_true_all = []
             for seed, predictions in seeds.items():
                 y_pred = np.array(predictions.get("y_test_pred", []))
                 y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
+                y_true = np.array(ratios.get("y_true", []))
                 
-                y_predictions.append(y_pred)
-                uncertainties.append(y_uncertainty)
+                y_predictions.extend(y_pred)
+                uncertainties.extend(y_uncertainty)
+                y_true_all.extend(y_true)
 
+            ama_mean, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_pred), np.array(uncertainties),
+                                                                        AbsoluteMiscalibrationArea.compute,n_samples=1)
+                
+            results.append({
+                "Cluster": cluster,
+                "Train Set Size": train_set_size,
+                "Uncertainty": ama_mean,
+                # "Prediction_std": np.std(predict_true['y_test_pred']),
+            })
 
-        # true_values = truth.get(cluster, [])
-        # residuals = []
-        # predictions = []
-        # for seed, seed_preds in preds.items():
-        #     seed_residuals = np.subtract(seed_preds, true_values)
-        #     residuals.append(seed_residuals)
-        #     predictions.append(seed_preds)
-        
-        residuals = np.array(residuals)
-        predictions = np.array(predictions)
-        avg_residual = np.mean(residuals, axis=0)
-        std_predictions = np.std(predictions, axis=0)
-        std_residuals = np.std(residuals, axis=0)
-        results.append([cluster, ])
+    return pd.DataFrame(results)
 
-    df_results = pd.DataFrame(results, columns=["Cluster", "Average Residual", "Std Residual","Std of Predictions"])
-    return df_results
-    pass 
+def plot_ama_vs_train_size(prediction: pd.DataFrame):
+    df = get_uncertenty_in_learning_curve(prediction)
+    num_clusters = df["Cluster"].nunique()
+    g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
 
+    # Scatter + line plot for better visibility
+    g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty")
+    g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty")
 
-
-# def plot_uncertenty_in_leaning_curve(predictions, folder_to_save) -> None:
-#     pass
+    g.set_axis_labels("Train Set Size", "AMA (Uncertainty)")
+    g.set_titles(col_template="{col_name}")
+    plt.tight_layout()
+    plt.show()
 
 def ensure_long_path(path):
         """Ensures Windows handles long paths by adding '\\?\' if needed."""
@@ -530,20 +533,20 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
-                    'HBD3 MACCS cluster',
-                    'substructure cluster',
-                    'KM5 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'HBD3 MACCS cluster',
+                    # 'substructure cluster',
+                    # 'KM5 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     ]
 
 
 
     for cluster in cluster_list:
-        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        scores_folder_path = results_path / cluster / 'Trimer_scaler'
         # for model in ['XGBR', 'NGB']:
         #     for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
 
@@ -589,7 +592,12 @@ if __name__ == "__main__":
 
 
     # uncerteinty validation 
-    # plot_uncertenty_in_leaning_curve()
+        prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc_predictions.json'
+        prediction_file_lc = ensure_long_path(prediction_file_lc)
+        with open(prediction_file_lc, "r") as f:
+            predictions = json.load(f)
+
+        plot_ama_vs_train_size(predictions)
     
     
     
@@ -601,4 +609,3 @@ if __name__ == "__main__":
 
     # residual_std_df = get_residual_vs_std_full_data(predictions_data,truth_data)
     # plot_residual_vs_std_full_data(residual_std_df)
- 

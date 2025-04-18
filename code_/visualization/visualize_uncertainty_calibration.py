@@ -1,6 +1,6 @@
 
 import numpy as np
-from scipy.integrate import simps
+from scipy.integrate import simpson
 from typing import Callable, Optional, Tuple, OrderedDict
 from scipy.stats import pearsonr, spearmanr, norm, kendalltau
 
@@ -40,7 +40,7 @@ class AbsoluteMiscalibrationArea():
         qs, Cqs = scorer.compute(y_true, y_pred, y_err, num_bins=num_bins)
 
         # compute area
-        res = simps(np.abs(Cqs - qs), qs)
+        res = simpson(np.abs(Cqs - qs), qs)
         return res
     
 
@@ -64,9 +64,8 @@ def get_calibration_confidence_interval(y_true: np.ndarray, y_pred: np.ndarray, 
     return m, ci_bot, ci_top
 
 
-
 # ama_mean, ama_ci_low, ama_ci_top = get_calibration_confidence_interval(y_true, y_pred, y_err,
-#                                                                                          AbsoluteMiscalibrationArea.compute,n_samples=1)
+#                                                                                          AbsoluteMiscalibrationArea.compute,n_samples=1000)
 
 
 
