@@ -164,30 +164,9 @@ def plot_splits_parity(predicted_values: dict,
 
 
 
-def get_residuals_for_learning_curve(data)-> pd.DataFrame:
-    records = []
-    for cluster, ratios in data.items():
-        cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
-        for ratio, seeds in ratios.items():
-            if ratio == "Cluster size":
-                continue 
-            train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round((train_ratio * cluster_size))
-            for _, predict_true in seeds.items():
-                if 'y_test_pred' in predict_true and 'y_true' in predict_true:
-                    residuals = np.array(predict_true['y_test_pred']) - np.array(predict_true['y_true'])
 
 
-                    records.append({
-                        "Cluster": cluster,
-                        "Train Set Size": train_set_size,
-                        "Residuals": residuals,
-                        # "Prediction_std": np.std(predict_true['y_test_pred']),
-                    })
-
-    return pd.DataFrame(records)
-
-
+# TODO: modify this
 def get_residual_vs_std_full_data(predicted:Dict,
                                   truth:Dict)->pd.DataFrame:
     
@@ -382,6 +361,30 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None,file
 
 
 
+# TODO: Modify this for full data!
+def get_residuals_dist_full_data(data)-> pd.DataFrame:
+    records = []
+    for cluster, ratios in data.items():
+        cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
+        for ratio, seeds in ratios.items():
+            if ratio == "Cluster size":
+                continue 
+            train_ratio = float(ratio.replace("ratio_", ""))
+            train_set_size = round((train_ratio * cluster_size))
+            for _, predict_true in seeds.items():
+                if 'y_test_pred' in predict_true and 'y_true' in predict_true:
+                    residuals = np.array(predict_true['y_test_pred']) - np.array(predict_true['y_true'])
+
+
+                    records.append({
+                        "Cluster": cluster,
+                        "Train Set Size": train_set_size,
+                        "Residuals": residuals,
+                        # "Prediction_std": np.std(predict_true['y_test_pred']),
+                    })
+
+    return pd.DataFrame(records)
+
 
 def flatten_residuals(df):
         rows = []
@@ -394,8 +397,8 @@ def flatten_residuals(df):
                 })
         return pd.DataFrame(rows)
 
-
-def plot_residual_distribution(predictions, folder_to_save) -> None:
+# TODO: modify thus for full data!
+def plot_residual_distribution_full_data(predictions, folder_to_save) -> None:
     """
     Plots KDE of residuals for each cluster with hue based on train set size.
     
@@ -404,7 +407,7 @@ def plot_residual_distribution(predictions, folder_to_save) -> None:
           where 'Residuals' is a list or array of residual values.
     """
 
-    precossed_residuals = get_residuals_for_learning_curve(predictions)
+    precossed_residuals = get_residuals_dist_full_data(predictions)
     flat_df = flatten_residuals(precossed_residuals)
 
     # Ensure train sizes are sorted
@@ -449,6 +452,70 @@ def plot_residual_distribution(predictions, folder_to_save) -> None:
         plt.close()
 
 
+    # records = []
+    # for cluster, ratios in data.items():
+    #     cluster_size = ratios.get("Cluster size", 0)  # Get the total size of the cluster
+    #     for ratio, seeds in ratios.items():
+    #         if ratio == "Cluster size":
+    #             continue 
+    #         train_ratio = float(ratio.replace("ratio_", ""))
+    #         train_set_size = round((train_ratio * cluster_size))
+    #         for _, predict_true in seeds.items():
+    #             if 'y_test_pred' in predict_true and 'y_true' in predict_true:
+    #                 residuals = np.array(predict_true['y_test_pred']) - np.array(predict_true['y_true'])
+
+
+    #                 records.append({
+    #                     "Cluster": cluster,
+    #                     "Train Set Size": train_set_size,
+    #                     "Residuals": residuals,
+    #                     # "Prediction_std": np.std(predict_true['y_test_pred']),
+    #                 })
+from visualize_uncertainty_calibration import get_calibration_confidence_interval
+
+def get_uncertenty_in_learning_curve(predictions:Dict)-> pd.DataFrame:
+    results = []
+    for cluster, ratios in predictions.items():
+        y_true = np.array(ratios.get("y_true", []))
+        cluster_size = ratios.get("Cluster size", 0)
+        train_sizes= []
+        for ratio, seeds in ratios.items():
+            if ratios == "y_true" or ratios == "Cluster size":
+                continue
+            train_ratio = float(ratios.replace("ratio_", ""))
+            train_set_size = round((train_ratio * cluster_size))
+            train_sizes.append(train_set_size)
+            y_predictions= []
+            uncertainties = []
+            for seed, predictions in seeds.items():
+                y_pred = np.array(predictions.get("y_test_pred", []))
+                y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
+                
+                y_predictions.append(y_pred)
+                uncertainties.append(y_uncertainty)
+
+
+        # true_values = truth.get(cluster, [])
+        # residuals = []
+        # predictions = []
+        # for seed, seed_preds in preds.items():
+        #     seed_residuals = np.subtract(seed_preds, true_values)
+        #     residuals.append(seed_residuals)
+        #     predictions.append(seed_preds)
+        
+        residuals = np.array(residuals)
+        predictions = np.array(predictions)
+        avg_residual = np.mean(residuals, axis=0)
+        std_predictions = np.std(predictions, axis=0)
+        std_residuals = np.std(residuals, axis=0)
+        results.append([cluster, ])
+
+    df_results = pd.DataFrame(results, columns=["Cluster", "Average Residual", "Std Residual","Std of Predictions"])
+    return df_results
+    pass 
+
+
+
 # def plot_uncertenty_in_leaning_curve(predictions, folder_to_save) -> None:
 #     pass
 
@@ -476,36 +543,57 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for model in ['XGBR', 'NGB']:
-            for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        # for model in ['XGBR', 'NGB']:
+        #     for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
 
-                score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-                prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
-                predictions = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
-                truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-                score_file = ensure_long_path(score_file)  # Ensure long path support
-                prediction_file_lc = ensure_long_path(prediction_file_lc)
-                predictions = ensure_long_path(predictions)
-                truth = ensure_long_path(truth)
-                if not os.path.exists(score_file):
-                    print(f"File not found: {score_file}")
-                    continue  # Skip to the next cluster if the file is missing
-
-
-                # with open(prediction_file_lc, "r") as f:
-                #     predictions = json.load(f)
-                # saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
-
-                # plot_residual_distribution(predictions, saving_folder)
+        #         score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+        #         prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
+        #         predictions = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+        #         truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+        #         score_file = ensure_long_path(score_file)  # Ensure long path support
+        #         prediction_file_lc = ensure_long_path(prediction_file_lc)
+        #         predictions = ensure_long_path(predictions)
+        #         truth = ensure_long_path(truth)
+        #         if not os.path.exists(score_file):
+        #             print(f"File not found: {score_file}")
+        #             continue  
 
 
-                with open(score_file, "r") as f:
-                    scores = json.load(f)
-                saving_folder = scores_folder_path / f'learning curve (Standard_Mordred_polysize_HSPs_solvent properties)'
-                plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder, file_name=f'{model}_{fp}')
 
+
+                    # NGB XGB learning curve
+        #         with open(score_file, "r") as f:
+        #             scores = json.load(f)
+        #         saving_folder = scores_folder_path / f'learning curve (Standard_Mordred_polysize_HSPs_solvent properties)'
+        #         plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder, file_name=f'{model}_{fp}')
+
+
+        # residual distribution
+        # with open(prediction_file_lc, "r") as f:
+        #     predictions = json.load(f)
+        # saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
+        # plot_residual_distribution(predictions, saving_folder)
+
+        # RF learning curve
+        # scores_folder_path = results_path / cluster / 'scaler'
+        # score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
+        # score_file = ensure_long_path(score_file)
+        # if not os.path.exists(score_file):
+        #     print(f"File not found: {score_file}")
+        #     continue 
+        # with open(score_file, "r") as f:
+        #     scores = json.load(f)
+        # saving_folder = scores_folder_path / f'learning curve (Standard_Mordred_polysize_HSPs_solvent properties)'
+        # plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder, file_name=f'RF_numerical')
+
+
+    # uncerteinty validation 
     # plot_uncertenty_in_leaning_curve()
+    
+    
+    
+    # uncertenty residual vs std
     # with open(predictions, "r") as f:
     #     predictions_data = json.load(f)
     # with open(truth, "r") as f:
