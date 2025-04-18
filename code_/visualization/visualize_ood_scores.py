@@ -302,7 +302,7 @@ def process_summary_scores(summary_scores,
     return pd.DataFrame(data), cluster_train_sizes
 
 # Function to plot dynamically based on metric and number of clusters
-def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> None:
+def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None,file_name:str='NGB_Mordred') -> None:
     df, cluster_train_sizes = process_summary_scores(summary_scores, metric)
 
     if df.empty:
@@ -376,7 +376,7 @@ def plot_ood_learning_scores(summary_scores, metric="rmse",folder:Path=None) -> 
 
     plt.tight_layout()
     if folder:
-            save_img_path(folder, f"learning curve {metric}.png")
+            save_img_path(folder, f"learning curve ({file_name}).png")
     # plt.show()
     plt.close()
 
@@ -463,53 +463,54 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
-                    # 'substructure cluster',
-                    # 'EG-Ionic-Based Cluster',
-                    # 'KM5 polymer_solvent HSP and polysize cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
+                    'substructure cluster',
+                    'KM5 polymer_solvent HSP and polysize cluster',
+                    'KM4 polymer_solvent HSP and polysize cluster',
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
                     ]
 
 
 
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        model = 'NGB'
-        # score_file = scores_folder_path / f'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        score_file = scores_folder_path / f'(ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
-        predictions = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.json'
-        truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_ClusterTruth.json'
-        score_file = ensure_long_path(score_file)  # Ensure long path support
-        prediction_file_lc = ensure_long_path(prediction_file_lc)
-        predictions = ensure_long_path(predictions)
-        truth = ensure_long_path(truth)
-        if not os.path.exists(score_file):
-            print(f"File not found: {score_file}")
-            continue  # Skip to the next cluster if the file is missing
+        for model in ['XGBR', 'NGB']:
+            for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+
+                score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
+                predictions = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                score_file = ensure_long_path(score_file)  # Ensure long path support
+                prediction_file_lc = ensure_long_path(prediction_file_lc)
+                predictions = ensure_long_path(predictions)
+                truth = ensure_long_path(truth)
+                if not os.path.exists(score_file):
+                    print(f"File not found: {score_file}")
+                    continue  # Skip to the next cluster if the file is missing
 
 
-        # with open(prediction_file_lc, "r") as f:
-        #     predictions = json.load(f)
-        # saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
+                # with open(prediction_file_lc, "r") as f:
+                #     predictions = json.load(f)
+                # saving_folder = scores_folder_path / f'KDE of residuals ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
 
-        # plot_residual_distribution(predictions, saving_folder)
+                # plot_residual_distribution(predictions, saving_folder)
 
 
-        # with open(score_file, "r") as f:
-        #     scores = json.load(f)
-    #     saving_folder = scores_folder_path / f'learning curve ({model}_Standard_Mordred_polysize_HSPs_solvent properties)'
-    #     plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder)
+                with open(score_file, "r") as f:
+                    scores = json.load(f)
+                saving_folder = scores_folder_path / f'learning curve (Standard_Mordred_polysize_HSPs_solvent properties)'
+                plot_ood_learning_scores(scores, metric="rmse", folder=saving_folder, file_name=f'{model}_{fp}')
 
     # plot_uncertenty_in_leaning_curve()
-    with open(predictions, "r") as f:
-        predictions_data = json.load(f)
-    with open(truth, "r") as f:
-        truth_data = json.load(f)
+    # with open(predictions, "r") as f:
+    #     predictions_data = json.load(f)
+    # with open(truth, "r") as f:
+    #     truth_data = json.load(f)
 
-    residual_std_df = get_residual_vs_std_full_data(predictions_data,truth_data)
-    plot_residual_vs_std_full_data(residual_std_df)
+    # residual_std_df = get_residual_vs_std_full_data(predictions_data,truth_data)
+    # plot_residual_vs_std_full_data(residual_std_df)
  
