@@ -1,0 +1,241 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c004n01>
+Subject: Job 206514: <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> was submitted from host <c202n11> by user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:18:17 2025
+Job was executed on host(s) <4*c004n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:18:23 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Apr 17 17:18:23 2025
+Terminated at Thu Apr 17 17:19:36 2025
+Results reported at Thu Apr 17 17:19:36 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 5:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   59.99 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   73 sec.
+    Turnaround time :                            79 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err> for stderr output of this job.
+
+Filename: (ECFP3.count.512-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c203n03>
+Subject: Job 206731: <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> in cluster <Hazel> Done
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> was submitted from host <c202n06> by user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:23:37 2025
+Job was executed on host(s) <4*c203n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:23:37 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Apr 17 17:23:37 2025
+Terminated at Thu Apr 17 17:28:34 2025
+Results reported at Thu Apr 17 17:28:34 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 5:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   132.08 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   324 sec.
+    Turnaround time :                            297 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n13>
+Subject: Job 208337: <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> was submitted from host <c200n06> by user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:51:46 2025
+Job was executed on host(s) <4*c200n13>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Apr 17 17:51:47 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Apr 17 17:51:47 2025
+Terminated at Thu Apr 17 17:52:41 2025
+Results reported at Thu Apr 17 17:52:41 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 5:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   4.81 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   55 sec.
+    Turnaround time :                            55 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err> for stderr output of this job.
+
+Filename: (ECFP3.count.512-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c016n04>
+Subject: Job 209804: <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> in cluster <Hazel> Done
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417> was submitted from host <c207n12> by user <sdehgha2> in cluster <Hazel> at Thu Apr 17 18:26:23 2025
+Job was executed on host(s) <4*c016n04>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Apr 17 18:27:34 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Apr 17 18:27:34 2025
+Terminated at Thu Apr 17 18:49:08 2025
+Results reported at Thu Apr 17 18:49:08 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 5:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_KM3 Mordred cluster_20250417"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "KM3 Mordred cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1266.10 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   1294 sec.
+    Turnaround time :                            1365 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417/NGB_log Rg (nm)_ECFP_Trimer_3_count_KM3 Mordred cluster_20250417.err> for stderr output of this job.
+
