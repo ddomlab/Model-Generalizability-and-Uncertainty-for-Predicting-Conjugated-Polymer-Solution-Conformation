@@ -75,13 +75,14 @@ covarience_features = ['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)',
                         'polymer dP', 'polymer dD' , 'polymer dH',
                         'solvent dP', 'solvent dD', 'solvent dH']
 
-clusters = ['KM4 ECFP6_Count_512bit cluster'	
-'KM3 Mordred cluster'	
-'substructure cluster'
-'EG-Ionic-Based Cluster'
-'KM5 polymer_solvent HSP and polysize cluster'	
-'KM4 polymer_solvent HSP cluster'
-'KM4 Mordred_Polysize cluster']
+# clusters = [
+# 'KM4 ECFP6_Count_512bit cluster'	
+# 'KM3 Mordred cluster'	
+# 'substructure cluster'
+# 'EG-Ionic-Based Cluster'
+# 'KM5 polymer_solvent HSP and polysize cluster'	
+# 'KM4 polymer_solvent HSP cluster'
+# 'KM4 Mordred_Polysize cluster']
 
 
 sd_caler = StandardScaler()
@@ -121,8 +122,18 @@ def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_ty
         metric = 'euclidean'
 
     data = []
-    for cluster_id in rg_data[cluster_types].unique():
-        labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
+    if cluster_types == 'substructure cluster':
+        all_clusters = rg_data[cluster_types].unique().tolist()
+        all_clusters.append('Polar')
+    else:
+        all_clusters = rg_data[cluster_types].unique().tolist()
+        
+    for cluster_id in all_clusters:
+        if cluster_id == 'Polar':
+            labels = np.where(rg_data['Side Chain Cluster'] == 'Polar', "test", "train")
+        else:
+            labels = np.where(rg_data[cluster_types] == cluster_id, "test", "train")
+
         si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
 
         cluster_data = {
@@ -182,13 +193,13 @@ def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_ty
 if __name__ == "__main__":
     cluster_list = [
                     # 'KM4 ECFP6_Count_512bit cluster',	
-                    'KM3 Mordred cluster',
-                    'HBD3 MACCS cluster',
+                    # 'KM3 Mordred cluster',
+                    # 'HBD3 MACCS cluster',
                     'substructure cluster',
-                    'KM5 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM5 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     ]
     for cluster in cluster_list:
         # for fp in ['MACCS', 'Mordred']:
@@ -228,5 +239,5 @@ if __name__ == "__main__":
             with open(score_file, "r") as f:
                 scores = json.load(f)
             saving_folder = scores_folder_path / f'scores vs distance'
-            plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vectors,cluster_types=cluster,
+            plot_OOD_Score_vs_distance(scores, ml_metric, co_vector=co_vectors,cluster_types=cluster,
                                         saving_path=saving_folder, file_name=f"RF_{co_vectors}_{ml_metric}")

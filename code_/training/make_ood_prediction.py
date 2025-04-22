@@ -28,7 +28,6 @@ w_data = pd.read_pickle(training_df_dir)
 # 'HBD3 MACCS cluster'  do this as new
 # 'KM3 Mordred cluster'	
 # 'substructure cluster'
-# 'EG-Ionic-Based Cluster'
 # 'KM5 polymer_solvent HSP and polysize cluster'	redo this
 # 'KM4 polymer_solvent HSP and polysize cluster'    do this as new one
 # 'KM4 polymer_solvent HSP cluster'
