@@ -113,9 +113,9 @@ def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_ty
      
     clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
 
-    if 'ECFP' in cluster_types:
+    if 'ECFP' in co_vector:
         metric = weighted_jaccard 
-    elif 'MACCS' in cluster_types:
+    elif 'MACCS' in co_vector:
         metric = 'jaccard'
     else:
         metric = 'euclidean'
@@ -218,3 +218,15 @@ if __name__ == "__main__":
                             saving_folder = scores_folder_path / f'scores vs distance'
                             plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
                                                         saving_path=saving_folder, file_name=f"{fp}_{model}_{co_vector}_{ml_metric}")
+
+        # co_vectors = 'numerical vector'
+        # score_metrics = ["rmse", "r2"]
+        # for ml_metric in score_metrics:
+        #     scores_folder_path = results_path / cluster / 'scaler'
+        #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
+        #     score_file = ensure_long_path(score_file)
+        #     with open(score_file, "r") as f:
+        #         scores = json.load(f)
+        #     saving_folder = scores_folder_path / f'scores vs distance'
+        #     plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vectors,cluster_types=cluster,
+        #                                 saving_path=saving_folder, file_name=f"RF_{co_vectors}_{ml_metric}")
