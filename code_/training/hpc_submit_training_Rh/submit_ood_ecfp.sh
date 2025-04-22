@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417
 mkdir -p "$output_dir"
 
-regressors=("XGBR" "NGB")
+regressors=("XGBR")
 targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
@@ -23,8 +23,8 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 8
-#BSUB -W 72:05
+#BSUB -n 6
+#BSUB -W 50:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250417"  
@@ -39,7 +39,7 @@ python ../make_ood_prediction.py --target_features "${target}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
+                                      --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                       --clustering_method "${group}" \
 
 

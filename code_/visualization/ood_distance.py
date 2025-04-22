@@ -10,7 +10,7 @@ from typing import Callable, Optional, Union, Dict, Tuple
 from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
 from sklearn.preprocessing import StandardScaler
 import json
-from visualize_ood_scores import get_score
+from visualize_ood_scores import get_score, ensure_long_path
 set_plot_style(tick_size=16)
 
 HERE: Path = Path(__file__).resolve().parent
@@ -70,7 +70,7 @@ def get_cluster_scores(fp_vector:np.ndarray, predicted_clusters, metric: Union[s
 
 
 
-covarience_features = ['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 
+covarience_features = ['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 
                         'Temperature SANS/SLS/DLS/SEC (K)',
                         'polymer dP', 'polymer dD' , 'polymer dH',
                         'solvent dP', 'solvent dD', 'solvent dH']
@@ -90,6 +90,7 @@ cov_continuous_vector_scaled = sd_caler.fit_transform(cov_continuous_vector)
 cov_mordred_vector = pd.DataFrame(rg_data['Trimer_Mordred'].tolist()).to_numpy(dtype=float)
 cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
 cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
+cv_MACCS_vector = np.array(rg_data['Trimer_Mordred'].tolist())
 cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
 cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
 
@@ -98,6 +99,7 @@ naming: dict = {
         'ECFP vector': cov_ECFP_vector,
         'numerical vector': cov_continuous_vector_scaled,
         'combined mordred-numerical vector': cov_mordred_and_continuous_vector_scaled,
+        'MACCS vector': cv_MACCS_vector,
 }
 
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
@@ -106,13 +108,16 @@ scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
 # print(os.path.exists(scores_path))
 score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
 
-def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
+def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_types:str, saving_path:Optional[Path]=None) -> None:
      
-    with open(score_file, "r") as f:
-        scores = json.load(f)
-
     clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
-    metric = weighted_jaccard if co_vector == 'ECFP vector' else 'euclidean'
+
+    if 'ECFP' in cluster_types:
+        metric = weighted_jaccard 
+    elif 'MACCS' in cluster_types:
+        metric = 'jaccard'
+    else:
+        metric = 'euclidean'
 
     data = []
     for cluster_id in rg_data[cluster_types].unique():
@@ -132,24 +137,24 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
         
         data.append(cluster_data)
 
-    if cluster_types == 'substructure cluster':
-        labels = np.where(rg_data['EG-Ionic-Based Cluster'] == 'ionic-EG', "test", "train")
-        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
-        cluster_data = {
-            "Cluster": 'polar',
-            "Silhouette": si_score,
-            "Davies-Bouldin": db_score,
-            "Calinski-Harabasz": ch_score
-        }
+    # if cluster_types == 'substructure cluster':
+    #     labels = np.where(rg_data['EG-Ionic-Based Cluster'] == 'ionic-EG', "test", "train")
+    #     si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
+    #     cluster_data = {
+    #         "Cluster": 'polar',
+    #         "Silhouette": si_score,
+    #         "Davies-Bouldin": db_score,
+    #         "Calinski-Harabasz": ch_score
+    #     }
         
-        score_file_ionic_EG = results_path / 'EG-Ionic-Based Cluster'/ 'Trimer_scaler'/'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
-        with open(score_file_ionic_EG, "r") as f:
-            scores = json.load(f)
-        mean, std = get_score(scores, f"CO_ionic-EG", ml_score_metric)
-        cluster_data[f"{ml_score_metric}_mean"] = mean
-        cluster_data[f"{ml_score_metric}_std"] = std
+        # score_file_ionic_EG = results_path / 'EG-Ionic-Based Cluster'/ 'Trimer_scaler'/'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
+        # with open(score_file_ionic_EG, "r") as f:
+        #     scores = json.load(f)
+        # mean, std = get_score(scores, f"CO_ionic-EG", ml_score_metric)
+        # cluster_data[f"{ml_score_metric}_mean"] = mean
+        # cluster_data[f"{ml_score_metric}_std"] = std
         
-        data.append(cluster_data)
+        # data.append(cluster_data)
 
     df = pd.DataFrame(data)
 
@@ -172,7 +177,7 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
 
         plt.xlabel(f"Train-Test Distance ({clustering_metric})")
         plt.ylabel(f"{ml_score_metric.upper()} Score")
-        plt.title(f"Cluster {ml_score_metric.upper()} vs. Train-Test Distance ({clustering_metric})")
+        plt.title(f"{co_vector}")
         plt.legend(handles=legend_elements, loc="best", fontsize=16)
         plt.tight_layout()
         save_img_path(scores_folder_path/'score vs distance (NGB_Mordred_polysize_HSPs_solvent properties_Standard)', f"{ml_score_metric} vs ({clustering_metric}) using {co_vector}.png")
@@ -181,8 +186,21 @@ def plot_OOD_Score_vs_distance(ml_score_metric:str, co_vector):
 
 
 if __name__ == "__main__":
-    score_metrics = ["rmse", "r2"]
-    co_vectors = ['ECFP vector']
-    for ml_metric in score_metrics:
-        for co_vector in co_vectors:
-            plot_OOD_Score_vs_distance(ml_metric, co_vector)
+    for cluster in clusters:
+        scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+            for model in ['XGBR', 'NGB']:
+                    score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                    score_file_lc = ensure_long_path(score_file_lc)
+                    if not os.path.exists(score_file_lc):
+                        print(f"File not found: {score_file_lc}")
+                        continue 
+
+                    with open(score_file_lc, "r") as f:
+                        scores = json.load(f)
+                        
+                    score_metrics = ["rmse", "r2"]
+                    co_vectors = ['ECFP vector']
+                    for ml_metric in score_metrics:
+                        for co_vector in co_vectors:
+                            plot_OOD_Score_vs_distance(ml_metric, co_vector)
