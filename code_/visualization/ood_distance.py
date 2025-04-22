@@ -90,7 +90,7 @@ cov_continuous_vector_scaled = sd_caler.fit_transform(cov_continuous_vector)
 cov_mordred_vector = pd.DataFrame(rg_data['Trimer_Mordred'].tolist()).to_numpy(dtype=float)
 cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
 cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
-cv_MACCS_vector = np.array(rg_data['Trimer_MACCS'].tolist()).astype(np.uint8)
+cv_MACCS_vector = np.array(rg_data['Trimer_MACCS'].tolist())
 cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
 cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
 
