@@ -191,42 +191,42 @@ if __name__ == "__main__":
                     'KM4 Mordred_Polysize cluster',
                     ]
     for cluster in cluster_list:
-        for fp in ['MACCS', 'Mordred']:
-            co_vectors = ['numerical vector']
-            if fp == 'Mordred':
-                co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
-            if fp == 'MACCS':
-                co_vectors.append('MACCS vector')
+        # for fp in ['MACCS', 'Mordred']:
+        #     co_vectors = ['numerical vector']
+        #     if fp == 'Mordred':
+        #         co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
+        #     if fp == 'MACCS':
+        #         co_vectors.append('MACCS vector')
             
-            score_metrics = ["rmse", "r2"]
-            for co_vector in co_vectors:
-                for ml_metric in score_metrics:
+        #     score_metrics = ["rmse", "r2"]
+        #     for co_vector in co_vectors:
+        #         for ml_metric in score_metrics:
 
-                    for model in ['XGBR', 'NGB']:
-                            scores_folder_path = results_path / cluster / 'Trimer_scaler'
-                            score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                            score_file = ensure_long_path(score_file)
-                            if not os.path.exists(score_file):
-                                print(f"File not found: {score_file}")
-                                continue 
+        #             for model in ['XGBR', 'NGB']:
+        #                     scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        #                     score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+        #                     score_file = ensure_long_path(score_file)
+        #                     if not os.path.exists(score_file):
+        #                         print(f"File not found: {score_file}")
+        #                         continue 
 
-                            with open(score_file, "r") as f:
-                                scores = json.load(f)
+        #                     with open(score_file, "r") as f:
+        #                         scores = json.load(f)
 
 
                                     
-                            saving_folder = scores_folder_path / f'scores vs distance'
-                            plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
-                                                        saving_path=saving_folder, file_name=f"{fp}_{model}_{co_vector}_{ml_metric}")
+        #                     saving_folder = scores_folder_path / f'scores vs distance'/ f"{co_vector}"/ f"{model}"
+        #                     plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
+        #                                                 saving_path=saving_folder, file_name=f"{fp}_{ml_metric}")
 
-        # co_vectors = 'numerical vector'
-        # score_metrics = ["rmse", "r2"]
-        # for ml_metric in score_metrics:
-        #     scores_folder_path = results_path / cluster / 'scaler'
-        #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
-        #     score_file = ensure_long_path(score_file)
-        #     with open(score_file, "r") as f:
-        #         scores = json.load(f)
-        #     saving_folder = scores_folder_path / f'scores vs distance'
-        #     plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vectors,cluster_types=cluster,
-        #                                 saving_path=saving_folder, file_name=f"RF_{co_vectors}_{ml_metric}")
+        co_vectors = 'numerical vector'
+        score_metrics = ["rmse", "r2"]
+        for ml_metric in score_metrics:
+            scores_folder_path = results_path / cluster / 'scaler'
+            score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
+            score_file = ensure_long_path(score_file)
+            with open(score_file, "r") as f:
+                scores = json.load(f)
+            saving_folder = scores_folder_path / f'scores vs distance'
+            plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vectors,cluster_types=cluster,
+                                        saving_path=saving_folder, file_name=f"RF_{co_vectors}_{ml_metric}")

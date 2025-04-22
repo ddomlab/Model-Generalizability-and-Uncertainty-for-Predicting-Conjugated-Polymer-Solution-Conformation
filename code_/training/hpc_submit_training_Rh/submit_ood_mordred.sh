@@ -4,9 +4,9 @@ mkdir -p "$output_dir"
 
 regressors=("NGB")
 targets=("log Rg (nm)")
-models=("Mordred")
+models=("Mordred" "MACCS")
 poly_representations=("Trimer")
-group_out=('KM5 polymer_solvent HSP and polysize cluster')
+group_out=('HBD3 MACCS cluster' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
@@ -15,13 +15,13 @@ for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for fp in "${models[@]}"; do
       for oligo_rep in "${poly_representations[@]}"; do
-            for group in "${group_out[@]}"; do
+          for group in "${group_out[@]}"; do
               bsub <<EOT
 
 
 
 #BSUB -n 6
-#BSUB -W 48:05
+#BSUB -W 72:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250417"  

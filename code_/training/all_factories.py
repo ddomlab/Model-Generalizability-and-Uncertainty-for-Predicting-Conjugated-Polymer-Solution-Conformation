@@ -204,7 +204,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
     if algortihm == "NGB":
         return {
         "regressor__regressor__n_estimators": Integer(50, 2000, prior="log-uniform"),
-        # "regressor__regressor__learning_rate": Real(1e-3, 1e-1, prior="log-uniform"),
+        "regressor__regressor__learning_rate": Real(1e-4, 1e-1, prior="log-uniform"),
         # "regressor__regressor__minibatch_frac": [1],
         # "regressor__regressor__minibatch_size":   Integer(1, 100),
         #  "regressor__regressor__Base":             Categorical(["DecisionTreeRegressor", "Ridge", "Lasso",
@@ -213,7 +213,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__regressor__verbose": [False],
         # "regressor__regressor__min_samples_split": Real(0.05, 0.99),
         # "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
-        # "regressor__regressor__tol": Real(1e-4, 1e-2, prior="log-uniform"),
+        "regressor__regressor__tol": Real(1e-4, 1e-2, prior="log-uniform"),
     }
 
 
