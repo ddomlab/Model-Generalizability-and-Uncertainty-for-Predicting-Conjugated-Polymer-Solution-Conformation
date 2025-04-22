@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250417
 mkdir -p "$output_dir"
 
-regressors=("XGBR")
+regressors=("NGB")
 targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
@@ -23,7 +23,7 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 6
+#BSUB -n 8
 #BSUB -W 50:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"

@@ -90,7 +90,7 @@ cov_continuous_vector_scaled = sd_caler.fit_transform(cov_continuous_vector)
 cov_mordred_vector = pd.DataFrame(rg_data['Trimer_Mordred'].tolist()).to_numpy(dtype=float)
 cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
 cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
-cv_MACCS_vector = np.array(rg_data['Trimer_Mordred'].tolist())
+cv_MACCS_vector = np.array(rg_data['Trimer_MACCS'].tolist()).astype(np.uint8)
 cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
 cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
 
@@ -108,7 +108,8 @@ scores_folder_path = results_path / cluster_types/ 'Trimer_scaler'
 # print(os.path.exists(scores_path))
 score_file = scores_folder_path/ '(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
 
-def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_types:str, saving_path:Optional[Path]=None) -> None:
+def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_types:str,
+                                saving_path:Optional[Path]=None, file_name:str=None) -> None:
      
     clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
 
@@ -137,25 +138,6 @@ def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_ty
         
         data.append(cluster_data)
 
-    # if cluster_types == 'substructure cluster':
-    #     labels = np.where(rg_data['EG-Ionic-Based Cluster'] == 'ionic-EG', "test", "train")
-    #     si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
-    #     cluster_data = {
-    #         "Cluster": 'polar',
-    #         "Silhouette": si_score,
-    #         "Davies-Bouldin": db_score,
-    #         "Calinski-Harabasz": ch_score
-    #     }
-        
-        # score_file_ionic_EG = results_path / 'EG-Ionic-Based Cluster'/ 'Trimer_scaler'/'(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_scores.json'
-        # with open(score_file_ionic_EG, "r") as f:
-        #     scores = json.load(f)
-        # mean, std = get_score(scores, f"CO_ionic-EG", ml_score_metric)
-        # cluster_data[f"{ml_score_metric}_mean"] = mean
-        # cluster_data[f"{ml_score_metric}_std"] = std
-        
-        # data.append(cluster_data)
-
     df = pd.DataFrame(data)
 
     num_clusters = df["Cluster"].nunique()
@@ -168,39 +150,71 @@ def plot_OOD_Score_vs_distance(scores,ml_score_metric:str, co_vector, cluster_ty
     ]
 
     for clustering_metric in clustering_score_metrics:
-        plt.figure(figsize=(8, 6))
-        
+        plt.figure(figsize=(6, 5))
+
         for _, row in df.iterrows():
             plt.errorbar(row[clustering_metric], row[f"{ml_score_metric}_mean"], 
                         yerr=row[f"{ml_score_metric}_std"], fmt='o', 
                         color=color_map[row["Cluster"]], capsize=4, capthick=1.2, markersize=10)
 
-        plt.xlabel(f"Train-Test Distance ({clustering_metric})")
-        plt.ylabel(f"{ml_score_metric.upper()} Score")
-        plt.title(f"{co_vector}")
+        plt.xlabel(f"Train-Test Distance ({clustering_metric})",fontsize=16,fontweight='bold')
+        plt.ylabel(f"{ml_score_metric.upper()} Score", fontsize=16,fontweight='bold')
+        plt.title(f"{co_vector}".capitalize(), fontsize=20)
         plt.legend(handles=legend_elements, loc="best", fontsize=16)
+
+        if clustering_metric.lower() == "silhouette":
+            min_val = 0  # force start at 0
+            max_val = df[clustering_metric].max()
+            value_range = max_val - min_val
+            step = 0.05 if value_range <= 0.2 else 0.1
+
+            ticks = np.arange(min_val, round(max_val + step, 2), step)
+            plt.xticks(ticks)
+            plt.xlim(left=min_val)
+
         plt.tight_layout()
-        save_img_path(scores_folder_path/'score vs distance (NGB_Mordred_polysize_HSPs_solvent properties_Standard)', f"{ml_score_metric} vs ({clustering_metric}) using {co_vector}.png")
+        save_img_path(saving_folder, f"{file_name}_{clustering_metric}.png")
+        # plt.show()
         plt.close()
 
 
 
 if __name__ == "__main__":
-    for cluster in clusters:
-        scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-            for model in ['XGBR', 'NGB']:
-                    score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-                    score_file_lc = ensure_long_path(score_file_lc)
-                    if not os.path.exists(score_file_lc):
-                        print(f"File not found: {score_file_lc}")
-                        continue 
+    cluster_list = [
+                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
+                    'HBD3 MACCS cluster',
+                    'substructure cluster',
+                    'KM5 polymer_solvent HSP and polysize cluster',
+                    'KM4 polymer_solvent HSP and polysize cluster',
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
+                    ]
+    for cluster in cluster_list:
+        for fp in ['MACCS', 'Mordred']:
+            co_vectors = ['numerical vector']
+            if fp == 'Mordred':
+                co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
+            if fp == 'MACCS':
+                co_vectors.append('MACCS vector')
+            
+            score_metrics = ["rmse", "r2"]
+            for co_vector in co_vectors:
+                for ml_metric in score_metrics:
 
-                    with open(score_file_lc, "r") as f:
-                        scores = json.load(f)
-                        
-                    score_metrics = ["rmse", "r2"]
-                    co_vectors = ['ECFP vector']
-                    for ml_metric in score_metrics:
-                        for co_vector in co_vectors:
-                            plot_OOD_Score_vs_distance(ml_metric, co_vector)
+                    for model in ['XGBR', 'NGB']:
+                            scores_folder_path = results_path / cluster / 'Trimer_scaler'
+                            score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+                            score_file = ensure_long_path(score_file)
+                            if not os.path.exists(score_file):
+                                print(f"File not found: {score_file}")
+                                continue 
+
+                            with open(score_file, "r") as f:
+                                scores = json.load(f)
+
+
+                                    
+                            saving_folder = scores_folder_path / f'scores vs distance'
+                            plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
+                                                        saving_path=saving_folder, file_name=f"{fp}_{model}_{co_vector}_{ml_metric}")
