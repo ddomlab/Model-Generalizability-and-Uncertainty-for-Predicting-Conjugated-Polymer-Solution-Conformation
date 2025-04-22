@@ -165,24 +165,28 @@ def get_residual_vs_std_full_data(predicted:Dict,
             continue
         true_values = truth.get(cluster, [])
         residuals = []
-        predictions = []
+        predictions_std = []
         for seed, seed_preds in preds.items():
-            seed_residuals = np.subtract(seed_preds, true_values)
-            residuals.append(seed_residuals)
-            predictions.append(seed_preds)
-        
-        residuals = np.array(residuals)
-        predictions = np.array(predictions)
-        avg_residual = np.mean(residuals, axis=0)
-        std_predictions = np.std(predictions, axis=0)
-        std_residuals = np.std(residuals, axis=0)
-        results.append([cluster, avg_residual, std_residuals, std_predictions])
+            seed_residuals = np.subtract(seed_preds['y_test_prediction'], true_values)
+            residuals.extend(seed_residuals)
+            predictions_std.extend(np.sqrt(seed_preds['y_test_uncertainty']))
+        # print(len(predictions_std))
+        # print(len(residuals))
+        # residuals = np.array(residuals)
+        # predictions_std = np.array(predictions_std)
+        results.append([cluster, np.array(residuals), np.array(predictions_std)])
 
-    df_results = pd.DataFrame(results, columns=["Cluster", "Average Residual", "Std Residual","Std of Predictions"])
+    df_results = pd.DataFrame(results, columns=["Cluster", "Residual", "Prediction std"])
     return df_results
 
 
-def plot_residual_vs_std_full_data(df: pd.DataFrame, folder: Path = None) -> None:
+def plot_residual_vs_std_full_data(
+                                predicted:Dict,
+                                truth:Dict,
+                                folder_to_save: Path = None,
+                                file_name: str = 'NGB_Mordred'
+                                ) -> None:
+    df = get_residual_vs_std_full_data(predicted, truth)
     n_clusters = len(df)
     fig, axes = plt.subplots(1, n_clusters, figsize=(12, 4), sharey=True)
 
@@ -191,19 +195,18 @@ def plot_residual_vs_std_full_data(df: pd.DataFrame, folder: Path = None) -> Non
 
     for ax, (_, row) in zip(axes, df.iterrows()):
         cluster = row['Cluster']
-        avg_residual = abs(row['Average Residual'])
-        std_residual = row['Std Residual']
-        std_predictions = row['Std of Predictions']
+        residual = abs(row['Residual'])
+        pred_std = row['Prediction std']
         
-        x_values = avg_residual
-        y_values = std_predictions
-        x_errors = std_residual
+        x_values = residual
+        y_values = pred_std
+        # x_errors = pred_std
 
         plt.sca(ax)  # Set the current axis so plt.gca() works
         ax = plt.gca()  # Get current axis
 
         ax.scatter(x_values, y_values, color='#1f77b430', edgecolors='none', alpha=0.2, s=80)
-        ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
+        # ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
 
         max_y = max(y_values)
         max_x = max(x_values)
@@ -219,11 +222,8 @@ def plot_residual_vs_std_full_data(df: pd.DataFrame, folder: Path = None) -> Non
         ax.set_ylim(0,max_y+.01)
     plt.tight_layout()
 
-    if folder:
-        folder.mkdir(parents=True, exist_ok=True)
-        plt.savefig(folder / f"residual vs std.png", dpi=600)
-
-    # plt.show()
+    save_img_path(folder_to_save, f"{file_name}.png")
+    plt.show()
     plt.close()
 
 
@@ -505,22 +505,22 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        # for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-        #     for model in ['XGBR', 'NGB']:
+        scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+            for model in ['NGB']:
 
 
-        #         score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        #         predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
-        #         # prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_hypOFF_Standard_lc_predictions.json'
-        #         # truth = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-        #         score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
-        #         predictions_file_lc = ensure_long_path(predictions_file_lc)
-        #         # predictions = ensure_long_path(predictions)
-        #         # truth = ensure_long_path(truth)
-        #         if not os.path.exists(predictions_file_lc):
-        #             print(f"File not found: {predictions_file_lc}")
-        #             continue  
+                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
+                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
+                predictions_file_lc = ensure_long_path(predictions_file_lc)
+                predictions_full = ensure_long_path(predictions_full)
+                truth_file_full = ensure_long_path(truth_file_full)
+                if not os.path.exists(predictions_file_lc):
+                    print(f"File not found: {predictions_file_lc}")
+                    continue  
 
 
 
@@ -540,10 +540,19 @@ if __name__ == "__main__":
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
 
-        # residual distribution
-
+                # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
                 # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'{model}_{fp}')
+
+
+                # Plot residual vs std (uncertenty):
+                with open(predictions_full, "r") as f:
+                    predictions_data = json.load(f)
+
+                with open(truth_file_full, "r") as f:
+                    truth_data = json.load(f)
+                saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
+                plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'{model}_{fp}')
 
         # RF learning curve
         # scores_folder_path = results_path / cluster / 'scaler'
@@ -566,7 +575,7 @@ if __name__ == "__main__":
         # plot_ama_vs_train_size(predictions_lc,saving_uncertainty, file_name=f'RF_scaler')
 
         saving_folder = scores_folder_path / f'KDE of residuals'
-        plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
+        # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
 
 
     # uncerteinty validation 
