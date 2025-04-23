@@ -169,7 +169,7 @@ def get_residual_vs_std_full_data(predicted:Dict,
         for seed, seed_preds in preds.items():
             seed_residuals = np.subtract(seed_preds['y_test_prediction'], true_values)
             residuals.extend(seed_residuals)
-            predictions_std.extend(np.sqrt(seed_preds['y_test_uncertainty']))
+            predictions_std.extend(seed_preds['y_test_uncertainty'])
         # print(len(predictions_std))
         # print(len(residuals))
         # residuals = np.array(residuals)
@@ -271,14 +271,14 @@ def process_summary_scores(summary_scores,
 
 
 def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None, file_name: str = 'NGB_Mordred') -> None:
-    df, cluster_train_sizes = process_summary_scores(summary_scores, metric)
+    df, _ = process_summary_scores(summary_scores, metric)
 
     if df.empty:
         print(f"No data found for metric '{metric}'.")
         return
 
-    common_train_sizes = set.intersection(*cluster_train_sizes.values())
-    shared_train_size = common_train_sizes.pop() if common_train_sizes else None
+    # common_train_sizes = set.intersection(*cluster_train_sizes.values())
+    # shared_train_size = common_train_sizes.pop() if common_train_sizes else None
 
     num_clusters = df['Cluster'].nunique()
     g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
@@ -382,7 +382,7 @@ def plot_residual_distribution_learning_curve(predictions: pd.DataFrame, folder_
     clusters = flat_df["Cluster"].unique()
     num_clusters = len(clusters)
 
-    fig, axes = plt.subplots(1, num_clusters, figsize=(10,5), sharey=True)
+    fig, axes = plt.subplots(1, num_clusters, figsize=(11,5), sharey=True)
 
     if num_clusters == 1:
         axes = [axes]  # make it iterable
@@ -458,8 +458,9 @@ def get_uncertenty_in_learning_curve(pred_file:Dict)-> pd.DataFrame:
     return pd.DataFrame(results)
 
 
-def plot_ama_vs_train_size(prediction_df: pd.DataFrame ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
-    df = get_uncertenty_in_learning_curve(prediction_df)
+def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
+    df = get_uncertenty_in_learning_curve(prediction)
+    
     num_clusters = df["Cluster"].nunique()
     g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
 
@@ -480,6 +481,116 @@ def plot_ama_vs_train_size(prediction_df: pd.DataFrame ,folder:Path=None,file_na
     save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
     # plt.show()
     plt.close()
+
+
+
+
+
+
+def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
+                                          prediction: Dict,
+                                          metric="rmse",
+                                          folder: Path = None,
+                                          file_name: str = 'NGB_Mordred') -> None:
+    score_df, _ = process_summary_scores(summary_scores, metric)
+    ama_df = get_uncertenty_in_learning_curve(prediction)
+
+    if score_df.empty:
+        print(f"No data found for metric '{metric}'.")
+        return
+
+    import numpy as np
+
+    # Define consistent y-axis limits and ticks
+    max_score = np.ceil(score_df["Score"].max() * 2) / 2
+    score_yticks = np.arange(0, max_score + 0.5, 0.5)
+
+    max_ama = np.ceil(ama_df["Uncertainty"].max() * 10) / 10
+    ama_yticks = np.arange(0, max_ama + 0.1, 0.1)
+
+    num_clusters = score_df['Cluster'].nunique()
+    g = sns.FacetGrid(score_df, col="Cluster", col_wrap=num_clusters, height=4, sharey=False)
+
+    twin_axes = []
+
+    def plot_with_dual_y_axis(data, **kwargs):
+        cluster = data["Cluster"].iloc[0]
+        ax = plt.gca()
+        ax2 = ax.twinx()
+        twin_axes.append((ax, ax2))
+
+        # Plot Score
+        sns.lineplot(
+            data=data, x="Train Set Size", y="Score", hue="Score Type",
+            style="Score Type", markers=True, markersize=8, linewidth=2.5, ax=ax, legend=False
+        )
+
+        for _, sub_df in data.groupby("Score Type"):
+            sub_df = sub_df.sort_values("Train Set Size")
+            ax.fill_between(
+                sub_df["Train Set Size"],
+                sub_df["Score"] - sub_df["Std"],
+                sub_df["Score"] + sub_df["Std"],
+                alpha=0.2
+            )
+
+        # Plot AMA
+        ama_data = ama_df[ama_df["Cluster"] == cluster].sort_values("Train Set Size")
+        ax2.plot(
+            ama_data["Train Set Size"],
+            ama_data["Uncertainty"],
+            color="green",
+            marker="*",
+            linestyle="--",
+            linewidth=1.5,
+            markersize=5,
+            label="AMA"
+        )
+
+        # Set consistent y-limits and ticks
+        ax.set_ylim(0, max_score)
+        ax.set_yticks(score_yticks)
+        ax2.set_ylim(0, max_ama)
+        ax2.set_yticks(ama_yticks)
+        ax2.tick_params(axis='y', labelsize=16)
+        ax.tick_params(axis='x', labelsize=16)
+        ax.tick_params(axis='y', labelsize=16)
+
+        ax.set_xlabel("Training Set Size", fontsize=18, fontweight='bold')
+
+    g.map_dataframe(plot_with_dual_y_axis)
+
+    # Remove duplicated y-axis labels
+    for i, (ax, ax2) in enumerate(twin_axes):
+        if i == 0:
+            ax.set_ylabel(metric.upper(), fontsize=18, color="#4487D0", fontweight='bold')
+        else:
+            ax.set_ylabel("")
+            ax.set_yticklabels([])
+
+        if i == len(twin_axes) - 1:
+            ax2.set_ylabel("AMA", fontsize=18, color="green", fontweight='bold')
+        else:
+            ax2.set_ylabel("")
+            ax2.set_yticklabels([])
+
+        ax.set_title(g.col_names[i], fontsize=20)
+
+
+
+
+
+    plt.tight_layout()
+
+    if folder:
+        save_img_path(folder, f"learning curve ({file_name}).png")
+    # plt.show()
+    plt.close()
+
+
+
+
+
 
 def ensure_long_path(path):
         """Ensures Windows handles long paths by adding '\\?\' if needed."""
@@ -505,40 +616,48 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-            for model in ['NGB']:
+        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        # for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+        #     for model in ['NGB']:
 
 
-                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
-                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
-                score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
-                predictions_file_lc = ensure_long_path(predictions_file_lc)
-                predictions_full = ensure_long_path(predictions_full)
-                truth_file_full = ensure_long_path(truth_file_full)
-                if not os.path.exists(predictions_file_lc):
-                    print(f"File not found: {predictions_file_lc}")
-                    continue  
+        #         score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+        #         predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
+        #         truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+        #         predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+        #         score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
+        #         predictions_file_lc = ensure_long_path(predictions_file_lc)
+        #         predictions_full = ensure_long_path(predictions_full)
+        #         truth_file_full = ensure_long_path(truth_file_full)
+        #         if not os.path.exists(predictions_file_lc):
+        #             print(f"File not found: {predictions_file_lc}")
+        #             continue  
 
 
 
-        #             # NGB XGB learning curve
-        #         with open(score_file_lc, "r") as f:
-        #             scores_lc = json.load(f)
+                    # NGB XGB learning curve
+                # with open(score_file_lc, "r") as f:
+                #     scores_lc = json.load(f)
 
                 # with open(predictions_file_lc, "r") as s:
                 #     predictions_lc = json.load(s)
-        #         saving_folder_lc_score = scores_folder_path / f'learning curve'
-        #         plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
-        #         print("Save learning curve scores")
-        #         saving_uncertainty = scores_folder_path / f'uncertainty'
-        #         if model == 'XGBR':
-        #             continue
+                # saving_folder_lc_score = scores_folder_path / f'learning curve'
+                # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
+                # print("Save learning curve scores")
+                # saving_uncertainty = scores_folder_path / f'uncertainty'
+                # if model == 'XGBR':
+                #     continue
         #         # print(predictions_file_lc)
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
+
+                # uncertenty + score in learning curve
+                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                # plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'{model}_{fp}')
+                # print("Save learning curve scores and uncertainty")
+
+
+
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
@@ -546,52 +665,64 @@ if __name__ == "__main__":
 
 
                 # Plot residual vs std (uncertenty):
-                with open(predictions_full, "r") as f:
-                    predictions_data = json.load(f)
+                # with open(predictions_full, "r") as f:
+                #     predictions_data = json.load(f)
 
-                with open(truth_file_full, "r") as f:
-                    truth_data = json.load(f)
-                saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
-                plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'{model}_{fp}')
+                # with open(truth_file_full, "r") as f:
+                #     truth_data = json.load(f)
+                # saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
+                # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'{model}_{fp}')
 
         # RF learning curve
-        # scores_folder_path = results_path / cluster / 'scaler'
-        # score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
-        # prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
-        # score_file_lc_RF = ensure_long_path(score_file_lc_RF)
-        # prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
-        # if not os.path.exists(score_file_lc_RF):
-        #     print(f"File not found: {score_file_lc_RF}")
-        #     continue 
+        scores_folder_path = results_path / cluster / 'scaler'
+        score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
+        prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
+        prediction_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_predictions.json'
+        truth_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_ClusterTruth.json'
+        prediction_file_full = ensure_long_path(prediction_file_full)  
+        truth_file_full = ensure_long_path(truth_file_full)
+        score_file_lc_RF = ensure_long_path(score_file_lc_RF)
+        prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
+        if not os.path.exists(score_file_lc_RF):
+            print(f"File not found: {score_file_lc_RF}")
+            continue 
 
-        # with open(score_file_lc_RF, "r") as f:
-        #     scores_lc = json.load(f)
-        # with open(prediction_file_lc_RF, "r") as f:
-        #     predictions_lc = json.load(f)
+        with open(score_file_lc_RF, "r") as f:
+            scores_lc = json.load(f)
+        with open(prediction_file_lc_RF, "r") as f:
+            predictions_lc = json.load(f)
 
+        # ama vs train size in lc
         # saving_folder_lc_score = scores_folder_path / f'learning curve'
         # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name='RF_scaler')
         # saving_uncertainty = scores_folder_path / f'uncertainty'
         # plot_ama_vs_train_size(predictions_lc,saving_uncertainty, file_name=f'RF_scaler')
 
-        saving_folder = scores_folder_path / f'KDE of residuals'
+
+        saving_uncertainty = scores_folder_path / f'uncertainty_score'
+        plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'RF_scaler')
+        print("Save learning curve scores and uncertainty")
+
+
+        # residual distribution in lc
+        # saving_folder = scores_folder_path / f'KDE of residuals'
         # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
 
 
-    # uncerteinty validation 
-        # prediction_file_lc = scores_folder_path / f'(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc_predictions.json'
-        # prediction_file_lc = ensure_long_path(prediction_file_lc)
-        # with open(prediction_file_lc, "r") as f:
-        #     predictions = json.load(f)
 
-    
-    
-    
-    # uncertenty residual vs std
-    # with open(predictions, "r") as f:
-    #     predictions_data = json.load(f)
-    # with open(truth, "r") as f:
-    #     truth_data = json.load(f)
+        # Plot residual vs std (uncertenty):
 
-    # residual_std_df = get_residual_vs_std_full_data(predictions_data,truth_data)
-    # plot_residual_vs_std_full_data(residual_std_df)
+        # with open(prediction_file_full, "r") as f:
+        #     predictions_data = json.load(f)
+
+        # with open(truth_file_full, "r") as f:
+        #     truth_data = json.load(f)
+        # saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
+        # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'RF_scaler')
+
+
+
+
+
+
+
