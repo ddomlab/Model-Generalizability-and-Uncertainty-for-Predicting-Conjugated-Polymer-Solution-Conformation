@@ -408,10 +408,14 @@ def plot_residual_distribution_learning_curve(predictions: pd.DataFrame, folder_
         ax.set_xlabel(r"$y_{\text{predict}} - y_{\text{true}}$", fontweight='bold', fontsize=18)
         if i == 0:
             ax.set_ylabel("Distribution Density", fontweight='bold', fontsize=18)
+            # sns.move_legend(ax, loc='upper right', title='Train Ratio', title_fontsize=14)
         else:
             ax.set_ylabel("")
         ax.tick_params(labelsize=16)
         ax.set_yticks(np.arange(0, ax.get_ylim()[1] + 0.05, 0.1))
+        
+        if i != 0:
+            ax.get_legend().remove()
 
     plt.tight_layout()
     save_img_path(folder_to_save, f"{file_name}.png")
@@ -616,31 +620,31 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        # for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-        #     for model in ['NGB']:
+        scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+            for model in ['XGBR']:
 
 
-        #         score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        #         predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
-        #         truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-        #         predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
-        #         score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
-        #         predictions_file_lc = ensure_long_path(predictions_file_lc)
-        #         predictions_full = ensure_long_path(predictions_full)
-        #         truth_file_full = ensure_long_path(truth_file_full)
-        #         if not os.path.exists(predictions_file_lc):
-        #             print(f"File not found: {predictions_file_lc}")
-        #             continue  
+                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
+                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
+                predictions_file_lc = ensure_long_path(predictions_file_lc)
+                predictions_full = ensure_long_path(predictions_full)
+                truth_file_full = ensure_long_path(truth_file_full)
+                if not os.path.exists(predictions_file_lc):
+                    print(f"File not found: {predictions_file_lc}")
+                    continue  
 
 
 
                     # NGB XGB learning curve
-                # with open(score_file_lc, "r") as f:
-                #     scores_lc = json.load(f)
+                with open(score_file_lc, "r") as f:
+                    scores_lc = json.load(f)
 
-                # with open(predictions_file_lc, "r") as s:
-                #     predictions_lc = json.load(s)
+                with open(predictions_file_lc, "r") as s:
+                    predictions_lc = json.load(s)
                 # saving_folder_lc_score = scores_folder_path / f'learning curve'
                 # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
                 # print("Save learning curve scores")
@@ -660,8 +664,8 @@ if __name__ == "__main__":
 
 
                 # residual distribution
-                # saving_folder = scores_folder_path / f'KDE of residuals'
-                # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'{model}_{fp}')
+                saving_folder = scores_folder_path / f'KDE of residuals'
+                plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'{model}_{fp}')
 
 
                 # Plot residual vs std (uncertenty):
@@ -674,23 +678,23 @@ if __name__ == "__main__":
                 # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'{model}_{fp}')
 
         # RF learning curve
-        scores_folder_path = results_path / cluster / 'scaler'
-        score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
-        prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
-        prediction_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_predictions.json'
-        truth_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_ClusterTruth.json'
-        prediction_file_full = ensure_long_path(prediction_file_full)  
-        truth_file_full = ensure_long_path(truth_file_full)
-        score_file_lc_RF = ensure_long_path(score_file_lc_RF)
-        prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
-        if not os.path.exists(score_file_lc_RF):
-            print(f"File not found: {score_file_lc_RF}")
-            continue 
+        # scores_folder_path = results_path / cluster / 'scaler'
+        # score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
+        # prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
+        # prediction_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_predictions.json'
+        # truth_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_ClusterTruth.json'
+        # prediction_file_full = ensure_long_path(prediction_file_full)  
+        # truth_file_full = ensure_long_path(truth_file_full)
+        # score_file_lc_RF = ensure_long_path(score_file_lc_RF)
+        # prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
+        # if not os.path.exists(score_file_lc_RF):
+        #     print(f"File not found: {score_file_lc_RF}")
+        #     continue 
 
-        with open(score_file_lc_RF, "r") as f:
-            scores_lc = json.load(f)
-        with open(prediction_file_lc_RF, "r") as f:
-            predictions_lc = json.load(f)
+        # with open(score_file_lc_RF, "r") as f:
+        #     scores_lc = json.load(f)
+        # with open(prediction_file_lc_RF, "r") as f:
+        #     predictions_lc = json.load(f)
 
         # ama vs train size in lc
         # saving_folder_lc_score = scores_folder_path / f'learning curve'
@@ -699,14 +703,14 @@ if __name__ == "__main__":
         # plot_ama_vs_train_size(predictions_lc,saving_uncertainty, file_name=f'RF_scaler')
 
 
-        saving_uncertainty = scores_folder_path / f'uncertainty_score'
-        plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'RF_scaler')
-        print("Save learning curve scores and uncertainty")
+        # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+        # plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'RF_scaler')
+        # print("Save learning curve scores and uncertainty")
 
 
         # residual distribution in lc
-        # saving_folder = scores_folder_path / f'KDE of residuals'
-        # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
+        saving_folder = scores_folder_path / f'KDE of residuals'
+        plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
 
 
 
