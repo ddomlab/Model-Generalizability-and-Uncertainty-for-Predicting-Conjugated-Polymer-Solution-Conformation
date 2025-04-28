@@ -258,7 +258,7 @@ def plot_residual_vs_std_full_data(
         ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
 
 
-        ax.set_xlabel("Average Residual", fontsize=16, fontweight='bold')
+        ax.set_xlabel("Residuals", fontsize=16, fontweight='bold')
         if ax == axes[0]:
             ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
         ax.set_title(f"{cluster}", fontsize=18)

@@ -143,7 +143,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
     models = list({row['Model'] for row in df})
     clusters = list({row['Cluster'] for row in df})
 
-    palette = sns.color_palette("husl", len(clusters))
+    palette = sns.color_palette("Set2", len(clusters))
     color_map = {cluster: palette[i] for i, cluster in enumerate(sorted(clusters))}
     marker_map = {model: marker_shapes[i % len(marker_shapes)] for i, model in enumerate(sorted(models))}
 
@@ -197,19 +197,22 @@ if __name__ == "__main__":
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
-                    # 'substructure cluster',
+                    'substructure cluster',
                     'KM5 polymer_solvent HSP and polysize cluster',
                     'KM4 polymer_solvent HSP and polysize cluster',
                     'KM4 polymer_solvent HSP cluster',
                     'KM4 Mordred_Polysize cluster',
                     ]
     for cluster in cluster_list:
-        for fp in ['MACCS', 'Mordred']:
+        for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
             co_vectors = ['numerical vector']
             if fp == 'Mordred':
                 co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
             if fp == 'MACCS':
                 co_vectors.append('MACCS vector')
+
+            if fp == 'ECFP3.count.512':
+                co_vectors.append('ECFP vector')
             
             score_metrics = ["rmse", "r2"]
             for co_vector in co_vectors:
@@ -239,11 +242,11 @@ if __name__ == "__main__":
                             
                         RF_data = make_accumulating_scores(scores, ml_metric, RF_vector, cluster, 'RF')
                         combined_data.extend(RF_data)
-
+                        # print(combined_data)
                     saving_folder = results_path / cluster / f'scores vs distance combined'/ f"{co_vector}"
                     plot_OOD_Score_vs_distance(combined_data, ml_metric, co_vector=co_vector, cluster_types=cluster,
                                     saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{ml_metric}")
-                            
+                    print('Plot combined')
                             # plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
                             #                             saving_path=saving_folder, file_name=f"{fp}_{ml_metric}")
 
