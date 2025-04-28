@@ -50,7 +50,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['Mw', 'PDI'],
+        'polysize': ['DP','Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -549,10 +549,10 @@ def create_scaler_result(target_dir:Path,
 for transformer in transformer_list:
     for target_folder in target_list:
         for i in scores_list:
-            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-#             create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                 score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+            #                                     score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
 
 
