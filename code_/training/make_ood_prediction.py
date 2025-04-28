@@ -11,8 +11,8 @@ import sys
 import os
 
 # sys.path.append("../cleaning")
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../visualization")))
-from visualize_ood_scores import plot_splits_scores, plot_splits_parity
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../visualization")))
+# from visualize_ood_scores import plot_splits_scores, plot_splits_parity
 from argparse import ArgumentParser
 from data_handling import save_results
 from all_factories import generate_acronym_string
