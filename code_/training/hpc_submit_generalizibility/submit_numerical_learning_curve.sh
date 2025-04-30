@@ -11,10 +11,10 @@ for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
       bsub <<EOT
 
-#BSUB -n 6
-#BSUB -W 72:05
+#BSUB -n 4
+#BSUB -W 10:01
 #BSUB -R span[hosts=1]
-#BSUB -R "rusage[mem=16GB]"
+#BSUB -R "rusage[mem=8GB]"
 #BSUB -J "${regressor}_${target}_20250430"  
 #BSUB -o "${output_dir}/${regressor}_${target}_20250430.out"
 #BSUB -e "${output_dir}/${regressor}_${target}_20250430.err"
