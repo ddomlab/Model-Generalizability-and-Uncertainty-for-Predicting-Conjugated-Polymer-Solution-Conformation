@@ -8,8 +8,6 @@ models=("Mordred")
 poly_representations=('Trimer')
 
 
-
-
 for regressor in "${regressors[@]}"; do
   for target in "${targets[@]}"; do
     for fp in "${models[@]}"; do

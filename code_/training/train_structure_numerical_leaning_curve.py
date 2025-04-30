@@ -28,8 +28,8 @@ def main_structural_numerical(
     regressor_type: str,
     target_features: list[str],
     transform_type: str,
-    representation:str,
-    oligomer_representation: str,
+    representation:str=None,
+    oligomer_representation: str=None,
     columns_to_impute: Optional[list[str]]=None,
     special_impute: Optional[str]=None,
     numerical_feats: Optional[list[str]]=None,
@@ -61,7 +61,7 @@ def main_structural_numerical(
                                                     second_transformer=second_transformer,
                                                     Test=TEST,
                                                 )
-    save_results(
+    _=save_results(
                 scores=learning_score,
                 imputer=imputer,
                 representation= representation,
@@ -83,42 +83,44 @@ def main_structural_numerical(
 
 
 if __name__ == '__main__':
-    args = parse_arguments()
+    if TEST==False:
+        args = parse_arguments()
 
-    main_structural_numerical(
-    dataset=w_data,
-    target_features=[args.target_features],  
-    representation=args.representation,
-    radius=args.radius,
-    vector=args.vector,
-    oligomer_representation = args.oligomer_representation,
-    regressor_type=args.regressor_type,
-    transform_type='Standard',
-    second_transformer=None,
-    hyperparameter_optimization=False,
-    columns_to_impute=args.columns_to_impute,  
-    special_impute=args.special_impute,
-    numerical_feats=args.numerical_feats,  
-    imputer=args.imputer,
-    cutoff=None,  
-    )
+        main_structural_numerical(
+        dataset=w_data,
+        target_features=[args.target_features],  
+        representation=args.representation,
+        radius=args.radius,
+        vector=args.vector,
+        oligomer_representation = args.oligomer_representation,
+        regressor_type=args.regressor_type,
+        transform_type='Standard',
+        second_transformer=None,
+        hyperparameter_optimization=False,
+        columns_to_impute=args.columns_to_impute,  
+        special_impute=args.special_impute,
+        numerical_feats=args.numerical_feats,  
+        imputer=args.imputer,
+        cutoff=None,  
+        )
 
-    # main_structural_numerical(
-    #     dataset=w_data,
-    #     representation="Mordred",
-    #     # radius=3,
-    #     # vector="count",
-    #     regressor_type="NGB",
-    #     target_features=['log Rg (nm)'],  
-    #     transform_type=None,
-    #     second_transformer=None,
-    #     # columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
-    #     # special_impute="Mw (g/mol)",
-    #     numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
-    #     # imputer='mean',
-    #     hyperparameter_optimization=False,
-    #     oligomer_representation="Trimer",
-    # )
+    else:
+        main_structural_numerical(
+            dataset=w_data,
+            # representation="Mordred",
+            # radius=3,
+            # vector="count",
+            regressor_type="NGB",
+            target_features=['log Rg (nm)'],  
+            transform_type='Standard',
+            second_transformer=None,
+            # columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)"],
+            # special_impute="Mw (g/mol)",
+            numerical_feats=['Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'solvent dP', 'solvent dD', 'solvent dH'],
+            # imputer='mean',
+            hyperparameter_optimization=False,
+            # oligomer_representation="Trimer",
+        )
 
 
 

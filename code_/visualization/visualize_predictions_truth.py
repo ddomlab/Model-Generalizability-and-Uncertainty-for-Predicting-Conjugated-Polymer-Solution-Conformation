@@ -16,7 +16,7 @@ DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS: Path = HERE.parent.parent/ 'results'
 target_list = ['target_Rg']
 
-from visualization_setting import set_plot_style
+from visualization_setting import set_plot_style, save_img_path
 
 set_plot_style()
 
@@ -25,9 +25,7 @@ def get_file_info(file_path:Path)-> tuple[str, str]:
     # return file name and polymer representation
     return file_path.stem , file_path.parent.name
 
-    # result_must_be target dir
 def get_prediction_plot(results_directory: Path, ground_truth_file: Path, target:str)->None:
-    # TODO: it should drop the values
     w_data = pd.read_pickle(ground_truth_file)
     true_values: pd.DataFrame = w_data[target].dropna()
     # true_values: pd.Series = pd.read_csv(ground_truth_file)["calculated PCE (%)"]
@@ -212,8 +210,7 @@ def draw_single_parity_plot(
     saving_path = visualization_folder_path/ file_name
 
     try:
-        g.savefig(saving_path, dpi=600)
-        print(f"Saved {saving_path}")
+        save_img_path(visualization_folder_path, file_name)
     except Exception as e:
         print(f"Failed to save {saving_path} due to {e}")
 
@@ -232,11 +229,10 @@ if __name__ == "__main__":
 
 
     target_to_an = 'target_log Rg (nm)'
-    file_n = "(Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv"
-    poly_representation_name = 'Trimer_scaler'
+    file_n = "(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv"
+    poly_representation_name = 'scaler'
     truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
     fname,_ = get_file_info(truth_val_file)
-    # for i in [0,1,2]:
     draw_single_parity_plot(
         target='log Rg (nm)',
         x_y_target_name='log Rg (nm)',

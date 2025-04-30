@@ -211,7 +211,6 @@ def run_leaning(
                     "test_scores": test_scores,  # 2D array of validation (cross-validation) scores
                     "best_params": regressor_params if hyperparameter_optimization else "Default"
                 }
-        print(seed_learning_curve_scores)
     return seed_learning_curve_scores
 
 
