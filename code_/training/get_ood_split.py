@@ -241,8 +241,13 @@ def run_loco_cv(X, y,
                     cluster_lables=cluster_tv_labels,
                 )
 
+                uncertainty_preprocessr: Pipeline = Pipeline(steps=[
+                    ("preprocessor", new_preprocessor),
+                    ("y_transformer", y_transform),
+                ]) 
+                
                 OOD_scores, OOD_predictions, uncertenty_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test,
-                                                                     y_test, return_train_pred=False, algorithm=regressor_type) 
+                                                                        y_test, return_train_pred=False, algorithm=regressor_type, manual_preprocessor=uncertainty_preprocessr) 
                 OOD_scores["best_params"] = OOD_regressor_params
 
                 ID_cv_outer  =  KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
@@ -347,46 +352,6 @@ def get_loco_splits(cluster_type: Union[np.ndarray, dict[str, np.ndarray]]) -> d
 
     raise TypeError("Input must be either an np.ndarray or a dictionary with cluster labels.")
 
-
-
-# def get_loco_splits(cluster_type:Union[np.ndarray,dict])-> dict[int, tuple[np.ndarray]]:
-#     splits = {}
-#     if isinstance(cluster_type, np.ndarray):
-#         cluster_names, counts = np.unique(cluster_type, return_counts=True)
-#         n_clusters = len(cluster_names)
-        
-#         if n_clusters>2:
-#             for  n in cluster_names:
-#                 mask = cluster_type == n
-#                 test_idxs = np.where(mask)[0]
-#                 tv_idxs= np.where(np.logical_not(mask))[0]
-#                 splits[n] = (tv_idxs, test_idxs)
-#         else:
-#             rare_cluster = cluster_names[np.argmin(counts)]  # Identify the rare cluster
-#             mask = cluster_type == rare_cluster
-#             test_idxs = np.where(mask)[0]
-#             tv_idxs = np.where(np.logical_not(mask))[0]
-#             splits[rare_cluster] = (tv_idxs, test_idxs)
-#         return splits
-#     if isinstance(cluster_type, dict):
-#         substructure_cluster = cluster_type["substructure cluster"]
-#         side_chian_cluster = cluster_type["side chain"]
-#         substructure_cluster_names, substructure_counts = np.unique(substructure_cluster, return_counts=True)
-#         side_chain_cluster_names, side_chain_counts = np.unique(substructure_cluster, return_counts=True)
-
-#         for  n in substructure_cluster_names:
-#                 mask = cluster_type == n
-#                 test_idxs = np.where(mask)[0]
-#                 tv_idxs= np.where(np.logical_not(mask))[0]
-#                 splits[n] = (tv_idxs, test_idxs)
-
-#         rare_cluster = side_chain_cluster_names[np.argmin(side_chain_counts)]  
-#         mask = side_chian_cluster == rare_cluster
-#         test_idxs = np.where(mask)[0]
-#         tv_idxs = np.where(np.logical_not(mask))[0]
-#         splits[rare_cluster] = (tv_idxs, test_idxs)
-
-#         return splits
 
 def optimize_ood_hp(
                     x_train_val,

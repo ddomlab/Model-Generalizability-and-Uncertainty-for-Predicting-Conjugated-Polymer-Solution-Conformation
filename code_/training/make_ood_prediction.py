@@ -34,7 +34,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 
 

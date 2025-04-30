@@ -4,6 +4,8 @@ from joblib import Parallel, delayed
 import numpy as np
 import pandas as pd
 from scipy.stats import pearsonr, spearmanr, kendalltau
+from sklearn.pipeline import Pipeline
+
 from sklearn.metrics import (
     make_scorer,
     mean_absolute_error,
@@ -485,12 +487,14 @@ class PredictionUncertainty:
 
 
 def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, 
-                          return_train_pred:bool=False, algorithm:str='NGB'):
+                            return_train_pred:bool=False, algorithm:str='NGB',
+                            manual_preprocessor:Pipeline=None) -> tuple:
     regressor.fit(X_train_val, y_train_val)
-    
+    x_test_scaled = manual_preprocessor.fit_transform(X_test)
+    print(x_test_scaled)
     if algorithm == 'NGB':
         y_test_predist = regressor.named_steps['regressor'].regressor_.pred_dist(X_test)
-        y_test_pred = np.array(y_test_predist.loc).reshape(y_test.shape)
+        y_test_pred = regressor.predict(X_test)
         y_test_pred_uncertainty = np.array(y_test_predist.var).reshape(y_test.shape)
 
     elif algorithm == 'RF':
