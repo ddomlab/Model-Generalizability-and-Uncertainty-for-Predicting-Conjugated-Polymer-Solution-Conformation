@@ -201,7 +201,6 @@ def draw_single_parity_plot(
     # plt.tight_layout()
     # g.ax_joint.set_xscale("log")
     # g.ax_joint.set_yscale("log")
-    plt.show()
 
 
     visualization_folder_path =  root_dir/"parity plot"/poly_representation_name
@@ -213,7 +212,7 @@ def draw_single_parity_plot(
         save_img_path(visualization_folder_path, file_name)
     except Exception as e:
         print(f"Failed to save {saving_path} due to {e}")
-
+    plt.show()
     plt.close()
 
 
