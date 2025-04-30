@@ -243,7 +243,6 @@ def run_loco_cv(X, y,
 
                 uncertainty_preprocessr: Pipeline = Pipeline(steps=[
                     ("preprocessor", new_preprocessor),
-                    ("y_transformer", y_transform),
                 ]) 
                 
                 OOD_scores, OOD_predictions, uncertenty_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test,

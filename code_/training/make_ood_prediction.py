@@ -142,10 +142,10 @@ if __name__ == "__main__":
     else:
         main_structural_numerical(
             dataset=w_data,
-            representation="Mordred",
+            representation="MACCS",
             # radius=3,
             # vector="count",
-            regressor_type="NGB",
+            regressor_type="RF",
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,
