@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 regressors=("RF")
 targets=("log Rg (nm)")
-group_out=('HBD3 MACCS cluster' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster' 'KM4 ECFP6_Count_512bit cluster')
+group_out=('HBD3 MACCS cluster' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster' 'KM4 ECFP6_Count_512bit cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
@@ -17,7 +17,7 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 72:05
+#BSUB -W 35:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250417"  
