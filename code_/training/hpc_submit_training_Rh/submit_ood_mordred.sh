@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 regressors=("NGB")
 targets=("log Rg (nm)")
-models=("MACCS")
+models=("Mordred")
 poly_representations=("Trimer")
 group_out=('HBD3 MACCS cluster' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster' 'KM4 ECFP6_Count_512bit cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'

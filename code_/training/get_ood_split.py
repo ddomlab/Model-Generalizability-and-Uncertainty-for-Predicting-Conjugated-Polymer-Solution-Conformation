@@ -313,7 +313,6 @@ def _get_splits(cluster_labels: np.ndarray) -> dict[int, tuple[np.ndarray, np.nd
     return splits
 
 
-
 def get_loco_splits(cluster_type: Union[np.ndarray, dict[str, np.ndarray]]) -> dict[int, tuple[np.ndarray, np.ndarray]]:
     """
     Generates Leave-One-Cluster-Out (LOCO) splits.
