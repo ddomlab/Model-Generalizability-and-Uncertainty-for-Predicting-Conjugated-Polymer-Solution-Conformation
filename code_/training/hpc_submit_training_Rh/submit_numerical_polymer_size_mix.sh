@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("NGB")
+models_to_run=("RF")
 
 
 for target in "${target_to_assess[@]}"; do
@@ -12,7 +12,7 @@ for target in "${target_to_assess[@]}"; do
         bsub <<EOT
 
 #BSUB -n 4
-#BSUB -W 10:01
+#BSUB -W 5:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250502"
