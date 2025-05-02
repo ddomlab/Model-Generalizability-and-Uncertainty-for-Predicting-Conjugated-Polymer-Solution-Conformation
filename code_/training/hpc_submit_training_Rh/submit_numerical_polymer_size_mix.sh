@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("RF")
+models_to_run=("RF" "NGB")
 
 
 for target in "${target_to_assess[@]}"; do
@@ -12,7 +12,7 @@ for target in "${target_to_assess[@]}"; do
         bsub <<EOT
 
 #BSUB -n 4
-#BSUB -W 5:01
+#BSUB -W 10:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250502"
@@ -23,7 +23,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+                                  --numerical_feats  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH'
 
 conda deactivate
 
@@ -33,3 +33,4 @@ EOT
 done
 
 # 'Xn' 'Mw (g/mol)' 'PDI'
+# "polymer dP" "polymer dD" "polymer dH"
