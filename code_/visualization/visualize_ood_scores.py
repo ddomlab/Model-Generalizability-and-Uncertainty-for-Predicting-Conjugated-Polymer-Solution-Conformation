@@ -651,7 +651,7 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
                     'substructure cluster',

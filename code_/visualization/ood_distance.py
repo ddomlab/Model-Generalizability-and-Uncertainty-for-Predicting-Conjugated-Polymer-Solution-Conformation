@@ -198,8 +198,8 @@ if __name__ == "__main__":
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
                     'substructure cluster',
-                    'KM5 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP and polysize cluster',
+                    # 'KM5 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP and polysize cluster',
                     'KM4 polymer_solvent HSP cluster',
                     'KM4 Mordred_Polysize cluster',
                     ]
