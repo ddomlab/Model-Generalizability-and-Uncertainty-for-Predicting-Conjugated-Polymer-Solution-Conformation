@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 # from matplotlib import rc
+from visualization_setting import set_plot_style, save_img_path
 
 
 HERE: Path = Path(__file__).resolve().parent
@@ -50,11 +51,14 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['DP','Mw', 'PDI'],
+        'polysize': ['Xn','Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
-        'Ra': ['Ra']
+        'Ra': ['Ra'],
+        'ECFP6.count.512': ['ECFP3.count.512'],
+        'MACCS': ['MACCS'], 
+        'Mordred': ['Mordred'],
     }
     
     # Split the input string by hyphens
@@ -128,7 +132,6 @@ def correct_ecfp_name(prop_string):
 def get_results_from_file(
     file_path: Path,
     score: str,
-    var: str,
     peak_number:int=None,
     # impute: bool = False,
 ) :
@@ -155,6 +158,8 @@ def get_results_from_file(
         # for mixture of scaler and structural 
         elif "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
             features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            features = parse_property_string(features)
+            # print(features)
             model:str = file_path.name.split("_")[1]
 
         # for structural only
@@ -167,15 +172,8 @@ def get_results_from_file(
         with open(file_path, "r") as f:
             data = json.load(f)
 
-        print()
         avg = data[f"{score}_avg"]
-        # print(avg)
-        if var == "stdev":
-            std = data[f"{score}_stdev"]
-        elif var == "stderr":
-            std = data[f"{score}_stderr"]
-        else:
-            raise ValueError(f"Unknown variance type: {var}")
+        std = data[f"{score}_stdev"]
         
 
         avg = avg[peak_number] if isinstance(avg, list) else avg
@@ -204,7 +202,6 @@ def generate_annotations(num: float) -> str:
 def _create_heatmap(
     root_dir: Path,
     score: str,
-    var: str,
     avg_scores: pd.DataFrame,
     annotations: pd.DataFrame,
     figsize: tuple[int, int],
@@ -293,7 +290,7 @@ def _create_heatmap(
     cbar.set_ticks(np.round(ticks,1))
 
     cbar.set_label(
-        f"Average {score_txt.upper()} ± {var_titles.get(var, var)}",
+        f"Average {score_txt.upper()} ± {var_titles.get('stdev')}",
         rotation=270,
         labelpad=20,
         fontsize=14,
@@ -307,16 +304,157 @@ def _create_heatmap(
     plt.tight_layout()
     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
 
-    # Close the plot
     plt.show()
     plt.close()
 
 
 
+def get_polymer_propeties_comparison(target_folder: Path,
+                                     score: str,
+                                     comparison_value: List[str],
+                                    ) -> pd.DataFrame:
+    scores_to_report: List = []
+    pattern: str = "*_scores.json"
+
+    # Define the features you want to keep
+    selected_features: set = {
+        "solvent_properties + solvent_HSPs",
+        "polysize + solvent_properties + solvent_HSPs",
+        "solvent_properties + polymer_HSPs + solvent_HSPs",
+        "solvent_properties + solvent_HSPs + MACCS",
+        "solvent_properties + solvent_HSPs + Mordred",
+        "solvent_properties + solvent_HSPs + ECFP6.count.512",
+    }
+    selected_models: set = {
+        "RF",
+        "NGB",}
+
+    for value in comparison_value:
+        value_folder = os.path.join(target_folder, value)
+        score_files = list(Path(value_folder).rglob(pattern))
+
+        for score_path in score_files:
+            if "generalizability" in score_path.name or "test" in score_path.name or 'lc_scores' in score_path.name:
+                continue
+
+            feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
+            print(feats)
+            # Only keep selected features
+            if feats not in selected_features:
+                continue
+
+            if model not in selected_models:
+                continue
+
+            anot = f"{np.round(av, 2)}\n±{np.round(std, 2)}"
+            scores_to_report.append({
+                "features": feats,
+                "model": model,
+                "score": np.round(av, 2),
+                "annotations": anot
+            })
+
+    return pd.DataFrame(scores_to_report)
+
+
+def plot_manual_heatmap(
+            root_dir: Path,
+            score: str,
+            score_to_show: pd.DataFrame,
+            figsize: tuple[int, int],
+            fig_title: str,
+            x_title: str,
+            y_title: str,
+            fname: str,
+            vmin: float = None,
+            vmax: float = None,
+            feature_order: list[str] = None,
+            model_order: list[str] = None,
+            num_ticks: int = 3,
+            **kwargs,
+        ) -> None:
+
+    # Pivot the DataFrame: rows = models, columns = features
+    # print(score_to_show)
+    avg_scores = score_to_show.pivot_table(index="model", columns="features", values="score",aggfunc="mean")
+    annotations = score_to_show.pivot_table(index="model", columns="features", values="annotations",aggfunc="first")
+    # print(avg_scores)
+    # Apply order if provided
+    if feature_order is not None:
+        avg_scores = avg_scores[feature_order]
+        annotations = annotations[feature_order]
+
+    if model_order is not None:
+        avg_scores = avg_scores.reindex(model_order)
+        annotations = annotations.reindex(model_order)
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
+    custom_cmap = sns.color_palette(palette, as_cmap=True)
+    custom_cmap.set_bad(color="lightgray")
+
+    hmap = sns.heatmap(
+        avg_scores,
+        annot=annotations,
+        fmt="",
+        cmap=custom_cmap,
+        cbar=True,
+        vmin=vmin,
+        vmax=vmax,
+        ax=ax,
+        mask=avg_scores.isnull(),
+        annot_kws={"fontsize": 16},
+    )
+
+    # Set axis labels and tick labels
+    ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
+    ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
+
+    x_tick_labels: list[str] = avg_scores.columns.tolist()
+    y_tick_labels: list[str] = avg_scores.index.tolist()
+
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
+
+    # Set plot and axis titles
+    plt.title(fig_title, fontsize=18, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
+
+    # Set colorbar title and custom ticks
+    var_titles = {"stdev": "Stdev"}  # define this mapping if needed
+    score_txt: str = "$R^2$" if score == "r2" else score
+    cbar = hmap.collections[0].colorbar
+
+    if vmin is None:
+        vmin = np.nanmin(avg_scores.values)
+    if vmax is None:
+        vmax = np.nanmax(avg_scores.values)
+
+    ticks = np.linspace(vmin, vmax, num_ticks)
+    cbar.set_ticks(np.round(ticks, 1))
+
+    cbar.set_label(
+        f"Average {score_txt.upper()} ± {var_titles.get('stdev', 'Stdev')}",
+        rotation=270,
+        labelpad=20,
+        fontsize=14,
+        fontweight='bold',
+    )
+    cbar.ax.tick_params(labelsize=16)
+    plt.tight_layout()
+
+    # Save the figure
+    visualization_folder_path = root_dir / "comparison heatmap for polymer properties"
+    save_img_path(visualization_folder_path,f"{fname}.png")
+
+    plt.show()
+    plt.close()
+
 
 def creat_result_df(target_dir: Path,
                     score: str,
-                    var: str,
                     data_type: str,
                     transformer_type: str,
                     regressor_model: Optional[str] = None,
@@ -359,7 +497,7 @@ def creat_result_df(target_dir: Path,
                 if transformer_type not in file_path.name:
                     continue
 
-                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, var=var, peak_number=peak_number)
+                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, peak_number=peak_number)
                 models.add(model)
 
                 if data_type == 'structural':
@@ -372,7 +510,7 @@ def creat_result_df(target_dir: Path,
                 if transformer_type not in file_path.name:
                     continue
 
-                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, var=var, peak_number=peak_number)
+                feats, model, av, std = get_results_from_file(file_path=file_path, score=score, peak_number=peak_number)
                 models.add(model)
                 
                 if data_type == 'scaler':
@@ -546,15 +684,49 @@ def create_scaler_result(target_dir:Path,
 # simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
             # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                                     score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+            #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
+selected_features: set = [
+    "solvent_properties + solvent_HSPs",
+    "polysize + solvent_properties + solvent_HSPs",
+    "solvent_properties + polymer_HSPs + solvent_HSPs",
+    "solvent_properties + solvent_HSPs + MACCS",
+    "solvent_properties + solvent_HSPs + Mordred",
+    "solvent_properties + solvent_HSPs + ECFP6.count.512",
+]
+
+def creat_polymer_properties_comparison(target_dir:Path,
+                                        score:str,
+                                        comparison_value:List[str],
+                                        ) -> None:
+    scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
+                                                                   score=score,
+                                                                   comparison_value=comparison_value)
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    fname= f"model vs features in {score}"
+    plot_manual_heatmap(root_dir=target_dir,
+                        score=score,
+                        score_to_show=scores_to_show,
+                        figsize=(9, 8),
+                        fig_title=f" \n ",
+                        x_title="Feature Space",
+                        y_title="Models",
+                        fname=fname,
+                        vmin=.4,
+                        vmax=.6,
+                        feature_order=selected_features,
+                        # model_order=['RF','DT','MLR'],
+                        num_ticks=3,
+                        )
 
 
-
-
+creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
+                                    score='r2',
+                                    comparison_value=['scaler', 'Trimer_scaler'],
+                                    )
