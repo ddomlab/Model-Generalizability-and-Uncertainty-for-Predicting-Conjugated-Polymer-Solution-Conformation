@@ -171,7 +171,7 @@ def run_ood_learning_curve(
                     X_train,y_train = X_tv, y_tv
                 else:
                     X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
-                                                              random_state=seed,stratify=cluster_tv_labels)   
+                                                              random_state=seed,stratify=cluster_tv_labels,shuffle=True)   
                 
 
 

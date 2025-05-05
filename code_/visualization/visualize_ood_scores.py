@@ -223,6 +223,7 @@ def get_residual_vs_std_full_data(predicted:Dict,
     df_results = pd.DataFrame(results, columns=["Cluster", "Residual", "Prediction std", "Predicted y", "True y"])
     return df_results
 
+from scipy.stats import pearsonr
 
 def plot_residual_vs_std_full_data(
                                 predicted:Dict,
@@ -245,7 +246,7 @@ def plot_residual_vs_std_full_data(
         x_values = residual
         y_values = pred_std
         # x_errors = pred_std
-
+        pearson_r = pearsonr(y_values, x_values)[0]
         plt.sca(ax)  # Set the current axis so plt.gca() works
         ax = plt.gca()  # Get current axis
 
@@ -257,7 +258,15 @@ def plot_residual_vs_std_full_data(
         x_line = np.linspace(0, max_x, 100)
         ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
 
-
+        ax.text(
+            0.95, 0.1, 
+            f"Pearson R = {pearson_r:.2f}",
+            transform=ax.transAxes,
+            fontsize=12,
+            horizontalalignment='right',
+            verticalalignment='bottom',
+            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="gray")
+        )
         ax.set_xlabel("Residuals", fontsize=16, fontweight='bold')
         if ax == axes[0]:
             ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
@@ -495,11 +504,12 @@ def get_uncertenty_in_learning_curve(pred_file:Dict)-> pd.DataFrame:
                 # print(f'{len(y_predictions)} {len(uncertainties)} {len(y_true_all)}')
             ama_mean, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
                                                                         ama,n_samples=1)
-                
+            pearsonr_mean = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]
             results.append({
                 "Cluster": cluster,
                 "Train Set Size": train_set_size,
-                "Uncertainty": ama_mean,
+                "AMA": ama_mean,
+                "Pearson R": pearsonr_mean,
                 # "Prediction_std": np.std(predict_true['y_test_pred']),
             })
 
@@ -508,12 +518,12 @@ def get_uncertenty_in_learning_curve(pred_file:Dict)-> pd.DataFrame:
 
 def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
     df = get_uncertenty_in_learning_curve(prediction)
-    
+    # print(df)
     num_clusters = df["Cluster"].nunique()
     g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
 
-    g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty", s=100)  
-    g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty", linewidth=2.5)
+    g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty_ama", s=100)  
+    g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty_ama", linewidth=2.5)
 
     g.set_axis_labels("Train Set Size", "Absolute Miscalibration Area")
 
@@ -539,10 +549,11 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
                                           prediction: Dict,
                                           metric="rmse",
                                           folder: Path = None,
-                                          file_name: str = 'NGB_Mordred') -> None:
+                                          file_name: str = 'NGB_Mordred',
+                                          uncertenty_method:str="AMA") -> None:
     score_df, _ = process_summary_scores(summary_scores, metric)
-    ama_df = get_uncertenty_in_learning_curve(prediction)
-
+    unceretainty_df = get_uncertenty_in_learning_curve(prediction)
+    # print(score_df)
     if score_df.empty:
         print(f"No data found for metric '{metric}'.")
         return
@@ -551,10 +562,14 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
 
     # Define consistent y-axis limits and ticks
     max_score = np.ceil(score_df["Score"].max() * 2) / 2
-    score_yticks = np.arange(0, max_score + 0.5, 0.5)
+    score_yticks = np.arange(0, np.ceil(max_score) + .5, 0.5)
 
-    max_ama = np.ceil(ama_df["Uncertainty"].max() * 10) / 10
-    ama_yticks = np.arange(0, max_ama + 0.1, 0.1)
+    if uncertenty_method== "Pearson R":
+        max_uncertainty = np.ceil(np.abs(unceretainty_df[uncertenty_method]).max() * 2) / 2
+        ama_yticks = np.arange(-max_uncertainty, max_uncertainty + 0.5, 0.5)
+    else:
+        max_uncertainty = np.ceil(unceretainty_df[uncertenty_method].max() * 10) / 10
+        ama_yticks = np.arange(0, max_uncertainty + 0.1, 0.1)
 
     num_clusters = score_df['Cluster'].nunique()
     g = sns.FacetGrid(score_df, col="Cluster", col_wrap=num_clusters, height=4, sharey=False)
@@ -583,10 +598,10 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
             )
 
         # Plot AMA
-        ama_data = ama_df[ama_df["Cluster"] == cluster].sort_values("Train Set Size")
+        ama_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
         ax2.plot(
             ama_data["Train Set Size"],
-            ama_data["Uncertainty"],
+            ama_data[uncertenty_method],
             color="green",
             marker="*",
             linestyle="--",
@@ -598,7 +613,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
         # Set consistent y-limits and ticks
         ax.set_ylim(0, max_score)
         ax.set_yticks(score_yticks)
-        ax2.set_ylim(0, max_ama)
+        ax2.set_ylim(0, max_uncertainty)
         ax2.set_yticks(ama_yticks)
         ax2.tick_params(axis='y', labelsize=16)
         ax.tick_params(axis='x', labelsize=16)
@@ -617,7 +632,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
             ax.set_yticklabels([])
 
         if i == len(twin_axes) - 1:
-            ax2.set_ylabel("AMA", fontsize=18, color="green", fontweight='bold')
+            ax2.set_ylabel(uncertenty_method, fontsize=18, color="green", fontweight='bold')
         else:
             ax2.set_ylabel("")
             ax2.set_yticklabels([])
@@ -632,7 +647,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
 
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    # plt.show()
+    plt.show()
     plt.close()
 
 
@@ -655,8 +670,8 @@ if __name__ == "__main__":
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
                     'substructure cluster',
-                    'KM5 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP and polysize cluster',
+                    # 'KM5 polymer_solvent HSP and polysize cluster',
+                    # 'KM4 polymer_solvent HSP and polysize cluster',
                     'KM4 polymer_solvent HSP cluster',
                     'KM4 Mordred_Polysize cluster',
                     ]
@@ -666,7 +681,7 @@ if __name__ == "__main__":
     for cluster in cluster_list:
         # scores_folder_path = results_path / cluster / 'Trimer_scaler'
         # for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-        #     for model in ['XGBR']:
+        #     for model in ['XGBR', 'NGB']:
 
 
         #         score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
@@ -684,11 +699,11 @@ if __name__ == "__main__":
 
 
         #             # NGB XGB learning curve
-        #         with open(score_file_lc, "r") as f:
-        #             scores_lc = json.load(f)
+                # with open(score_file_lc, "r") as f:
+                #     scores_lc = json.load(f)
 
-        #         with open(predictions_file_lc, "r") as s:
-        #             predictions_lc = json.load(s)
+                # with open(predictions_file_lc, "r") as s:
+                #     predictions_lc = json.load(s)
                 # saving_folder_lc_score = scores_folder_path / f'learning curve'
                 # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
                 # print("Save learning curve scores")
@@ -735,10 +750,10 @@ if __name__ == "__main__":
             print(f"File not found: {score_file_lc_RF}")
             continue 
 
-        # with open(score_file_lc_RF, "r") as f:
-        #     scores_lc = json.load(f)
-        # with open(prediction_file_lc_RF, "r") as f:
-        #     predictions_lc = json.load(f)
+        with open(score_file_lc_RF, "r") as f:
+            scores_lc = json.load(f)
+        with open(prediction_file_lc_RF, "r") as f:
+            predictions_lc = json.load(f)
 
         # ama vs train size in lc
         # saving_folder_lc_score = scores_folder_path / f'learning curve'
@@ -747,27 +762,28 @@ if __name__ == "__main__":
         # plot_ama_vs_train_size(predictions_lc,saving_uncertainty, file_name=f'RF_scaler')
 
 
-        # saving_uncertainty = scores_folder_path / f'uncertainty_score'
-        # plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'RF_scaler')
-        # print("Save learning curve scores and uncertainty")
+        saving_uncertainty = scores_folder_path / f'uncertainty_score'
+        plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, 
+                                             file_name=f'RF_scaler_PearsonR',uncertenty_method="Pearson R")
+        print("Save learning curve scores and uncertainty")
 
 
         # residual distribution in lc
-        # saving_folder = scores_folder_path / f'KDE of residuals'
-        # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
+        saving_folder = scores_folder_path / f'KDE of residuals'
+        plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
 
         
 
         # Plot residual vs std (uncertenty):
 
-        with open(prediction_file_full, "r") as f:
-            predictions_data = json.load(f)
+        # with open(prediction_file_full, "r") as f:
+        #     predictions_data = json.load(f)
 
-        with open(truth_file_full, "r") as f:
-            truth_data = json.load(f)
+        # with open(truth_file_full, "r") as f:
+        #     truth_data = json.load(f)
 
-        saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
-        plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'RF_scaler')
+        # saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
+        # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'RF_scaler')
 
 
         # #Plot parity plot

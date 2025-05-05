@@ -718,15 +718,15 @@ def creat_polymer_properties_comparison(target_dir:Path,
                         x_title="Feature Space",
                         y_title="Models",
                         fname=fname,
-                        vmin=.4,
+                        vmin=.2,
                         vmax=.6,
                         feature_order=selected_features,
                         # model_order=['RF','DT','MLR'],
-                        num_ticks=3,
+                        num_ticks=5,
                         )
 
 
 creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score='r2',
+                                    score='rmse',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     )
