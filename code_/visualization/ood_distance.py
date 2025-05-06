@@ -35,34 +35,10 @@ def weighted_jaccard(u, v,eps: float = 1e-6):
     max_sum = np.sum(np.maximum(u, v))
     return 1 - ((min_sum+eps) / (max_sum+eps))
 
-# count_tanimoto_similarities = 1 - pdist(count_vectors, metric=weighted_jaccard)
-
-# data = pd.DataFrame({
-#     "Similarity": np.concatenate([binary_tanimoto_similarities, count_tanimoto_similarities]),
-#     "Type": ["Binary"] * len(binary_tanimoto_similarities) + ["Count-based"] * len(count_tanimoto_similarities)
-# })
-
-# plt.figure(figsize=(9, 6))
-# sns.histplot(data, x="Similarity", hue="Type", kde=True, bins=20)
-# plt.title("Comparison of Binary and Count-based Tanimoto Similarities")
-# plt.xlabel("Tanimoto Similarity")
-# plt.ylabel("Frequency")
-# plt.tight_layout()
-# # visualization_folder_path =  HERE/"analysis and test"
-# # os.makedirs(visualization_folder_path, exist_ok=True)    
-# # fname = "Comparison of Binary and Count-based Tanimoto Similarities (over Rg)"
-# # plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
-# # plt.close()
-
-# plt.show()
-
-
-
 ## Train-Test OOD Distance
 
 rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters.pkl')
 results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
-
 
 def get_cluster_scores(fp_vector:np.ndarray, predicted_clusters, metric: Union[str, Callable]):
     si_score = silhouette_score(fp_vector, predicted_clusters, metric=metric)
@@ -83,7 +59,7 @@ cov_continuous_vector = rg_data[covarience_features].to_numpy(dtype=float)
 cov_continuous_vector_scaled = sd_caler.fit_transform(cov_continuous_vector)
 cov_mordred_vector = pd.DataFrame(rg_data['Trimer_Mordred'].tolist()).to_numpy(dtype=float)
 cov_mordred_vector_scaled = sd_caler.fit_transform(cov_mordred_vector)
-cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist())
+cov_ECFP_vector = np.array(rg_data['Trimer_ECFP6_count_512bits'].tolist(), dtype=int)
 cv_MACCS_vector = np.array(rg_data['Trimer_MACCS'].tolist())
 cov_mordred_and_continuous_vector = np.concatenate([cov_mordred_vector, cov_continuous_vector], axis=1)
 cov_mordred_and_continuous_vector_scaled = sd_caler.fit_transform(cov_mordred_and_continuous_vector)
@@ -120,7 +96,10 @@ def make_accumulating_scores(scores, ml_score_metric: str, co_vector, cluster_ty
 
         si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
 
-        mean, std = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
+        mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
+        mean_ID, std_ID = get_score(scores, f"ID_{cluster_id}", ml_score_metric)
+        mean = abs(mean_ood - mean_ID)
+        std = std_ood + std_ID
 
         data.append({
             "Cluster": cluster_id,
@@ -148,13 +127,14 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
     marker_map = {model: marker_shapes[i % len(marker_shapes)] for i, model in enumerate(sorted(models))}
 
     legend_elements = [
-        Line2D([0], [0],marker='*', color='w', markerfacecolor=color_map[cluster], label=f"CO {cluster}",
-               markersize=10)
-        for cluster in sorted(clusters)
-    ] + [
-        Line2D([0], [0], marker=marker_map[model], color='k', linestyle='None', label=model, markersize=10)
-        for model in sorted(models)
-    ]
+            Line2D([0], [0], marker='_', color=color_map[cluster], linestyle='None',
+                   label=f"CO {cluster}", markersize=20, markeredgewidth=2)
+            for cluster in sorted(clusters)
+        ] + [
+            Line2D([0], [0], marker=marker_map[model], color='k', linestyle='None', 
+                   label=model, markersize=10)
+            for model in sorted(models)
+        ]
 
     for clustering_metric in clustering_score_metrics:
         plt.figure(figsize=(6, 5))
@@ -172,7 +152,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
             )
 
         plt.xlabel(f"Train-Test Distance ({clustering_metric})", fontsize=16, fontweight='bold')
-        plt.ylabel(f"{ml_score_metric.upper()} Score", fontsize=16, fontweight='bold')
+        plt.ylabel(f"{ml_score_metric.upper()} Score (OOD-IID)", fontsize=16, fontweight='bold')
         plt.title(f"{co_vector}".capitalize(), fontsize=20)
         plt.legend(handles=legend_elements, loc="best", fontsize=12)
 
@@ -185,8 +165,18 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
             plt.xticks(ticks)
             plt.xlim(left=min_val)
 
+
+        y_min = min(row[f"{ml_score_metric}_mean"] for row in df)
+        y_max = max(row[f"{ml_score_metric}_mean"] for row in df)
+
+        y_min_tick = np.floor(y_min * 5) / 5  # nearest lower multiple of 0.2
+        y_max_tick = np.ceil(y_max * 5) / 5    # nearest higher multiple of 0.2
+        yticks = np.arange(y_min_tick, y_max_tick + 0.2, 0.2)
+        plt.yticks(yticks)
+        plt.ylim(0, y_max_tick + 0.2)
+        
         plt.tight_layout()
-        save_img_path(saving_path, f"{file_name}_{clustering_metric}.png")
+        save_img_path(saving_path, f"{file_name}_distance_metric-{clustering_metric}.png")
         # plt.show()
         plt.close()
 
@@ -214,11 +204,11 @@ if __name__ == "__main__":
             if fp == 'ECFP3.count.512':
                 co_vectors.append('ECFP vector')
             
-            score_metrics = ["rmse", "r2"]
+            score_metrics = ["rmse"]
             for co_vector in co_vectors:
-                for ml_metric in score_metrics:
+                for accuracy_metric in score_metrics:
                     combined_data = []
-                    for model in ['XGBR', 'NGB']:
+                    for model in ['XGBR', 'NGB', 'RF']:
                             scores_folder_path = results_path / cluster / 'Trimer_scaler'
                             score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
                             score_file = ensure_long_path(score_file)
@@ -229,27 +219,27 @@ if __name__ == "__main__":
                             with open(score_file, "r") as f:
                                 scores = json.load(f)
 
-                            model_data = make_accumulating_scores(scores, ml_metric, co_vector, cluster, model)
+                            model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model)
                             combined_data.extend(model_data)
                                     
-                    RF_vector = 'numerical vector'
-                    if RF_vector ==  co_vector:
-                        scores_folder_path = results_path / cluster / 'scaler'
-                        score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
-                        score_file = ensure_long_path(score_file)
-                        with open(score_file, "r") as f:
-                            scores = json.load(f)
-                            
-                        RF_data = make_accumulating_scores(scores, ml_metric, RF_vector, cluster, 'RF')
-                        combined_data.extend(RF_data)
-                        # print(combined_data)
-                    saving_folder = results_path / cluster / f'scores vs distance combined'/ f"{co_vector}"
-                    plot_OOD_Score_vs_distance(combined_data, ml_metric, co_vector=co_vector, cluster_types=cluster,
-                                    saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{ml_metric}")
+                    saving_folder = scores_folder_path/ f'scores vs distance combined'/ f"{co_vector}"
+                    plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector, cluster_types=cluster,
+                                    saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{accuracy_metric}")
                     print('Plot combined')
+                            
                             # plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
                             #                             saving_path=saving_folder, file_name=f"{fp}_{ml_metric}")
-
+                    # RF_vector = 'numerical vector'
+                    # if RF_vector ==  co_vector:
+                    #     scores_folder_path = results_path / cluster / 'scaler'
+                    #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
+                    #     score_file = ensure_long_path(score_file)
+                    #     with open(score_file, "r") as f:
+                    #         scores = json.load(f)
+                            
+                    #     RF_data = make_accumulating_scores(scores, ml_metric, RF_vector, cluster, 'RF')
+                    #     combined_data.extend(RF_data)
+                        # print(combined_data)
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
         # for ml_metric in score_metrics:
