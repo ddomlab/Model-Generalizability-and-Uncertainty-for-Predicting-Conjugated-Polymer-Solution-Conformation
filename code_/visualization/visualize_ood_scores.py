@@ -280,24 +280,27 @@ def plot_residual_vs_std_full_data(
     plt.close()
 
 
-def process_summary_scores(summary_scores, 
-                           metric="rmse")-> Tuple[pd.DataFrame, Dict[str, set]]:
+from typing import Tuple
+import pandas as pd
+
+def process_learning_curve_scores(summary_scores,
+                                   metric="rmse") -> Tuple[pd.DataFrame, pd.DataFrame]:
     data = []
-    # Store the set of unique training set sizes for each cluster
     cluster_train_sizes = {}
-    
+
+    # First pass: Collect all data and training sizes
     for cluster, ratios in summary_scores.items():
-        cluster_size = ratios.get("Cluster size", 0)  
-        cluster_train_sizes[cluster] = set()  
-        
+        cluster_size = ratios.get("Cluster size", 0)
+        cluster_train_sizes[cluster] = set()
+
         for ratio, stats in ratios.items():
             if ratio == "Cluster size":
-                continue 
-            
+                continue
+
             train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round(float(train_ratio * cluster_size),1)
+            train_set_size = round(float(train_ratio * cluster_size), 1)
             cluster_train_sizes[cluster].add(train_set_size)
-            
+
             metric_test = f"test_{metric}_mean"
             metric_train = f"train_{metric}_mean"
             std_test = f"test_{metric}_std"
@@ -319,12 +322,24 @@ def process_summary_scores(summary_scores,
                     "Score Type": "Train"
                 })
 
-    return pd.DataFrame(data), cluster_train_sizes
+    full_df = pd.DataFrame(data)
+
+    # Find common train set sizes across all clusters
+    if cluster_train_sizes:
+        common_train_sizes = set.intersection(*cluster_train_sizes.values())
+    else:
+        common_train_sizes = set()
+
+    # Filter the full DataFrame to only include rows with common train set sizes
+    equal_train_size_df = full_df[full_df["Train Set Size"].isin(common_train_sizes)].copy()
+
+    return full_df, equal_train_size_df
+
 
 
 
 def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None, file_name: str = 'NGB_Mordred') -> None:
-    df, _ = process_summary_scores(summary_scores, metric)
+    df, _ = process_learning_curve_scores(summary_scores, metric)
 
     if df.empty:
         print(f"No data found for metric '{metric}'.")
@@ -540,15 +555,15 @@ def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_
     save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
     # plt.show()
     plt.close()
-    
 
-def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
+
+def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                                           prediction: Dict,
                                           metric="rmse",
                                           folder: Path = None,
                                           file_name: str = 'NGB_Mordred',
                                           uncertenty_method:str="AMA") -> None:
-    score_df, _ = process_summary_scores(summary_scores, metric)
+    score_df, _ = process_learning_curve_scores(summary_scores, metric)
     unceretainty_df = get_uncertenty_in_learning_curve(prediction,uncertenty_method)
     # print(score_df)
     if score_df.empty:
@@ -635,12 +650,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
 
         ax.set_title(g.col_names[i], fontsize=20)
 
-
-
-
-
     plt.tight_layout()
-
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
     plt.show()
@@ -759,7 +769,7 @@ if __name__ == "__main__":
 
 
         saving_uncertainty = scores_folder_path / f'uncertainty_score'
-        plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, 
+        plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, 
                                              file_name=f'RF_scaler_PearsonR',uncertenty_method="Pearson R")
         print("Save learning curve scores and uncertainty")
 

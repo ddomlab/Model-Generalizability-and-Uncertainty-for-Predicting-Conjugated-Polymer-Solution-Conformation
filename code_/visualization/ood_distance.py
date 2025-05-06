@@ -11,7 +11,7 @@ from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silho
 from sklearn.preprocessing import StandardScaler
 import json
 from matplotlib.lines import Line2D
-from visualize_ood_scores import get_score, ensure_long_path
+from visualize_ood_scores import get_score, ensure_long_path, process_learning_curve_scores
 set_plot_style(tick_size=16)
 
 HERE: Path = Path(__file__).resolve().parent
@@ -116,7 +116,7 @@ def make_accumulating_scores(scores, ml_score_metric: str, co_vector, cluster_ty
 
 marker_shapes = ['o', 's', '^', 'D', 'v', '<', '>', 'p', '*', 'X', 'h']
 
-def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_types: str,
+def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector,
                                 saving_path: Optional[Path] = None, file_name: str = None) -> None:
     clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
     models = list({row['Model'] for row in df})
@@ -179,6 +179,13 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
         save_img_path(saving_path, f"{file_name}_distance_metric-{clustering_metric}.png")
         plt.show()
         plt.close()
+
+summariezed_learning_scores, scores_at_equal_training_size = process_learning_curve_scores(scores,"rmse")
+
+def plot_OOD_IID_vs_distance_same_training_size():
+
+    pass
+
 
 
 
