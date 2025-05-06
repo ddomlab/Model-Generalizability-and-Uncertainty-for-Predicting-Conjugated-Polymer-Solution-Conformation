@@ -1649,3 +1649,73 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250430/NGB_log Rg (nm)_ECFP_Trimer_3_count_HBD3 MACCS cluster_20250430.err> for stderr output of this job.
 
+
+
+
+-------------------------------------------------- 
+OOD TEST ON -1
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n11>
+Subject: Job 743269: <NGB_log Rg (nm)_ECFP_Trimer_HBD3 MACCS cluster_20250430> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_ECFP_Trimer_HBD3 MACCS cluster_20250430> was submitted from host <c207n12> by user <sdehgha2> in cluster <Hazel> at Mon May  5 18:41:18 2025
+Job was executed on host(s) <6*c207n11>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon May  5 18:41:20 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Mon May  5 18:41:20 2025
+Terminated at Mon May  5 18:43:12 2025
+Results reported at Mon May  5 18:43:12 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 50:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_ECFP_Trimer_HBD3 MACCS cluster_20250430"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250430/NGB_log Rg (nm)_ECFP_Trimer_3_count_HBD3 MACCS cluster_20250430.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250430/NGB_log Rg (nm)_ECFP_Trimer_3_count_HBD3 MACCS cluster_20250430.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                       --representation "ECFP"                                       --regressor_type "NGB"                                       --radius "3"                                       --vector "count"                                       --oligomer_representation "Trimer"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                       --clustering_method "HBD3 MACCS cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   114.22 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             0.17 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               14.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   127 sec.
+    Turnaround time :                            114 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250430/NGB_log Rg (nm)_ECFP_Trimer_3_count_HBD3 MACCS cluster_20250430.err> for stderr output of this job.
+
