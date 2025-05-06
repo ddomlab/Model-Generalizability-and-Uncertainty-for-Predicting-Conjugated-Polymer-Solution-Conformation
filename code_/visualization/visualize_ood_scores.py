@@ -479,7 +479,7 @@ def plot_residual_distribution_learning_curve(predictions: pd.DataFrame, folder_
 from visualize_uncertainty_calibration import get_calibration_confidence_interval, AbsoluteMiscalibrationArea
 ama = AbsoluteMiscalibrationArea()
 
-def get_uncertenty_in_learning_curve(pred_file:Dict)-> pd.DataFrame:
+def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
     results = []
     for cluster, ratios in pred_file.items():
         cluster_size = ratios.get("Cluster size", 0)
@@ -501,10 +501,11 @@ def get_uncertenty_in_learning_curve(pred_file:Dict)-> pd.DataFrame:
                 y_predictions.extend(y_pred)
                 uncertainties.extend(y_uncertainty)
                 y_true_all.extend(y_true)
-                # print(f'{len(y_predictions)} {len(uncertainties)} {len(y_true_all)}')
-            ama_mean, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
-                                                                        ama,n_samples=1)
-            pearsonr_mean = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]
+            if method=="AMA":
+                ama_mean, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
+                                                                ama,n_samples=1)
+            else:
+                pearsonr_mean = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
             results.append({
                 "Cluster": cluster,
                 "Train Set Size": train_set_size,
@@ -539,11 +540,7 @@ def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_
     save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
     # plt.show()
     plt.close()
-
-
-
-
-
+    
 
 def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
                                           prediction: Dict,
@@ -552,7 +549,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
                                           file_name: str = 'NGB_Mordred',
                                           uncertenty_method:str="AMA") -> None:
     score_df, _ = process_summary_scores(summary_scores, metric)
-    unceretainty_df = get_uncertenty_in_learning_curve(prediction)
+    unceretainty_df = get_uncertenty_in_learning_curve(prediction,uncertenty_method)
     # print(score_df)
     if score_df.empty:
         print(f"No data found for metric '{metric}'.")
@@ -597,7 +594,6 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
                 alpha=0.2
             )
 
-        # Plot AMA
         ama_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
         ax2.plot(
             ama_data["Train Set Size"],
@@ -607,7 +603,7 @@ def plot_ood_learning_scores_uncertainty(summary_scores: Dict,
             linestyle="--",
             linewidth=1.5,
             markersize=5,
-            label="AMA"
+            label=uncertenty_method
         )
 
         # Set consistent y-limits and ticks

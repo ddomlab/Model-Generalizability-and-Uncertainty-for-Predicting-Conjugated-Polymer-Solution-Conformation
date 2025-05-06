@@ -177,7 +177,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector, cluster_type
         
         plt.tight_layout()
         save_img_path(saving_path, f"{file_name}_distance_metric-{clustering_metric}.png")
-        # plt.show()
+        plt.show()
         plt.close()
 
 
@@ -194,52 +194,60 @@ if __name__ == "__main__":
                     'KM4 Mordred_Polysize cluster',
                     ]
     for cluster in cluster_list:
-        for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
-            co_vectors = ['numerical vector']
-            if fp == 'Mordred':
-                co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
-            if fp == 'MACCS':
-                co_vectors.append('MACCS vector')
+        score_metrics = ["rmse"]
+        for accuracy_metric in score_metrics:
+            # for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
+            #     co_vectors = ['numerical vector']
+            #     if fp == 'Mordred':
+            #         co_vectors.extend(['mordred vector', 'combined mordred-numerical vector'])
+            #     if fp == 'MACCS':
+            #         co_vectors.append('MACCS vector')
 
-            if fp == 'ECFP3.count.512':
-                co_vectors.append('ECFP vector')
-            
-            score_metrics = ["rmse"]
-            for co_vector in co_vectors:
-                for accuracy_metric in score_metrics:
-                    combined_data = []
-                    for model in ['XGBR', 'NGB', 'RF']:
-                            scores_folder_path = results_path / cluster / 'Trimer_scaler'
-                            score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                            score_file = ensure_long_path(score_file)
-                            if not os.path.exists(score_file):
-                                print(f"File not found: {score_file}")
-                                continue 
+            #     if fp == 'ECFP3.count.512':
+            #         co_vectors.append('ECFP vector')
+                
+            #     for co_vector in co_vectors:
+            #         combined_data = []
+            #         for model in ['XGBR', 'NGB', 'RF']:
+            #                 scores_folder_path = results_path / cluster / 'Trimer_scaler'
+            #                 score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+            #                 score_file = ensure_long_path(score_file)
+            #                 if not os.path.exists(score_file):
+            #                     print(f"File not found: {score_file}")
+            #                     continue 
 
-                            with open(score_file, "r") as f:
-                                scores = json.load(f)
+            #                 with open(score_file, "r") as f:
+            #                     scores = json.load(f)
 
-                            model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model)
-                            combined_data.extend(model_data)
+            #                 model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model)
+            #                 combined_data.extend(model_data)
                                     
-                    saving_folder = scores_folder_path/ f'scores vs distance combined'/ f"{co_vector}"
-                    plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector, cluster_types=cluster,
-                                    saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{accuracy_metric}")
-                    print('Plot combined')
+            #         saving_folder = scores_folder_path/ f'scores vs distance combined'/ f"{co_vector}"
+            #         plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector, cluster_types=cluster,
+            #                         saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{accuracy_metric}")
+            #         print('Plot combined')
                             
                             # plot_OOD_Score_vs_distance(scores,ml_metric, co_vector=co_vector,cluster_types=cluster,
                             #                             saving_path=saving_folder, file_name=f"{fp}_{ml_metric}")
-                    # RF_vector = 'numerical vector'
-                    # if RF_vector ==  co_vector:
-                    #     scores_folder_path = results_path / cluster / 'scaler'
-                    #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
-                    #     score_file = ensure_long_path(score_file)
-                    #     with open(score_file, "r") as f:
-                    #         scores = json.load(f)
-                            
-                    #     RF_data = make_accumulating_scores(scores, ml_metric, RF_vector, cluster, 'RF')
-                    #     combined_data.extend(RF_data)
-                        # print(combined_data)
+            co_vector = 'numerical vector'
+            combined_data = []
+            for model in ['XGBR', 'NGB', 'RF']:
+                scores_folder_path = results_path / cluster / 'scaler'
+                score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+                score_file = ensure_long_path(score_file)
+                with open(score_file, "r") as f:
+                    scores = json.load(f)
+                    
+                model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model)
+                combined_data.extend(model_data)
+
+            saving_folder = scores_folder_path/ f'scores vs distance combined'/ f"{co_vector}"
+            plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector, cluster_types=cluster,
+                            saving_path=saving_folder, file_name=f"numerical_metric-{accuracy_metric}")
+            print('Plot combined')
+
+
+
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
         # for ml_metric in score_metrics:
