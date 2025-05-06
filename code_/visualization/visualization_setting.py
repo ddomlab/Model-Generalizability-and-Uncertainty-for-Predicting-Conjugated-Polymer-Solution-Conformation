@@ -81,5 +81,9 @@ def set_plot_style(
 def save_img_path(folder_path:Union[str, Path], file_name:str)->None:
     folder_path = Path(folder_path)
     os.makedirs(folder_path, exist_ok=True)
-    plt.savefig(folder_path / file_name, dpi=600)
-    
+
+    save_path = folder_path / file_name
+    if os.name == 'nt':  # Only for Windows
+        save_path = Path(f"\\\\?\\{save_path.resolve()}")
+
+    plt.savefig(save_path, dpi=600, bbox_inches='tight')
