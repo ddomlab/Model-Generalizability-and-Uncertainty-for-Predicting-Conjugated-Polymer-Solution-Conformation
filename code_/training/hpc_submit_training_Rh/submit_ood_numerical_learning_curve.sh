@@ -15,7 +15,7 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 6
+#BSUB -n 4
 #BSUB -W 03:00
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
