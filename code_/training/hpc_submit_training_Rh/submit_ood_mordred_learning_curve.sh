@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250505
 mkdir -p "$output_dir"
 
-regressors=("RF") 
+regressors=("NGB" "XGBR") 
 targets=('log Rg (nm)')
 models=("Mordred" "MACCS")
 poly_representations=('Trimer')
@@ -18,7 +18,7 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 4
+#BSUB -n 6
 #BSUB -W 03:00
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
