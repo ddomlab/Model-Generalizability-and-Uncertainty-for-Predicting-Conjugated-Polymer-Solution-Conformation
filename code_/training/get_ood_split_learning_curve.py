@@ -183,7 +183,7 @@ def run_ood_learning_curve(
             train_ratios_IID: np.ndarray = np.array(train_sizes_IID) / len(X_tv)
             for train_ratio_IID, train_score_IID, test_score_IID in zip(train_ratios_IID, train_scores_IID, test_scores_IID):
 
-                learning_curve_scores.setdefault(f'ID_{cluster}', {}).setdefault(f'seed_{seed_IID}', {})[f'ratio_{train_ratio_IID}']= {
+                learning_curve_scores.setdefault(f'ID_{cluster}', {}).setdefault(f'seed_{seed_IID}', {})[f'ratio_{np.round(train_ratio_IID,3)}']= {
                     f'train_rmse': train_score_IID,
                     'test_rmse': test_score_IID,
                 }

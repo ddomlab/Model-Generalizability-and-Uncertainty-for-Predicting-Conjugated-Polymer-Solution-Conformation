@@ -347,7 +347,7 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
 
                 train_metrics["rmse"] = metrics["train_rmse"]
                 test_metrics["rmse"] = metrics["test_rmse"]
-
+                scores[cluster].setdefault(ratio_key, {})
                 scores[cluster][ratio_key].update({
                     "test_summary_stats": compute_summary_stats(test_metrics),
                     "train_summary_stats": compute_summary_stats(train_metrics),
