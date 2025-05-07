@@ -26,7 +26,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 
 def main_structural_numerical(
@@ -103,7 +103,7 @@ if __name__ == "__main__":
             representation="Mordred",
             # radius=3,
             # vector="count",
-            regressor_type="NGB",
+            regressor_type="RF",
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,

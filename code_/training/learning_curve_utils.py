@@ -177,6 +177,8 @@ def run_leaning(
                         ])
         
         regressor.set_output(transform="pandas")
+        steps=0.1
+        train_ratio:np.ndarray = np.linspace(0.1, 1, int(0.9 / steps))
         if hyperparameter_optimization:
                 best_estimator, regressor_params = _optimize_hyperparams(
                     X,
@@ -186,12 +188,11 @@ def run_leaning(
                     regressor_type=regressor_type,
                     regressor=regressor,
                 )
-        
                 train_sizes, train_scores, test_scores = get_incremental_split(best_estimator,
                                                                                 X,
                                                                                 y,
                                                                                 cv_outer,
-                                                                                steps=0.1,
+                                                                                train_ratio=train_ratio,
                                                                                 random_state=seed)
 
 
@@ -200,7 +201,7 @@ def run_leaning(
                                                                                 X,
                                                                                 y,
                                                                                 cv_outer,
-                                                                                steps=0.1,
+                                                                                train_ratio=train_ratio,
                                                                                 random_state=seed)
 
 

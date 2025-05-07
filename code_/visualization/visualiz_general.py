@@ -46,12 +46,12 @@ def plot_data_reduction_steps()->None:
 
 
 
-    ax.set_ylabel('Number of Data Points', fontsize=16)
-    ax.set_title('Data Reduction at Each Step of Cleaning', fontsize=18, fontweight='bold')
+    ax.set_ylabel('Number of Data Points', fontsize=20, fontweight='bold')
+    ax.set_title('Data Reduction at Each Step of Cleaning', fontsize=21, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels(targets, rotation=45, ha='right')
-    ax.tick_params(axis='x', labelsize=16)
-    ax.tick_params(axis='y', labelsize=16)
+    ax.tick_params(axis='x', labelsize=21)
+    ax.tick_params(axis='y', labelsize=18)
 
     ax.legend(fontsize=12)
     plt.tight_layout()

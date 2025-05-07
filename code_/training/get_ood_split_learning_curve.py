@@ -16,7 +16,8 @@ from imputation_normalization import preprocessing_workflow
 from training_utils import get_target_transformer, split_for_training,set_globals
 from scoring import (
                     train_and_predict_ood,
-                    process_ood_learning_curve_score
+                    process_ood_learning_curve_score,
+                    get_incremental_split
                 )
 from all_factories import optimized_models
 
@@ -66,9 +67,9 @@ def train_ood_learning_curve(
                                     second_transformer=second_transformer,
                                     clustering_method=clustering_method,
                                     )
-
+    print(score)
     score = process_ood_learning_curve_score(score)
-
+    print(score)
     return score, predictions
 
 def prepare_data(    
@@ -146,11 +147,46 @@ def run_ood_learning_curve(
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
         learning_curve_predictions[f'CO_{cluster}'] = {'y_true': y_test.flatten()}
         train_ratios =[
-            .1,.3,.5,.7,
+            
             .9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
             train_ratios.append(min_ratio_to_compare)
+
+
+
+
+        #### IID learning curve
+        ID_n_split = round(len(y)/len(y_test))
+        for seed_IID in SEEDS:
+
+           ### building model
+            y_transform = get_target_transformer(transform_type, second_transformer)
+            model = optimized_models(model_name, random_state=seed_IID)
+
+            y_model = TransformedTargetRegressor(
+                                regressor=model,
+                                transformer=y_transform,
+                                )
+            new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
+            regressor_IID :Pipeline= Pipeline(steps=[
+                                ("preprocessor", new_preprocessor),
+                                ("regressor", y_model),
+                                ])
+            regressor_IID.set_output(transform="pandas")
+
+            IID_cv_baseline = KFold(n_splits=ID_n_split, shuffle=True, random_state=seed_IID)
+            train_sizes_IID, train_scores_IID, test_scores_IID = get_incremental_split(regressor_IID,X,y, 
+                                                            cv=IID_cv_baseline,scoring='neg_root_mean_squared_error',
+                                                            train_ratio=train_ratios,random_state=seed_IID)
+            
+            train_ratios_IID: np.ndarray = np.array(train_sizes_IID) / len(X_tv)
+            for train_ratio_IID, train_score_IID, test_score_IID in zip(train_ratios_IID, train_scores_IID, test_scores_IID):
+
+                learning_curve_scores.setdefault(f'ID_{cluster}', {}).setdefault(f'seed_{seed_IID}', {})[f'ratio_{train_ratio_IID}']= {
+                    f'train_rmse': train_score_IID,
+                    'test_rmse': test_score_IID,
+                }
 
 
         for train_ratio in train_ratios:
@@ -162,7 +198,6 @@ def run_ood_learning_curve(
                 random_state_list = np.arange(12)
             elif train_ratio >=0.1:
                 random_state_list = np.arange(30)
-
             else:
                 random_state_list = np.arange(50)
 
@@ -182,28 +217,28 @@ def run_ood_learning_curve(
                 y_model = TransformedTargetRegressor(
                                     regressor=model,
                                     transformer=y_transform,
-                            )
+                                    )
                 new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
                 regressor :Pipeline= Pipeline(steps=[
                                     ("preprocessor", new_preprocessor),
                                     ("regressor", y_model),
-                                        ])
+                                    ])
                 regressor.set_output(transform="pandas")
-
-
                 uncertainty_preprocessr: Pipeline = Pipeline(steps=[
                     ("preprocessor", new_preprocessor),
-                ]) 
-                test_score, train_scores, y_test_pred_ood, y_test_uncertainty = train_and_predict_ood(regressor, X_train, y_train, X_test, y_test,
-                                                                                  return_train_pred=True,algorithm=model_name,manual_preprocessor=uncertainty_preprocessr)
+                    ]) 
+
+                test_scores_OOD, train_scores_OOD, y_test_pred_OOD, y_test_uncertainty_OOD = train_and_predict_ood(regressor, X_train, y_train, X_test, y_test,
+                                                                                                    return_train_pred=True, algorithm=model_name,
+                                                                                                    manual_preprocessor=uncertainty_preprocessr)
                 
-                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_score)
+                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores_OOD, test_scores_OOD)
                 learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
-                    'y_test_pred': y_test_pred_ood.flatten(),
-                    'y_test_uncertainty': y_test_uncertainty.flatten() if y_test_uncertainty is not None else None,
+                    'y_test_pred': y_test_pred_OOD.flatten(),
+                    'y_test_uncertainty': y_test_uncertainty_OOD.flatten() if y_test_uncertainty_OOD is not None else None,
                 }
-                print(f'Cluster: {cluster}')
-                print(f'lc: {learning_curve_scores}')
+                # print(f'Cluster: {cluster}')
+                # print(f'lc: {learning_curve_scores}')
 
         learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
         learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)

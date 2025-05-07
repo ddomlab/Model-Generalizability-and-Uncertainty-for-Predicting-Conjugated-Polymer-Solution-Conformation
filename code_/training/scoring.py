@@ -305,10 +305,10 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
     Processes the input dictionary, aggregates scores for each training ratio across different seeds,
     and computes summary statistics for both test and train metrics.
     """
-    for cluster, ratios in scores.items():
-        if cluster.startswith("CO_") or cluster.startswith("ID_"):
+    for cluster, score_dict in scores.items():
+        if cluster.startswith("CO_"):
 
-            for train_ratio, seeds in ratios.items():
+            for train_ratio, seeds in score_dict.items():
                 if train_ratio == "Cluster size":  
                     continue
                 test_metrics = defaultdict(list)
@@ -328,6 +328,32 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
                     "train_summary_stats": compute_summary_stats(train_metrics),
                 })
 
+        if cluster.startswith("ID_"):
+            ratio_aggregator = defaultdict(lambda: {"train_rmse": [], "test_rmse": []})
+            for seed, train_ratio_dict in score_dict.items():
+                for ratio_key, metrics_dict in train_ratio_dict.items():
+                    # ratio_key is like 'ratio_0.3' -> extract actual number if needed
+                    train_rmse_array = metrics_dict['train_rmse']
+                    test_rmse_array = metrics_dict['test_rmse']
+
+                    # Extend the list with all values inside array
+                    ratio_aggregator[ratio_key]["train_rmse"].extend(train_rmse_array)
+                    ratio_aggregator[ratio_key]["test_rmse"].extend(test_rmse_array)
+
+            # Second: now process each ratio
+            for ratio_key, metrics in ratio_aggregator.items():
+                train_metrics = defaultdict(list)
+                test_metrics = defaultdict(list)
+
+                train_metrics["rmse"] = metrics["train_rmse"]
+                test_metrics["rmse"] = metrics["test_rmse"]
+
+                scores[cluster][ratio_key].update({
+                    "test_summary_stats": compute_summary_stats(test_metrics),
+                    "train_summary_stats": compute_summary_stats(train_metrics),
+                })
+
+    
     return scores
 
 
@@ -446,8 +472,10 @@ def cross_validate_regressor(
 
 
 def get_incremental_split(
-        regressor_params, X, y, cv, steps:int,
-        random_state:int
+        regressor_params, X, y, cv,
+        random_state:int,
+        train_ratio:np.ndarray,
+        scoring:str='r2',
     ) -> tuple:
      
     training_sizes, training_scores, testing_scores = learning_curve(
@@ -456,8 +484,8 @@ def get_incremental_split(
                                                         y,
                                                         cv=cv,
                                                         n_jobs=-1,
-                                                        train_sizes=np.linspace(0.1, 1, int(0.9 / steps)),
-                                                        scoring="r2",
+                                                        train_sizes=train_ratio,
+                                                        scoring=scoring,
                                                         shuffle=True,
                                                         random_state=random_state
                                                         )
@@ -487,10 +515,12 @@ class PredictionUncertainty:
 
 
 def train_and_predict_ood(reg, X_train_val, y_train_val, X_test, y_test, 
-                            return_train_pred:bool=False, algorithm:str='NGB',
+                            algorithm:str, return_train_pred:bool=False,
                             manual_preprocessor:Pipeline=None) -> tuple:
+    
     reg.fit(X_train_val, y_train_val)
-    x_test_scaled = manual_preprocessor.fit_transform(X_test)
+    manual_preprocessor.fit(X_train_val)
+    x_test_scaled = manual_preprocessor.transform(X_test)
     # print(x_test_scaled)
     if algorithm == 'NGB':
         y_test_predist = reg.named_steps['regressor'].regressor_.pred_dist(x_test_scaled)
