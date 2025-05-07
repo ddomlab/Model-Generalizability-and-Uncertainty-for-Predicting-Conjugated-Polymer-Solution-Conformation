@@ -486,29 +486,29 @@ class PredictionUncertainty:
     
 
 
-def train_and_predict_ood(regressor, X_train_val, y_train_val, X_test, y_test, 
+def train_and_predict_ood(reg, X_train_val, y_train_val, X_test, y_test, 
                             return_train_pred:bool=False, algorithm:str='NGB',
                             manual_preprocessor:Pipeline=None) -> tuple:
-    regressor.fit(X_train_val, y_train_val)
+    reg.fit(X_train_val, y_train_val)
     x_test_scaled = manual_preprocessor.fit_transform(X_test)
     # print(x_test_scaled)
     if algorithm == 'NGB':
-        y_test_predist = regressor.named_steps['regressor'].regressor_.pred_dist(x_test_scaled)
+        y_test_predist = reg.named_steps['regressor'].regressor_.pred_dist(x_test_scaled)
         y_test_pred_uncertainty = np.array(np.sqrt(y_test_predist.var)).reshape(y_test.shape)
-        y_test_pred = regressor.predict(X_test)
+        y_test_pred = reg.predict(X_test)
 
     elif algorithm == 'RF':
-        uncertainty_estimator = PredictionUncertainty(regressor.named_steps['regressor'].regressor_)
+        uncertainty_estimator = PredictionUncertainty(reg.named_steps['regressor'].regressor_)
         y_test_pred_uncertainty = uncertainty_estimator.pred_dist(x_test_scaled).reshape(y_test.shape)
-        y_test_pred = regressor.predict(X_test)
+        y_test_pred = reg.predict(X_test)
     else:
-        y_test_pred = regressor.predict(X_test)
+        y_test_pred = reg.predict(X_test)
         y_test_pred_uncertainty = None
 
     
     test_scores = get_prediction_scores(y_test, y_test_pred,'test')
     if return_train_pred:
-        y_train_pred = regressor.predict(X_train_val)
+        y_train_pred = reg.predict(X_train_val)
         train_scores = get_prediction_scores(y_train_val, y_train_pred,'train')
         return test_scores, train_scores, y_test_pred, y_test_pred_uncertainty
     

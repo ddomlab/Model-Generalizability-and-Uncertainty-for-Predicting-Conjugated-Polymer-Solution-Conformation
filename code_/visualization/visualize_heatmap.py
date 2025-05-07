@@ -191,7 +191,7 @@ def _create_heatmap(
         grey_mask = pd.DataFrame(False, index=avg_scores.index, columns=avg_scores.columns)
 
     # Draw full heatmap first
-    custom_cmap.set_bad(color="lightgray")
+    # custom_cmap.set_bad(color="lightgray")
     hmap = sns.heatmap(
         avg_scores.mask(grey_mask),  # Mask < 0 temporarily to color them grey
         annot=annotations,
@@ -205,26 +205,26 @@ def _create_heatmap(
     )
 
     # Overlay grey boxes for < 0 values in r2
-    if grey_mask.any().any():
-        for i in range(avg_scores.shape[0]):
-            for j in range(avg_scores.shape[1]):
-                if grey_mask.iloc[i, j]:
-                    rect = plt.Rectangle((j, i), 1, 1, facecolor="lightgray", edgecolor="white", lw=0.5)
-                    ax.add_patch(rect)
-                    ax.text(
-                        j + 0.5,
-                        i + 0.5,
-                        f"{annotations.iloc[i, j]}",
-                        ha="center",
-                        va="center",
-                        fontsize=16,
-                        color="black",
-                        # fontweight='bold',
-                    )
+    # if grey_mask.any().any():
+    #     for i in range(avg_scores.shape[0]):
+    #         for j in range(avg_scores.shape[1]):
+    #             if grey_mask.iloc[i, j]:
+    #                 rect = plt.Rectangle((j, i), 1, 1, facecolor="lightgray", edgecolor="white", lw=0.5)
+    #                 ax.add_patch(rect)
+    #                 ax.text(
+    #                     j + 0.5,
+    #                     i + 0.5,
+    #                     f"{annotations.iloc[i, j]}",
+    #                     ha="center",
+    #                     va="center",
+    #                     fontsize=16,
+    #                     color="black",
+    #                     # fontweight='bold',
+    #                 )
 
     # Set tick positions and labels
-    ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
-    ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
+    # ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
+    # ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
 
     x_tick_labels: list[str] = [col for col in avg_scores.columns]
     y_tick_labels: list[str] = avg_scores.index.to_list()
@@ -244,7 +244,7 @@ def _create_heatmap(
     # if vmin is not None and vmax is not None:
     #     num_ticks = round((vmax - vmin) / 0.1)
     
-    cbar.set_ticks(np.round(np.linspace(vmin, vmax, num_ticks), 2))
+    # cbar.set_ticks(np.round(np.linspace(vmin, vmax, num_ticks), 2))
     
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles[var]}",
@@ -261,7 +261,7 @@ def _create_heatmap(
     os.makedirs(visualization_folder_path, exist_ok=True)
     plt.tight_layout()
     plt.savefig(visualization_folder_path / f"{fname}.png", dpi=600)
-    # plt.show()
+    plt.show()
     plt.close()
 
 
@@ -463,17 +463,18 @@ def create_structural_scaler_result(target_dir:Path,
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
     fname= f"all PolymerRepresentation vs all features search heatmap_{score} score"
+    print(ave)
     _create_heatmap(root_dir=target_dir,
                     score=score,
                     var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(16,12),
+                    figsize=(12,6),
                     fig_title=f"\n",
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
-                    num_ticks=3,
+                    num_ticks=5,
                     vmin=0.2,
                     vmax=0.6,
                     )

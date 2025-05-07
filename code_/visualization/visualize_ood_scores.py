@@ -381,7 +381,7 @@ def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None,
     plt.tight_layout()
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    # plt.show()
+    plt.show()
     plt.close()
 
 
@@ -517,44 +517,44 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
                 uncertainties.extend(y_uncertainty)
                 y_true_all.extend(y_true)
             if method=="AMA":
-                ama_mean, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
+                uncertainty, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
                                                                 ama,n_samples=1)
             else:
-                pearsonr_mean = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
+                uncertainty = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
             results.append({
                 "Cluster": cluster,
                 "Train Set Size": train_set_size,
-                "AMA": ama_mean,
-                "Pearson R": pearsonr_mean,
+                f"{method}": uncertainty,
+                # "Pearson R": pearsonr_mean,
                 # "Prediction_std": np.std(predict_true['y_test_pred']),
             })
 
     return pd.DataFrame(results)
 
 
-def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
-    df = get_uncertenty_in_learning_curve(prediction)
-    # print(df)
-    num_clusters = df["Cluster"].nunique()
-    g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
+# def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
+#     df = get_uncertenty_in_learning_curve(prediction)
+#     # print(df)
+#     num_clusters = df["Cluster"].nunique()
+#     g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
 
-    g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty_ama", s=100)  
-    g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty_ama", linewidth=2.5)
+#     g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty_ama", s=100)  
+#     g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty_ama", linewidth=2.5)
 
-    g.set_axis_labels("Train Set Size", "Absolute Miscalibration Area")
+#     g.set_axis_labels("Train Set Size", "Absolute Miscalibration Area")
 
-    g.set_titles(col_template="{col_name}", fontsize=22)
-    for ax, title in zip(g.axes.flat, g.col_names):
-        ax.set_title(title, fontsize=20)
-    for ax in g.axes.flatten():
-        ax.tick_params(axis='both', which='major', labelsize=16)
-        ax.set_xlabel(ax.get_xlabel(), fontsize=18)
-        ax.set_ylabel(ax.get_ylabel(), fontsize=18)
+#     g.set_titles(col_template="{col_name}", fontsize=22)
+#     for ax, title in zip(g.axes.flat, g.col_names):
+#         ax.set_title(title, fontsize=20)
+#     for ax in g.axes.flatten():
+#         ax.tick_params(axis='both', which='major', labelsize=16)
+#         ax.set_xlabel(ax.get_xlabel(), fontsize=18)
+#         ax.set_ylabel(ax.get_ylabel(), fontsize=18)
 
-    plt.tight_layout()
-    save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
-    # plt.show()
-    plt.close()
+#     plt.tight_layout()
+#     save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
+#     # plt.show()
+#     plt.close()
 
 
 def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
@@ -685,34 +685,35 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        # for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-        #     for model in ['XGBR', 'NGB']:
+        scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+            for model in ['RF']:
 
 
-        #         score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-        #         predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
-        #         truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-        #         predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
-        #         score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
-        #         predictions_file_lc = ensure_long_path(predictions_file_lc)
-        #         predictions_full = ensure_long_path(predictions_full)
-        #         truth_file_full = ensure_long_path(truth_file_full)
-        #         if not os.path.exists(predictions_file_lc):
-        #             print(f"File not found: {predictions_file_lc}")
-        #             continue  
+                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
+                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
+                predictions_file_lc = ensure_long_path(predictions_file_lc)
+                predictions_full = ensure_long_path(predictions_full)
+                truth_file_full = ensure_long_path(truth_file_full)
+                if not os.path.exists(predictions_file_lc):
+                    print(f"File not found: {predictions_file_lc}")
+                    continue  
 
 
 
-        #             # NGB XGB learning curve
-                # with open(score_file_lc, "r") as f:
-                #     scores_lc = json.load(f)
+                    # NGB XGB learning curve
+                with open(score_file_lc, "r") as f:
+                    scores_lc = json.load(f)
 
-                # with open(predictions_file_lc, "r") as s:
-                #     predictions_lc = json.load(s)
-                # saving_folder_lc_score = scores_folder_path / f'learning curve'
-                # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
-                # print("Save learning curve scores")
+                with open(predictions_file_lc, "r") as s:
+                    predictions_lc = json.load(s)
+
+                saving_folder_lc_score = scores_folder_path / f'learning curve'
+                plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
+                print("Save learning curve scores")
                 # saving_uncertainty = scores_folder_path / f'uncertainty'
                 # if model == 'XGBR':
                 #     continue
@@ -722,7 +723,8 @@ if __name__ == "__main__":
 
                 # uncertenty + score in learning curve
                 # saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                # plot_ood_learning_scores_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, file_name=f'{model}_{fp}')
+                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
                 # print("Save learning curve scores and uncertainty")
 
 
@@ -743,23 +745,23 @@ if __name__ == "__main__":
                 # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'{model}_{fp}')
 
         # RF learning curve
-        scores_folder_path = results_path / cluster / 'scaler'
-        score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
-        prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
-        prediction_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_predictions.json'
-        truth_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_ClusterTruth.json'
-        prediction_file_full = ensure_long_path(prediction_file_full)  
-        truth_file_full = ensure_long_path(truth_file_full)
-        score_file_lc_RF = ensure_long_path(score_file_lc_RF)
-        prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
-        if not os.path.exists(score_file_lc_RF):
-            print(f"File not found: {score_file_lc_RF}")
-            continue 
+        # scores_folder_path = results_path / cluster / 'scaler'
+        # score_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_scores.json'
+        # prediction_file_lc_RF = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc_predictions.json'
+        # prediction_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_predictions.json'
+        # truth_file_full = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_ClusterTruth.json'
+        # prediction_file_full = ensure_long_path(prediction_file_full)  
+        # truth_file_full = ensure_long_path(truth_file_full)
+        # score_file_lc_RF = ensure_long_path(score_file_lc_RF)
+        # prediction_file_lc_RF = ensure_long_path(prediction_file_lc_RF)
+        # if not os.path.exists(score_file_lc_RF):
+        #     print(f"File not found: {score_file_lc_RF}")
+        #     continue 
 
-        with open(score_file_lc_RF, "r") as f:
-            scores_lc = json.load(f)
-        with open(prediction_file_lc_RF, "r") as f:
-            predictions_lc = json.load(f)
+        # with open(score_file_lc_RF, "r") as f:
+        #     scores_lc = json.load(f)
+        # with open(prediction_file_lc_RF, "r") as f:
+        #     predictions_lc = json.load(f)
 
         # ama vs train size in lc
         # saving_folder_lc_score = scores_folder_path / f'learning curve'
@@ -768,15 +770,15 @@ if __name__ == "__main__":
         # plot_ama_vs_train_size(predictions_lc,saving_uncertainty, file_name=f'RF_scaler')
 
 
-        saving_uncertainty = scores_folder_path / f'uncertainty_score'
-        plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, 
-                                             file_name=f'RF_scaler_PearsonR',uncertenty_method="Pearson R")
-        print("Save learning curve scores and uncertainty")
+        # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+        # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse", folder=saving_uncertainty, 
+        #                                      file_name=f'RF_scaler_PearsonR',uncertenty_method="Pearson R")
+        # print("Save learning curve scores and uncertainty")
 
 
-        # residual distribution in lc
-        saving_folder = scores_folder_path / f'KDE of residuals'
-        plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
+        # # residual distribution in lc
+        # saving_folder = scores_folder_path / f'KDE of residuals'
+        # plot_residual_distribution_learning_curve(predictions_lc, saving_folder, file_name=f'RF_scaler')
 
         
 

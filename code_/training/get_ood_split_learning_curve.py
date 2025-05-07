@@ -202,7 +202,9 @@ def run_ood_learning_curve(
                     'y_test_pred': y_test_pred_ood.flatten(),
                     'y_test_uncertainty': y_test_uncertainty.flatten() if y_test_uncertainty is not None else None,
                 }
-                
+                print(f'Cluster: {cluster}')
+                print(f'lc: {learning_curve_scores}')
+
         learning_curve_scores[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
         learning_curve_predictions[f'CO_{cluster}'][f'Cluster size'] = len(X_tv)
     return learning_curve_scores, learning_curve_predictions

@@ -97,7 +97,6 @@ if __name__ == "__main__":
         )
 
 
-# TODO: Update the dataset to include the clustering methods
     else:
             main_structural_numerical(
             dataset=w_data,

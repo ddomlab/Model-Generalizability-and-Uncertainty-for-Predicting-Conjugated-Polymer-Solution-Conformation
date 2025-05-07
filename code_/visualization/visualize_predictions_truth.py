@@ -187,7 +187,7 @@ def draw_single_parity_plot(
                         xy=(0.1, 0.9), xycoords='axes fraction',
                         ha='left', va='center',
                         fontsize=18,
-                        bbox={'boxstyle': 'round', 'fc': 'white', 'ec': 'white'}
+                        bbox=dict(boxstyle="round", facecolor="white", edgecolor="gray")
                         )
 
     # Set plot limits to (0, 15) for both axes
@@ -228,8 +228,8 @@ if __name__ == "__main__":
 
 
     target_to_an = 'target_log Rg (nm)'
-    file_n = "(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv"
-    poly_representation_name = 'scaler'
+    file_n = "(Mordred-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_Standard_predictions.csv"
+    poly_representation_name = 'Trimer_scaler'
     truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
     fname,_ = get_file_info(truth_val_file)
     draw_single_parity_plot(

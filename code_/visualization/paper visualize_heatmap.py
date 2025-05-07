@@ -51,7 +51,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['Xn','Mw', 'PDI'],
+        'polysize': ['DP','Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -100,20 +100,13 @@ def get_total(prop_string: str) -> Optional[str]:
     Maps full property string to a simplified label for structural_scaler features.
     """
     mapping = {
-        'ECFP3.count.512-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'ECFP6.count.512 + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
-        'ECFP3.count.512-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'ECFP6.count.512 + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
-        'MACCS-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'MACCS + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
+        'polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred':
+            'Mordred + continuous',
+        'polysize + solvent_properties + polymer_HSPs + solvent_HSPs + MACCS':
+            'MACCS + continuous',
+        'polysize + solvent_properties + polymer_HSPs + solvent_HSPs + ECFP6.count.512':
+            'ECFP6.count.512 + continuous',
 
-        'MACCS-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'MACCS + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
-
-        'Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'Mordred + Polysize(Mw,PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
-        'Mordred-DP-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH':
-            'Mordred + Polysize(DP, Mw, PDI) + Solvent Properties + Polymer HSPs + Solvent HSPs',
     }
     return mapping.get(prop_string)
 
@@ -338,7 +331,6 @@ def get_polymer_propeties_comparison(target_folder: Path,
                 continue
 
             feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
-            print(feats)
             # Only keep selected features
             if feats not in selected_features:
                 continue
@@ -588,19 +580,19 @@ def create_structural_scaler_result(target_dir:Path,
                                     # regressor_model:str,
                                     target:str,
                                     score:str,
-                                    var:str,
+                                    # var:str,
                                     data_type:str,
                                     transformer_type:str,
                                     peak_num:int=None
                                     ) -> None:
 
-    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score,data_type=data_type
                                        , transformer_type=transformer_type,
                                        peak_number=peak_num)
     model_in_title:str =  ",".join(model)
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     # fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
-    fname= f"selected PolymerRepresentation vs all features search heatmap_{score} score"
+    fname= f"selected Model vs all features search heatmap (structural+continuous)_{score} score"
     if score == "r2":
         vmax= .9
         vmin= .3
@@ -612,14 +604,14 @@ def create_structural_scaler_result(target_dir:Path,
     elif score == "rmse":
         vmax= .6
         vmin= 0.2 
-        n_cbar_tick = 5  
-    _create_heatmap(root_dir=target_dir,
+        n_cbar_tick = 5 
+    _create_heatmap(root_dir=HERE,
                     score=score,
-                    var=var,
+                    # var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(16,12),
-                    fig_title=f"Average {score_txt} of Rg with structural+continuous features",
+                    figsize=(10,7),
+                    fig_title='',
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
@@ -660,7 +652,7 @@ def create_scaler_result(target_dir:Path,
     # reg_name = f'{regressor_model} on {peak_num}' if peak_num else regressor_model
     fname= f"selected Regression Models vs numerical features search heatmap_{score}"
     fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
-    print(ave.columns.tolist())
+    # print(ave.columns.tolist())
 
     _create_heatmap(root_dir=HERE,
                     score=score,
@@ -684,49 +676,49 @@ def create_scaler_result(target_dir:Path,
 # simple_models = ['MLR','DT','RF']
 
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
-            # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-            #                                     score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+                                                score=i,data_type='structural_scaler', transformer_type=transformer)
             # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-selected_features: set = [
-    "solvent_properties + solvent_HSPs",
-    "polysize + solvent_properties + solvent_HSPs",
-    "solvent_properties + polymer_HSPs + solvent_HSPs",
-    "solvent_properties + solvent_HSPs + MACCS",
-    "solvent_properties + solvent_HSPs + Mordred",
-    "solvent_properties + solvent_HSPs + ECFP6.count.512",
-]
+# selected_features: set = [
+#     "solvent_properties + solvent_HSPs",
+#     "polysize + solvent_properties + solvent_HSPs",
+#     "solvent_properties + polymer_HSPs + solvent_HSPs",
+#     "solvent_properties + solvent_HSPs + MACCS",
+#     "solvent_properties + solvent_HSPs + Mordred",
+#     "solvent_properties + solvent_HSPs + ECFP6.count.512",
+# ]
 
-def creat_polymer_properties_comparison(target_dir:Path,
-                                        score:str,
-                                        comparison_value:List[str],
-                                        ) -> None:
-    scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
-                                                                   score=score,
-                                                                   comparison_value=comparison_value)
-    score_txt: str = "$R^2$" if score == "r2" else score.upper()
-    fname= f"model vs features in {score}"
-    plot_manual_heatmap(root_dir=target_dir,
-                        score=score,
-                        score_to_show=scores_to_show,
-                        figsize=(9, 8),
-                        fig_title=f" \n ",
-                        x_title="Feature Space",
-                        y_title="Models",
-                        fname=fname,
-                        vmin=.2,
-                        vmax=.6,
-                        feature_order=selected_features,
-                        # model_order=['RF','DT','MLR'],
-                        num_ticks=5,
-                        )
+# def creat_polymer_properties_comparison(target_dir:Path,
+#                                         score:str,
+#                                         comparison_value:List[str],
+#                                         ) -> None:
+#     scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
+#                                                                    score=score,
+#                                                                    comparison_value=comparison_value)
+#     score_txt: str = "$R^2$" if score == "r2" else score.upper()
+#     fname= f"model vs features in {score}"
+#     plot_manual_heatmap(root_dir=target_dir,
+#                         score=score,
+#                         score_to_show=scores_to_show,
+#                         figsize=(9, 8),
+#                         fig_title=f" \n ",
+#                         x_title="Feature Space",
+#                         y_title="Models",
+#                         fname=fname,
+#                         vmin=.2,
+#                         vmax=.6,
+#                         feature_order=selected_features,
+#                         # model_order=['RF','DT','MLR'],
+#                         num_ticks=5,
+#                         )
 
 
-creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score='rmse',
-                                    comparison_value=['scaler', 'Trimer_scaler'],
-                                    )
+# creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
+#                                     score='rmse',
+#                                     comparison_value=['scaler', 'Trimer_scaler'],
+#                                     )
