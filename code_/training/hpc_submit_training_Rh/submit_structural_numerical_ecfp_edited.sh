@@ -35,7 +35,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' 
+                                      --numerical_feats  'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' 
 
 
 EOT
