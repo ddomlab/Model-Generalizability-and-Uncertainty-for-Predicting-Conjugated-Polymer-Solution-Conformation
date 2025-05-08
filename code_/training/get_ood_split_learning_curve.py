@@ -162,7 +162,7 @@ def run_ood_learning_curve(
 
            ### building model
             y_transform = get_target_transformer(transform_type, second_transformer)
-            model = optimized_models(model_name, random_state=seed_IID)
+            model = optimized_models(model_name)
 
             y_model = TransformedTargetRegressor(
                                 regressor=model,
@@ -212,7 +212,7 @@ def run_ood_learning_curve(
 
 
                 y_transform = get_target_transformer(transform_type, second_transformer)
-                model = optimized_models(model_name, random_state=seed)
+                model = optimized_models(model_name)
 
                 y_model = TransformedTargetRegressor(
                                     regressor=model,

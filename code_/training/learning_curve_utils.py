@@ -165,7 +165,7 @@ def run_leaning(
                 )
             
         else:
-            model = optimized_models(regressor_type, random_state=seed)
+            model = optimized_models(regressor_type)
             y_transform_regressor = TransformedTargetRegressor(
                         regressor=model,
                         transformer=y_transform,
