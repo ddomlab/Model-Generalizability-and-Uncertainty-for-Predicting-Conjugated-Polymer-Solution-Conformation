@@ -147,7 +147,7 @@ def run_ood_learning_curve(
         X_test, y_test = split_for_training(X, test_idx), split_for_training(y, test_idx)
         learning_curve_predictions[f'CO_{cluster}'] = {'y_true': y_test.flatten()}
         train_ratios =[
-            
+            .1,.3,.5,.7,
             .9]
         min_ratio_to_compare = min_train_size/len(X_tv)
         if min_ratio_to_compare not in train_ratios:
@@ -183,7 +183,7 @@ def run_ood_learning_curve(
             train_ratios_IID: np.ndarray = np.array(train_sizes_IID) / len(X_tv)
             for train_ratio_IID, train_score_IID, test_score_IID in zip(train_ratios_IID, train_scores_IID, test_scores_IID):
 
-                learning_curve_scores.setdefault(f'ID_{cluster}', {}).setdefault(f'seed_{seed_IID}', {})[f'ratio_{np.round(train_ratio_IID,3)}']= {
+                learning_curve_scores.setdefault(f'ID_{cluster}', {}).setdefault(f'seed_{seed_IID}', {})[f'ratio_{train_ratio_IID}']= {
                     f'train_rmse': train_score_IID,
                     'test_rmse': test_score_IID,
                 }
