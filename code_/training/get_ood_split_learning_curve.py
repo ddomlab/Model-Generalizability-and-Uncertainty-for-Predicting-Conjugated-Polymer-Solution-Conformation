@@ -201,41 +201,59 @@ def run_ood_learning_curve(
             else:
                 random_state_list = np.arange(50)
 
+            # TODO: MAKE both down parallel
             for seed in random_state_list:
                 if train_ratio ==1:
                     X_train_OOD,y_train_OOD = X_tv, y_tv
                 else:
                     X_train_OOD, _, y_train_OOD, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
                                                               random_state=seed,stratify=cluster_tv_labels,shuffle=True)   
-            
+                    
+            # MAKE both down parallel
             for ID_seed in SEEDS:
-                X_tv_ID, X_test_ID, y_train_ID, y_test_ID = train_test_split(X_tv, y_tv, train_size=train_ratio,
+                X_tv_ID, X_test_ID, y_tv_ID, y_test_ID = train_test_split(X_tv, y_tv, train_size=,
                                                             random_state=seed,stratify=cluster_tv_labels,shuffle=True)   
 
                 for seed in random_state_list:
                     if train_ratio ==1:
                         X_train_IID,y_train_IID = X_tv_ID, y_train_ID
                     else:
-                        # X_train_OOD, _, y_train_OOD, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
-                        #                                             random_state=seed,stratify=cluster_tv_labels,shuffle=True)
+                        X_train_ID, _, y_train_ID, _= train_test_split(X_tv_ID, y_tv_ID, train_size=train_ratio,
+                                                                        random_state=seed,shuffle=True)
 
-                y_transform = get_target_transformer(transform_type, second_transformer)
-                model = optimized_models(model_name)
+                # y_transform = get_target_transformer(transform_type, second_transformer)
+                # model = optimized_models(model_name)
 
-                y_model = TransformedTargetRegressor(
-                                    regressor=model,
-                                    transformer=y_transform,
-                                    )
-                new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
-                regressor :Pipeline= Pipeline(steps=[
-                                    ("preprocessor", new_preprocessor),
-                                    ("regressor", y_model),
-                                    ])
-                regressor.set_output(transform="pandas")
-                uncertainty_preprocessr: Pipeline = Pipeline(steps=[
-                    ("preprocessor", new_preprocessor),
-                    ]) 
+                # y_model = TransformedTargetRegressor(
+                #                     regressor=model,
+                #                     transformer=y_transform,
+                #                     )
+                # new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
+                # regressor :Pipeline= Pipeline(steps=[
+                #                     ("preprocessor", new_preprocessor),
+                #                     ("regressor", y_model),
+                #                     ])
+                # regressor.set_output(transform="pandas")
+                # uncertainty_preprocessr: Pipeline = Pipeline(steps=[
+                #     ("preprocessor", new_preprocessor),
+                #     ]) 
+                
+                def build_regressor(model_name,first_tran,second_tran,preprocessor):
+                    y_transform = get_target_transformer(first_tran, second_tran)
+                    model = optimized_models(model_name)
 
+                    y_model = TransformedTargetRegressor(
+                                        regressor=model,
+                                        transformer=y_transform,
+                                        )
+                    new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
+                    regressor :Pipeline= Pipeline(steps=[
+                                        ("preprocessor", new_preprocessor),
+                                        ("regressor", y_model),
+                                        ])
+                    regressor.set_output(transform="pandas")
+                    return regressor
+                
                 test_scores_OOD, train_scores_OOD, y_test_pred_OOD, y_test_uncertainty_OOD = train_and_predict_ood(regressor, X_train_OOD, y_train_OOD, X_test, y_test,
                                                                                                     return_train_pred=True, algorithm=model_name,
                                                                                                     manual_preprocessor=uncertainty_preprocessr)
