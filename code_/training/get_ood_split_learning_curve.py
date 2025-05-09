@@ -203,13 +203,21 @@ def run_ood_learning_curve(
 
             for seed in random_state_list:
                 if train_ratio ==1:
-                    X_train,y_train = X_tv, y_tv
+                    X_train_OOD,y_train_OOD = X_tv, y_tv
                 else:
-                    X_train, _, y_train, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
+                    X_train_OOD, _, y_train_OOD, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
                                                               random_state=seed,stratify=cluster_tv_labels,shuffle=True)   
-                
+            
+            for ID_seed in SEEDS:
+                X_tv_ID, X_test_ID, y_train_ID, y_test_ID = train_test_split(X_tv, y_tv, train_size=train_ratio,
+                                                            random_state=seed,stratify=cluster_tv_labels,shuffle=True)   
 
-
+                for seed in random_state_list:
+                    if train_ratio ==1:
+                        X_train_IID,y_train_IID = X_tv_ID, y_train_ID
+                    else:
+                        # X_train_OOD, _, y_train_OOD, _= train_test_split(X_tv, y_tv, train_size=train_ratio,
+                        #                                             random_state=seed,stratify=cluster_tv_labels,shuffle=True)
 
                 y_transform = get_target_transformer(transform_type, second_transformer)
                 model = optimized_models(model_name)
@@ -228,7 +236,7 @@ def run_ood_learning_curve(
                     ("preprocessor", new_preprocessor),
                     ]) 
 
-                test_scores_OOD, train_scores_OOD, y_test_pred_OOD, y_test_uncertainty_OOD = train_and_predict_ood(regressor, X_train, y_train, X_test, y_test,
+                test_scores_OOD, train_scores_OOD, y_test_pred_OOD, y_test_uncertainty_OOD = train_and_predict_ood(regressor, X_train_OOD, y_train_OOD, X_test, y_test,
                                                                                                     return_train_pred=True, algorithm=model_name,
                                                                                                     manual_preprocessor=uncertainty_preprocessr)
                 

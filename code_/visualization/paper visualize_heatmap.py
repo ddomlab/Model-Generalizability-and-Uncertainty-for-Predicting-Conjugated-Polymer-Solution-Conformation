@@ -722,6 +722,6 @@ def creat_polymer_properties_comparison(target_dir:Path,
 
 
 creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score='rmse',
+                                    score='r2',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     )

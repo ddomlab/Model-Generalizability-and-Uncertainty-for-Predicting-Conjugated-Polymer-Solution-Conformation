@@ -288,7 +288,6 @@ def process_learning_curve_scores(summary_scores,
     data = []
     cluster_train_sizes = {}
 
-    # First, extract all CO_ cluster sizes
     for cluster, ratios in summary_scores.items():
         if cluster.startswith("CO_"):
             cluster_size = ratios.get("Cluster size", 0)
@@ -725,7 +724,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
         Line2D([0], [0], color='blue', lw=3.5, marker='o', label='OOD Test'),
         Line2D([0], [0], color='orange', lw=3.5, marker='o', label='OOD Train'),
         Line2D([0], [0], color='purple', lw=3.5, marker='s', linestyle='--', label='ID Test'),
-        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=uncertenty_method)
+        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=f'{uncertenty_method} OOD Test')
     ]
 
     plt.figlegend(
