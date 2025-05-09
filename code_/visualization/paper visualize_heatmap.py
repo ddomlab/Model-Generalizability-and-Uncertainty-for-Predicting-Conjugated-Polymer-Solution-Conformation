@@ -51,7 +51,7 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['DP','Mw', 'PDI'],
+        'polysize': ['Xn','Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -305,19 +305,20 @@ def _create_heatmap(
 def get_polymer_propeties_comparison(target_folder: Path,
                                      score: str,
                                      comparison_value: List[str],
+                                     features_to_draw: set[str] = None,
                                     ) -> pd.DataFrame:
     scores_to_report: List = []
     pattern: str = "*_scores.json"
 
     # Define the features you want to keep
-    selected_features: set = {
-        "solvent_properties + solvent_HSPs",
-        "polysize + solvent_properties + solvent_HSPs",
-        "solvent_properties + polymer_HSPs + solvent_HSPs",
-        "solvent_properties + solvent_HSPs + MACCS",
-        "solvent_properties + solvent_HSPs + Mordred",
-        "solvent_properties + solvent_HSPs + ECFP6.count.512",
-    }
+    # selected_features: set = {
+    #     "solvent_properties + solvent_HSPs",
+    #     "polysize + solvent_properties + solvent_HSPs",
+    #     "solvent_properties + polymer_HSPs + solvent_HSPs",
+    #     "solvent_properties + solvent_HSPs + MACCS",
+    #     "solvent_properties + solvent_HSPs + Mordred",
+    #     "solvent_properties + solvent_HSPs + ECFP6.count.512",
+    # }
     selected_models: set = {
         "RF",
         "NGB",}
@@ -332,7 +333,7 @@ def get_polymer_propeties_comparison(target_folder: Path,
 
             feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
             # Only keep selected features
-            if feats not in selected_features:
+            if feats not in features_to_draw:
                 continue
 
             if model not in selected_models:
@@ -676,49 +677,51 @@ def create_scaler_result(target_dir:Path,
 # simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
-            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                                score=i,data_type='structural_scaler', transformer_type=transformer)
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
+#             create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+#                                                 score=i,data_type='structural_scaler', transformer_type=transformer)
             # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
-# selected_features: set = [
-#     "solvent_properties + solvent_HSPs",
-#     "polysize + solvent_properties + solvent_HSPs",
-#     "solvent_properties + polymer_HSPs + solvent_HSPs",
-#     "solvent_properties + solvent_HSPs + MACCS",
-#     "solvent_properties + solvent_HSPs + Mordred",
-#     "solvent_properties + solvent_HSPs + ECFP6.count.512",
-# ]
+selected_features: set = [
+    # "solvent_properties + solvent_HSPs",
+    "polysize + solvent_properties + solvent_HSPs",
+    "polysize + solvent_properties + polymer_HSPs + solvent_HSPs",
+    # "solvent_properties + polymer_HSPs + solvent_HSPs",
+    "polysize + solvent_properties + solvent_HSPs + MACCS",
+    "polysize + solvent_properties + solvent_HSPs + Mordred",
+    "polysize + solvent_properties + solvent_HSPs + ECFP6.count.512",
+]
 
-# def creat_polymer_properties_comparison(target_dir:Path,
-#                                         score:str,
-#                                         comparison_value:List[str],
-#                                         ) -> None:
-#     scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
-#                                                                    score=score,
-#                                                                    comparison_value=comparison_value)
-#     score_txt: str = "$R^2$" if score == "r2" else score.upper()
-#     fname= f"model vs features in {score}"
-#     plot_manual_heatmap(root_dir=target_dir,
-#                         score=score,
-#                         score_to_show=scores_to_show,
-#                         figsize=(9, 8),
-#                         fig_title=f" \n ",
-#                         x_title="Feature Space",
-#                         y_title="Models",
-#                         fname=fname,
-#                         vmin=.2,
-#                         vmax=.6,
-#                         feature_order=selected_features,
-#                         # model_order=['RF','DT','MLR'],
-#                         num_ticks=5,
-#                         )
+def creat_polymer_properties_comparison(target_dir:Path,
+                                        score:str,
+                                        comparison_value:List[str],
+                                        ) -> None:
+    scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
+                                                                   score=score,
+                                                                   comparison_value=comparison_value,
+                                                                   features_to_draw=selected_features)
+    score_txt: str = "$R^2$" if score == "r2" else score.upper()
+    fname= f"model vs features in {score}"
+    plot_manual_heatmap(root_dir=target_dir,
+                        score=score,
+                        score_to_show=scores_to_show,
+                        figsize=(9, 8),
+                        fig_title=f" \n ",
+                        x_title="Feature Space",
+                        y_title="Models",
+                        fname=fname,
+                        vmin=.2,
+                        vmax=.6,
+                        feature_order=selected_features,
+                        # model_order=['RF','DT','MLR'],
+                        num_ticks=5,
+                        )
 
 
-# creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
-#                                     score='rmse',
-#                                     comparison_value=['scaler', 'Trimer_scaler'],
-#                                     )
+creat_polymer_properties_comparison(target_dir=RESULTS/'target_log Rg (nm)',
+                                    score='rmse',
+                                    comparison_value=['scaler', 'Trimer_scaler'],
+                                    )
