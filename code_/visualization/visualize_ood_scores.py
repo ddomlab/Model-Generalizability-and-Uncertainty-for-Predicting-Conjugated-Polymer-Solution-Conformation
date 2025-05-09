@@ -288,52 +288,92 @@ def process_learning_curve_scores(summary_scores,
     data = []
     cluster_train_sizes = {}
 
-    # First pass: Collect all data and training sizes
+    # First, extract all CO_ cluster sizes
     for cluster, ratios in summary_scores.items():
-        cluster_size = ratios.get("Cluster size", 0)
-        cluster_train_sizes[cluster] = set()
+        if cluster.startswith("CO_"):
+            cluster_size = ratios.get("Cluster size", 0)
+            cluster_train_sizes[cluster] = set()
+            for ratio, stats in ratios.items():
+                if ratio == "Cluster size":
+                    continue
+                train_ratio = float(ratio.replace("ratio_", ""))
+                train_set_size = round(train_ratio * cluster_size, 1)
+                cluster_train_sizes[cluster].add(train_set_size)
 
-        for ratio, stats in ratios.items():
-            if ratio == "Cluster size":
-                continue
+                metric_test = f"test_{metric}_mean"
+                metric_train = f"train_{metric}_mean"
+                std_test = f"test_{metric}_std"
+                std_train = f"train_{metric}_std"
 
-            train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round(float(train_ratio * cluster_size), 1)
-            cluster_train_sizes[cluster].add(train_set_size)
+                if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
+                    data.append({
+                        "Cluster": cluster,
+                        "Train Ratio": train_ratio,
+                        "Train Set Size": train_set_size,
+                        "Score": stats["test_summary_stats"][metric_test],
+                        "Std": stats["test_summary_stats"][std_test],
+                        "Score Type": "Test"
+                    })
+                    data.append({
+                        "Cluster": cluster,
+                        "Train Ratio": train_ratio,
+                        "Train Set Size": train_set_size,
+                        "Score": stats["train_summary_stats"][metric_train],
+                        "Std": stats["train_summary_stats"][std_train],
+                        "Score Type": "Train"
+                    })
 
-            metric_test = f"test_{metric}_mean"
-            metric_train = f"train_{metric}_mean"
-            std_test = f"test_{metric}_std"
-            std_train = f"train_{metric}_std"
+    # Now process ID_ clusters using same train set sizes
+    for cluster, ratios in summary_scores.items():
+        if cluster.startswith("ID_"):
+            cluster_index = cluster.replace("ID_", "")
+            corresponding_co = f"CO_{cluster_index}"
+            if corresponding_co not in cluster_train_sizes:
+                continue  # skip if CO cluster is missing
 
-            if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
-                data.append({
-                    "Cluster": cluster,
-                    "Train Set Size": train_set_size,
-                    "Score": stats["test_summary_stats"][metric_test],
-                    "Std": stats["test_summary_stats"][std_test],
-                    "Score Type": "Test"
-                })
-                data.append({
-                    "Cluster": cluster,
-                    "Train Set Size": train_set_size,
-                    "Score": stats["train_summary_stats"][metric_train],
-                    "Std": stats["train_summary_stats"][std_train],
-                    "Score Type": "Train"
-                })
+            for ratio, stats in ratios.items():
+                if ratio.startswith("ratio_"):
+                    train_ratio = float(ratio.replace("ratio_", ""))
+                    cluster_size = summary_scores[corresponding_co].get("Cluster size", 0)
+                    train_set_size = round(train_ratio * cluster_size, 1)
+                    cluster_train_sizes.setdefault(cluster, set()).add(train_set_size)
+
+                    metric_test = f"test_{metric}_mean"
+                    metric_train = f"train_{metric}_mean"
+                    std_test = f"test_{metric}_std"
+                    std_train = f"train_{metric}_std"
+
+                    if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
+                        data.append({
+                            "Cluster": cluster,
+                            "Train Ratio": train_ratio,
+                            "Train Set Size": train_set_size,
+                            "Score": stats["test_summary_stats"][metric_test],
+                            "Std": stats["test_summary_stats"][std_test],
+                            "Score Type": "Test"
+                        })
+                        data.append({
+                            "Cluster": cluster,
+                            "Train Ratio": train_ratio,
+                            "Train Set Size": train_set_size,
+                            "Score": stats["train_summary_stats"][metric_train],
+                            "Std": stats["train_summary_stats"][std_train],
+                            "Score Type": "Train"
+                        })
 
     full_df = pd.DataFrame(data)
 
-    # Find common train set sizes across all clusters
-    if cluster_train_sizes:
-        common_train_sizes = set.intersection(*cluster_train_sizes.values())
+    # Determine common train sizes from CO clusters only
+    co_only_sizes = {k: v for k, v in cluster_train_sizes.items() if k.startswith("CO_")}
+    if co_only_sizes:
+        common_train_sizes = set.intersection(*co_only_sizes.values())
     else:
         common_train_sizes = set()
 
-    # Filter the full DataFrame to only include rows with common train set sizes
     equal_train_size_df = full_df[full_df["Train Set Size"].isin(common_train_sizes)].copy()
 
     return full_df, equal_train_size_df
+
 
 
 
@@ -557,58 +597,85 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
 #     plt.close()
 
 
+import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
+
 def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
-                                          prediction: Dict,
-                                          metric="rmse",
-                                          folder: Path = None,
-                                          file_name: str = 'NGB_Mordred',
-                                          uncertenty_method:str="AMA") -> None:
+                                           prediction: Dict,
+                                           metric="rmse",
+                                           folder: Path = None,
+                                           file_name: str = 'NGB_Mordred',
+                                           uncertenty_method: str = "AMA") -> None:
     score_df, _ = process_learning_curve_scores(summary_scores, metric)
-    unceretainty_df = get_uncertenty_in_learning_curve(prediction,uncertenty_method)
-    # print(score_df)
+    unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
+
     if score_df.empty:
         print(f"No data found for metric '{metric}'.")
         return
 
     import numpy as np
 
-    # Define consistent y-axis limits and ticks
-    max_score = np.ceil(score_df["Score"].max() * 2) / 2
-    score_yticks = np.arange(0, np.ceil(max_score) + .5, 0.5)
+    max_score = np.ceil(score_df["Score"].max() * 10) / 10  
+    score_yticks = np.arange(0, max_score + 0.4, 0.4)
 
-    if uncertenty_method== "Pearson R":
-        max_uncertainty = np.ceil(np.abs(unceretainty_df[uncertenty_method]).max() * 2) / 2
-        ama_yticks = np.arange(-max_uncertainty, max_uncertainty + 0.5, 0.5)
+    if uncertenty_method == "Pearson R":
+        # max_uncertainty = np.ceil(np.abs(unceretainty_df[uncertenty_method]).max() * 2) / 2
+        u_yticks = np.arange(-1, 1.5, 0.5)
     else:
         max_uncertainty = np.ceil(unceretainty_df[uncertenty_method].max() * 10) / 10
-        ama_yticks = np.arange(0, max_uncertainty + 0.1, 0.1)
+        u_yticks = np.arange(0, max_uncertainty + 0.1, 0.1)
 
-    num_clusters = score_df['Cluster'].nunique()
-    g = sns.FacetGrid(score_df, col="Cluster", col_wrap=num_clusters, height=4, sharey=False)
+    co_clusters = sorted([c for c in score_df['Cluster'].unique() if c.startswith("CO_")])
+    g = sns.FacetGrid(score_df[score_df['Cluster'].isin(co_clusters)], col="Cluster", col_wrap=len(co_clusters), height=4, sharey=False)
 
     twin_axes = []
 
     def plot_with_dual_y_axis(data, **kwargs):
         cluster = data["Cluster"].iloc[0]
+        cluster_idx = cluster.replace("CO_", "")
+        id_cluster = f"ID_{cluster_idx}"
+
         ax = plt.gca()
         ax2 = ax.twinx()
         twin_axes.append((ax, ax2))
 
-        # Plot Score
-        sns.lineplot(
-            data=data, x="Train Set Size", y="Score", hue="Score Type",
-            style="Score Type", markers=True, markersize=8, linewidth=2.5, ax=ax, legend=False
-        )
-
-        for _, sub_df in data.groupby("Score Type"):
-            sub_df = sub_df.sort_values("Train Set Size")
+        # Plot CO Train/Test
+        for score_type in ["Train", "Test"]:
+            sub_df = data[data["Score Type"] == score_type].sort_values("Train Set Size")
+            color = "orange" if score_type == "Train" else "blue"
+            sns.lineplot(
+                data=sub_df, x="Train Set Size", y="Score",
+                ax=ax, label=f"CO {score_type}", linewidth=2.5, marker="o", color=color
+            )
             ax.fill_between(
                 sub_df["Train Set Size"],
                 sub_df["Score"] - sub_df["Std"],
                 sub_df["Score"] + sub_df["Std"],
-                alpha=0.2
+                alpha=0.2,
+                color=color
             )
 
+        # Plot ID Test with fill_between
+        id_data = score_df[(score_df["Cluster"] == id_cluster) & (score_df["Score Type"] == "Test")]
+        if not id_data.empty:
+            id_data = id_data.sort_values("Train Set Size")
+            ax.plot(
+                id_data["Train Set Size"],
+                id_data["Score"],
+                color="purple",
+                linestyle="--",
+                marker="s",
+                label="ID Test"
+            )
+            ax.fill_between(
+                id_data["Train Set Size"],
+                id_data["Score"] - id_data["Std"],
+                id_data["Score"] + id_data["Std"],
+                alpha=0.15,
+                color="purple"
+            )
+
+        # Plot uncertainty
         ama_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
         ax2.plot(
             ama_data["Train Set Size"],
@@ -616,25 +683,28 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
             color="green",
             marker="*",
             linestyle="--",
-            linewidth=1.5,
-            markersize=5,
+            linewidth=2.5,
+            markersize=6,
             label=uncertenty_method
         )
 
-        # Set consistent y-limits and ticks
+
+        x_min = 0
+        x_max = int(np.ceil(data["Train Set Size"].max() / 50.0)) * 50
+        xticks = np.arange(x_min, x_max + 10, 50)
+        ax.set_xticks(xticks)
         ax.set_ylim(0, max_score)
         ax.set_yticks(score_yticks)
-        ax2.set_ylim(0, max_uncertainty)
-        ax2.set_yticks(ama_yticks)
+        ax2.set_ylim(-1, 1)
+        ax2.set_yticks(u_yticks)
         ax2.tick_params(axis='y', labelsize=16)
         ax.tick_params(axis='x', labelsize=16)
         ax.tick_params(axis='y', labelsize=16)
-
         ax.set_xlabel("Training Set Size", fontsize=18, fontweight='bold')
 
     g.map_dataframe(plot_with_dual_y_axis)
 
-    # Remove duplicated y-axis labels
+    # Axis labeling cleanup
     for i, (ax, ax2) in enumerate(twin_axes):
         if i == 0:
             ax.set_ylabel(metric.upper(), fontsize=18, color="#4487D0", fontweight='bold')
@@ -650,11 +720,30 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
         ax.set_title(g.col_names[i], fontsize=20)
 
-    plt.tight_layout()
+    # ⬆️ Add a shared horizontal legend above the plots
+    custom_lines = [
+        Line2D([0], [0], color='blue', lw=3.5, marker='o', label='OOD Test'),
+        Line2D([0], [0], color='orange', lw=3.5, marker='o', label='OOD Train'),
+        Line2D([0], [0], color='purple', lw=3.5, marker='s', linestyle='--', label='ID Test'),
+        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=uncertenty_method)
+    ]
+
+    plt.figlegend(
+        handles=custom_lines,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.07),
+        ncol=4,
+        fontsize=18,
+        frameon=True
+    )
+
+    plt.tight_layout(rect=[0, 0, 1, .95])  # leave space for legend
+
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    plt.show()
+    # plt.show()
     plt.close()
+
 
 
 
@@ -687,7 +776,7 @@ if __name__ == "__main__":
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
         for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
-            for model in ['RF']:
+            for model in ['NGB', 'XGBR', 'RF']:
 
 
                 score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
@@ -711,21 +800,21 @@ if __name__ == "__main__":
                 with open(predictions_file_lc, "r") as s:
                     predictions_lc = json.load(s)
 
-                saving_folder_lc_score = scores_folder_path / f'learning curve'
-                plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
-                print("Save learning curve scores")
+                # saving_folder_lc_score = scores_folder_path / f'learning curve'
+                # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
+                # print("Save learning curve scores")
                 # saving_uncertainty = scores_folder_path / f'uncertainty'
-                # if model == 'XGBR':
-                #     continue
+                if model == 'XGBR':
+                    continue
         #         # print(predictions_file_lc)
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                # print("Save learning curve scores and uncertainty")
+                saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                print("Save learning curve scores and uncertainty")
 
 
 
