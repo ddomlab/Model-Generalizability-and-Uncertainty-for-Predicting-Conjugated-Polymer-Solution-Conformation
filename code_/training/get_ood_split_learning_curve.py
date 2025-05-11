@@ -162,7 +162,7 @@ def run_single_iid(
         X_train_IID, y_train_IID = X_train_val_IID, y_train_val_IID
     else:
         X_train_IID, _, y_train_IID, _ = train_test_split(
-            X_train_IID, y_train_IID,
+            X_train_val_IID, y_train_val_IID,
             train_size=train_ratio, random_state=seed, shuffle=True
         )
     return seed, test_seed, fit_and_eval(
@@ -221,7 +221,9 @@ def run_ood_learning_curve(
         y_test_OOD = split_for_training(y, test_idx)
 
         learning_curve_predictions.setdefault(f'CO_{cluster}', {})['y_true'] = y_test_OOD.flatten()
-        train_ratios = [.1, 0.3, 0.5, 0.7, .9]
+        train_ratios = [
+            .1, 0.3, 0.5, 0.7,
+                         .9]
         min_ratio = min_train_size / len(X_tv_OOD)
         if min_ratio not in train_ratios:
             train_ratios.append(min_ratio)
@@ -253,7 +255,7 @@ def run_ood_learning_curve(
                     seed, test_seed, train_ratio, X, y,
                     y_test_len, model_name, transform_type,
                     second_transformer, preprocessor
-                ) for seed in seeds for test_seed in test_seeds
+                ) for seed in seeds for test_seed in [2,3]
             )
 
             for seed, test_seed, (train_scores, test_scores, y_pred, y_unc) in iid_results:
