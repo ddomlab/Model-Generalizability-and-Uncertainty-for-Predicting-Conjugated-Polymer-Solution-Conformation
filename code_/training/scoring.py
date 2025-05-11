@@ -302,23 +302,23 @@ from collections import defaultdict
 
 def process_ood_learning_curve_score(scores: dict) -> dict:
     """
-    Processes the input dictionary, aggregates scores for each training ratio across different seeds,
-    and computes summary statistics for both test and train metrics.
+    Process learning curve results for both CO_ and IID_ clusters:
+    - CO_: aggregate across seeds
+    - IID_: aggregate across seeds and test_set_seeds
     """
     for cluster, score_dict in scores.items():
         if cluster.startswith("CO_"):
-
             for train_ratio, seeds in score_dict.items():
-                if train_ratio == "Cluster size":  
+                if train_ratio == "training size":
                     continue
+
                 test_metrics = defaultdict(list)
                 train_metrics = defaultdict(list)
 
-                for seed, (train_results, test_results) in seeds.items():  
+                for seed, (train_results, test_results) in seeds.items():
                     for metric, value in test_results.items():
                         value = value.item() if isinstance(value, np.ndarray) else value
                         test_metrics[metric].append(value)
-
                     for metric, value in train_results.items():
                         value = value.item() if isinstance(value, np.ndarray) else value
                         train_metrics[metric].append(value)
@@ -328,32 +328,28 @@ def process_ood_learning_curve_score(scores: dict) -> dict:
                     "train_summary_stats": compute_summary_stats(train_metrics),
                 })
 
-        if cluster.startswith("ID_"):
-            ratio_aggregator = defaultdict(lambda: {"train_rmse": [], "test_rmse": []})
-            for seed, train_ratio_dict in score_dict.items():
-                for ratio_key, metrics_dict in train_ratio_dict.items():
-                    # ratio_key is like 'ratio_0.3' -> extract actual number if needed
-                    train_rmse_array = metrics_dict['train_rmse']
-                    test_rmse_array = metrics_dict['test_rmse']
+        elif cluster.startswith("IID_"):
+            for train_ratio, seeds_dict in score_dict.items():
+                if train_ratio == "training size":
+                    continue
 
-                    # Extend the list with all values inside array
-                    ratio_aggregator[ratio_key]["train_rmse"].extend(train_rmse_array)
-                    ratio_aggregator[ratio_key]["test_rmse"].extend(test_rmse_array)
-
-            # Second: now process each ratio
-            for ratio_key, metrics in ratio_aggregator.items():
-                train_metrics = defaultdict(list)
                 test_metrics = defaultdict(list)
+                train_metrics = defaultdict(list)
 
-                train_metrics["train_rmse"] = metrics["train_rmse"]
-                test_metrics["test_rmse"] = metrics["test_rmse"]
-                scores[cluster].setdefault(ratio_key, {})
-                scores[cluster][ratio_key].update({
+                for seed, test_seed_dict in seeds_dict.items():
+                    for test_seed, (train_results, test_results) in test_seed_dict.items():
+                        for metric, value in test_results.items():
+                            value = value.item() if isinstance(value, np.ndarray) else value
+                            test_metrics[metric].append(value)
+                        for metric, value in train_results.items():
+                            value = value.item() if isinstance(value, np.ndarray) else value
+                            train_metrics[metric].append(value)
+
+                scores[cluster][train_ratio].update({
                     "test_summary_stats": compute_summary_stats(test_metrics),
                     "train_summary_stats": compute_summary_stats(train_metrics),
                 })
 
-    
     return scores
 
 

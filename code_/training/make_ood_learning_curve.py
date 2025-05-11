@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from get_ood_split_learning_curve import train_ood_learning_curve
+from code_.training.get_ood_split_learning_curve import train_ood_learning_curve
 from train_structure_numerical import get_structural_info
 from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
