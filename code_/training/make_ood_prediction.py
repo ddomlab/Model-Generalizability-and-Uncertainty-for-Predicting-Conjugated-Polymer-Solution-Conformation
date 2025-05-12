@@ -1,5 +1,3 @@
-# %load_ext cuml.accel
-
 import pandas as pd
 from pathlib import Path
 from get_ood_split import train_regressor
@@ -34,9 +32,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
-
-
+TEST = True
 
 def main_structural_numerical(
     dataset: pd.DataFrame,
@@ -152,5 +148,5 @@ if __name__ == "__main__":
             numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
             hyperparameter_optimization=True,
             oligomer_representation="Trimer",
-            clustering_method='KM4 ECFP6_Count_512bit cluster'
+            clustering_method='canonical_name'
         )

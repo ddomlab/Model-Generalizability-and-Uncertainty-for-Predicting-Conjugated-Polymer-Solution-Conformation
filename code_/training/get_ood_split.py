@@ -183,6 +183,7 @@ def run_loco_cv(X, y,
     # print(X)
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
+        print(cluster)
         if cluster=='Polar':
             cluster_tv_labels = split_for_training(cluster_labels['Side Chain Cluster'],tv_idx)
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
@@ -298,7 +299,9 @@ def _get_splits(cluster_labels: np.ndarray) -> dict[int, tuple[np.ndarray, np.nd
     cluster_names, counts = np.unique(cluster_labels, return_counts=True)
     
     if len(cluster_names) > 2:
-        for cluster in cluster_names:
+        for cluster, count in zip(cluster_names, counts):
+            if count <=13:
+                continue
             mask = cluster_labels == cluster
             test_idxs = np.where(mask)[0]
             tv_idxs = np.where(~mask)[0]
