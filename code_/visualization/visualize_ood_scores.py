@@ -289,11 +289,11 @@ def process_learning_curve_scores(summary_scores,
     cluster_train_sizes = {}
 
     for cluster, ratios in summary_scores.items():
-        if cluster.startswith("CO_"):
-            cluster_size = ratios.get("Cluster size", 0)
+        if cluster.startswith("CO_") or cluster.startswith("IID_"):
+            cluster_size = ratios.get("training size", 0)
             cluster_train_sizes[cluster] = set()
             for ratio, stats in ratios.items():
-                if ratio == "Cluster size":
+                if ratio == "training size":
                     continue
                 train_ratio = float(ratio.replace("ratio_", ""))
                 train_set_size = round(train_ratio * cluster_size, 1)
@@ -323,45 +323,44 @@ def process_learning_curve_scores(summary_scores,
                     })
 
     # Now process ID_ clusters using same train set sizes
-    for cluster, ratios in summary_scores.items():
-        if cluster.startswith("ID_"):
-            cluster_index = cluster.replace("ID_", "")
-            corresponding_co = f"CO_{cluster_index}"
-            if corresponding_co not in cluster_train_sizes:
-                continue  # skip if CO cluster is missing
+    # for cluster, ratios in summary_scores.items():
+    #     if cluster.startswith("ID_"):
+    #         cluster_index = cluster.replace("ID_", "")
+    #         corresponding_co = f"CO_{cluster_index}"
+    #         if corresponding_co not in cluster_train_sizes:
+    #             continue  # skip if CO cluster is missing
 
-            for ratio, stats in ratios.items():
-                if ratio.startswith("ratio_"):
-                    train_ratio = float(ratio.replace("ratio_", ""))
-                    cluster_size = summary_scores[corresponding_co].get("Cluster size", 0)
-                    train_set_size = round(train_ratio * cluster_size, 1)
-                    cluster_train_sizes.setdefault(cluster, set()).add(train_set_size)
+    #         for ratio, stats in ratios.items():
+    #             if ratio.startswith("ratio_"):
+    #                 train_ratio = float(ratio.replace("ratio_", ""))
+    #                 cluster_size = summary_scores[corresponding_co].get("Cluster size", 0)
+    #                 train_set_size = round(train_ratio * cluster_size, 1)
+    #                 cluster_train_sizes.setdefault(cluster, set()).add(train_set_size)
 
-                    metric_test = f"test_{metric}_mean"
-                    metric_train = f"train_{metric}_mean"
-                    std_test = f"test_{metric}_std"
-                    std_train = f"train_{metric}_std"
+    #                 metric_test = f"test_{metric}_mean"
+    #                 metric_train = f"train_{metric}_mean"
+    #                 std_test = f"test_{metric}_std"
+    #                 std_train = f"train_{metric}_std"
 
-                    if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
-                        data.append({
-                            "Cluster": cluster,
-                            "Train Ratio": train_ratio,
-                            "Train Set Size": train_set_size,
-                            "Score": stats["test_summary_stats"][metric_test],
-                            "Std": stats["test_summary_stats"][std_test],
-                            "Score Type": "Test"
-                        })
-                        data.append({
-                            "Cluster": cluster,
-                            "Train Ratio": train_ratio,
-                            "Train Set Size": train_set_size,
-                            "Score": stats["train_summary_stats"][metric_train],
-                            "Std": stats["train_summary_stats"][std_train],
-                            "Score Type": "Train"
-                        })
+    #                 if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
+    #                     data.append({
+    #                         "Cluster": cluster,
+    #                         "Train Ratio": train_ratio,
+    #                         "Train Set Size": train_set_size,
+    #                         "Score": stats["test_summary_stats"][metric_test],
+    #                         "Std": stats["test_summary_stats"][std_test],
+    #                         "Score Type": "Test"
+    #                     })
+    #                     data.append({
+    #                         "Cluster": cluster,
+    #                         "Train Ratio": train_ratio,
+    #                         "Train Set Size": train_set_size,
+    #                         "Score": stats["train_summary_stats"][metric_train],
+    #                         "Std": stats["train_summary_stats"][std_train],
+    #                         "Score Type": "Train"
+    #                     })
 
     full_df = pd.DataFrame(data)
-
     # Determine common train sizes from CO clusters only
     co_only_sizes = {k: v for k, v in cluster_train_sizes.items() if k.startswith("CO_")}
     if co_only_sizes:
@@ -536,37 +535,38 @@ ama = AbsoluteMiscalibrationArea()
 def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
     results = []
     for cluster, ratios in pred_file.items():
-        cluster_size = ratios.get("Cluster size", 0)
-        # train_sizes= []
-        for ratio, seeds in ratios.items():
-            if ratio == "y_true" or ratio == "Cluster size":
-                continue
-            train_ratio = float(ratio.replace("ratio_", ""))
-            train_set_size = round((train_ratio * cluster_size))
-            # train_sizes.append(train_set_size)
-            y_predictions= []
-            uncertainties = []
-            y_true_all = []
-            for seed, predictions in seeds.items():
-                y_pred = np.array(predictions.get("y_test_pred", []))
-                y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
-                y_true = np.array(ratios.get("y_true", []))
-                
-                y_predictions.extend(y_pred)
-                uncertainties.extend(y_uncertainty)
-                y_true_all.extend(y_true)
-            if method=="AMA":
-                uncertainty, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
-                                                                ama,n_samples=1)
-            else:
-                uncertainty = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
-            results.append({
-                "Cluster": cluster,
-                "Train Set Size": train_set_size,
-                f"{method}": uncertainty,
-                # "Pearson R": pearsonr_mean,
-                # "Prediction_std": np.std(predict_true['y_test_pred']),
-            })
+        if cluster.startswith("CO_"):
+            cluster_size = ratios.get("training size", 0)
+            # train_sizes= []
+            for ratio, seeds in ratios.items():
+                if ratio == "y_true" or ratio == "training size":
+                    continue
+                train_ratio = float(ratio.replace("ratio_", ""))
+                train_set_size = round((train_ratio * cluster_size))
+                # train_sizes.append(train_set_size)
+                y_predictions= []
+                uncertainties = []
+                y_true_all = []
+                for seed, predictions in seeds.items():
+                    y_pred = np.array(predictions.get("y_test_pred", []))
+                    y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
+                    y_true = np.array(ratios.get("y_true", []))
+                    
+                    y_predictions.extend(y_pred)
+                    uncertainties.extend(y_uncertainty)
+                    y_true_all.extend(y_true)
+                if method=="AMA":
+                    uncertainty, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
+                                                                    ama,n_samples=1)
+                else:
+                    uncertainty = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
+                results.append({
+                    "Cluster": cluster,
+                    "Train Set Size": train_set_size,
+                    f"{method}": uncertainty,
+                    # "Pearson R": pearsonr_mean,
+                    # "Prediction_std": np.std(predict_true['y_test_pred']),
+                })
 
     return pd.DataFrame(results)
 
@@ -632,7 +632,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     def plot_with_dual_y_axis(data, **kwargs):
         cluster = data["Cluster"].iloc[0]
         cluster_idx = cluster.replace("CO_", "")
-        id_cluster = f"ID_{cluster_idx}"
+        id_cluster = f"IID_{cluster_idx}"
 
         ax = plt.gca()
         ax2 = ax.twinx()
@@ -690,7 +690,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
         x_min = 0
         x_max = int(np.ceil(data["Train Set Size"].max() / 50.0)) * 50
-        xticks = np.arange(x_min, x_max + 10, 50)
+        xticks = np.arange(x_min,  251, 50)
         ax.set_xticks(xticks)
         ax.set_ylim(0, max_score)
         ax.set_yticks(score_yticks)
