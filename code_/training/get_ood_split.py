@@ -180,10 +180,9 @@ def run_loco_cv(X, y,
     kernel = construct_kernel(regressor_type, kernel)
 
     cluster_y_test[f'ID_y_true'] = y.flatten()
-    # print(X)
     loco_split_idx:Dict[int,tuple[np.ndarray]] = get_loco_splits(cluster_labels)
     for cluster, (tv_idx,test_idx) in loco_split_idx.items():
-        print(cluster)
+        # print(cluster)
         if cluster=='Polar':
             cluster_tv_labels = split_for_training(cluster_labels['Side Chain Cluster'],tv_idx)
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
@@ -300,7 +299,7 @@ def _get_splits(cluster_labels: np.ndarray) -> dict[int, tuple[np.ndarray, np.nd
     
     if len(cluster_names) > 2:
         for cluster, count in zip(cluster_names, counts):
-            if count <=13:
+            if count <3:
                 continue
             mask = cluster_labels == cluster
             test_idxs = np.where(mask)[0]

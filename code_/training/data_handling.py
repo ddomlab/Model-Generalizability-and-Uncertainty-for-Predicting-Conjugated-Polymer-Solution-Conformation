@@ -22,6 +22,7 @@ feature_abbrev: Dict[str, str] = {
     "Second Peak":         "Rh Second Peak",
     "First Peak":         "Rh First Peak",
     "Third Peak":         "Rh Third Peak",
+    "canonical_name": "Polymers cluster",
 }
 
 
@@ -185,6 +186,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir
+    clustering_method= feature_abbrev.get(clustering_method, clustering_method) if clustering_method else None
     results_dir: Path = results_dir / clustering_method if clustering_method else results_dir
     results_dir: Path = results_dir / "test" if TEST else results_dir
     results_dir: Path = results_dir / features_dir
