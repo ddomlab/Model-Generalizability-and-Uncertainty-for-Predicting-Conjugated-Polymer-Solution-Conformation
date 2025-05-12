@@ -164,38 +164,38 @@ def parse_arguments():
     return parser.parse_args()
 
 if __name__ == "__main__":
-    args = parse_arguments()
+    # args = parse_arguments()
     
-
-    main_numerical_only(
-        dataset=w_data,
-        regressor_type=args.regressor_type,
-        kernel=args.kernel,
-        target_features=[args.target_features],  
-        transform_type='Standard',
-        hyperparameter_optimization=True,
-        columns_to_impute=args.columns_to_impute,  
-        special_impute=args.special_impute,
-        numerical_feats=args.numerical_feats,  
-        imputer=args.imputer,
-        cutoff=None,  
-        # second_transformer='Log',
-        classification=False
-    )
 
     # main_numerical_only(
     #     dataset=w_data,
-    #     regressor_type="XGBR",
-    #     # kernel= "matern",
-    #     target_features=['log Rg (nm)'],  # Can adjust based on actual usage
+    #     regressor_type=args.regressor_type,
+    #     kernel=args.kernel,
+    #     target_features=[args.target_features],  
     #     transform_type='Standard',
     #     hyperparameter_optimization=True,
-    #     columns_to_impute=None,
-    #     special_impute=None,
-    #     numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
-    #     imputer=None,
-    #     classification=False,
-    #     cutoff=None)
+    #     columns_to_impute=args.columns_to_impute,  
+    #     special_impute=args.special_impute,
+    #     numerical_feats=args.numerical_feats,  
+    #     imputer=args.imputer,
+    #     cutoff=None,  
+    #     # second_transformer='Log',
+    #     classification=False
+    # )
+
+    main_numerical_only(
+        dataset=w_data,
+        regressor_type="RF",
+        # kernel= "matern",
+        target_features=['log Rg (nm)'],  # Can adjust based on actual usage
+        transform_type='Standard',
+        hyperparameter_optimization=False,
+        columns_to_impute=None,
+        special_impute=None,
+        numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
+        imputer=None,
+        classification=False,
+        cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # special_column: str = "Mw (g/mol)"

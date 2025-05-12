@@ -455,6 +455,7 @@ def cross_validate_regressor(
                 scoring=scorers,
                 # return_estimator=True,
                 n_jobs=-1,
+                # return_indices=True,
                 )
 
         predictions: np.ndarray = cross_val_predict(

@@ -246,9 +246,7 @@ def run(
       else:
             scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
       seed_scores[seed] = scores
-    #   if 'Rh (IW avg log)' in target_features:
-    #         seed_predictions[seed] = np.power(10, predictions).flatten()
-    #   else:
+
       seed_predictions[seed] = predictions.flatten()
 
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(

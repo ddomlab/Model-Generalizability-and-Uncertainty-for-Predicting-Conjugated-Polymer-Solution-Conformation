@@ -51,6 +51,12 @@ class NumpyArrayEncoder(json.JSONEncoder):
         else:
             return super(NumpyArrayEncoder, self).default(obj)
 
+def get_cv_splits(score_for_indices):
+    indices = {}
+    for seed, values in score_for_indices.items():
+        if isinstance(seed, int) and "indices" in values:
+            indices[seed] = values["indices"]
+    return indices
 
 def _save(scores: Optional[Dict[int, Dict[str, float]]],
           predictions: Optional[pd.DataFrame],
@@ -99,10 +105,17 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     fname_root =f"{fname_root}_{transform_type}" if transform_type else f"{fname_root}_transformerOFF"
     fname_root = f"{fname_root}_lc" if learning_curve else fname_root
     print("Filename:", fname_root)
+
     if scores:
+        # cv_indices = get_cv_splits(scores)
+        print("CV Indices:", cv_indices)
         scores_file: Path = results_dir / f"{fname_root}_scores.json"
         with open(scores_file, "w") as f:
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
+        
+        # indices_file: Path = results_dir / f"{fname_root}_indices.json"
+        # with open(indices_file, "w") as f:
+        #     json.dump(cv_indices, f, cls=NumpyArrayEncoder, indent=2)
 
     if predictions is not None:
         if isinstance(predictions, pd.DataFrame):
