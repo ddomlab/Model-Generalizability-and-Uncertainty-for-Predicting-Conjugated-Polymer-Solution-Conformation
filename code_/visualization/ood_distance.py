@@ -77,7 +77,7 @@ def get_ood_iid(scores,ml_score_metric: str,algorithm: str):
         if cluster.startswith("CO_"):
             cluster_id = cluster.split("_")[1]
             mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
-            mean_IID, std_IID = get_score(scores, f"IID_{cluster_id}", ml_score_metric)
+            mean_IID, std_IID = get_score(scores, f"ID_{cluster_id}", ml_score_metric)
             data.append({
             "Cluster": cluster_id,
             "Model": algorithm,
@@ -98,7 +98,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
     palette = sns.color_palette("Set2", n_colors=len(models))
     model_colors = {model: palette[i] for i, model in enumerate(models)}
 
-    bar_width = .1
+    bar_width = .4
     n_models = len(models)
     group_width = n_models * 2 * bar_width + 0.5
 
@@ -139,7 +139,6 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
         seen[l] = h
 
     fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 4)
-    fig.subplots_adjust(top=1.01)
 
     ax.legend(
         seen.values(), seen.keys(),
@@ -157,7 +156,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
     ax.tick_params(axis='y', labelsize=text_size)
 
 
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0, 1, 1.03])
     plt.show()
 
 
