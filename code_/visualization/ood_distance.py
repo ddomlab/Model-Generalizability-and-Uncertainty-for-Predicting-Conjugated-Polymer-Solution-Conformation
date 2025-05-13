@@ -89,7 +89,9 @@ def get_ood_iid(scores,ml_score_metric: str,algorithm: str):
     # print(data)
     return data
 
-def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), text_size=14):
+def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
+                    saving_path, file_name: str,
+                    figsize=(12, 7), text_size=14,):
     # sns.set(style="whitegrid")
 
     clusters = data['Cluster'].unique()
@@ -120,12 +122,16 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
             # OOD
             ood_mean = row[f"OOD_{ml_score_metric}_mean"].values[0]
             ood_std = row[f"OOD_{ml_score_metric}_std"].values[0]
-            ax.bar(base_x, ood_mean, bar_width, yerr=ood_std, color=color, alpha=0.6, label=f"{model} OOD")
+            ax.bar(base_x, ood_mean, bar_width, yerr=ood_std,
+                   error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                   color=color, alpha=0.6, label=f"{model} OOD")
 
             # IID
             iid_mean = row[f"IID_{ml_score_metric}_mean"].values[0]
             iid_std = row[f"IID_{ml_score_metric}_std"].values[0]
-            ax.bar(base_x + bar_width, iid_mean, bar_width, yerr=iid_std, color=color, alpha=1.0, label=f"{model} IID")
+            ax.bar(base_x + bar_width, iid_mean, bar_width, yerr=iid_std, 
+                   error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                   color=color, alpha=1.0, label=f"{model} IID")
 
         # Add x tick in the center of the cluster group
         center_of_group = cluster_offset + (n_models * bar_width)
@@ -138,27 +144,40 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
     for h, l in zip(handles, labels):
         seen[l] = h
 
-    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster", fontsize=text_size + 4)
+    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster", fontsize=text_size + 2, fontweight='bold')
 
     ax.legend(
         seen.values(), seen.keys(),
-        fontsize=text_size - 2,
+        fontsize=text_size - 4,
         frameon=True,
         loc='upper center',
         bbox_to_anchor=(0.5, 1.16),
         ncol=3
     )
 
+
+    all_rmse_vals = np.concatenate([
+    data[f"OOD_{ml_score_metric}_mean"].values,
+    data[f"IID_{ml_score_metric}_mean"].values
+    ])
+    max_rmse = np.nanmax(all_rmse_vals)
+    ymax = np.ceil(max_rmse * 5) / 5  # round up to nearest 0.2
+
+    # Set y-axis ticks
+    ax.set_yticks(np.arange(0, ymax + 0.21, 0.2))
+    ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
     ax.set_xticklabels(cluster_labels, fontsize=text_size)
-    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size)
+    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size, fontweight='bold')
     # ax.set_title(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 2)
     ax.tick_params(axis='y', labelsize=text_size)
 
 
     plt.tight_layout(rect=[0, 0, 1, 1.03])
-    plt.show()
+    save_img_path(saving_path, f"{file_name}.png")
 
+    # plt.show()
+    plt.close()
 
 
 
@@ -363,13 +382,14 @@ if __name__ == "__main__":
 
             ## Plot OOD-IID vs distance for only numerical
             # co_vector = 'numerical vector'
-            combined_data = []
-            for model in ['XGBR', 'NGB', 'RF']:
-                scores_folder_path = results_path / cluster / 'Trimer_scaler'
-                score_file = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                score_file = ensure_long_path(score_file)
-                with open(score_file, "r") as f:
-                    scores = json.load(f)
+            
+            # combined_data = []
+            # for model in ['XGBR', 'NGB', 'RF']:
+            #     scores_folder_path = results_path / cluster / 'Trimer_scaler'
+            #     score_file = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+            #     score_file = ensure_long_path(score_file)
+            #     with open(score_file, "r") as f:
+            #         scores = json.load(f)
                     
             #     model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_ood_iid_distance=False)
             #     combined_data.extend(model_data)
@@ -400,9 +420,20 @@ if __name__ == "__main__":
             
 
             ## plot bar plot for OOD-IID
-                model_data = get_ood_iid(scores, accuracy_metric, model)
-                combined_data.extend(model_data)
-            plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric, figsize=(8, 6), text_size=14)
+            for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
+                combined_data = []
+                for model in ['XGBR', 'NGB', 'RF']:
+                    scores_folder_path = results_path / cluster / 'Trimer_scaler'
+                    score_file = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+                    score_file = ensure_long_path(score_file)
+                    with open(score_file, "r") as f:
+                        scores = json.load(f)
+                    model_data = get_ood_iid(scores, accuracy_metric, model)
+                    combined_data.extend(model_data)
+                saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
+                plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
+                                saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
+                                figsize=(8, 6), text_size=16,)
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
