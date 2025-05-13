@@ -71,6 +71,96 @@ naming: dict = {
         'combined mordred-numerical vector': cov_mordred_and_continuous_vector_scaled,
         'MACCS vector': cv_MACCS_vector,
 }
+def get_ood_iid(scores,ml_score_metric: str,algorithm: str):
+    data = []
+    for cluster, _ in scores.items():
+        if cluster.startswith("CO_"):
+            cluster_id = cluster.split("_")[1]
+            mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
+            mean_IID, std_IID = get_score(scores, f"IID_{cluster_id}", ml_score_metric)
+            data.append({
+            "Cluster": cluster_id,
+            "Model": algorithm,
+            f"OOD_{ml_score_metric}_mean": mean_ood,
+            f"OOD_{ml_score_metric}_std": std_ood,
+            f"IID_{ml_score_metric}_mean": mean_IID,
+            f"IID_{ml_score_metric}_std": std_IID
+        })
+    # print(data)
+    return data
+
+def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), text_size=14):
+    # sns.set(style="whitegrid")
+
+    clusters = data['Cluster'].unique()
+    models = data['Model'].unique()
+
+    palette = sns.color_palette("Set2", n_colors=len(models))
+    model_colors = {model: palette[i] for i, model in enumerate(models)}
+
+    bar_width = .1
+    n_models = len(models)
+    group_width = n_models * 2 * bar_width + 0.5
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    cluster_ticks = []
+    cluster_labels = []
+
+    for i, cluster in enumerate(clusters):
+        cluster_offset = i * group_width
+        for j, model in enumerate(models):
+            row = data[(data["Cluster"] == cluster) & (data["Model"] == model)]
+            if row.empty:
+                continue
+
+            base_x = cluster_offset + j * 2 * bar_width
+            color = model_colors[model]
+
+            # OOD
+            ood_mean = row[f"OOD_{ml_score_metric}_mean"].values[0]
+            ood_std = row[f"OOD_{ml_score_metric}_std"].values[0]
+            ax.bar(base_x, ood_mean, bar_width, yerr=ood_std, color=color, alpha=0.6, label=f"{model} OOD")
+
+            # IID
+            iid_mean = row[f"IID_{ml_score_metric}_mean"].values[0]
+            iid_std = row[f"IID_{ml_score_metric}_std"].values[0]
+            ax.bar(base_x + bar_width, iid_mean, bar_width, yerr=iid_std, color=color, alpha=1.0, label=f"{model} IID")
+
+        # Add x tick in the center of the cluster group
+        center_of_group = cluster_offset + (n_models * bar_width)
+        cluster_ticks.append(center_of_group)
+        cluster_labels.append(cluster)
+
+    # Remove duplicate legends
+    handles, labels = ax.get_legend_handles_labels()
+    seen = {}
+    for h, l in zip(handles, labels):
+        seen[l] = h
+
+    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 4)
+    fig.subplots_adjust(top=1.01)
+
+    ax.legend(
+        seen.values(), seen.keys(),
+        fontsize=text_size - 2,
+        frameon=True,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.16),
+        ncol=3
+    )
+
+    ax.set_xticks(cluster_ticks)
+    ax.set_xticklabels(cluster_labels, fontsize=text_size)
+    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size)
+    # ax.set_title(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 2)
+    ax.tick_params(axis='y', labelsize=text_size)
+
+
+    plt.tight_layout()
+    plt.show()
+
+
 
 
 def make_accumulating_scores(scores, ml_score_metric: str, 
@@ -205,7 +295,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector,
 
 if __name__ == "__main__":
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
                     'HBD3 MACCS cluster',
                     'substructure cluster',
@@ -273,14 +363,14 @@ if __name__ == "__main__":
 
 
             ## Plot OOD-IID vs distance for only numerical
-            co_vector = 'numerical vector'
+            # co_vector = 'numerical vector'
             combined_data = []
             for model in ['XGBR', 'NGB', 'RF']:
-                scores_folder_path = results_path / cluster / 'scaler'
-            #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-            #     score_file = ensure_long_path(score_file)
-            #     with open(score_file, "r") as f:
-            #         scores = json.load(f)
+                scores_folder_path = results_path / cluster / 'Trimer_scaler'
+                score_file = scores_folder_path / f'(MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+                score_file = ensure_long_path(score_file)
+                with open(score_file, "r") as f:
+                    scores = json.load(f)
                     
             #     model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_ood_iid_distance=False)
             #     combined_data.extend(model_data)
@@ -291,24 +381,29 @@ if __name__ == "__main__":
             # print('Plot combined')
 
             #  Plot OOD-IID vs distance for equal training size
-                score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-                score_file = ensure_long_path(score_file)
-                if not os.path.exists(score_file):
-                    print(f"File not found: {score_file}")
-                    continue 
+                # score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
+                # score_file = ensure_long_path(score_file)
+                # if not os.path.exists(score_file):
+                #     print(f"File not found: {score_file}")
+                #     continue 
 
-                with open(score_file, "r") as f:
-                    scores = json.load(f)
+                # with open(score_file, "r") as f:
+                #     scores = json.load(f)
 
-                model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_equal_size=True)
+                # model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_equal_size=True)
+                # combined_data.extend(model_data)
+
+
+            # saving_folder = scores_folder_path/ f'scores vs distance at equal training size'/ f"{co_vector}"
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
+            #                 saving_path=saving_folder, file_name=f"numerical_metric-{accuracy_metric}", is_equal_size=True)
+            # print('Plot equal size scores')
+            
+
+            ## plot bar plot for OOD-IID
+                model_data = get_ood_iid(scores, accuracy_metric, model)
                 combined_data.extend(model_data)
-
-
-            saving_folder = scores_folder_path/ f'scores vs distance at equal training size'/ f"{co_vector}"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
-                            saving_path=saving_folder, file_name=f"numerical_metric-{accuracy_metric}", is_equal_size=True)
-            print('Plot equal size scores')
-
+            plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric, figsize=(8, 6), text_size=14)
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
