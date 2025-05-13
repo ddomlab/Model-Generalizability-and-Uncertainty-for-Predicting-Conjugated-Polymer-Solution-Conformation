@@ -138,7 +138,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, figsize=(12, 7), 
     for h, l in zip(handles, labels):
         seen[l] = h
 
-    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 4)
+    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster", fontsize=text_size + 4)
 
     ax.legend(
         seen.values(), seen.keys(),
