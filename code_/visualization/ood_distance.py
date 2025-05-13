@@ -11,7 +11,7 @@ from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silho
 from sklearn.preprocessing import StandardScaler
 import json
 from matplotlib.lines import Line2D
-from visualize_ood_scores import get_score, ensure_long_path, process_learning_curve_scores
+from visualize_ood_scores import get_score, ensure_long_path, process_learning_curve_scores, plot_bar_ood_iid
 set_plot_style(tick_size=16)
 
 HERE: Path = Path(__file__).resolve().parent
@@ -71,113 +71,22 @@ naming: dict = {
         'combined mordred-numerical vector': cov_mordred_and_continuous_vector_scaled,
         'MACCS vector': cv_MACCS_vector,
 }
+
+
 def get_ood_iid(scores,ml_score_metric: str,algorithm: str):
     data = []
     for cluster, _ in scores.items():
-        if cluster.startswith("CO_"):
-            cluster_id = cluster.split("_")[1]
-            mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
-            mean_IID, std_IID = get_score(scores, f"ID_{cluster_id}", ml_score_metric)
+        if cluster.startswith("CO_") or cluster.startswith("ID_") or cluster.startswith("IID_"):
+            # print(cluster)
+            # cluster_id = cluster.split("_")[1]
+            mean_ood, std_ood = get_score(scores, f"{cluster}", ml_score_metric)
             data.append({
-            "Cluster": cluster_id,
+            "Cluster": cluster,
             "Model": algorithm,
-            f"OOD_{ml_score_metric}_mean": mean_ood,
-            f"OOD_{ml_score_metric}_std": std_ood,
-            f"IID_{ml_score_metric}_mean": mean_IID,
-            f"IID_{ml_score_metric}_std": std_IID
+            f"Score": mean_ood,
+            f"Std": std_ood,
         })
-    # print(data)
     return data
-
-def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
-                    saving_path, file_name: str,
-                    figsize=(12, 7), text_size=14,):
-    # sns.set(style="whitegrid")
-
-    clusters = data['Cluster'].unique()
-    models = data['Model'].unique()
-
-    palette = sns.color_palette("Set2", n_colors=len(models))
-    model_colors = {model: palette[i] for i, model in enumerate(models)}
-
-    bar_width = .4
-    n_models = len(models)
-    group_width = n_models * 2 * bar_width + 0.5
-
-    fig, ax = plt.subplots(figsize=figsize)
-
-    cluster_ticks = []
-    cluster_labels = []
-
-    for i, cluster in enumerate(clusters):
-        cluster_offset = i * group_width
-        for j, model in enumerate(models):
-            row = data[(data["Cluster"] == cluster) & (data["Model"] == model)]
-            if row.empty:
-                continue
-
-            base_x = cluster_offset + j * 2 * bar_width
-            color = model_colors[model]
-
-            # OOD
-            ood_mean = row[f"OOD_{ml_score_metric}_mean"].values[0]
-            ood_std = row[f"OOD_{ml_score_metric}_std"].values[0]
-            ax.bar(base_x, ood_mean, bar_width, yerr=ood_std,
-                   error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
-                   color=color, alpha=0.6, label=f"{model} OOD")
-
-            # IID
-            iid_mean = row[f"IID_{ml_score_metric}_mean"].values[0]
-            iid_std = row[f"IID_{ml_score_metric}_std"].values[0]
-            ax.bar(base_x + bar_width, iid_mean, bar_width, yerr=iid_std, 
-                   error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
-                   color=color, alpha=1.0, label=f"{model} IID")
-
-        # Add x tick in the center of the cluster group
-        center_of_group = cluster_offset + (n_models * bar_width)
-        cluster_ticks.append(center_of_group)
-        cluster_labels.append(cluster)
-
-    # Remove duplicate legends
-    handles, labels = ax.get_legend_handles_labels()
-    seen = {}
-    for h, l in zip(handles, labels):
-        seen[l] = h
-
-    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster", fontsize=text_size + 2, fontweight='bold')
-
-    ax.legend(
-        seen.values(), seen.keys(),
-        fontsize=text_size - 4,
-        frameon=True,
-        loc='upper center',
-        bbox_to_anchor=(0.5, 1.16),
-        ncol=3
-    )
-
-
-    all_rmse_vals = np.concatenate([
-    data[f"OOD_{ml_score_metric}_mean"].values,
-    data[f"IID_{ml_score_metric}_mean"].values
-    ])
-    max_rmse = np.nanmax(all_rmse_vals)
-    ymax = np.ceil(max_rmse * 5) / 5  # round up to nearest 0.2
-
-    # Set y-axis ticks
-    ax.set_yticks(np.arange(0, ymax + 0.21, 0.2))
-    ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
-    ax.set_xticks(cluster_ticks)
-    ax.set_xticklabels(cluster_labels, fontsize=text_size)
-    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size, fontweight='bold')
-    # ax.set_title(f"OOD vs IID {ml_score_metric.upper()} per Model Grouped by Cluster", fontsize=text_size + 2)
-    ax.tick_params(axis='y', labelsize=text_size)
-
-
-    plt.tight_layout(rect=[0, 0, 1, 1.03])
-    save_img_path(saving_path, f"{file_name}.png")
-
-    # plt.show()
-    plt.close()
 
 
 
@@ -430,6 +339,7 @@ if __name__ == "__main__":
                         scores = json.load(f)
                     model_data = get_ood_iid(scores, accuracy_metric, model)
                     combined_data.extend(model_data)
+                    print(pd.DataFrame(combined_data))
                 saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
                 plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
                                 saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 

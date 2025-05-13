@@ -11,8 +11,6 @@ import seaborn as sns
 from math import ceil
 from visualization_setting import set_plot_style, save_img_path
 
-
-
 set_plot_style()
 
 def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
@@ -26,6 +24,8 @@ def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
         scores.get(cluster, {}).get("summary_stats", {}).get(mean_key, 0),
         scores.get(cluster, {}).get("summary_stats", {}).get(std_key, 0),
     )
+
+
 
 
 
@@ -322,44 +322,6 @@ def process_learning_curve_scores(summary_scores,
                         "Score Type": "Train"
                     })
 
-    # Now process ID_ clusters using same train set sizes
-    # for cluster, ratios in summary_scores.items():
-    #     if cluster.startswith("ID_"):
-    #         cluster_index = cluster.replace("ID_", "")
-    #         corresponding_co = f"CO_{cluster_index}"
-    #         if corresponding_co not in cluster_train_sizes:
-    #             continue  # skip if CO cluster is missing
-
-    #         for ratio, stats in ratios.items():
-    #             if ratio.startswith("ratio_"):
-    #                 train_ratio = float(ratio.replace("ratio_", ""))
-    #                 cluster_size = summary_scores[corresponding_co].get("Cluster size", 0)
-    #                 train_set_size = round(train_ratio * cluster_size, 1)
-    #                 cluster_train_sizes.setdefault(cluster, set()).add(train_set_size)
-
-    #                 metric_test = f"test_{metric}_mean"
-    #                 metric_train = f"train_{metric}_mean"
-    #                 std_test = f"test_{metric}_std"
-    #                 std_train = f"train_{metric}_std"
-
-    #                 if metric_test in stats["test_summary_stats"] and metric_train in stats["train_summary_stats"]:
-    #                     data.append({
-    #                         "Cluster": cluster,
-    #                         "Train Ratio": train_ratio,
-    #                         "Train Set Size": train_set_size,
-    #                         "Score": stats["test_summary_stats"][metric_test],
-    #                         "Std": stats["test_summary_stats"][std_test],
-    #                         "Score Type": "Test"
-    #                     })
-    #                     data.append({
-    #                         "Cluster": cluster,
-    #                         "Train Ratio": train_ratio,
-    #                         "Train Set Size": train_set_size,
-    #                         "Score": stats["train_summary_stats"][metric_train],
-    #                         "Std": stats["train_summary_stats"][std_train],
-    #                         "Score Type": "Train"
-    #                     })
-
     full_df = pd.DataFrame(data)
     # Determine common train sizes from CO clusters only
     co_only_sizes = {k: v for k, v in cluster_train_sizes.items() if k.startswith("CO_")}
@@ -423,27 +385,99 @@ def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None,
     plt.close()
 
 
-        # If there's a shared training set size, highlight it on the plot
-        # if shared_train_size is not None:
-        #     ax.axvline(shared_train_size, color='r', linestyle='--', label="eq train size")
-        #     shared_point = data[data["Train Set Size"] == shared_train_size]
-        #     if not shared_point.empty:
-        #         test_score = shared_point["Score"].values[0]
-                
-        #         # Find max score for positioning in upper right
-        #         max_score = data["Score"].max()
-        #         upper_right_x = data["Train Set Size"].max()  # Rightmost x-value
-                
-        #         ax.annotate(
-        #             f"{test_score:.2f}",
-        #             xy=(upper_right_x, max_score), 
-        #             xycoords="data",
-        #             xytext=(20, 20), textcoords="offset points",  # Offset for better visibility
-        #             fontsize=12, fontweight="bold",
-        #             color="black",
-        #             bbox=dict(facecolor="white", edgecolor="black", boxstyle="round,pad=0.3"),
-        #             ha="right", va="top"  # Align text to the top-right
-        #         )
+
+def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
+                    saving_path, file_name: str,
+                    figsize=(12, 7), text_size=14):
+    
+    def parse_cluster_info(cluster_label):
+        if cluster_label.startswith("CO_"):
+            return cluster_label.split("_")[1], "OOD"
+        elif cluster_label.startswith("ID_") or cluster_label.startswith("IID_"):
+            return cluster_label.split("_")[1], "IID"
+        else:
+            return cluster_label, "Unknown"
+
+    parsed_info = data['Cluster'].apply(parse_cluster_info)
+    data['BaseCluster'] = parsed_info.apply(lambda x: x[0])
+    data['SplitType'] = parsed_info.apply(lambda x: x[1])
+
+    clusters = data['BaseCluster'].unique()
+    models = data['Model'].unique()
+
+    palette = sns.color_palette("Set2", n_colors=len(models))
+    model_colors = {model: palette[i] for i, model in enumerate(models)}
+
+    bar_width = 0.4
+    n_models = len(models)
+    group_width = n_models * 2 * bar_width + 0.5
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    cluster_ticks = []
+    cluster_labels = []
+
+    for i, cluster in enumerate(clusters):
+        cluster_offset = i * group_width
+        for j, model in enumerate(models):
+            subset = data[(data["BaseCluster"] == cluster) & (data["Model"] == model)]
+            if subset.empty:
+                continue
+
+            base_x = cluster_offset + j * 2 * bar_width
+            color = model_colors[model]
+
+            for _, row in subset.iterrows():
+                if row["SplitType"] == "OOD":
+                    ax.bar(base_x, row["Score"], bar_width, yerr=row["Std"],
+                           error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                           color=color, alpha=0.6, label=f"{model} OOD")
+                elif row["SplitType"] == "IID":
+                    ax.bar(base_x + bar_width, row["Score"], bar_width, yerr=row["Std"],
+                           error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                           color=color, alpha=1.0, label=f"{model} IID")
+
+        center_of_group = cluster_offset + (n_models * bar_width)
+        cluster_ticks.append(center_of_group)
+        cluster_labels.append(cluster)
+
+    # De-duplicate legend
+    handles, labels = ax.get_legend_handles_labels()
+    seen = {}
+    for h, l in zip(handles, labels):
+        seen[l] = h
+
+    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster (equal train size)", fontsize=text_size + 2, fontweight='bold')
+
+    ax.legend(
+        seen.values(), seen.keys(),
+        fontsize=text_size - 4,
+        frameon=True,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.16),
+        ncol=3
+    )
+
+    # Compute ymax as multiple of 0.2
+    max_score = np.nanmax(data["Score"].values)
+    ymax = np.ceil(max_score / .2) * .2
+    ax.set_yticks(np.arange(0, ymax + 0.41, 0.2))
+    ax.set_ylim(0, ymax)
+
+    # Axis labels and ticks
+    ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
+    ax.set_xticks(cluster_ticks)
+    ax.set_xticklabels(cluster_labels, fontsize=text_size)
+    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size, fontweight='bold')
+    ax.tick_params(axis='y', labelsize=text_size)
+
+    # Layout adjustment
+    plt.tight_layout(rect=[0, 0, 1, 1.03])
+    save_img_path(saving_path, f"{file_name}.png")
+    # plt.show()  
+    plt.close()
+
+
 
 
 def get_residuals_dist_learning_curve_data(data:Dict) -> pd.DataFrame:
@@ -607,7 +641,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                                            uncertenty_method: str = "AMA") -> None:
     score_df, _ = process_learning_curve_scores(summary_scores, metric)
     unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
-
+    # print(fix_size)
     if score_df.empty:
         print(f"No data found for metric '{metric}'.")
         return
@@ -641,7 +675,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
         # Plot CO Train/Test
         for score_type in ["Train", "Test"]:
             sub_df = data[data["Score Type"] == score_type].sort_values("Train Set Size")
-            color = "orange" if score_type == "Train" else "blue"
+            color = "orange" if score_type == "Train" else "#4487D0"
             sns.lineplot(
                 data=sub_df, x="Train Set Size", y="Score",
                 ax=ax, label=f"CO {score_type}", linewidth=2.5, marker="o", color=color
@@ -721,10 +755,10 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
     # ⬆️ Add a shared horizontal legend above the plots
     custom_lines = [
-        Line2D([0], [0], color='blue', lw=3.5, marker='o', label='OOD Test'),
+        Line2D([0], [0], color='#4487D0', lw=3.5, marker='o', label='OOD Test'),
         Line2D([0], [0], color='orange', lw=3.5, marker='o', label='OOD Train'),
         Line2D([0], [0], color='purple', lw=3.5, marker='s', linestyle='--', label='ID Test'),
-        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=f'{uncertenty_method} OOD Test')
+        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=f'OOD Test')
     ]
 
     plt.figlegend(
@@ -775,6 +809,7 @@ if __name__ == "__main__":
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
         for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+            all_score_eq_training_size = []
             for model in ['NGB', 'XGBR', 'RF']:
 
 
@@ -803,20 +838,31 @@ if __name__ == "__main__":
                 # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
                 # print("Save learning curve scores")
                 # saving_uncertainty = scores_folder_path / f'uncertainty'
-                if model == 'XGBR':
-                    continue
+                # if model == 'XGBR':
+                #     continue
         #         # print(predictions_file_lc)
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                print("Save learning curve scores and uncertainty")
+                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                # print("Save learning curve scores and uncertainty")
 
 
+                # plot OOD vs IID barplot at the same training size 
 
+                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+                ood_iid_eq_tarining_size_df['Model'] = model
+
+                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+            all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set'
+            plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse',
+                             text_size=16,figsize=(8, 6))
+            print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
