@@ -71,7 +71,8 @@ def main_numerical_only(
                 hypop=hyperparameter_optimization,
                 transform_type=transform_type,
                 second_transformer=second_transformer,
-                classification=classification
+                classification=classification,
+                special_name='hp_RF_differences'
                 )
 
 
