@@ -190,7 +190,7 @@ if __name__ == "__main__":
         # kernel= "matern",
         target_features=['log Rg (nm)'],  # Can adjust based on actual usage
         transform_type='Standard',
-        hyperparameter_optimization=False,
+        hyperparameter_optimization=True,
         columns_to_impute=None,
         special_impute=None,
         numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
