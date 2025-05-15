@@ -633,6 +633,7 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 
+
 def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                                            prediction: Dict,
                                            metric="rmse",
@@ -641,18 +642,15 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                                            uncertenty_method: str = "AMA") -> None:
     score_df, _ = process_learning_curve_scores(summary_scores, metric)
     unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
-    # print(fix_size)
+
     if score_df.empty:
         print(f"No data found for metric '{metric}'.")
         return
-
-    import numpy as np
 
     max_score = np.ceil(score_df["Score"].max() * 10) / 10  
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
 
     if uncertenty_method == "Pearson R":
-        # max_uncertainty = np.ceil(np.abs(unceretainty_df[uncertenty_method]).max() * 2) / 2
         u_yticks = np.arange(-1, 1.5, 0.5)
     else:
         max_uncertainty = np.ceil(unceretainty_df[uncertenty_method].max() * 10) / 10
@@ -672,41 +670,39 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
         ax2 = ax.twinx()
         twin_axes.append((ax, ax2))
 
-        # Plot CO Train/Test
-        for score_type in ["Train", "Test"]:
-            sub_df = data[data["Score Type"] == score_type].sort_values("Train Set Size")
-            color = "orange" if score_type == "Train" else "#4487D0"
-            sns.lineplot(
-                data=sub_df, x="Train Set Size", y="Score",
-                ax=ax, label=f"CO {score_type}", linewidth=2.5, marker="o", color=color
-            )
-            ax.fill_between(
-                sub_df["Train Set Size"],
-                sub_df["Score"] - sub_df["Std"],
-                sub_df["Score"] + sub_df["Std"],
-                alpha=0.2,
-                color=color
-            )
+        # Plot OOD and IID clusters (Train/Test) in one loop
+        for cluster_type, cluster_prefix, line_style, color_map in [
+            ("OOD", "CO_", "-", {"Train": "#419BA5", "Test": "#367CE2"}),
+            ("ID", "IID_", "--", {"Train": "#E74747", "Test": "#9C529E"})
+        ]:
+            sub_cluster = f"{cluster_prefix}{cluster_idx}"
 
-        # Plot ID Test with fill_between
-        id_data = score_df[(score_df["Cluster"] == id_cluster) & (score_df["Score Type"] == "Test")]
-        if not id_data.empty:
-            id_data = id_data.sort_values("Train Set Size")
-            ax.plot(
-                id_data["Train Set Size"],
-                id_data["Score"],
-                color="purple",
-                linestyle="--",
-                marker="s",
-                label="ID Test"
-            )
-            ax.fill_between(
-                id_data["Train Set Size"],
-                id_data["Score"] - id_data["Std"],
-                id_data["Score"] + id_data["Std"],
-                alpha=0.15,
-                color="purple"
-            )
+            for score_type in ["Train", "Test"]:
+                sub_df = score_df[(score_df["Cluster"] == sub_cluster) & (score_df["Score Type"] == score_type)]
+                if not sub_df.empty:
+                    sub_df = sub_df.sort_values("Train Set Size")
+                    color = color_map[score_type]
+                    marker = "o" if cluster_type == "OOD" else ("D" if score_type == "Train" else "s")
+                    label = f"{cluster_type} {score_type}"
+
+                    sns.lineplot(
+                        data=sub_df,
+                        x="Train Set Size",
+                        y="Score",
+                        ax=ax,
+                        label=label,
+                        linewidth=2.5,
+                        marker=marker,
+                        linestyle=line_style,
+                        color=color
+                    )
+                    ax.fill_between(
+                        sub_df["Train Set Size"],
+                        sub_df["Score"] - sub_df["Std"],
+                        sub_df["Score"] + sub_df["Std"],
+                        alpha=0.2 if cluster_type == "OOD" else 0.15,
+                        color=color
+                    )
 
         # Plot uncertainty
         ama_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
@@ -721,14 +717,13 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
             label=uncertenty_method
         )
 
-
         x_min = 0
         x_max = int(np.ceil(data["Train Set Size"].max() / 50.0)) * 50
         xticks = np.arange(x_min,  251, 50)
         ax.set_xticks(xticks)
         ax.set_ylim(0, max_score)
         ax.set_yticks(score_yticks)
-        ax2.set_ylim(-1, 1)
+        ax2.set_ylim(u_yticks.min(), u_yticks.max())
         ax2.set_yticks(u_yticks)
         ax2.tick_params(axis='y', labelsize=16)
         ax.tick_params(axis='x', labelsize=16)
@@ -753,19 +748,20 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
         ax.set_title(g.col_names[i], fontsize=20)
 
-    # ⬆️ Add a shared horizontal legend above the plots
+    # Shared legend
     custom_lines = [
-        Line2D([0], [0], color='#4487D0', lw=3.5, marker='o', label='OOD Test'),
-        Line2D([0], [0], color='orange', lw=3.5, marker='o', label='OOD Train'),
-        Line2D([0], [0], color='purple', lw=3.5, marker='s', linestyle='--', label='ID Test'),
-        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label=f'OOD Test')
+        Line2D([0], [0], color='#419BA5', lw=3.5, marker='o', label='OOD Train'),
+        Line2D([0], [0], color='#367CE2', lw=3.5, marker='o', label='OOD Test'),
+        Line2D([0], [0], color='#E74747', lw=3.5, marker='D', linestyle='--', label='ID Train'),
+        Line2D([0], [0], color='#9C529E', lw=3.5, marker='s', linestyle='--', label='ID Test'),
+        Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label='OOD Test')
     ]
 
     plt.figlegend(
         handles=custom_lines,
         loc='upper center',
         bbox_to_anchor=(0.5, 1.07),
-        ncol=4,
+        ncol=5,
         fontsize=18,
         frameon=True
     )
@@ -838,31 +834,31 @@ if __name__ == "__main__":
                 # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
                 # print("Save learning curve scores")
                 # saving_uncertainty = scores_folder_path / f'uncertainty'
-                # if model == 'XGBR':
-                #     continue
+                if model == 'XGBR':
+                    continue
         #         # print(predictions_file_lc)
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                # print("Save learning curve scores and uncertainty")
+                saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                print("Save learning curve scores and uncertainty")
 
 
                 # plot OOD vs IID barplot at the same training size 
 
-                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
-                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-                ood_iid_eq_tarining_size_df['Model'] = model
+            #     _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+            #     ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+            #     ood_iid_eq_tarining_size_df['Model'] = model
 
-                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-            all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-            saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set'
-            plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse',
-                             text_size=16,figsize=(8, 6))
-            print("save OOD vs IID bar plot at equal training size")
+            #     all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+            # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+            # saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set'
+            # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse',
+            #                  text_size=16,figsize=(8, 6))
+            # print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
