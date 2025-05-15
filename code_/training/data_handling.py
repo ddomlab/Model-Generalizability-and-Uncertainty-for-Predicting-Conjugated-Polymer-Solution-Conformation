@@ -110,6 +110,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     if scores:
         # cv_indices = get_cv_splits(scores)
         # print("CV Indices:", cv_indices)
+        print(scores)
         scores_file: Path = results_dir / f"{fname_root}_scores.json"
         with open(scores_file, "w") as f:
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
@@ -166,6 +167,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  classification:bool=False,
                  clustering_method:str=None,
                  learning_curve:bool=False,
+                 special_name:Optional[str]=None,
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -184,6 +186,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     f_root_dir = f"OOD_{f_root_dir}" if clustering_method else f_root_dir
     f_root_dir = f"{f_root_dir}_{second_transformer}FT" if second_transformer else f_root_dir
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
+    f_root_dir = f"{f_root_dir}_{special_name}" if special_name else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir
     clustering_method= feature_abbrev.get(clustering_method, clustering_method) if clustering_method else None

@@ -19,7 +19,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters melted duplicates.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
 # clusters = 'KM4 ECFP6_Count_512bit cluster'	
@@ -32,7 +32,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 def main_structural_numerical(
     dataset: pd.DataFrame,
@@ -86,7 +86,8 @@ def main_structural_numerical(
                 hypop=hyperparameter_optimization,
                 transform_type=transform_type,
                 second_transformer=second_transformer,
-                clustering_method=clustering_method
+                clustering_method=clustering_method,
+                special_name='mean_aggregated',
                 )
     #TODO: Plot the results
     # scores_criteria: list= ['mad', 'mae', 'rmse',
@@ -148,5 +149,5 @@ if __name__ == "__main__":
             numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
             hyperparameter_optimization=True,
             oligomer_representation="Trimer",
-            clustering_method='canonical_name'
+            clustering_method='substructure cluster'
         )
