@@ -8,6 +8,7 @@ import sys
 sys.path.append("../cleaning")
 from argparse import ArgumentParser
 from data_handling import save_results
+from train_structure_numerical import parse_arguments
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -32,7 +33,6 @@ def main_numerical_only(
     cutoff:Optional[str]=None,
     second_transformer:str=None,
     classification:bool=False,
-
 ) -> None:
 
 
@@ -84,85 +84,6 @@ def main_numerical_only(
     # target_features= ['Lp (nm)']
     
 
-
-
-# perform_model_numerical_maccs('RF')
-
-def parse_arguments():
-    parser = ArgumentParser(description="Process some data for numerical-only regression.")
-    
-    # Argument for regressor_type
-    parser.add_argument(
-        '--target_features',
-        # choices=['Lp (nm)', 'Rg1 (nm)', 'Rh (IW avg log)'],  
-        required=True,
-        help="Specify a single target for the analysis."
-    )
-    
-    parser.add_argument(
-        '--regressor_type', 
-        type=str, 
-        # choices=['RF', 'DT', 'MLR', 'SVR', 'XGBR','KNN', 'GPR', 'NGB', 'sklearn-GPR'], 
-        required=True, 
-        help="Regressor type required"
-    )
-
-    parser.add_argument(
-        '--numerical_feats',
-        type=str,
-        choices=['Xn','Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
-                  'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH', 'Ra',
-                  "abs(solvent dD - polymer dD)", "abs(solvent dP - polymer dP)", "abs(solvent dH - polymer dH)"],
-
-        nargs='+',  # Allows multiple choices
-        required=True,
-        help="Numerical features: choose"
-    )
-    
-    parser.add_argument(
-        '--columns_to_impute',
-        type=str,
-        choices=['Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
-                  'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH', 'Ra'],
-
-        nargs='*',  # This allows 0 or more values
-        default=None,  
-        help="imputation features: choose"
-    )
-
-    parser.add_argument(
-        '--imputer',
-        choices=['mean', 'median', 'most_frequent',"distance KNN", None],  
-        nargs='?',  # This allows the argument to be optional
-        default=None,  
-        help="Specify the imputation strategy or leave it as None."
-    )
-
-    parser.add_argument(
-        '--special_impute',
-        choices=['Mw (g/mol)', None],  
-        nargs='?',  # This allows the argument to be optional
-        default=None,  # Set the default value to None
-        help="Specify the imputation strategy or leave it as None."
-    )
-
-    parser.add_argument(
-        "--transform_type", 
-        type=str, 
-        choices=["Standard", "Robust Scaler"], 
-        default= "Standard", 
-        help="transform type required"
-    )
-
-    parser.add_argument(
-        "--kernel", 
-        type=str,
-        default=None,
-        help='kernel for GP is optinal'
-    )
-
-
-    return parser.parse_args()
 
 if __name__ == "__main__":
     args = parse_arguments()
