@@ -2,13 +2,13 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515
 mkdir -p "$output_dir"
 
-regressors=("RF" "XGBR", "NGB")
+regressors=("NGB")
 targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
 vectors=("count")
 poly_representations=('Trimer')
-group_out=('substructure cluster') 
+group_out=('canonical_name') 
 
 
 for regressor in "${regressors[@]}"; do
@@ -23,7 +23,7 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 45:05
+#BSUB -W 70:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250515"  
