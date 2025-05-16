@@ -1847,3 +1847,65 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502/numerical_RF_log Rg (nm)_20250502.err> for stderr output of this job.
 
+Average scores:	 r: 0.93±0.04	 r2: 0.87±0.08
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard
+{6: {'fit_time': array([0.30798531, 0.19097948, 0.20013452, 0.19347978, 0.20464301]), 'score_time': array([0.01682901, 0.05685902, 0.04146576, 0.04853868, 0.04011607]), 'test_pearson_r': array([0.96673558, 0.96043861, 0.90808826, 0.92828665, 0.92554936]), 'test_spearman_r': array([0.95217662, 0.95519648, 0.91025915, 0.91949362, 0.91003711]), 'test_rmse': array([-0.18064853, -0.17928042, -0.27792129, -0.23313254, -0.21268823]), 'test_mae': array([-0.11067132, -0.11043451, -0.1409985 , -0.13380962, -0.12860021]), 'test_r2': array([0.92523411, 0.91967754, 0.80393583, 0.86160128, 0.85179213])}, 13: {'fit_time': array([0.20096278, 0.22057486, 0.18695092, 0.20497966, 0.19059277]), 'score_time': array([0.01891589, 0.01598525, 0.01611757, 0.01740026, 0.01704097]), 'test_pearson_r': array([0.97477431, 0.95989238, 0.82529308, 0.9541049 , 0.92921146]), 'test_spearman_r': array([0.95194177, 0.95653659, 0.84259518, 0.94637065, 0.90641264]), 'test_rmse': array([-0.14655221, -0.19360687, -0.36244155, -0.19446273, -0.21133903]), 'test_mae': array([-0.10202571, -0.12926549, -0.15011131, -0.12293239, -0.12789236]), 'test_r2': array([0.94540287, 0.91133103, 0.66292684, 0.90878175, 0.86049679])}, 42: {'fit_time': array([0.20063043, 0.1976366 , 0.30049443, 0.20723295, 0.29528069]), 'score_time': array([0.01614571, 0.01607013, 0.01702785, 0.01529145, 0.01582265]), 'test_pearson_r': array([0.95775284, 0.96411064, 0.90948991, 0.96746501, 0.8898694 ]), 'test_spearman_r': array([0.95937667, 0.95726788, 0.92270913, 0.96509767, 0.89510431]), 'test_rmse': array([-0.19945985, -0.19214639, -0.20969253, -0.16599668, -0.30145429]), 'test_mae': array([-0.12207679, -0.12142797, -0.12941654, -0.09488712, -0.12749728]), 'test_r2': array([0.91037551, 0.9143145 , 0.82284724, 0.93312343, 0.78199682])}, 69: {'fit_time': array([0.20439506, 0.29491401, 0.20264864, 0.19060588, 0.29080153]), 'score_time': array([0.01706457, 0.01543283, 0.01649141, 0.01536226, 0.01580429]), 'test_pearson_r': array([0.97834205, 0.88795701, 0.96325342, 0.82354133, 0.94409322]), 'test_spearman_r': array([0.97726497, 0.88320256, 0.96353856, 0.82447115, 0.9480067 ]), 'test_rmse': array([-0.13211198, -0.27948181, -0.17528612, -0.35530339, -0.23403989]), 'test_mae': array([-0.09325786, -0.13295774, -0.10162765, -0.1796721 , -0.1447782 ]), 'test_r2': array([0.95475642, 0.7778155 , 0.92171516, 0.64365002, 0.8835579 ])}, 420: {'fit_time': array([0.3126812 , 0.19705629, 0.19747114, 0.19254565, 0.306952  ]), 'score_time': array([0.01709986, 0.01749349, 0.01541758, 0.0155344 , 0.01649761]), 'test_pearson_r': array([0.96589429, 0.96892266, 0.88146884, 0.94823144, 0.9003684 ]), 'test_spearman_r': array([0.9351671 , 0.96480181, 0.86293768, 0.93730923, 0.93386429]), 'test_rmse': array([-0.16101764, -0.15767083, -0.26864438, -0.21122087, -0.28952905]), 'test_mae': array([-0.08752361, -0.09944951, -0.17819462, -0.13141516, -0.13644304]), 'test_r2': array([0.92876365, 0.93629717, 0.77645975, 0.8969361 , 0.80380687])}, 1234567890: {'fit_time': array([0.19714618, 0.30572724, 0.29569101, 0.19238043, 0.19845581]), 'score_time': array([0.01532054, 0.01622701, 0.01623416, 0.015522  , 0.01690388]), 'test_pearson_r': array([0.93461637, 0.97221051, 0.96438616, 0.98258722, 0.86093305]), 'test_spearman_r': array([0.9250934 , 0.95288117, 0.95239925, 0.97555563, 0.88455802]), 'test_rmse': array([-0.20713789, -0.13594452, -0.18299107, -0.12682346, -0.35360628]), 'test_mae': array([-0.12731458, -0.08169065, -0.11953489, -0.07776621, -0.20496931]), 'test_r2': array([0.8699097 , 0.9441234 , 0.91744257, 0.96046405, 0.73745563])}, 473129: {'fit_time': array([0.18687105, 0.19856262, 0.19524741, 0.30853367, 0.2994523 ]), 'score_time': array([0.01510596, 0.01622629, 0.0153358 , 0.0164907 , 0.01529741]), 'test_pearson_r': array([0.86576866, 0.94574332, 0.92692912, 0.98064713, 0.9578524 ]), 'test_spearman_r': array([0.88112076, 0.95226304, 0.93102786, 0.98078488, 0.9476685 ]), 'test_rmse': array([-0.33680904, -0.19345614, -0.22172097, -0.13240986, -0.18573533]), 'test_mae': array([-0.15217653, -0.11028873, -0.13944228, -0.08898111, -0.12746047]), 'test_r2': array([0.74380788, 0.88400128, 0.85772242, 0.957778  , 0.9086034 ])}, 'pearson_r_avg': 0.9335659710611659, 'pearson_r_stdev': 0.0425951893207782, 'spearman_r_avg': 0.9304140583968399, 'spearman_r_stdev': 0.03762896639549894, 'rmse_avg': 0.21719324685135222, 'rmse_stdev': 0.06529340429786792, 'mae_avg': 0.1247711810526622, 'mae_stdev': 0.027237414733571157, 'r2_avg': 0.8662544147527673, 'r2_stdev': 0.08100281298033876}
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c203n07>
+Subject: Job 73642: <numerical_RF_with_feats_on_log Rg (nm)_20250502> in cluster <Hazel> Done
+
+Job <numerical_RF_with_feats_on_log Rg (nm)_20250502> was submitted from host <c203n10> by user <sdehgha2> in cluster <Hazel> at Thu May 15 21:27:49 2025
+Job was executed on host(s) <4*c203n07>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu May 15 21:27:49 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu May 15 21:27:49 2025
+Terminated at Thu May 15 21:28:54 2025
+Results reported at Thu May 15 21:28:54 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 2:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_RF_with_feats_on_log Rg (nm)_20250502"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502/numerical_RF_log Rg (nm)_20250502.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502/numerical_RF_log Rg (nm)_20250502.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "RF"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   45.53 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   65 sec.
+    Turnaround time :                            65 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502/numerical_RF_log Rg (nm)_20250502.err> for stderr output of this job.
+
