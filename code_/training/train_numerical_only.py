@@ -95,7 +95,7 @@ if __name__ == "__main__":
         kernel=args.kernel,
         target_features=[args.target_features],  
         transform_type='Standard',
-        hyperparameter_optimization=False,
+        hyperparameter_optimization=True,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
         numerical_feats=args.numerical_feats,  
