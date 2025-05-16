@@ -72,7 +72,7 @@ def main_numerical_only(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 classification=classification,
-                special_name='hp_RF_differences'
+                special_folder_name='hp_RF_differences'
                 )
 
 

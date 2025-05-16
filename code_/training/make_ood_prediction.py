@@ -87,7 +87,7 @@ def main_structural_numerical(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 clustering_method=clustering_method,
-                special_name='mean_aggregated',
+                special_folder_name='mean_aggregated',
                 )
     #TODO: Plot the results
     # scores_criteria: list= ['mad', 'mae', 'rmse',

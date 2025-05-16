@@ -74,6 +74,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
           hypop: bool=True,
           transform_type:Optional[str]=None,
           learning_curve:bool=False,
+          special_file_name:Optional[str]=None,
           ) -> None:
     
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -105,6 +106,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     fname_root =f"{fname_root}_hypOFF" if hypop==False else fname_root
     fname_root =f"{fname_root}_{transform_type}" if transform_type else f"{fname_root}_transformerOFF"
     fname_root = f"{fname_root}_lc" if learning_curve else fname_root
+    fname_root = f"{fname_root}_{special_file_name}" if special_file_name else fname_root
     print("Filename:", fname_root)
 
     if scores:
@@ -167,7 +169,8 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
                  classification:bool=False,
                  clustering_method:str=None,
                  learning_curve:bool=False,
-                 special_name:Optional[str]=None,
+                 special_folder_name:Optional[str]=None,
+                 special_file_name:Optional[str]=None,
                  ) -> None:
     
     targets_dir: str = "-".join([feature_abbrev.get(target, target) for target in target_features])
@@ -186,7 +189,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
     f_root_dir = f"OOD_{f_root_dir}" if clustering_method else f_root_dir
     f_root_dir = f"{f_root_dir}_{second_transformer}FT" if second_transformer else f_root_dir
     f_root_dir = f"{f_root_dir}_filter_({cutoff_parameter})" if cutoff else f_root_dir
-    f_root_dir = f"{f_root_dir}_{special_name}" if special_name else f_root_dir
+    f_root_dir = f"{f_root_dir}_{special_folder_name}" if special_folder_name else f_root_dir
 
     results_dir: Path = ROOT / output_dir_name / f_root_dir
     clustering_method= feature_abbrev.get(clustering_method, clustering_method) if clustering_method else None
@@ -211,6 +214,7 @@ def save_results(scores:Optional[Dict[int, Dict[str, float]]]=None,
           hypop=hypop,
           transform_type=transform_type,
           learning_curve=learning_curve,
+          special_file_name=special_file_name,
           )
     return results_dir
 
