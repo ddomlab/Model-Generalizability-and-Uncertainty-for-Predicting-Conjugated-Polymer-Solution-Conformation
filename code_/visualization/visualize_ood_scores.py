@@ -786,7 +786,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    plt.show()
+    # plt.show()
     plt.close()
 
 
@@ -806,14 +806,14 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    # 'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
+                    'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    'substructure cluster',
+                    # 'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
                     ]
 
 
@@ -858,24 +858,24 @@ if __name__ == "__main__":
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                # print("Save learning curve scores and uncertainty")
+                saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                print("Save learning curve scores and uncertainty")
 
 
                 # plot OOD vs IID barplot at the same training size 
 
-                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
-                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-                ood_iid_eq_tarining_size_df['Model'] = model
+            #     _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+            #     ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+            #     ood_iid_eq_tarining_size_df['Model'] = model
 
-                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-            all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-            saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set (RF_max_feat_sqrt)'
-            plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse_noraml',
-                             text_size=16,figsize=(8, 6))
-            print("save OOD vs IID bar plot at equal training size")
+            #     all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+            # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+            # saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set (RF_max_feat_sqrt)'
+            # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse_noraml',
+            #                  text_size=16,figsize=(8, 6))
+            # print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
