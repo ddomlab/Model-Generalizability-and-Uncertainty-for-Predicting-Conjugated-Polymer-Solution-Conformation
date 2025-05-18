@@ -2376,3 +2376,2332 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err> for stderr output of this job.
 
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.005842820468112097), ('regressor__regressor__min_samples_split', 0.001790171923117969), ('regressor__regressor__n_estimators', 16)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 442)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.0010506682102413049), ('regressor__regressor__min_samples_split', 0.020033600937821475), ('regressor__regressor__n_estimators', 38)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 51)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.012570426607535313), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 883)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006814907757088284), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001219068520810778), ('regressor__regressor__min_samples_split', 0.004240419477946709), ('regressor__regressor__n_estimators', 502)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004666738632901743), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 23)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 278)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 16)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 105)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 16)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.002268398079570769), ('regressor__regressor__min_samples_split', 0.005962343369390133), ('regressor__regressor__n_estimators', 24)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1729)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 238)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 351)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 145)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 148)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.003572814014463361), ('regressor__regressor__n_estimators', 1577)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 116)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 12)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 145)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.0014461247587473143), ('regressor__regressor__min_samples_split', 0.005925487814162596), ('regressor__regressor__n_estimators', 14)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.00457776853556705), ('regressor__regressor__min_samples_split', 0.01970206902041994), ('regressor__regressor__n_estimators', 145)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.010610319179657556), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.01035827243325247), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 402)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 912)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 85)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 18)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 923)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.0031518374140176507), ('regressor__regressor__min_samples_split', 0.016670747799733994), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 158)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.0017241190875586644), ('regressor__regressor__min_samples_split', 0.019133468180261275), ('regressor__regressor__n_estimators', 11)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 64)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.0029998540284209554), ('regressor__regressor__min_samples_split', 0.003219306806555826), ('regressor__regressor__n_estimators', 166)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004523135507915891), ('regressor__regressor__min_samples_split', 0.01039768770399159), ('regressor__regressor__n_estimators', 522)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.007607412469091785), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0070169780311364945), ('regressor__regressor__min_samples_split', 0.01222959139707231), ('regressor__regressor__n_estimators', 1667)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 430)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 436)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 14)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.005751562528769891), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 361)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON PPV
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.01878102797707761), ('regressor__regressor__n_estimators', 17)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001739640467649594), ('regressor__regressor__min_samples_split', 0.003982589056579109), ('regressor__regressor__n_estimators', 343)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006921490676879285), ('regressor__regressor__min_samples_split', 0.007918577443896721), ('regressor__regressor__n_estimators', 1828)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0032088749262264085), ('regressor__regressor__min_samples_split', 0.01175964890722074), ('regressor__regressor__n_estimators', 442)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006921490676879285), ('regressor__regressor__min_samples_split', 0.007918577443896721), ('regressor__regressor__n_estimators', 1828)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 143)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 929)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 460)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.007866265926111119), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005021861931565732), ('regressor__regressor__min_samples_split', 0.004277259749051656), ('regressor__regressor__n_estimators', 229)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 48)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 223)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 235)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.00411840683893777), ('regressor__regressor__min_samples_split', 0.003736003424412574), ('regressor__regressor__n_estimators', 864)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 237)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 70)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0017216382445216856), ('regressor__regressor__min_samples_split', 0.001691550078965735), ('regressor__regressor__n_estimators', 13)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005876500580466695), ('regressor__regressor__min_samples_split', 0.007855650503362472), ('regressor__regressor__n_estimators', 23)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1177)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.003278954537891358), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 410)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.002189427585368509), ('regressor__regressor__min_samples_split', 0.0056592414084397176), ('regressor__regressor__n_estimators', 16)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 912)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004974121643646029), ('regressor__regressor__min_samples_split', 0.01290726235509176), ('regressor__regressor__n_estimators', 567)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0037778409231390237), ('regressor__regressor__min_samples_split', 0.00477309220225048), ('regressor__regressor__n_estimators', 136)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.002736331915459634), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 78)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 244)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005281459978615094), ('regressor__regressor__min_samples_split', 0.0025108741644391122), ('regressor__regressor__n_estimators', 54)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.010138616193487195), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004523135507915891), ('regressor__regressor__min_samples_split', 0.01039768770399159), ('regressor__regressor__n_estimators', 522)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1667)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0033023872479866745), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 110)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005934911217351534), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 361)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.003937876267094392), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 179)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.006076220339054604), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.007183231001007943), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 44)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Thiophene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 37)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005425645818596661), ('regressor__regressor__min_samples_split', 0.036441152495215116), ('regressor__regressor__n_estimators', 43)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 477)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.010352142105940532), ('regressor__regressor__min_samples_split', 0.004328470450414518), ('regressor__regressor__n_estimators', 64)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.003251318150191031), ('regressor__regressor__n_estimators', 20)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 481)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006921490676879285), ('regressor__regressor__min_samples_split', 0.007918577443896721), ('regressor__regressor__n_estimators', 1828)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 43)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 174)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 502)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.0010000000000000005), ('regressor__regressor__n_estimators', 502)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0059288063463850535), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1823)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.012529920005175041), ('regressor__regressor__min_samples_split', 0.010632017707899528), ('regressor__regressor__n_estimators', 1044)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0012571966410562369), ('regressor__regressor__min_samples_split', 0.041229842342716254), ('regressor__regressor__n_estimators', 92)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 24)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 697)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 223)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 189)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1246)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 27)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.00591538286367303), ('regressor__regressor__min_samples_split', 0.009531030360047724), ('regressor__regressor__n_estimators', 663)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 206)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0032257677067559715), ('regressor__regressor__min_samples_split', 0.01946488864304147), ('regressor__regressor__n_estimators', 237)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.010889415938507872), ('regressor__regressor__min_samples_split', 0.004236270802716803), ('regressor__regressor__n_estimators', 14)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 23)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0014558732317942063), ('regressor__regressor__min_samples_split', 0.019152464461396942), ('regressor__regressor__n_estimators', 161)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 587)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 263)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0031257516031545506), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 13)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 189)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0037915977963097714), ('regressor__regressor__min_samples_split', 0.03297704117322376), ('regressor__regressor__n_estimators', 31)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1283)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004523135507915891), ('regressor__regressor__min_samples_split', 0.01039768770399159), ('regressor__regressor__n_estimators', 522)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.005281459978615094), ('regressor__regressor__min_samples_split', 0.0025108741644391122), ('regressor__regressor__n_estimators', 54)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 52)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 30)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 54)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0011706291644381214), ('regressor__regressor__min_samples_split', 0.03962884578655768), ('regressor__regressor__n_estimators', 17)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.004076726824162323), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.00521932381031802), ('regressor__regressor__min_samples_split', 0.017165617371901715), ('regressor__regressor__n_estimators', 1263)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 837)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 71)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.005203242926446563), ('regressor__regressor__min_samples_split', 0.011657182940774693), ('regressor__regressor__n_estimators', 250)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.002001593910822874), ('regressor__regressor__min_samples_split', 0.011727790584218092), ('regressor__regressor__n_estimators', 14)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Polar
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 965)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.00410394425865066), ('regressor__regressor__min_samples_split', 0.00889133346623204), ('regressor__regressor__n_estimators', 34)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006782767719385068), ('regressor__regressor__min_samples_split', 0.003755268906848073), ('regressor__regressor__n_estimators', 66)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 411)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0017604400736006137), ('regressor__regressor__min_samples_split', 0.002263715054291516), ('regressor__regressor__n_estimators', 17)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.007005215632341942), ('regressor__regressor__min_samples_split', 0.001201737528031987), ('regressor__regressor__n_estimators', 986)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006795417251017939), ('regressor__regressor__min_samples_split', 0.007559726704293925), ('regressor__regressor__n_estimators', 46)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.003389282665572226), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 838)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 92)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006786516508987031), ('regressor__regressor__min_samples_split', 0.00911304766731445), ('regressor__regressor__n_estimators', 48)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 798)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 1111)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 979)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 22)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.00541624451845618), ('regressor__regressor__min_samples_split', 0.002858976308191271), ('regressor__regressor__n_estimators', 1820)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 284)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 98)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.002679066024297583), ('regressor__regressor__min_samples_split', 0.005093663101385755), ('regressor__regressor__n_estimators', 98)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 107)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0057338792219036715), ('regressor__regressor__min_samples_split', 0.0023089197558088578), ('regressor__regressor__n_estimators', 18)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'log2'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.006002454902764624), ('regressor__regressor__min_samples_split', 0.010178455089912473), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 641)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 10)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.0070169780311364945), ('regressor__regressor__min_samples_split', 0.01222959139707231), ('regressor__regressor__n_estimators', 1667)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 527)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 770)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004419353796794798), ('regressor__regressor__min_samples_split', 0.004327719086747172), ('regressor__regressor__n_estimators', 17)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004523135507915891), ('regressor__regressor__min_samples_split', 0.01039768770399159), ('regressor__regressor__n_estimators', 522)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.004286363239772746), ('regressor__regressor__min_samples_split', 0.015143699927455019), ('regressor__regressor__n_estimators', 1048)])
+
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.002392654989868418), ('regressor__regressor__min_samples_split', 0.007631123603077397), ('regressor__regressor__n_estimators', 59)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 411)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.007871134255799349), ('regressor__regressor__n_estimators', 2000)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.003297367262842455), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 67)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', 'sqrt'), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 429)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR RF 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__max_depth', None), ('regressor__regressor__max_features', None), ('regressor__regressor__min_samples_leaf', 0.001), ('regressor__regressor__min_samples_split', 0.001), ('regressor__regressor__n_estimators', 686)])
+
+
+Filename: (MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard
+{'CO_Fluorene': {'cluster size (%)': 33, 6: {'test_mad': 0.09179783049356881, 'test_ystd': 0.12288623724086152, 'test_mae': 0.5702673415000057, 'test_rmse': 0.6570351875926149, 'test_r2': -0.027480265755176703, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.0010506682102413049, 'regressor__min_samples_split': 0.020033600937821475, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 38, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'test_mad': 0.07577739236928131, 'test_ystd': 0.09224682657770455, 'test_mae': 0.575124130809152, 'test_rmse': 0.6676680666346763, 'test_r2': -0.06100502813206998, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'test_mad': 0.21811394614437588, 'test_ystd': 0.267541634580536, 'test_mae': 0.5965160362708993, 'test_rmse': 0.7044339417943289, 'test_r2': -0.18107310092935114, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 16, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'test_mad': 0.22998681893022282, 'test_ystd': 0.27331955874933944, 'test_mae': 0.5967652370264025, 'test_rmse': 0.7156910805358988, 'test_r2': -0.2191227652752874, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'test_mad': 0.25021385724758377, 'test_ystd': 0.2986722691659285, 'test_mae': 0.5990980411515678, 'test_rmse': 0.7301558176952455, 'test_r2': -0.26889980734469376, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.01035827243325247, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 402, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'test_mad': 0.07164801783511417, 'test_ystd': 0.08767302835786889, 'test_mae': 0.5746088937062102, 'test_rmse': 0.6733744345931088, 'test_r2': -0.07921874352792124, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.0029998540284209554, 'regressor__min_samples_split': 0.003219306806555826, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 166, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'test_mad': 0.23202840407486314, 'test_ystd': 0.3199957501987332, 'test_mae': 0.6646927785329756, 'test_rmse': 0.7619014923207833, 'test_r2': -0.3816367614612244, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_mad_mean': 0.1670808952992871, 'test_mad_std': 0.0763470453725172, 'test_ystd_mean': 0.208905043552996, 'test_ystd_std': 0.09538819604129936, 'test_mae_mean': 0.5967246369996018, 'test_mae_std': 0.029954782417244682, 'test_rmse_mean': 0.7014657173095225, 'test_rmse_std': 0.035035185178793726, 'test_r2_mean': -0.17406235320367494, 'test_r2_std': 0.11797363288984214}}, 'ID_Fluorene': {'cluster size (%)': 33, 6: {'fit_time': array([0.03810239, 0.03761768, 0.03612399]), 'score_time': array([0.01504421, 0.01420736, 0.01458859]), 'test_pearson_r': array([0.94436682, 0.72971543, 0.93111292]), 'test_spearman_r': array([0.95282004, 0.73360978, 0.93524538]), 'test_rmse': array([-0.21677054, -0.47552878, -0.24289836]), 'test_mae': array([-0.13952066, -0.24335394, -0.16960453]), 'test_r2': array([0.88498615, 0.40850914, 0.8485348 ]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'fit_time': array([0.03700733, 0.03612709, 0.03795052]), 'score_time': array([0.01326823, 0.01316309, 0.01344991]), 'test_pearson_r': array([0.89644369, 0.82916331, 0.91315338]), 'test_spearman_r': array([0.9169058 , 0.80891347, 0.92006896]), 'test_rmse': array([-0.30697501, -0.35711548, -0.23375486]), 'test_mae': array([-0.13082232, -0.22851286, -0.16242262]), 'test_r2': array([0.79935915, 0.67793554, 0.83297129]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'fit_time': array([4.80689406, 4.80452299, 4.54583764]), 'score_time': array([0.12120342, 0.12359834, 0.11988163]), 'test_pearson_r': array([0.9391427 , 0.94831806, 0.87374674]), 'test_spearman_r': array([0.94456255, 0.93946181, 0.88023585]), 'test_rmse': array([-0.22678902, -0.1892912 , -0.33117214]), 'test_mae': array([-0.1352806 , -0.12862761, -0.16913423]), 'test_r2': array([0.87254671, 0.89406486, 0.75679047]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'fit_time': array([0.29374552, 0.29020572, 0.28624701]), 'score_time': array([0.01938605, 0.01973581, 0.01866221]), 'test_pearson_r': array([0.97107016, 0.81642539, 0.82705852]), 'test_spearman_r': array([0.98137472, 0.79927914, 0.83647689]), 'test_rmse': array([-0.14477695, -0.37488721, -0.3983984 ]), 'test_mae': array([-0.10663005, -0.21502197, -0.18723659]), 'test_r2': array([0.9382467 , 0.65335339, 0.64350988]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 116, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'fit_time': array([2.21463442, 2.14018488, 2.21896529]), 'score_time': array([0.06581926, 0.06656885, 0.06341958]), 'test_pearson_r': array([0.88031023, 0.87035572, 0.96406974]), 'test_spearman_r': array([0.91107126, 0.87015555, 0.95055464]), 'test_rmse': array([-0.34180176, -0.29606285, -0.15582116]), 'test_mae': array([-0.18182386, -0.19617333, -0.10298213]), 'test_r2': array([0.76799501, 0.75448686, 0.92592723]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 912, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'fit_time': array([4.92797112, 4.90225458, 4.88875365]), 'score_time': array([0.12830472, 0.12533712, 0.12014103]), 'test_pearson_r': array([0.82880306, 0.94609653, 0.91039758]), 'test_spearman_r': array([0.86295677, 0.93889263, 0.91912131]), 'test_rmse': array([-0.35813966, -0.19466066, -0.29715897]), 'test_mae': array([-0.19008012, -0.12689814, -0.19417464]), 'test_r2': array([0.67532415, 0.88745433, 0.80895553]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'fit_time': array([0.03948855, 0.03991461, 0.05283689]), 'score_time': array([0.01440239, 0.01481962, 0.01474094]), 'test_pearson_r': array([0.96333121, 0.77003416, 0.91389122]), 'test_spearman_r': array([0.95969485, 0.79845321, 0.91073959]), 'test_rmse': array([-0.17505881, -0.43996068, -0.23652621]), 'test_mae': array([-0.12353442, -0.21227163, -0.15518708]), 'test_r2': array([0.92513572, 0.56122467, 0.83424428]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_pearson_r_mean': 0.8889050746816118, 'test_pearson_r_std': 0.06554976630758452, 'test_spearman_r_mean': 0.8938378185778492, 'test_spearman_r_std': 0.06378955793648278, 'test_rmse_mean': 0.28540708114019986, 'test_rmse_std': 0.09218541109018089, 'test_mae_mean': 0.1666330160871776, 'test_mae_std': 0.03944413086231175, 'test_r2_mean': 0.7786455181144101, 'test_r2_std': 0.13209130767270283}}, 'CO_PPV': {'cluster size (%)': 13, 6: {'test_mad': 0.12286459363612419, 'test_ystd': 0.1623275070632817, 'test_mae': 0.6171465523214457, 'test_rmse': 0.780487258956573, 'test_r2': -3.599876733490148, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'log2', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001739640467649594, 'regressor__min_samples_split': 0.003982589056579109, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 343, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'test_mad': 0.10720829330807463, 'test_ystd': 0.1257248892905203, 'test_mae': 0.4208049739339343, 'test_rmse': 0.5480017187393398, 'test_r2': -1.2676624007372679, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'test_mad': 0.0976725708805672, 'test_ystd': 0.11650796753773836, 'test_mae': 0.5538352656544945, 'test_rmse': 0.698658591244737, 'test_r2': -2.685908633804319, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.007866265926111119, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'test_mad': 0.09649421705750313, 'test_ystd': 0.1137918060704382, 'test_mae': 0.42242315014499177, 'test_rmse': 0.5476947159330274, 'test_r2': -1.2651223221588292, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'test_mad': 0.09499409302160418, 'test_ystd': 0.10786022924149102, 'test_mae': 0.35772683713132736, 'test_rmse': 0.44483350044162784, 'test_r2': -0.4942027492721759, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.005876500580466695, 'regressor__min_samples_split': 0.007855650503362472, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 23, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'test_mad': 0.08291704621631374, 'test_ystd': 0.10906313359113513, 'test_mae': 0.41801490047037143, 'test_rmse': 0.5210500360964598, 'test_r2': -1.0500923199688104, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.002736331915459634, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 78, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'test_mad': 0.1366426188298601, 'test_ystd': 0.16610580574577602, 'test_mae': 0.5955860278432579, 'test_rmse': 0.7575771931244741, 'test_r2': -3.3337947740809675, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_mad_mean': 0.10554191899286387, 'test_mad_std': 0.017058866322256346, 'test_ystd_mean': 0.12876876264862583, 'test_ystd_std': 0.023082535729209416, 'test_mae_mean': 0.48364824392854616, 'test_mae_std': 0.09497353690519063, 'test_rmse_mean': 0.6140432877908912, 'test_rmse_std': 0.1204210742840984, 'test_r2_mean': -1.9566657047875025, 'test_r2_std': 1.1365394348780242}}, 'ID_PPV': {'cluster size (%)': 12, 6: {'fit_time': array([0.07774162, 0.04169321, 0.05703354, 0.11770296, 0.15525627,
+       0.10794759, 0.10026717, 0.09442234]), 'score_time': array([0.01324034, 0.01253295, 0.01296806, 0.01334286, 0.01391721,
+       0.02649045, 0.02175808, 0.02713776]), 'test_pearson_r': array([0.94737267, 0.96971602, 0.93312361, 0.68375697, 0.69992376,
+       0.97040046, 0.93668465, 0.9636895 ]), 'test_spearman_r': array([0.94261294, 0.96824432, 0.94254446, 0.75273602, 0.67236662,
+       0.96168343, 0.90784751, 0.94393162]), 'test_rmse': array([-0.23097069, -0.15329083, -0.20323453, -0.45841835, -0.52992459,
+       -0.19587522, -0.18909419, -0.17910287]), 'test_mae': array([-0.12050878, -0.10743678, -0.1348764 , -0.22349791, -0.27055066,
+       -0.1453653 , -0.12621423, -0.11720743]), 'test_r2': array([0.89743127, 0.93703076, 0.86960118, 0.40125375, 0.25813406,
+       0.92653753, 0.87378093, 0.91899552]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'fit_time': array([5.66169262, 8.58430123, 7.65016747, 9.60673666, 8.13198996,
+       8.37529635, 6.78162384, 8.36398888]), 'score_time': array([0.11417699, 0.1173923 , 0.12257004, 0.12327981, 0.1243012 ,
+       0.12267876, 0.11948323, 0.14055967]), 'test_pearson_r': array([0.8026273 , 0.99093129, 0.93554944, 0.92257163, 0.94113619,
+       0.88878863, 0.97076216, 0.98210735]), 'test_spearman_r': array([0.84432234, 0.98962149, 0.90495726, 0.92820513, 0.92547009,
+       0.88288598, 0.97008037, 0.98769231]), 'test_rmse': array([-0.45705003, -0.09625978, -0.19737354, -0.2553266 , -0.21296848,
+       -0.24580674, -0.15213807, -0.11222446]), 'test_mae': array([-0.18577487, -0.0595782 , -0.10346855, -0.1696307 , -0.15063967,
+       -0.16765918, -0.10408603, -0.08815211]), 'test_r2': array([0.62594037, 0.98011376, 0.85164903, 0.82811548, 0.87698199,
+       0.7570066 , 0.93687067, 0.96433704]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'fit_time': array([0.05752826, 0.04138041, 0.07826662, 0.09418821, 0.08183455,
+       0.05950093, 0.07493114, 0.05136847]), 'score_time': array([0.02470517, 0.013098  , 0.01356292, 0.02043056, 0.0141294 ,
+       0.01318359, 0.01488948, 0.01375294]), 'test_pearson_r': array([0.91728159, 0.95505771, 0.96582432, 0.94355875, 0.93365928,
+       0.84452658, 0.96218671, 0.8998985 ]), 'test_spearman_r': array([0.92918193, 0.95787546, 0.93367521, 0.92273504, 0.93094017,
+       0.88991453, 0.94033169, 0.80649573]), 'test_rmse': array([-0.24190676, -0.23044274, -0.14876997, -0.20353736, -0.20405357,
+       -0.38911207, -0.18150795, -0.26205306]), 'test_mae': array([-0.16368608, -0.15212603, -0.0973358 , -0.1402116 , -0.10562459,
+       -0.16099487, -0.11767249, -0.17398383]), 'test_r2': array([0.83478799, 0.90000745, 0.93267136, 0.86563712, 0.87105634,
+       0.68402454, 0.92570542, 0.80941071]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'fit_time': array([7.32767391, 9.41441226, 9.88634634, 9.89928985, 9.95940948,
+       7.46835995, 8.98129487, 9.54810572]), 'score_time': array([0.2698009 , 0.16613841, 0.11328244, 0.13644314, 0.12912941,
+       0.17824388, 0.11762977, 0.16420603]), 'test_pearson_r': array([0.98432853, 0.9873448 , 0.97934303, 0.94780327, 0.86650511,
+       0.95687253, 0.79563258, 0.97102412]), 'test_spearman_r': array([0.98168498, 0.99145299, 0.98512568, 0.9582906 , 0.85299145,
+       0.9341768 , 0.84478632, 0.97538462]), 'test_rmse': array([-0.09950849, -0.11049393, -0.13268636, -0.20760724, -0.33045783,
+       -0.16850132, -0.43938529, -0.18185933]), 'test_mae': array([-0.07867054, -0.07600343, -0.08953581, -0.13721558, -0.21471171,
+       -0.0913819 , -0.19532861, -0.12387935]), 'test_r2': array([0.96767693, 0.969614  , 0.95568083, 0.87742762, 0.74988573,
+       0.91454376, 0.60579817, 0.91809179]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'fit_time': array([4.06593299, 4.28753638, 4.02322435, 3.94881678, 2.8507514 ,
+       4.4321456 , 4.23055816, 4.66263342]), 'score_time': array([0.10805082, 0.08906436, 0.10594225, 0.06172729, 0.06178665,
+       0.06040215, 0.06362081, 0.06144857]), 'test_pearson_r': array([0.98635045, 0.83348169, 0.97427052, 0.92864526, 0.82316584,
+       0.97107574, 0.98055471, 0.96057126]), 'test_spearman_r': array([0.97847658, 0.86734851, 0.96102564, 0.9391453 , 0.82905983,
+       0.96991453, 0.97811966, 0.91384615]), 'test_rmse': array([-0.10840516, -0.43025285, -0.15891695, -0.23750521, -0.35622157,
+       -0.14009383, -0.11401091, -0.15580645]), 'test_mae': array([-0.08275206, -0.180034  , -0.11883001, -0.16071282, -0.22341574,
+       -0.0973394 , -0.07809255, -0.08707736]), 'test_r2': array([0.96901635, 0.67227624, 0.93973028, 0.85356754, 0.63809643,
+       0.93665312, 0.95884969, 0.9222446 ]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 912, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'fit_time': array([7.99313974, 6.56071973, 7.84436631, 6.73165035, 8.82943416,
+       9.06189728, 6.18975592, 9.26137424]), 'score_time': array([0.11255074, 0.11714578, 0.12056565, 0.11956859, 0.12017512,
+       0.12945843, 0.12873578, 0.1132977 ]), 'test_pearson_r': array([0.95991488, 0.66250572, 0.97569924, 0.95680777, 0.96360334,
+       0.9582712 , 0.98444627, 0.98697983]), 'test_spearman_r': array([0.9467257 , 0.76293697, 0.94598291, 0.94940171, 0.96512821,
+       0.95145299, 0.97811966, 0.97948022]), 'test_rmse': array([-0.17625877, -0.466152  , -0.13214358, -0.20973456, -0.16737798,
+       -0.19128948, -0.1306927 , -0.11990405]), 'test_mae': array([-0.11453764, -0.24552314, -0.09230828, -0.13301096, -0.11066842,
+       -0.14519131, -0.08835245, -0.08932848]), 'test_r2': array([0.90688324, 0.41713361, 0.95059174, 0.90072689, 0.91600889,
+       0.90598617, 0.96570535, 0.96532619]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.010138616193487195, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'fit_time': array([8.71195412, 8.41490436, 6.04170179, 9.28303289, 8.73027539,
+       9.13748074, 7.25942731, 8.97616291]), 'score_time': array([0.11400199, 0.12385631, 0.11566329, 0.11694288, 0.11516404,
+       0.11984611, 0.11944938, 0.11465025]), 'test_pearson_r': array([0.98082574, 0.98730547, 0.84126448, 0.74994971, 0.94129787,
+       0.9324525 , 0.98309516, 0.91932448]), 'test_spearman_r': array([0.98107448, 0.98336133, 0.8974359 , 0.71054882, 0.95674476,
+       0.89811966, 0.96854701, 0.88581197]), 'test_rmse': array([-0.13671296, -0.09337528, -0.40777238, -0.49633011, -0.2099155 ,
+       -0.20755817, -0.12001306, -0.24218913]), 'test_mae': array([-0.08626754, -0.07094949, -0.16883633, -0.23206308, -0.13620125,
+       -0.13286692, -0.07997149, -0.16768784]), 'test_r2': array([0.95596214, 0.97342606, 0.68085425, 0.49018627, 0.8776003 ,
+       0.85352716, 0.95818821, 0.84128751]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_pearson_r_mean': 0.9230687180799289, 'test_pearson_r_std': 0.07910982561896063, 'test_spearman_r_mean': 0.9206795280409084, 'test_spearman_r_std': 0.07011138570033475, 'test_rmse_mean': 0.2251709802777584, 'test_rmse_std': 0.11375615386112611, 'test_mae_mean': 0.13419692130813848, 'test_mae_std': 0.048226371435116204, 'test_r2_mean': 0.8417076416852817, 'test_r2_std': 0.1574582707036297}}, 'CO_Thiophene': {'cluster size (%)': 54, 6: {'test_mad': 0.24071779247268604, 'test_ystd': 0.3040070677064274, 'test_mae': 0.502091220778049, 'test_rmse': 0.5895894343117943, 'test_r2': -0.10039516920413782, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.005425645818596661, 'regressor__min_samples_split': 0.036441152495215116, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 43, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'test_mad': 0.235726687156437, 'test_ystd': 0.2916335009871146, 'test_mae': 0.5068232189600688, 'test_rmse': 0.5924048143642823, 'test_r2': -0.11092937220834909, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 174, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'test_mad': 0.1400488040691258, 'test_ystd': 0.16857186176080582, 'test_mae': 0.5892660846985722, 'test_rmse': 0.6623287936038216, 'test_r2': -0.38866203413972644, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'log2', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 10, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'test_mad': 0.11307085996675592, 'test_ystd': 0.14936750550223085, 'test_mae': 0.5607166097957671, 'test_rmse': 0.6261597323297041, 'test_r2': -0.2411365381066315, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 1246, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'test_mad': 0.1041273837052936, 'test_ystd': 0.1341462101777049, 'test_mae': 0.5464630763468713, 'test_rmse': 0.6162682472798297, 'test_r2': -0.2022336348753866, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'log2', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 23, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'test_mad': 0.24360462696958282, 'test_ystd': 0.2955666731149337, 'test_mae': 0.5140538624899283, 'test_rmse': 0.5993736825384824, 'test_r2': -0.13722037100769868, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.004523135507915891, 'regressor__min_samples_split': 0.01039768770399159, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 522, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'test_mad': 0.09902691120344474, 'test_ystd': 0.12625210894932717, 'test_mae': 0.5850729672060355, 'test_rmse': 0.6508068787807089, 'test_r2': -0.34076776497798233, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'log2', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.004076726824162323, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_mad_mean': 0.16804615222047511, 'test_mad_std': 0.06350062325175608, 'test_ystd_mean': 0.2099349897426492, 'test_ystd_std': 0.07651617937088778, 'test_mae_mean': 0.5434981486107561, 'test_mae_std': 0.03392215003213761, 'test_rmse_mean': 0.6195616547440891, 'test_rmse_std': 0.02646576103660932, 'test_r2_mean': -0.21733498350284464, 'test_r2_std': 0.10474363258721986}}, 'ID_Thiophene': {'cluster size (%)': 50, 6: {'fit_time': array([0.12439966, 0.10162377]), 'score_time': array([0.01494861, 0.01434231]), 'test_pearson_r': array([0.78694745, 0.78091452]), 'test_spearman_r': array([0.81869854, 0.76746664]), 'test_rmse': array([-0.39541408, -0.39631213]), 'test_mae': array([-0.22961088, -0.25401377]), 'test_r2': array([0.60615217, 0.60669284]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 43, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'fit_time': array([1.06308103, 1.05975842]), 'score_time': array([0.04206514, 0.04118013]), 'test_pearson_r': array([0.78701631, 0.9167855 ]), 'test_spearman_r': array([0.78353994, 0.9116695 ]), 'test_rmse': array([-0.43549636, -0.24277127]), 'test_mae': array([-0.22901814, -0.16846279]), 'test_r2': array([0.55603738, 0.83855108]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.0010000000000000005, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 502, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'fit_time': array([1.54943419, 1.53643417]), 'score_time': array([0.05341291, 0.0534637 ]), 'test_pearson_r': array([0.9282278, 0.8665784]), 'test_spearman_r': array([0.92811139, 0.87695809]), 'test_rmse': array([-0.24049638, -0.32324521]), 'test_mae': array([-0.16956309, -0.17679848]), 'test_r2': array([0.85264826, 0.74114906]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 697, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'fit_time': array([4.26738691, 4.13098741]), 'score_time': array([0.12392926, 0.12175488]), 'test_pearson_r': array([0.93087881, 0.80356328]), 'test_spearman_r': array([0.94693818, 0.81058904]), 'test_rmse': array([-0.23185388, -0.39771048]), 'test_mae': array([-0.16561685, -0.22634821]), 'test_r2': array([0.85436784, 0.62773561]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'fit_time': array([1.3451786 , 1.24834514]), 'score_time': array([0.04662299, 0.04737115]), 'test_pearson_r': array([0.86262819, 0.82754339]), 'test_spearman_r': array([0.87435983, 0.80765303]), 'test_rmse': array([-0.34095114, -0.35438156]), 'test_mae': array([-0.20667544, -0.20348631]), 'test_r2': array([0.74089298, 0.6321212 ]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 587, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'fit_time': array([0.10629678, 0.08182979]), 'score_time': array([0.01496315, 0.01584911]), 'test_pearson_r': array([0.75878864, 0.87477984]), 'test_spearman_r': array([0.75740893, 0.89405901]), 'test_rmse': array([-0.4136629 , -0.32581358]), 'test_mae': array([-0.21950011, -0.23008119]), 'test_r2': array([0.53582397, 0.75242906]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 30, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'fit_time': array([0.17422485, 0.19249558]), 'score_time': array([0.0173583 , 0.01683617]), 'test_pearson_r': array([0.88993269, 0.84540275]), 'test_spearman_r': array([0.91419256, 0.85770566]), 'test_rmse': array([-0.31869487, -0.31758243]), 'test_mae': array([-0.18287285, -0.19630255]), 'test_r2': array([0.77360997, 0.70964786]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 71, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_pearson_r_mean': 0.8471419679513382, 'test_pearson_r_std': 0.05565620100555374, 'test_spearman_r_mean': 0.8535250226400537, 'test_spearman_r_std': 0.06017654693142533, 'test_rmse_mean': 0.3381704481439739, 'test_rmse_std': 0.06367739049134177, 'test_mae_mean': 0.20416790403235976, 'test_mae_std': 0.027226224737510258, 'test_r2_mean': 0.7019899489315683, 'test_r2_std': 0.10451247438785163}}, 'CO_Polar': {'cluster size (%)': 7, 6: {'test_mad': 0.36451869304184276, 'test_ystd': 0.3785623051055108, 'test_mae': 0.7020528583827162, 'test_rmse': 0.8140916087124563, 'test_r2': 0.18752927580454615, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'test_mad': 0.3660488372993268, 'test_ystd': 0.3803272776221031, 'test_mae': 0.6991400749510143, 'test_rmse': 0.8149378835439905, 'test_r2': 0.18583921808755866, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'test_mad': 0.39925840222692, 'test_ystd': 0.4188051696397774, 'test_mae': 0.6673239703837536, 'test_rmse': 0.7686231352553718, 'test_r2': 0.27575072471456374, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.006795417251017939, 'regressor__min_samples_split': 0.007559726704293925, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 46, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'test_mad': 0.35881614778771953, 'test_ystd': 0.3729397280221183, 'test_mae': 0.7057950205583462, 'test_rmse': 0.8168714119134245, 'test_r2': 0.181971265733318, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'test_mad': 0.3711325790283032, 'test_ystd': 0.3863975732499965, 'test_mae': 0.695267237601262, 'test_rmse': 0.8115931300721179, 'test_r2': 0.19250863131015739, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'test_mad': 0.37103360336544444, 'test_ystd': 0.38747326251612024, 'test_mae': 0.6914451436345026, 'test_rmse': 0.812151107613007, 'test_r2': 0.19139793454792353, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 641, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'test_mad': 0.12125307931343858, 'test_ystd': 0.132144998996785, 'test_mae': 0.8057959733741668, 'test_rmse': 0.8333464756972152, 'test_r2': 0.14864170733593818, 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_mad_mean': 0.3360087631518565, 'test_mad_std': 0.08849240597667758, 'test_ystd_mean': 0.35095004502177307, 'test_ystd_std': 0.09037970982566013, 'test_mae_mean': 0.7095457541265374, 'test_mae_std': 0.040982193886086135, 'test_rmse_mean': 0.8102306789725119, 'test_rmse_std': 0.018331222229069157, 'test_r2_mean': 0.19480553679057225, 'test_r2_std': 0.03585320763571681}}, 'ID_Polar': {'cluster size (%)': 7, 6: {'fit_time': array([13.34804487, 14.82848716, 14.72543955, 13.30293155, 12.60965276,
+       14.06526113, 12.9877677 , 13.43027234, 14.20435214, 12.30640531,
+       14.34010005, 13.97237992, 13.95179605, 13.2461462 ]), 'score_time': array([0.15441298, 0.12104201, 0.11228061, 0.31367135, 0.11903262,
+       0.17629147, 0.30235648, 0.27081275, 0.11566949, 0.3060286 ,
+       0.11149216, 0.18466663, 0.19411469, 0.13278961]), 'test_pearson_r': array([0.99347049, 0.97218467, 0.9901213 , 0.94290453, 0.9637231 ,
+       0.81333778, 0.55782478, 0.49570455, 0.97231639, 0.98233277,
+       0.93284248, 0.89395523, 0.99146976, 0.95596419]), 'test_spearman_r': array([0.98214286, 0.925     , 0.975     , 0.96785714, 0.95714286,
+       0.75357143, 0.725     , 0.47006274, 0.96785714, 0.975     ,
+       0.91071429, 0.88114423, 0.975     , 0.97857143]), 'test_rmse': array([-0.07942014, -0.19206882, -0.07011796, -0.25704086, -0.14708513,
+       -0.36656219, -0.55005962, -0.63635903, -0.17354299, -0.13712402,
+       -0.24079161, -0.22329192, -0.08682231, -0.20316272]), 'test_mae': array([-0.05978955, -0.13958018, -0.05003346, -0.15566604, -0.11134726,
+       -0.20288829, -0.21496248, -0.2716637 , -0.13704768, -0.08990966,
+       -0.12895739, -0.15546458, -0.06760312, -0.13744124]), 'test_r2': array([ 0.98642126,  0.93716808,  0.98013215,  0.85189879,  0.92054901,
+        0.63314789,  0.18406053, -0.48190291,  0.93961869,  0.95261798,
+        0.865381  ,  0.77852323,  0.97969406,  0.89698883]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'fit_time': array([11.08638716, 12.96932745, 13.306669  , 11.9517231 , 12.47510338,
+       14.16339684, 14.70235348, 12.57810593, 13.72340274, 13.58716917,
+       11.16360474, 12.32060051, 14.23646665, 10.60181999]), 'score_time': array([0.24081516, 0.27578259, 0.11834288, 0.11289859, 0.17268801,
+       0.12250662, 0.12090421, 0.1117413 , 0.11230135, 0.20101523,
+       0.12003851, 0.24047494, 0.11520982, 0.33321905]), 'test_pearson_r': array([0.77695051, 0.99662068, 0.95059485, 0.96845121, 0.98871211,
+       0.96545787, 0.80751387, 0.91867865, 0.9791735 , 0.92167944,
+       0.90816076, 0.9754489 , 0.98514716, 0.98099539]), 'test_spearman_r': array([0.82142857, 0.99642857, 0.85357143, 0.96785714, 0.96071429,
+       0.98928571, 0.73928571, 0.93928571, 0.93571429, 0.86428571,
+       0.81071429, 0.96157322, 0.975     , 0.97142857]), 'test_rmse': array([-0.52406308, -0.06749747, -0.21370027, -0.18101114, -0.08573165,
+       -0.18771328, -0.32368798, -0.24390094, -0.12467051, -0.22920692,
+       -0.2492704 , -0.14571272, -0.12198246, -0.09794735]), 'test_mae': array([-0.20149403, -0.05584519, -0.08140209, -0.1066498 , -0.06298933,
+       -0.09832881, -0.24469802, -0.16174073, -0.09637228, -0.16634103,
+       -0.19401901, -0.09245364, -0.08780601, -0.07592937]), 'test_r2': array([0.57698012, 0.98853729, 0.89842224, 0.92781118, 0.97241072,
+       0.9231415 , 0.54395047, 0.82740898, 0.95316428, 0.80399434,
+       0.80236265, 0.93989276, 0.9679371 , 0.95633677]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'fit_time': array([0.12186551, 0.37760854, 0.12465692, 0.23826456, 0.2744    ,
+       0.28343725, 0.36475706, 0.28715754, 0.33893609, 0.30930829,
+       0.33436942, 0.24722409, 0.34014463, 0.12714148]), 'score_time': array([0.01494312, 0.03714061, 0.01627278, 0.01530099, 0.03749943,
+       0.01439118, 0.03031063, 0.0158267 , 0.01517296, 0.01613617,
+       0.01492167, 0.01417494, 0.01599383, 0.01491547]), 'test_pearson_r': array([0.92931785, 0.86902671, 0.98270966, 0.93012816, 0.9779825 ,
+       0.92982674, 0.96419721, 0.98158931, 0.94913604, 0.77848489,
+       0.97193999, 0.95975427, 0.94536747, 0.91081069]), 'test_spearman_r': array([0.90357143, 0.83571429, 0.98214286, 0.92857143, 0.97857143,
+       0.87935692, 0.98214286, 0.99285714, 0.92142857, 0.82857143,
+       0.975     , 0.90357143, 0.925     , 0.75714286]), 'test_rmse': array([-0.25766996, -0.29383069, -0.18947429, -0.19196546, -0.12723924,
+       -0.20355639, -0.17612888, -0.1241012 , -0.17516553, -0.49325545,
+       -0.15386754, -0.2117659 , -0.19776431, -0.25453115]), 'test_mae': array([-0.15966187, -0.19650078, -0.12885676, -0.13387431, -0.09269988,
+       -0.14616155, -0.12462709, -0.09382807, -0.11858134, -0.19236115,
+       -0.10317979, -0.14723553, -0.14443612, -0.1633213 ]), 'test_r2': array([0.84249069, 0.73042116, 0.94518933, 0.86259328, 0.95489301,
+       0.85026546, 0.91055886, 0.95903366, 0.89425755, 0.55803925,
+       0.93635763, 0.91014907, 0.89368102, 0.81973232]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.006786516508987031, 'regressor__min_samples_split': 0.00911304766731445, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 48, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'fit_time': array([10.73443151,  5.7481699 , 10.52393246, 11.12666845,  9.87824273,
+       10.9268775 , 11.0891552 , 10.33058524, 10.83309269, 10.48819923,
+        9.85424304,  8.7711935 ,  7.12946129,  5.32073307]), 'score_time': array([0.18262601, 0.10310078, 0.1046145 , 0.10472941, 0.28918695,
+       0.10242343, 0.10808635, 0.10849762, 0.11603355, 0.15207863,
+       0.24623656, 0.12060404, 0.09921527, 0.10010433]), 'test_pearson_r': array([0.96172331, 0.96522568, 0.98332539, 0.97274802, 0.97107407,
+       0.96396665, 0.88373812, 0.92035218, 0.90712984, 0.98204304,
+       0.73570935, 0.95743427, 0.94760053, 0.9809074 ]), 'test_spearman_r': array([0.93928571, 0.98928571, 1.        , 0.95357143, 0.95978591,
+       0.97142857, 0.87857143, 0.88571429, 0.77142857, 0.93214286,
+       0.75      , 0.975     , 0.96785714, 0.98928571]), 'test_rmse': array([-0.13056876, -0.1547471 , -0.13526276, -0.1490079 , -0.13582591,
+       -0.23134583, -0.23902445, -0.26133946, -0.26746044, -0.10427507,
+       -0.57570941, -0.1938308 , -0.21773383, -0.15606342]), 'test_mae': array([-0.09615422, -0.11016936, -0.09897141, -0.08741855, -0.09568946,
+       -0.14966038, -0.17884479, -0.19666412, -0.15639168, -0.07424396,
+       -0.28903117, -0.13188165, -0.14169235, -0.12993872]), 'test_r2': array([0.92478139, 0.93028214, 0.95839751, 0.93311123, 0.94084648,
+       0.89029447, 0.7776035 , 0.84666787, 0.81319009, 0.95666392,
+       0.49001418, 0.91057901, 0.86435115, 0.94489196]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.00541624451845618, 'regressor__min_samples_split': 0.002858976308191271, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 1820, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'fit_time': array([0.94679737, 0.7308836 , 0.59552026, 0.59677458, 0.80267143,
+       0.80473208, 0.83372307, 0.69671464, 0.85112166, 0.8380456 ,
+       0.75315404, 0.77905846, 0.68586445, 0.80313444]), 'score_time': array([0.01740074, 0.04741931, 0.01761103, 0.01840019, 0.01719952,
+       0.01876879, 0.01752424, 0.0172019 , 0.01755142, 0.01879883,
+       0.01747751, 0.01704812, 0.0174818 , 0.01826048]), 'test_pearson_r': array([0.94616828, 0.97950525, 0.75314122, 0.97105596, 0.97010963,
+       0.93671119, 0.94439862, 0.84927764, 0.94511472, 0.96649981,
+       0.94729409, 0.99202059, 0.9959787 , 0.92286553]), 'test_spearman_r': array([0.925     , 0.975     , 0.82142857, 0.95263666, 0.96071429,
+       0.85357143, 0.96785714, 0.81071429, 0.91785714, 0.93214286,
+       0.87142857, 0.975     , 0.96785714, 0.81785714]), 'test_rmse': array([-0.20469888, -0.17109371, -0.51644085, -0.17737874, -0.17411804,
+       -0.18238206, -0.22201384, -0.31204325, -0.22894144, -0.1641228 ,
+       -0.17774818, -0.07921406, -0.05306625, -0.18801554]), 'test_mae': array([-0.09347313, -0.12002373, -0.20038775, -0.0892314 , -0.11648734,
+       -0.13657823, -0.13834034, -0.20154683, -0.1363472 , -0.11080448,
+       -0.11420748, -0.06370221, -0.04690858, -0.1115023 ]), 'test_r2': array([0.877745  , 0.94148579, 0.51505685, 0.93454623, 0.93692824,
+       0.8384321 , 0.86862315, 0.66885566, 0.89000626, 0.91808935,
+       0.88904901, 0.98226907, 0.990602  , 0.85160696]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.001, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 98, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'fit_time': array([ 6.2878089 , 10.60032058,  9.55172873,  9.85205317,  9.91270566,
+        9.67967653, 10.62473345, 10.23594928,  7.19314408,  9.70756817,
+        7.97943139,  8.57663155, 10.22301841, 10.39896989]), 'score_time': array([0.10392427, 0.09848928, 0.22556329, 0.10897255, 0.16352391,
+       0.20036173, 0.09719801, 0.09402657, 0.09421802, 0.18905044,
+       0.09371972, 0.14499879, 0.09334421, 0.09308863]), 'test_pearson_r': array([0.97770416, 0.90159548, 0.48910268, 0.93390924, 0.99360136,
+       0.91577316, 0.94993209, 0.96260379, 0.99183484, 0.90950687,
+       0.97307032, 0.96698151, 0.98562458, 0.98628136]), 'test_spearman_r': array([0.94906204, 0.91785714, 0.53928571, 0.85714286, 0.98571429,
+       0.87857143, 0.97142857, 0.875     , 0.98480826, 0.86428571,
+       0.97142857, 0.96071429, 0.97857143, 0.96157322]), 'test_rmse': array([-0.1518099 , -0.25648993, -0.62472718, -0.18049964, -0.07597864,
+       -0.22447094, -0.21796184, -0.22459396, -0.07111434, -0.28702355,
+       -0.14976953, -0.18394541, -0.15118382, -0.09488398]), 'test_mae': array([-0.1151257 , -0.15299334, -0.35056855, -0.11939138, -0.06246739,
+       -0.14355616, -0.15090374, -0.16380685, -0.05428172, -0.22630079,
+       -0.11357546, -0.11309617, -0.12423138, -0.07101245]), 'test_r2': array([0.93573012, 0.79049208, 0.15673438, 0.86968129, 0.98453544,
+       0.79686361, 0.88700067, 0.89783181, 0.98097314, 0.81079128,
+       0.92882494, 0.92258494, 0.95322518, 0.97159724]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': None, 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.0070169780311364945, 'regressor__min_samples_split': 0.01222959139707231, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 1667, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'fit_time': array([ 5.54415894,  8.2869556 ,  9.14507627, 10.00350285,  8.7226665 ,
+        9.57571149,  7.59690619,  8.96036172,  7.22870874,  9.18674493,
+        6.37666297,  9.80495143, 10.03270316,  9.4596355 ]), 'score_time': array([0.19702268, 0.23834229, 0.12348771, 0.13455439, 0.25322628,
+       0.1126616 , 0.11655927, 0.20628643, 0.29727387, 0.21944141,
+       0.30786824, 0.11324286, 0.11644959, 0.19226599]), 'test_pearson_r': array([0.96178955, 0.9429126 , 0.94797505, 0.97642057, 0.77841708,
+       0.99093793, 0.94820063, 0.89177683, 0.90402676, 0.91795601,
+       0.96931428, 0.99550899, 0.99365749, 0.83698681]), 'test_spearman_r': array([0.97142857, 0.97142857, 0.94285714, 0.97229708, 0.85      ,
+       0.98928571, 0.89642857, 0.89642857, 0.81322642, 0.85      ,
+       0.95      , 0.99285714, 0.91071429, 0.89642857]), 'test_rmse': array([-0.15178681, -0.25988483, -0.20874704, -0.1248292 , -0.56101457,
+       -0.0865138 , -0.27329241, -0.21405106, -0.30364773, -0.26257231,
+       -0.1914654 , -0.05865696, -0.08531824, -0.30825468]), 'test_mae': array([-0.10757386, -0.13120531, -0.1337962 , -0.09088693, -0.28590945,
+       -0.06666294, -0.17135113, -0.15042772, -0.17784615, -0.18950982,
+       -0.13296491, -0.04950614, -0.05901074, -0.22491238]), 'test_r2': array([0.92100597, 0.86532156, 0.88747901, 0.94241073, 0.55258615,
+       0.98006137, 0.86716707, 0.78345584, 0.78495473, 0.7881228 ,
+       0.92026998, 0.98663049, 0.98017074, 0.6954237 ]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__bootstrap': True, 'regressor__ccp_alpha': 0.0, 'regressor__criterion': 'squared_error', 'regressor__max_depth': None, 'regressor__max_features': 'sqrt', 'regressor__max_leaf_nodes': None, 'regressor__max_samples': None, 'regressor__min_impurity_decrease': 0.0, 'regressor__min_samples_leaf': 0.001, 'regressor__min_samples_split': 0.007871134255799349, 'regressor__min_weight_fraction_leaf': 0.0, 'regressor__monotonic_cst': None, 'regressor__n_estimators': 2000, 'regressor__n_jobs': None, 'regressor__oob_score': False, 'regressor__random_state': None, 'regressor__verbose': 0, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'summary_stats': {'test_pearson_r_mean': 0.9276380565487162, 'test_pearson_r_std': 0.09257613685180603, 'test_spearman_r_mean': 0.9115870070985713, 'test_spearman_r_std': 0.08958863069501974, 'test_rmse_mean': 0.21426348950877758, 'test_rmse_std': 0.12268174758800249, 'test_mae_mean': 0.13411139892002386, 'test_mae_std': 0.05638833549946278, 'test_r2_mean': 0.8438898784789004, 'test_r2_std': 0.20084912592061094}}, 'overall data shape': {'targets_shape': (210, 1), 'training_features_shape': (210, 178)}}
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n05>
+Subject: Job 100136: <RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> in cluster <Hazel> Done
+
+Job <RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> was submitted from host <c201n06> by user <sdehgha2> in cluster <Hazel> at Fri May 16 10:33:53 2025
+Job was executed on host(s) <4*c207n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri May 16 11:00:49 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Fri May 16 11:00:49 2025
+Terminated at Fri May 16 19:03:43 2025
+Results reported at Fri May 16 19:03:43 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 30:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "MACCS"                                   --regressor_type "RF"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   71238.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.74 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   28975 sec.
+    Turnaround time :                            30590 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/RF_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
