@@ -586,21 +586,25 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
                     y_pred = np.array(predictions.get("y_test_pred", []))
                     y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
                     y_true = np.array(ratios.get("y_true", []))
-                    
-                    y_predictions.extend(y_pred)
-                    uncertainties.extend(y_uncertainty)
-                    y_true_all.extend(y_true)
-                if method=="AMA":
-                    uncertainty, _ = get_calibration_confidence_interval(np.array(y_true_all), np.array(y_predictions), np.array(uncertainties),
+                    residual = abs(np.subtract(y_pred, y_true))
+                    # y_predictions.extend(y_pred)
+                    # uncertainties.extend(y_uncertainty)
+                    # y_true_all.extend(y_true)
+
+                    if method=="AMA":
+                        uncertainty, _ = get_calibration_confidence_interval(np.array(y_true), np.array(y_pred), np.array(y_uncertainty),
                                                                     ama,n_samples=1)
-                else:
-                    uncertainty = pearsonr(np.array(y_true_all), np.array(y_predictions))[0]  
+                    else:
+                        uncertainty = pearsonr(np.array(y_uncertainty), np.array(residual))[0]  
+
+                    uncertainties.append(uncertainty)
+
+                    
                 results.append({
                     "Cluster": cluster,
                     "Train Set Size": train_set_size,
-                    f"{method}": uncertainty,
-                    # "Pearson R": pearsonr_mean,
-                    # "Prediction_std": np.std(predict_true['y_test_pred']),
+                    f"{method} mean": np.mean(uncertainties),
+                    f"{method} std": np.std(uncertainties),
                 })
 
     return pd.DataFrame(results)
@@ -654,7 +658,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     if uncertenty_method == "Pearson R":
         u_yticks = np.arange(-1, 1.5, 0.5)
     else:
-        max_uncertainty = np.ceil(unceretainty_df[uncertenty_method].max() * 10) / 10
+        max_uncertainty = np.ceil(unceretainty_df[f'{uncertenty_method} mean'].max() * 10) / 10
         u_yticks = np.arange(0, max_uncertainty + 0.1, 0.1)
 
     co_clusters = sorted([c for c in score_df['Cluster'].unique() if c.startswith("CO_")])
@@ -706,10 +710,13 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                     )
 
         # Plot uncertainty
-        ama_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
+        unc_data = unceretainty_df[unceretainty_df["Cluster"] == cluster].sort_values("Train Set Size")
+        mean_col = f"{uncertenty_method} mean"
+        std_col = f"{uncertenty_method} std"
+
         ax2.plot(
-            ama_data["Train Set Size"],
-            ama_data[uncertenty_method],
+            unc_data["Train Set Size"],
+            unc_data[mean_col],
             color="green",
             marker="*",
             linestyle="--",
@@ -718,8 +725,16 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
             label=uncertenty_method
         )
 
+        ax2.fill_between(
+            unc_data["Train Set Size"],
+            unc_data[mean_col] - unc_data[std_col],
+            unc_data[mean_col] + unc_data[std_col],
+            color="green",
+            alpha=0.2
+        )
+
         x_min = 0
-        x_max = int(np.ceil(data["Train Set Size"].max() / 50.0)) * 50
+        # x_max = int(np.ceil(data["Train Set Size"].max() / 50.0)) * 50
         xticks = np.arange(x_min,  251, 50)
         ax.set_xticks(xticks)
         ax.set_ylim(0, max_score)
@@ -771,7 +786,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    # plt.show()
+    plt.show()
     plt.close()
 
 
@@ -791,33 +806,34 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
-                    'KM3 Mordred cluster',
-                    'HBD3 MACCS cluster',
+                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM3 Mordred cluster',
+                    # 'HBD3 MACCS cluster',
                     'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     ]
 
 
 
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', 'Mordred','ECFP3.count.512']:
+        for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
             all_score_eq_training_size = []
-            for model in ['NGB', 'XGBR', 'RF']:
+            for model in ['RF']:
 
-
-                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_predictions.json'
-                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                # suffix = '_v1_(max_feat_sqrt)'
+                suffix = ''
+                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_scores.json'
+                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_predictions.json'
+                # truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                # predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
                 score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
                 predictions_file_lc = ensure_long_path(predictions_file_lc)
-                predictions_full = ensure_long_path(predictions_full)
-                truth_file_full = ensure_long_path(truth_file_full)
+                # predictions_full = ensure_long_path(predictions_full)
+                # truth_file_full = ensure_long_path(truth_file_full)
                 if not os.path.exists(predictions_file_lc):
                     print(f"File not found: {predictions_file_lc}")
                     continue  
@@ -842,24 +858,24 @@ if __name__ == "__main__":
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                print("Save learning curve scores and uncertainty")
+                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                # print("Save learning curve scores and uncertainty")
 
 
                 # plot OOD vs IID barplot at the same training size 
 
-            #     _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
-            #     ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-            #     ood_iid_eq_tarining_size_df['Model'] = model
+                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+                ood_iid_eq_tarining_size_df['Model'] = model
 
-            #     all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-            # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set'
-            # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse',
-            #                  text_size=16,figsize=(8, 6))
-            # print("save OOD vs IID bar plot at equal training size")
+                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+            all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set (RF_max_feat_sqrt)'
+            plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse_noraml',
+                             text_size=16,figsize=(8, 6))
+            print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'

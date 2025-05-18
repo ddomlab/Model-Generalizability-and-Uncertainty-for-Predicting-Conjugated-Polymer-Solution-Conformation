@@ -36,9 +36,11 @@ def weighted_jaccard(u, v,eps: float = 1e-6):
     return 1 - ((min_sum+eps) / (max_sum+eps))
 
 ## Train-Test OOD Distance
+rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters melted duplicates.pkl')
+# 'OOD_target_log Rg (nm)'
+target = 'OOD_target_log Rg (nm)_mean_aggregated'
+results_path = HERE.parent.parent / 'results'/ target
 
-rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters.pkl')
-results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
 
 def get_cluster_scores(fp_vector:np.ndarray, predicted_clusters, metric: Union[str, Callable]):
     si_score = silhouette_score(fp_vector, predicted_clusters, metric=metric)
@@ -220,17 +222,18 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector,
 
 
 
+
 if __name__ == "__main__":
     cluster_list = [
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    # 'substructure cluster',
+                    'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
-                    'Polymers cluster',
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
+                    # 'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -263,10 +266,10 @@ if __name__ == "__main__":
             #                 model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_ood_iid_distance=False)
             #                 combined_data.extend(model_data)
                                     
-            #         saving_folder = scores_folder_path/ f'scores vs distance combined (absolute)'/ f"{co_vector}"
+            #         saving_folder = scores_folder_path/ f'scores vs distance (full data)'/ f"{co_vector}"
             #         plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
             #                         saving_path=saving_folder, file_name=f"fingerprint-{fp}_metric-{accuracy_metric}",is_ood_iid_distance=False)
-            #         print('Plot combined')
+            #         print('scores vs distance (full data)')
                             
                     #  Plot OOD-IID vs distance for equal training size
                     #         score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
@@ -347,7 +350,7 @@ if __name__ == "__main__":
                 saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
                 plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
                                 saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
-                                figsize=(10, 7), text_size=16,)
+                                figsize=(8, 6), text_size=16,)
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]

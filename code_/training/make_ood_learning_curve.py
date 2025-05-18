@@ -14,7 +14,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters melted duplicates.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
 # clusters = 'KM4 ECFP6_Count_512bit cluster'	
@@ -74,7 +74,7 @@ def main_structural_numerical(
                     second_transformer=second_transformer,
                     clustering_method=clustering_method,
                     learning_curve=True,
-                    # special_folder_name='mean_aggregated',
+                    special_folder_name='mean_aggregated',
                     # special_file_name='v1_(max_feat_sqrt)'
                     )
     

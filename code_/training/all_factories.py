@@ -120,7 +120,9 @@ def optimized_models(model_name:str,random_state:int=0, **kwargs):
     
     if 'RF'==model_name:
         return RandomForestRegressor(n_estimators=100, max_depth=None, 
-                                     random_state=None, n_jobs=-1,**kwargs, max_features="sqrt")
+                                     random_state=None, n_jobs=-1,**kwargs,
+                                    #    max_features="sqrt"
+                                       )
 
     return None
 
