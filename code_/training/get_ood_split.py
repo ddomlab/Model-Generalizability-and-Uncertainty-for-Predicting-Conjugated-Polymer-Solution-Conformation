@@ -301,6 +301,7 @@ def _get_splits(cluster_labels: np.ndarray) -> dict[int, tuple[np.ndarray, np.nd
         for cluster, count in zip(cluster_names, counts):
             if count <3:
                 continue
+
             mask = cluster_labels == cluster
             test_idxs = np.where(mask)[0]
             tv_idxs = np.where(~mask)[0]

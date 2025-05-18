@@ -12,6 +12,8 @@ from filter_data import filter_dataset
 from all_factories import (
                             transforms,
                             get_regressor_search_space)
+from collections import Counter
+
 
 from imputation_normalization import preprocessing_workflow
 from training_utils import get_target_transformer, split_for_training,set_globals
@@ -211,7 +213,12 @@ def run_ood_learning_curve(
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
             cluster_tv_labels_OOD = split_for_training(cluster_labels['substructure cluster'], tv_idx)
         else:
-            cluster_tv_labels_OOD = split_for_training(cluster_labels, tv_idx)
+            # cluster_tv_labels_OOD = split_for_training(cluster_labels, tv_idx)
+            raw_labels = split_for_training(cluster_labels, tv_idx)
+            cluster_tv_labels_OOD = merge_small_clusters(raw_labels, min_count=2)
+            name, counts = np.unique(cluster_tv_labels_OOD, return_counts=True)
+        print(cluster)
+            
 
         X_tv_OOD = split_for_training(X, tv_idx)
         y_tv_OOD = split_for_training(y, tv_idx)
@@ -303,6 +310,17 @@ def random_state_generator(train_ratio: float) -> np.ndarray:
         random_state_list = np.arange(50)
 
     return random_state_list
+
+
+
+def merge_small_clusters(labels, min_count=2):
+    label_counts = Counter(labels)
+    labels = np.array(labels)
+    merged_labels = np.array([
+        label if label_counts[label] >= min_count else 'Other'
+        for label in labels
+    ])
+    return merged_labels
 
 
 

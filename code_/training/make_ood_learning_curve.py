@@ -75,7 +75,7 @@ def main_structural_numerical(
                     clustering_method=clustering_method,
                     learning_curve=True,
                     # special_folder_name='mean_aggregated',
-                    special_file_name='v1_(max_feat_sqrt)'
+                    # special_file_name='v1_(max_feat_sqrt)'
                     )
     
 
@@ -111,7 +111,7 @@ if __name__ == "__main__":
             second_transformer=None,
             numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
             oligomer_representation="Trimer",
-            clustering_method='substructure cluster'
+            clustering_method='canonical_name'
             )
         
             # main_structural_numerical(
