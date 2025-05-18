@@ -446,8 +446,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     seen = {}
     for h, l in zip(handles, labels):
         seen[l] = h
-
-    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster (equal train size)", fontsize=text_size + 2, fontweight='bold')
+    sub_sufix = '(equal train size)' if 'equal' in saving_path.name else ''
+    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster {sub_sufix}", fontsize=text_size + 2, fontweight='bold')
 
     ax.legend(
         seen.values(), seen.keys(),
@@ -467,14 +467,15 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
-    ax.set_xticklabels(cluster_labels, fontsize=text_size)
+    
+    ax.set_xticklabels(cluster_labels, fontsize=text_size,rotation=45)
     ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size, fontweight='bold')
     ax.tick_params(axis='y', labelsize=text_size)
 
     # Layout adjustment
     plt.tight_layout(rect=[0, 0, 1, 1.03])
     save_img_path(saving_path, f"{file_name}.png")
-    # plt.show()  
+    plt.show()  
     plt.close()
 
 
