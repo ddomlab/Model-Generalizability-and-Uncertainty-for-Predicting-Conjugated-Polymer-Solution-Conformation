@@ -99,6 +99,8 @@ def main_structural_numerical(
                 hypop=hyperparameter_optimization,
                 transform_type=transform_type,
                 second_transformer=second_transformer,
+                special_folder_name='hp_RF_differences',
+                special_file_name='v1_(max_feat_all)',
                 )
 
 

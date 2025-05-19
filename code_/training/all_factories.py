@@ -156,8 +156,8 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         return {
         "regressor__regressor__n_estimators": Integer(10, 2000, prior="log-uniform"),
         "regressor__regressor__max_depth": [None],
-        "regressor__regressor__min_samples_split": Real(0.001, 0.99),
-        "regressor__regressor__min_samples_leaf": Real(0.001, 0.99),
+        "regressor__regressor__min_samples_split": Real(0.05, 0.99),
+        "regressor__regressor__min_samples_leaf": Real(0.05, 0.99),
         "regressor__regressor__max_features": Categorical(["sqrt", "log2", None]),
     }
 

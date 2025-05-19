@@ -838,8 +838,6 @@ if __name__ == "__main__":
                     print(f"File not found: {predictions_file_lc}")
                     continue  
 
-
-
                     # NGB XGB learning curve
                 with open(score_file_lc, "r") as f:
                     scores_lc = json.load(f)
