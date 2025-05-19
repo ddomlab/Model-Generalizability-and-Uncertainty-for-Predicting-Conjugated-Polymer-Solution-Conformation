@@ -804,25 +804,26 @@ def ensure_long_path(path):
 
 if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
-    results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)_mean_aggregated'
+    results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    'substructure cluster',
+                    # 'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
+                    'Polymers cluster'
                     ]
 
 
 
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
+        for fp in ['MACCS', ]:
             all_score_eq_training_size = []
-            for model in ['RF', 'XGBR', 'NGB']:
+            for model in ['RF', ]:
 
                 # suffix = '_v1_(max_feat_sqrt)'
                 suffix = ''
@@ -834,9 +835,11 @@ if __name__ == "__main__":
                 predictions_file_lc = ensure_long_path(predictions_file_lc)
                 # predictions_full = ensure_long_path(predictions_full)
                 # truth_file_full = ensure_long_path(truth_file_full)
-                if not os.path.exists(predictions_file_lc):
-                    print(f"File not found: {predictions_file_lc}")
+                if not os.path.exists(score_file_lc):
+                    print(f"File not found: {score_file_lc}")
                     continue  
+
+
 
                     # NGB XGB learning curve
                 with open(score_file_lc, "r") as f:
