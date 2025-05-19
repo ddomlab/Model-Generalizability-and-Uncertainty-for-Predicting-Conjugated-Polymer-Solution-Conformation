@@ -100,7 +100,7 @@ def main_structural_numerical(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 special_folder_name='hp_RF_differences',
-                special_file_name='v1_(max_feat_all)',
+                special_file_name='v2_(max_feat_all_leaf_smaller)',
                 )
 
 
