@@ -804,12 +804,12 @@ def ensure_long_path(path):
 
 if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
-    results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
+    results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)_mean_aggregated'
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
-                    'KM3 Mordred cluster',
+                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    # 'substructure cluster',
+                    'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     'KM4 polymer_solvent HSP cluster',
@@ -822,7 +822,7 @@ if __name__ == "__main__":
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
         for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
             all_score_eq_training_size = []
-            for model in ['RF']:
+            for model in ['RF', 'XGBR', 'NGB']:
 
                 # suffix = '_v1_(max_feat_sqrt)'
                 suffix = ''
