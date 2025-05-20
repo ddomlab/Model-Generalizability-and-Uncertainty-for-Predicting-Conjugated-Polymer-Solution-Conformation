@@ -154,6 +154,16 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__kernel": Categorical(["linear", "rbf"]),
     }
 
+    if algortihm == "MLP":
+        return {
+            "regressor__regressor__mlp_width":Categorical([64, 128, 256, 512]),
+            "regressor__regressor__mlp_depth": Integer(1, 5),
+            "regressor__regressor__lr": Real(1e-8, 1e-1, prior="log-uniform"),
+            "regressor__regressor__weight_decay": Categorical(["auto", 0.0, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0]),
+            "regressor__regressor__batch_size": Categorical([32, 64, 128, 256]),
+
+        }
+
     if algortihm == "RF":
         return {
         "regressor__regressor__n_estimators": Integer(10, 2000, prior="log-uniform"),
