@@ -1,0 +1,143 @@
+usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
+                               --regressor_type
+                               {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR}
+                               [--numerical_feats {Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH)} [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH)} ...]]
+                               [--columns_to_impute [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                               [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                               [--special_impute [{Mw (g/mol),None}]]
+                               [--transform_type {Standard,Robust Scaler}]
+                               [--kernel KERNEL]
+                               [--representation {ECFP,MACCS,Mordred}]
+                               [--oligomer_representation {Monomer,Dimer,Trimer,RRU Monomer,RRU Dimer,RRU Trimer}]
+                               [--radius [{3,4,5,6}]]
+                               [--vector [{count,binary}]]
+                               [--clustering_method [CLUSTERING_METHOD]]
+train_numerical_only.py: error: argument --regressor_type: invalid choice: 'MLP' (choose from 'RF', 'DT', 'MLR', 'SVR', 'XGBR', 'KNN', 'GPR', 'NGB', 'sklearn-GPR')
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/neural_network/_multilayer_perceptron.py:690: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (200) reached and the optimization hasn't converged yet.
+  warnings.warn(
