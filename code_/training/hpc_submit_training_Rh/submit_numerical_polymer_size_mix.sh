@@ -11,7 +11,7 @@ for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 8
+#BSUB -n 10
 #BSUB -W 11:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
