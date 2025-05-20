@@ -461,8 +461,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     # Compute ymax as multiple of 0.2
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
-    ax.set_yticks(np.arange(0, ymax + 0.41, 0.2))
-    ax.set_ylim(0, ymax)
+    ax.set_yticks(np.arange(0, 1.42, 0.2))
+    ax.set_ylim(0, 1.4)
 
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
