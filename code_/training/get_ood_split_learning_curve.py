@@ -215,7 +215,7 @@ def run_ood_learning_curve(
             # cluster_tv_labels_OOD = split_for_training(cluster_labels, tv_idx)
             raw_labels = split_for_training(cluster_labels, tv_idx)
             cluster_tv_labels_OOD = merge_small_clusters(raw_labels, min_count=2)
-            name, counts = np.unique(cluster_tv_labels_OOD, return_counts=True)
+            # name, counts = np.unique(cluster_tv_labels_OOD, return_counts=True)
         print(cluster)
             
 
@@ -231,6 +231,18 @@ def run_ood_learning_curve(
         min_ratio = min_train_size / len(X_tv_OOD)
         if min_ratio not in train_ratios:
             train_ratios.append(min_ratio)
+
+
+        filtered_train_ratios = []
+        num_classes = len(np.unique(cluster_tv_labels_OOD))
+        n_samples = len(X_tv_OOD)
+
+        for train_ratio in train_ratios:
+            train_size = train_ratio * n_samples
+            if train_size >= num_classes:
+                filtered_train_ratios.append(train_ratio)
+
+        train_ratios = filtered_train_ratios
 
         for train_ratio in train_ratios:
             seeds = random_state_generator(train_ratio)
@@ -259,7 +271,7 @@ def run_ood_learning_curve(
                     seed, test_seed, train_ratio, X, y,
                     y_test_len, model_name, transform_type,
                     second_transformer, preprocessor
-                ) for seed in seeds for test_seed in [2,3]
+                ) for seed in seeds for test_seed in test_seeds
             )
 
             for seed, test_seed, (train_scores, test_scores, y_pred, y_unc) in iid_results:
