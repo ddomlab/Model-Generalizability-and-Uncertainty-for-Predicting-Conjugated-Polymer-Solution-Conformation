@@ -134,3 +134,201 @@ OOD TEST ON DPPDTT
 
 -------------------------------------------------- 
 OPTIMIZING HYPERPARAMETERS FOR REGRESSOR NGB 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n07>
+Subject: Job 99412: <NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515> was submitted from host <c200n13> by user <sdehgha2> in cluster <Hazel> at Fri May 16 10:11:06 2025
+Job was executed on host(s) <6*c202n07>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri May 16 19:48:31 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Fri May 16 19:48:31 2025
+Terminated at Mon May 19 17:53:33 2025
+Results reported at Mon May 19 17:53:33 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 70:05
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "MACCS"                                   --regressor_type "NGB"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "canonical_name" 
+
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   1113257.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.58 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   252307 sec.
+    Turnaround time :                            286947 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OOD TEST ON PPV
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Thiophene
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Polar
+Filename: (MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard
+{'CO_Fluorene': {'cluster size (%)': 27, 42: {'test_mad': 0.2238525394039054, 'test_ystd': 0.2616998084643988, 'test_mae': 0.5888281021193329, 'test_rmse': 0.7170264936076944, 'test_r2': -0.23971206308566906}, 13: {'test_mad': 0.19518862774696064, 'test_ystd': 0.2294324142922155, 'test_mae': 0.6023756514144867, 'test_rmse': 0.7171253908448865, 'test_r2': -0.24005406593841516}, 'summary_stats': {'test_mad_mean': 0.20952058357543302, 'test_mad_std': 0.014331955828472381, 'test_ystd_mean': 0.24556611137830714, 'test_ystd_std': 0.016133697086091636, 'test_mae_mean': 0.5956018767669098, 'test_mae_std': 0.006773774647576891, 'test_rmse_mean': 0.7170759422262905, 'test_rmse_std': 4.944861859601524e-05, 'test_r2_mean': -0.2398830645120421, 'test_r2_std': 0.00017100142637305193}}, 'ID_Fluorene': {'cluster size (%)': 25, 42: {'fit_time': array([0.23677635, 0.26068115, 0.2417357 , 0.247329  ]), 'score_time': array([0.04561186, 0.04430294, 0.04892445, 0.04325891]), 'test_pearson_r': array([0.96660139, 0.9574655 , 0.93162278, 0.88814374]), 'test_spearman_r': array([0.96944463, 0.95204065, 0.92056346, 0.90917848]), 'test_rmse': array([-0.17808946, -0.17202176, -0.20785915, -0.31523727]), 'test_mae': array([-0.11746432, -0.11674758, -0.12188429, -0.1271351 ]), 'test_r2': array([0.92693017, 0.91657218, 0.86679225, 0.7823838 ])}, 13: {'fit_time': array([0.30048251, 0.29900765, 0.29527259, 0.31938648]), 'score_time': array([0.04432273, 0.04760981, 0.04414868, 0.04364491]), 'test_pearson_r': array([0.91881075, 0.90013612, 0.93439601, 0.93710282]), 'test_spearman_r': array([0.86469   , 0.92295588, 0.92022866, 0.92833429]), 'test_rmse': array([-0.26791229, -0.29948835, -0.21881673, -0.20246158]), 'test_mae': array([-0.15716696, -0.13232855, -0.12707901, -0.12695456]), 'test_r2': array([0.814     , 0.80366386, 0.87094147, 0.87718804])}, 'summary_stats': {'test_pearson_r_mean': 0.9292848902294435, 'test_pearson_r_std': 0.02482772941790925, 'test_spearman_r_mean': 0.9234295076416879, 'test_spearman_r_std': 0.028792688000715713, 'test_rmse_mean': 0.23273582337761833, 'test_rmse_std': 0.05111423017833133, 'test_mae_mean': 0.12834504652153297, 'test_mae_std': 0.011969773986523703, 'test_r2_mean': 0.8573089713602577, 'test_r2_std': 0.04924103952671066}}, 'CO_PPV': {'cluster size (%)': 11, 42: {'test_mad': 0.0833917823247686, 'test_ystd': 0.10057033042259794, 'test_mae': 0.42911993049031294, 'test_rmse': 0.5489735542941101, 'test_r2': -1.181755885489964}, 13: {'test_mad': 0.10437533398202008, 'test_ystd': 0.12349387542448056, 'test_mae': 0.45372413309111714, 'test_rmse': 0.5867424837194593, 'test_r2': -1.4922888735763111}, 'summary_stats': {'test_mad_mean': 0.09388355815339433, 'test_mad_std': 0.01049177582862574, 'test_ystd_mean': 0.11203210292353925, 'test_ystd_std': 0.011461772500941311, 'test_mae_mean': 0.44142203179071504, 'test_mae_std': 0.012302101300402102, 'test_rmse_mean': 0.5678580190067847, 'test_rmse_std': 0.018884464712674576, 'test_r2_mean': -1.3370223795331375, 'test_r2_std': 0.1552664940431736}}, 'ID_PPV': {'cluster size (%)': 11, 42: {'fit_time': array([0.30523324, 0.41922927, 0.31383753, 0.4262495 , 0.3897326 ,
+       0.44693565, 0.35819125, 0.32964659, 0.39065719]), 'score_time': array([0.04329252, 0.04373646, 0.05756235, 0.05067444, 0.05156755,
+       0.04541111, 0.04403567, 0.06840706, 0.04390383]), 'test_pearson_r': array([0.97434254, 0.97861192, 0.97394384, 0.96084095, 0.97830108,
+       0.95083113, 0.96559228, 0.92958129, 0.8216495 ]), 'test_spearman_r': array([0.98127168, 0.96883853, 0.93385886, 0.95024631, 0.98460402,
+       0.89540477, 0.96982388, 0.89044477, 0.86351821]), 'test_rmse': array([-0.14748582, -0.16447172, -0.14283876, -0.17334052, -0.11034459,
+       -0.1831756 , -0.16828844, -0.25458568, -0.37958481]), 'test_mae': array([-0.08900236, -0.10610651, -0.10083989, -0.10931256, -0.07666381,
+       -0.11268538, -0.09978296, -0.12907064, -0.12342   ]), 'test_r2': array([0.94452967, 0.94977754, 0.93906708, 0.92030632, 0.95316131,
+       0.90224389, 0.92827566, 0.8591963 , 0.65163499])}, 13: {'fit_time': array([0.40474057, 0.42281389, 0.32339358, 0.39373183, 0.31918621,
+       0.35373926, 0.36288166, 0.34321451, 0.38946152]), 'score_time': array([0.04109597, 0.04616976, 0.06627607, 0.04654217, 0.05389929,
+       0.04472518, 0.05109406, 0.05906677, 0.04329467]), 'test_pearson_r': array([0.98582622, 0.97317392, 0.95502007, 0.81596331, 0.9341352 ,
+       0.94645631, 0.96154174, 0.96740684, 0.93606186]), 'test_spearman_r': array([0.97103421, 0.95834363, 0.91773399, 0.86865454, 0.92656492,
+       0.92167488, 0.96411483, 0.96770662, 0.91401985]), 'test_rmse': array([-0.09981394, -0.16043286, -0.19986989, -0.4311393 , -0.20511879,
+       -0.1859178 , -0.17608091, -0.16300012, -0.20921662]), 'test_mae': array([-0.07013926, -0.10022048, -0.13097361, -0.19188026, -0.11012328,
+       -0.11191966, -0.09104732, -0.09297079, -0.13300845]), 'test_r2': array([0.97122977, 0.93760236, 0.90010654, 0.65171185, 0.87040392,
+       0.89538366, 0.92415015, 0.93064339, 0.84917047])}, 'summary_stats': {'test_pearson_r_mean': 0.9449600000348684, 'test_pearson_r_std': 0.04730906573094388, 'test_spearman_r_mean': 0.9359921393076979, 'test_spearman_r_std': 0.03725848524354434, 'test_rmse_mean': 0.19748367584311532, 'test_rmse_std': 0.08155434573474424, 'test_mae_mean': 0.10995373412550272, 'test_mae_std': 0.026159937891386417, 'test_r2_mean': 0.8876997159021239, 'test_r2_std': 0.08937887099090222}}, 'CO_Thiophene': {'cluster size (%)': 62, 42: {'test_mad': 0.3105885604581709, 'test_ystd': 0.36964469148466783, 'test_mae': 0.4516920633018059, 'test_rmse': 0.5791687379722886, 'test_r2': -0.09265740158754232}, 13: {'test_mad': 0.23912009889463434, 'test_ystd': 0.28050400905161293, 'test_mae': 0.49678243822226487, 'test_rmse': 0.5870027273181513, 'test_r2': -0.12241645930273015}, 'summary_stats': {'test_mad_mean': 0.2748543296764026, 'test_mad_std': 0.03573423078176828, 'test_ystd_mean': 0.32507435026814036, 'test_ystd_std': 0.04457034121652745, 'test_mae_mean': 0.4742372507620354, 'test_mae_std': 0.022545187460229488, 'test_rmse_mean': 0.5830857326452199, 'test_rmse_std': 0.003916994672931329, 'test_r2_mean': -0.10753693044513624, 'test_r2_std': 0.014879528857593916}}, 'ID_Thiophene': {'cluster size (%)': 50, 42: {'fit_time': array([0.26950216, 0.32083344]), 'score_time': array([0.06732821, 0.06980848]), 'test_pearson_r': array([0.84764741, 0.88462799]), 'test_spearman_r': array([0.89685213, 0.88616608]), 'test_rmse': array([-0.33461442, -0.29862786]), 'test_mae': array([-0.16604002, -0.16016508]), 'test_r2': array([0.71714974, 0.77136678])}, 13: {'fit_time': array([0.29358292, 0.28095341]), 'score_time': array([0.05972934, 0.05499125]), 'test_pearson_r': array([0.87379559, 0.8563143 ]), 'test_spearman_r': array([0.87271652, 0.85175816]), 'test_rmse': array([-0.33515385, -0.31177401]), 'test_mae': array([-0.19257312, -0.18137128]), 'test_r2': array([0.74041129, 0.72441803])}, 'summary_stats': {'test_pearson_r_mean': 0.8655963228854768, 'test_pearson_r_std': 0.014471970743357513, 'test_spearman_r_mean': 0.8768732203903475, 'test_spearman_r_std': 0.01683418003237393, 'test_rmse_mean': 0.3200425355326223, 'test_rmse_std': 0.01555352425868408, 'test_mae_mean': 0.17503737419270246, 'test_mae_std': 0.012745176345225562, 'test_r2_mean': 0.7383364624518687, 'test_r2_std': 0.02084410457071707}}, 'CO_Polar': {'cluster size (%)': 6, 42: {'test_mad': 0.3547596467085225, 'test_ystd': 0.3629681718303151, 'test_mae': 0.7877538450239222, 'test_rmse': 0.8939090219370578, 'test_r2': 0.034102245952093324}, 13: {'test_mad': 0.36890837417313493, 'test_ystd': 0.3741277623982699, 'test_mae': 0.7493264997009553, 'test_rmse': 0.8596389980523873, 'test_r2': 0.10674237142104592}, 'summary_stats': {'test_mad_mean': 0.36183401044082875, 'test_mad_std': 0.007074363732306216, 'test_ystd_mean': 0.3685479671142925, 'test_ystd_std': 0.005579795283977396, 'test_mae_mean': 0.7685401723624388, 'test_mae_std': 0.01921367266148344, 'test_rmse_mean': 0.8767740099947225, 'test_rmse_std': 0.017135011942335243, 'test_r2_mean': 0.07042230868656962, 'test_r2_std': 0.0363200627344763}}, 'ID_Polar': {'cluster size (%)': 6, 42: {'fit_time': array([0.68878365, 0.7960906 , 0.49474049, 0.7289083 , 0.63713837,
+       0.57436419, 0.435642  , 0.47591424, 0.81292081, 0.66017604,
+       0.40842414, 0.69821215, 0.56833911, 0.70437884, 0.55704212,
+       0.53850865]), 'score_time': array([0.04019833, 0.0461266 , 0.08061934, 0.05112052, 0.08201051,
+       0.10478735, 0.12012935, 0.14591885, 0.04458165, 0.06056976,
+       0.22905326, 0.04491329, 0.07735062, 0.04564691, 0.07875085,
+       0.07720852]), 'test_pearson_r': array([0.9718662 , 0.99348918, 0.95076514, 0.95333568, 0.9900735 ,
+       0.98252253, 0.93226879, 0.98288381, 0.93114275, 0.92487548,
+       0.98618893, 0.92064524, 0.94779666, 0.94711636, 0.62242603,
+       0.99328735]), 'test_spearman_r': array([0.97486223, 0.98589841, 0.95098039, 0.88529412, 0.95588235,
+       0.95588235, 0.92352941, 0.99043441, 0.92647059, 0.87858743,
+       0.96176471, 0.9       , 0.95217097, 0.89447103, 0.67941176,
+       0.97938251]), 'test_rmse': array([-0.17119928, -0.07948643, -0.21790228, -0.18269821, -0.10544105,
+       -0.12016638, -0.2050791 , -0.10848544, -0.19599837, -0.23708416,
+       -0.11899686, -0.22598474, -0.2271353 , -0.22003592, -0.53091353,
+       -0.08297748]), 'test_mae': array([-0.10414336, -0.06297898, -0.12826944, -0.1164402 , -0.07407478,
+       -0.08920403, -0.13797314, -0.07383997, -0.10997939, -0.13258909,
+       -0.08944697, -0.12367155, -0.09799974, -0.11602951, -0.17711134,
+       -0.0564804 ]), 'test_r2': array([0.93166741, 0.98593372, 0.88234197, 0.89688668, 0.97569466,
+       0.96395723, 0.85575581, 0.95119096, 0.84571605, 0.82304527,
+       0.9630211 , 0.84230334, 0.89363272, 0.88790921, 0.2797929 ,
+       0.98405804])}, 13: {'fit_time': array([0.63187003, 0.62411594, 0.60428238, 0.68063521, 0.62975454,
+       0.56291747, 0.56715822, 0.73428631, 0.53591299, 0.68007112,
+       0.64772058, 0.5605979 , 0.56556797, 0.71572614, 0.52335167,
+       0.66017294]), 'score_time': array([0.04859042, 0.07531667, 0.13008809, 0.05184412, 0.10346031,
+       0.05622005, 0.05880451, 0.0444665 , 0.06139994, 0.05312133,
+       0.05962062, 0.07182145, 0.09869528, 0.04209399, 0.06543088,
+       0.0430522 ]), 'test_pearson_r': array([0.98905938, 0.97849006, 0.98366552, 0.98979241, 0.93155182,
+       0.96739683, 0.69684375, 0.9934591 , 0.86253246, 0.98339943,
+       0.83196211, 0.99221313, 0.99426829, 0.93539853, 0.98955863,
+       0.90043294]), 'test_spearman_r': array([0.95278988, 0.89147779, 0.95823385, 0.91390753, 0.90588235,
+       0.95805765, 0.73235294, 0.99705882, 0.86681407, 0.96470588,
+       0.85209736, 0.98529412, 0.99411765, 0.88823529, 0.99558282,
+       0.86764706]), 'test_rmse': array([-0.07635192, -0.15282017, -0.10884861, -0.13099506, -0.22673829,
+       -0.18034927, -0.5260799 , -0.08875941, -0.24922986, -0.10655675,
+       -0.3399538 , -0.09553862, -0.06726202, -0.22165071, -0.10134382,
+       -0.24529165]), 'test_mae': array([-0.05032413, -0.11611963, -0.08204195, -0.08458038, -0.14632691,
+       -0.11728254, -0.22122413, -0.05415865, -0.14642971, -0.08112565,
+       -0.21795373, -0.07301023, -0.05154678, -0.12720156, -0.05763283,
+       -0.1659996 ]), 'test_r2': array([0.97804593, 0.94414693, 0.96509163, 0.96381012, 0.86146518,
+       0.93114469, 0.42338161, 0.98486382, 0.72587241, 0.96325311,
+       0.68214004, 0.98023988, 0.9860016 , 0.86073728, 0.9738213 ,
+       0.76052279])}, 'summary_stats': {'test_pearson_r_mean': 0.9390846247403002, 'test_pearson_r_std': 0.08241040952547211, 'test_spearman_r_mean': 0.9224774296967646, 'test_spearman_r_std': 0.07042460697572024, 'test_rmse_mean': 0.18585482333724507, 'test_rmse_std': 0.11013699357277724, 'test_mae_mean': 0.10884969796219982, 'test_mae_std': 0.0439181880011569, 'test_r2_mean': 0.8733576688789617, 'test_r2_std': 0.15649546317905905}}, 'overall data shape': {'targets_shape': (259, 1), 'training_features_shape': (259, 178)}}
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n09>
+Subject: Job 309162: <NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515> in cluster <Hazel> Done
+
+Job <NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515> was submitted from host <c201n09> by user <sdehgha2> in cluster <Hazel> at Tue May 20 07:38:05 2025
+Job was executed on host(s) <8*c201n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue May 20 07:41:20 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue May 20 07:41:20 2025
+Terminated at Tue May 20 07:41:48 2025
+Results reported at Tue May 20 07:41:48 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 30:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "MACCS"                                   --regressor_type "NGB"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "canonical_name" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   102.12 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   30 sec.
+    Turnaround time :                            223 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/NGB_log Rg (nm)_MACCS_Trimer_canonical_name_20250515.err> for stderr output of this job.
+
