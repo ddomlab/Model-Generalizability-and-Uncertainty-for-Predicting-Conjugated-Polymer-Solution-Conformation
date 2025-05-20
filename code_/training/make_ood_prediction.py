@@ -19,7 +19,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters melted duplicates.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
 # clusters = 'KM4 ECFP6_Count_512bit cluster'	
@@ -87,7 +87,7 @@ def main_structural_numerical(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 clustering_method=clustering_method,
-                special_folder_name='mean_aggregated',
+                # special_folder_name='mean_aggregated',
                 )
     #TODO: Plot the results
     # scores_criteria: list= ['mad', 'mae', 'rmse',
@@ -130,7 +130,7 @@ if __name__ == "__main__":
             target_features=[args.target_features],  
             transform_type='Standard',
             second_transformer=None,
-            hyperparameter_optimization=True,
+            hyperparameter_optimization=False,
             numerical_feats=args.numerical_feats, 
             clustering_method=args.clustering_method,
         )

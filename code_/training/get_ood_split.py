@@ -10,6 +10,7 @@ from data_handling import remove_unserializable_keys, save_results
 from filter_data import filter_dataset
 from all_factories import (
                             regressor_factory,
+                            optimized_models,
                             # regressor_search_space,
                             transforms,
                             construct_kernel,
@@ -215,9 +216,9 @@ def run_loco_cv(X, y,
             y_transform = get_target_transformer(transform_type,second_transformer)
             skop_scoring = "neg_root_mean_squared_error"
 
+            model = optimized_models(regressor_type)
             y_transform_regressor = TransformedTargetRegressor(
-                        regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                                else regressor_factory[regressor_type],
+                        regressor=model,
                         transformer=y_transform,
                 )
             new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
@@ -229,6 +230,9 @@ def run_loco_cv(X, y,
 
             ID_n_split = round(len(y)/len(y_test))
             IID_cv_baseline = KFold(n_splits=ID_n_split, shuffle=True, random_state=seed)
+            uncertainty_preprocessr: Pipeline = Pipeline(steps=[
+                    ("preprocessor", new_preprocessor),
+                ]) 
             if hyperparameter_optimization:
                 OOD_best_estimator, OOD_regressor_params = optimize_ood_hp(
                     X_tv,
@@ -241,9 +245,7 @@ def run_loco_cv(X, y,
                     cluster_lables=cluster_tv_labels,
                 )
 
-                uncertainty_preprocessr: Pipeline = Pipeline(steps=[
-                    ("preprocessor", new_preprocessor),
-                ]) 
+
                 
                 OOD_scores, OOD_predictions, uncertenty_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test,
                                                                         y_test, return_train_pred=False, algorithm=regressor_type, manual_preprocessor=uncertainty_preprocessr) 
@@ -273,7 +275,8 @@ def run_loco_cv(X, y,
             else:
                 OOD_scores, OOD_predictions, uncertenty_predictions = train_and_predict_ood(regressor, X_tv, y_tv, X_test,
                                                                         y_test,return_train_pred=False,
-                                                                        algorithm=regressor_type)
+                                                                        algorithm=regressor_type,
+                                                                        manual_preprocessor=uncertainty_preprocessr)
                 
                 ID_scores, ID_predictions = cross_validate_regressor(
                                             regressor, X, y, IID_cv_baseline, classification=False
