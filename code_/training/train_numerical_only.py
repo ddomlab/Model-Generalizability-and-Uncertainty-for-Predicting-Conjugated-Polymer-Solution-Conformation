@@ -72,7 +72,7 @@ def main_numerical_only(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 classification=classification,
-                special_folder_name='hp_RF_differences'
+                # special_folder_name='hp_RF_differences'
                 )
 
 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
         kernel=args.kernel,
         target_features=[args.target_features],  
         transform_type='Standard',
-        hyperparameter_optimization=True,
+        hyperparameter_optimization=False,
         columns_to_impute=args.columns_to_impute,  
         special_impute=args.special_impute,
         numerical_feats=args.numerical_feats,  

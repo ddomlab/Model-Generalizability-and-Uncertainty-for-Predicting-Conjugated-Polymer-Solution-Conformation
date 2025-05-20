@@ -1,23 +1,23 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520
 mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("RF")
+models_to_run=("MLP")
 
 
 for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 4
+#BSUB -n 8
 #BSUB -W 11:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
-#BSUB -J "numerical_${model}_with_feats_on_${target}_20250502"
-#BSUB -o "${output_dir}/numerical_${model}_${target}_20250502.out"
-#BSUB -e "${output_dir}/numerical_${model}_${target}_20250502.err"
+#BSUB -J "numerical_${model}_with_feats_on_${target}_20250520"
+#BSUB -o "${output_dir}/numerical_${model}_${target}_20250520.out"
+#BSUB -e "${output_dir}/numerical_${model}_${target}_20250520.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

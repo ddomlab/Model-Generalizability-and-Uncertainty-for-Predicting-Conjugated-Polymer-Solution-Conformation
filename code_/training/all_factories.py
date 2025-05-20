@@ -7,6 +7,7 @@ from ngboost import NGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import Lasso
 from GPR_model import GPRegressor
+from sklearn.neural_network import MLPRegressor
 # from sklearn.multioutput import MultiOutputRegressor
 from sklearn.preprocessing import FunctionTransformer
 import numpy as np
@@ -107,7 +108,8 @@ regressor_factory: dict[str, type]={
     "XGBC":XGBClassifier(),
     "RFC": RandomForestClassifier(),
     "GPR": GPRegressor,
-    "sklearn-GPR":GaussianProcessRegressor
+    "sklearn-GPR":GaussianProcessRegressor,
+    "MLP": MLPRegressor(),
 }
 
 def optimized_models(model_name:str,random_state:int=0, **kwargs):
