@@ -395,7 +395,7 @@ def optimize_ood_hp(
             )
 
             bayes.fit(X_t, y_t)
-            print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
+            # print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
             estimators.append(bayes)
     else: 
         cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
@@ -416,7 +416,7 @@ def optimize_ood_hp(
                 )
             
             bayes.fit(X_t, y_t)
-            print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
+            # print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
             estimators.append(bayes)
 
     best_idx: int = np.argmax([est.best_score_ for est in estimators])
