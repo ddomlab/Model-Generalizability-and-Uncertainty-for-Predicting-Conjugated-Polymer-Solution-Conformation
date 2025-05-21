@@ -189,7 +189,6 @@ def run(
                 }
             
         else:
-            print(skop_scoring)
             y_transform_regressor = regressor_factory[regressor_type](kernel=kernel) if kernel!=None else regressor_factory[regressor_type]
                             
             

@@ -156,13 +156,18 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
 
     if algortihm == "MLP":
         return {
-            "regressor__regressor__mlp_width":Categorical([64, 128, 256, 512]),
-            "regressor__regressor__mlp_depth": Integer(1, 5),
-            "regressor__regressor__lr": Real(1e-8, 1e-1, prior="log-uniform"),
-            "regressor__regressor__weight_decay": Categorical(["auto", 0.0, 0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1.0]),
-            "regressor__regressor__batch_size": Categorical([32, 64, 128, 256]),
-
-        }
+                    # "regressor__regressor__hidden_layer_sizes": Categorical([
+                    #     (64,), (128,), (256,), (512,),       # depth 1
+                    #     (64, 64), (128, 128), (256, 256),     # depth 2
+                    #     (64, 64, 64), (128, 128, 128),        # depth 3
+                    #     (64, 64, 64, 64),                     # depth 4
+                    #     (64, 64, 64, 64, 64),                 # depth 5
+                    # ]),
+                    "regressor__regressor__learning_rate_init": Real(1e-8, 1e-1, prior="log-uniform"),
+                    "regressor__regressor__alpha": Real(1e-8, 1e0, prior="log-uniform"),  # This is weight decay
+                    "regressor__regressor__batch_size": Categorical([32, 64, 128, 256]),
+                    "regressor__regressor__max_iter": [500],
+                }
 
     if algortihm == "RF":
         return {
