@@ -130,7 +130,7 @@ if __name__ == "__main__":
             target_features=[args.target_features],  
             transform_type='Standard',
             second_transformer=None,
-            hyperparameter_optimization=False,
+            hyperparameter_optimization=True,
             numerical_feats=args.numerical_feats, 
             clustering_method=args.clustering_method,
         )

@@ -156,9 +156,9 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
 
     if algortihm == "MLP":
         return {
-                    "regressor__regressor__hidden_layer_sizes": Categorical([
-                    (64), (128), (256), (512)
-                    ]),
+                    # "regressor__regressor__hidden_layer_sizes": Categorical([
+                    # (64), (128), (256), (512)
+                    # ]),
                     "regressor__regressor__learning_rate_init": Real(1e-5, 1e-1, prior="log-uniform"),
                     "regressor__regressor__alpha": Real(1e-8, 1e-6, prior="log-uniform"),  # This is weight decay
                     "regressor__regressor__batch_size": Categorical([32, 64, 128, 256]),
