@@ -12,8 +12,7 @@ for target in "${target_to_assess[@]}"; do
         bsub <<EOT
 
 #BSUB -n 6
-#BSUB -W 20:01
-#BSUB -x
+#BSUB -W 2:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250520"
