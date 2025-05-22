@@ -559,3 +559,380 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_MLP_log Rg (nm)_20250520.err> for stderr output of this job.
 
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.4854104037707156e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.0009457758483788338), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.002907253560971976), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0022913227882986626), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.332865665147128e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0005605981978635558), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.4854104037707156e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.0009457758483788338), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.0009154185143181923), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.0019501401679609845), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0008616996726832449), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0006613428923393368), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.001856225692025344), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.001507536516472985), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0006409050260065336), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0009598125410301526), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.0008448927852341622), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0012825044333710331), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.002048727140160892), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.685894334824262e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0007412688203221942), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.5541028936763716e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.0009838767933472217), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.7067951790036217e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.013188373050364108), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.001693416749964116), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0004950001433497954), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.335146477818154e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.0017692348916286827), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.697867528582978e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.001907398470654961), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.796765605138327e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0017120150766208716), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.335146477818154e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.0017692348916286827), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.00047843853779244727), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.0013749351224011373), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.0013001583827027727), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 64), ('regressor__regressor__learning_rate_init', 0.004981496845399412), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 256), ('regressor__regressor__learning_rate_init', 0.002797269648360528), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__hidden_layer_sizes', 128), ('regressor__regressor__learning_rate_init', 0.008959943758980786), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0032562019128839536), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.0008942218392906218), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.7781661990175306e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.09872419187398675), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.980140412909693e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__hidden_layer_sizes', 512), ('regressor__regressor__learning_rate_init', 0.00039105360790159287), ('regressor__regressor__max_iter', 200)])
+
+
+Average scores:	 r: 0.82±0.09	 r2: 0.63±0.2
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_MLP_Standard
+{6: {'fit_time': array([1.08664489, 1.04301667, 1.1038847 , 1.0529449 , 0.89786601]), 'score_time': array([0.01239657, 0.01251245, 0.01311779, 0.01305676, 0.01139808]), 'test_pearson_r': array([0.93593451, 0.78890438, 0.73622701, 0.89944546, 0.7616171 ]), 'test_spearman_r': array([0.93612163, 0.85231275, 0.77201896, 0.90711131, 0.76491085]), 'test_rmse': array([-0.23458091, -0.41522316, -0.44463234, -0.27407711, -0.37392857]), 'test_mae': array([-0.14988087, -0.2227919 , -0.22250147, -0.17544302, -0.22355409]), 'test_r2': array([0.87392761, 0.56914173, 0.4981699 , 0.80871902, 0.54189855]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1.332865665147128e-07, 'regressor__batch_size': 32, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 512, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.0005605981978635558, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 13: {'fit_time': array([1.04021764, 1.08637166, 1.09653139, 1.07928872, 0.76577616]), 'score_time': array([0.01292157, 0.0118432 , 0.01715422, 0.00993204, 0.01157165]), 'test_pearson_r': array([0.77983286, 0.904331  , 0.66422681, 0.836797  , 0.85739302]), 'test_spearman_r': array([0.89211982, 0.91169125, 0.72914756, 0.85288532, 0.83572431]), 'test_rmse': array([-0.46109324, -0.29411353, -0.49993167, -0.36055754, -0.29713437]), 'test_mae': array([-0.20968899, -0.16115826, -0.24938044, -0.1943307 , -0.19074957]), 'test_r2': array([0.45954122, 0.79537431, 0.35868777, 0.68641292, 0.72424046]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1e-06, 'regressor__batch_size': 32, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 512, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.0008616996726832449, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 42: {'fit_time': array([1.18707323, 0.88194776, 0.64781117, 0.89067984, 0.90427613]), 'score_time': array([0.01184511, 0.01190829, 0.0127728 , 0.01300406, 0.01103425]), 'test_pearson_r': array([0.87654246, 0.75407052, 0.68437308, 0.94085229, 0.78635414]), 'test_spearman_r': array([0.84662184, 0.79667022, 0.81995347, 0.93487588, 0.80551688]), 'test_rmse': array([-0.32092692, -0.45907555, -0.4326535 , -0.22214843, -0.4040914 ]), 'test_mae': array([-0.20747383, -0.26526765, -0.21862162, -0.14501878, -0.1906426 ]), 'test_r2': array([0.76797861, 0.51088478, 0.24584181, 0.88022623, 0.60827698]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1e-08, 'regressor__batch_size': 32, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 512, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.0012825044333710331, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 69: {'fit_time': array([0.58402896, 0.56798124, 0.41569448, 0.56586218, 0.53635788]), 'score_time': array([0.01153517, 0.01061702, 0.0114212 , 0.01400113, 0.01295567]), 'test_pearson_r': array([0.90838478, 0.83115205, 0.9148588 , 0.67295741, 0.87207199]), 'test_spearman_r': array([0.91736402, 0.83642367, 0.91653147, 0.75488292, 0.84868094]), 'test_rmse': array([-0.27270554, -0.332967  , -0.25461883, -0.51557119, -0.33811068]), 'test_mae': array([-0.18113159, -0.20654041, -0.16518309, -0.25700258, -0.21024097]), 'test_r2': array([0.80722069, 0.68463821, 0.83481766, 0.24966479, 0.75697662]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1e-08, 'regressor__batch_size': 32, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 64, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.001693416749964116, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 420: {'fit_time': array([0.44185305, 0.44259715, 0.45310378, 0.46117258, 0.44490886]), 'score_time': array([0.01278734, 0.01457214, 0.01256609, 0.01302338, 0.01348233]), 'test_pearson_r': array([0.93198406, 0.7810156 , 0.81421984, 0.90099021, 0.75992916]), 'test_spearman_r': array([0.90441626, 0.80334692, 0.85963154, 0.88326325, 0.80254316]), 'test_rmse': array([-0.21911998, -0.40632277, -0.37537881, -0.28966522, -0.43410748]), 'test_mae': array([-0.1474028 , -0.22996382, -0.22336042, -0.19396735, -0.20716209]), 'test_r2': array([0.86807754, 0.57694349, 0.56354472, 0.80616795, 0.55894368]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 9.697867528582978e-08, 'regressor__batch_size': 128, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 256, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.001907398470654961, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 1234567890: {'fit_time': array([0.28509879, 0.39987803, 0.39460588, 0.28982449, 0.27156901]), 'score_time': array([0.01297069, 0.01682496, 0.01077318, 0.0117259 , 0.01124787]), 'test_pearson_r': array([0.79716577, 0.92766877, 0.8766669 , 0.81686744, 0.71889773]), 'test_spearman_r': array([0.76917823, 0.90633876, 0.86885246, 0.81287763, 0.7694154 ]), 'test_rmse': array([-0.36762014, -0.21858874, -0.31857932, -0.38123959, -0.49549707]), 'test_mae': array([-0.24942511, -0.15455332, -0.21829981, -0.21775846, -0.27592325]), 'test_r2': array([0.59024485, 0.85553517, 0.74977452, 0.64273621, 0.48448067]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1e-06, 'regressor__batch_size': 64, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 256, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.002797269648360528, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 473129: {'fit_time': array([0.1909256 , 0.20995545, 0.24950504, 0.28028584, 0.16605878]), 'score_time': array([0.01176691, 0.01190519, 0.01261783, 0.0118854 , 0.00998974]), 'test_pearson_r': array([0.77179689, 0.79224397, 0.59982063, 0.95355336, 0.82949839]), 'test_spearman_r': array([0.83854031, 0.80849703, 0.7091045 , 0.95593326, 0.77909502]), 'test_rmse': array([-0.4260803 , -0.36642288, -0.57130936, -0.19681545, -0.35480023]), 'test_mae': array([-0.19849572, -0.20059901, -0.33499762, -0.14402387, -0.22797867]), 'test_r2': array([0.59000251, 0.58384671, 0.05536156, 0.90671399, 0.66649004]), 'best_params': {'check_inverse': True, 'func': None, 'inverse_func': None, 'regressor__activation': 'relu', 'regressor__alpha': 1e-08, 'regressor__batch_size': 128, 'regressor__beta_1': 0.9, 'regressor__beta_2': 0.999, 'regressor__early_stopping': False, 'regressor__epsilon': 1e-08, 'regressor__hidden_layer_sizes': 128, 'regressor__learning_rate': 'constant', 'regressor__learning_rate_init': 0.008959943758980786, 'regressor__max_fun': 15000, 'regressor__max_iter': 200, 'regressor__momentum': 0.9, 'regressor__n_iter_no_change': 10, 'regressor__nesterovs_momentum': True, 'regressor__power_t': 0.5, 'regressor__random_state': None, 'regressor__shuffle': True, 'regressor__solver': 'adam', 'regressor__tol': 0.0001, 'regressor__validation_fraction': 0.1, 'regressor__verbose': False, 'regressor__warm_start': False, 'transformer__memory': None, 'transformer__verbose': False, 'transformer__y scaler__copy': True, 'transformer__y scaler__with_mean': True, 'transformer__y scaler__with_std': True}}, 'pearson_r_avg': 0.8193898683610081, 'pearson_r_stdev': 0.08751562595856413, 'spearman_r_avg': 0.8400742512397911, 'spearman_r_stdev': 0.06246603829736393, 'rmse_avg': 0.3608482528635989, 'rmse_stdev': 0.09293002222741996, 'mae_avg': 0.20772896430765694, 'mae_stdev': 0.04030783691322889, 'r2_avg': 0.6331858127329537, 'r2_stdev': 0.19588537233113013}
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n09>
+Subject: Job 420410: <numerical_MLP_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_MLP_with_feats_on_log Rg (nm)_20250520> was submitted from host <c207n01> by user <sdehgha2> in cluster <Hazel> at Thu May 22 00:03:59 2025
+Job was executed on host(s) <6*c201n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu May 22 00:03:59 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu May 22 00:03:59 2025
+Terminated at Thu May 22 00:56:35 2025
+Results reported at Thu May 22 00:56:35 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 2:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_MLP_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_MLP_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_MLP_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "MLP"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   5406.00 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.96 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               6.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   3176 sec.
+    Turnaround time :                            3156 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_MLP_log Rg (nm)_20250520.err> for stderr output of this job.
+
