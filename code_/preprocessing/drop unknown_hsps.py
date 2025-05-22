@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print(df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'])
     df_training_dropped_missing_polymer_hsp.to_pickle(DATASETS/"training_dataset"/"dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
     print("Done saving dataset_wo_block_cp_(fp-hsp)_added_additive_dropped_polyHSP_dropped.pkl")
-    print(df_training_dropped_missing_polymer_hsp.columns.to_list())
+    # print(df_training_dropped_missing_polymer_hsp.columns.to_list())
     Rh_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Rh (IW avg log)'].notna()]
     Rg_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Rg1 (nm)'].notna()]
     Lp_data = df_training_dropped_missing_polymer_hsp[df_training_dropped_missing_polymer_hsp['Lp (nm)'].notna()]
