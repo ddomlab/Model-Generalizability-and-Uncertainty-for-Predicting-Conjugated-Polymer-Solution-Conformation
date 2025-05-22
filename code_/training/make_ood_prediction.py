@@ -142,7 +142,7 @@ if __name__ == "__main__":
             representation="MACCS",
             # radius=3,
             # vector="count",
-            regressor_type="RF",
+            regressor_type="MLP",
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,
