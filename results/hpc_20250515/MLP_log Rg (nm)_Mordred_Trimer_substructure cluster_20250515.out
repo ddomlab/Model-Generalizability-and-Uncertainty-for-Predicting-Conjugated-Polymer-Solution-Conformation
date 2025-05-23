@@ -1,0 +1,220 @@
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n03>
+Subject: Job 425742: <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> in cluster <Hazel> Exited
+
+Job <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> was submitted from host <c205n03> by user <sdehgha2> in cluster <Hazel> at Thu May 22 02:22:10 2025
+Job was executed on host(s) <6*c205n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu May 22 02:49:22 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu May 22 02:49:22 2025
+Terminated at Thu May 22 02:50:11 2025
+Results reported at Thu May 22 02:50:11 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 40:30
+#BSUB -R span[hosts=1]
+#BSUB -x 
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "Mordred"                                   --regressor_type "MLP"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   21.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                6
+    Run time :                                   56 sec.
+    Turnaround time :                            1681 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c009n03>
+Subject: Job 445314: <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> in cluster <Hazel> Exited
+
+Job <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> was submitted from host <c009n01> by user <sdehgha2> in cluster <Hazel> at Thu May 22 10:51:07 2025
+Job was executed on host(s) <6*c009n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu May 22 10:51:12 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu May 22 10:51:12 2025
+Terminated at Thu May 22 10:53:15 2025
+Results reported at Thu May 22 10:53:15 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 40:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "Mordred"                                   --regressor_type "MLP"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   18.10 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   150 sec.
+    Turnaround time :                            128 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OOD TEST ON PPV
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Thiophene
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Polar
+Filename: (Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_MLP_hypOFF_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n14>
+Subject: Job 508289: <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> in cluster <Hazel> Done
+
+Job <MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515> was submitted from host <c201n05> by user <sdehgha2> in cluster <Hazel> at Fri May 23 14:10:13 2025
+Job was executed on host(s) <6*c200n14>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri May 23 14:10:15 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Fri May 23 14:10:15 2025
+Terminated at Fri May 23 14:13:39 2025
+Results reported at Fri May 23 14:13:39 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 10:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "Mordred"                                   --regressor_type "MLP"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   165.45 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             0.44 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               14.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   212 sec.
+    Turnaround time :                            206 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_Mordred_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
