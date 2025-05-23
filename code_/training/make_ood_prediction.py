@@ -32,7 +32,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM4 Mordred_Polysize cluster'
 
 
-TEST = False
+TEST = True
 
 def main_structural_numerical(
     dataset: pd.DataFrame,
@@ -130,7 +130,7 @@ if __name__ == "__main__":
             target_features=[args.target_features],  
             transform_type='Standard',
             second_transformer=None,
-            hyperparameter_optimization=True,
+            hyperparameter_optimization=False,
             numerical_feats=args.numerical_feats, 
             clustering_method=args.clustering_method,
         )

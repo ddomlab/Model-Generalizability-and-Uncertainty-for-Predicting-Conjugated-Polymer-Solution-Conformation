@@ -125,6 +125,8 @@ def optimized_models(model_name:str,random_state:int=0, **kwargs):
                                      random_state=None, n_jobs=-1,**kwargs,
                                     #    max_features="sqrt"
                                        )
+    if 'MLP'==model_name:
+        return MLPRegressor(alpha=1e-8,max_iter=500,batch_size='auto')
 
     return None
 
