@@ -36,9 +36,9 @@ def weighted_jaccard(u, v,eps: float = 1e-6):
     return 1 - ((min_sum+eps) / (max_sum+eps))
 
 ## Train-Test OOD Distance
-rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters melted duplicates.pkl')
+rg_data = pd.read_pickle(training_df_dir/'Rg data with clusters.pkl')
 # 'OOD_target_log Rg (nm)'
-target = 'OOD_target_log Rg (nm)_mean_aggregated'
+target = 'OOD_target_log Rg (nm)'
 results_path = HERE.parent.parent / 'results'/ target
 
 
@@ -231,8 +231,8 @@ if __name__ == "__main__":
                     'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster',
                     ]
     for cluster in cluster_list:
