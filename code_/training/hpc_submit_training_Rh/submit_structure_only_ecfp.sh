@@ -5,7 +5,7 @@ mkdir -p "$output_dir"
 regressors=("RF") 
 targets=('log Rg (nm)')
 vectors=('count')
-radii=(3) 
+radii=(3 4 5 6) 
 models=("ECFP")
 poly_representations=('Monomer' 'Dimer' 'Trimer' 'RRU Monomer' 'RRU Trimer' 'RRU Dimer')
 
