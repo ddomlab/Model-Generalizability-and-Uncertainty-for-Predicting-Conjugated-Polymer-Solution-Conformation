@@ -1,0 +1,1551 @@
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c201n05>
+Subject: Job 508562: <MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> in cluster <Hazel> Exited
+
+Job <MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> was submitted from host <c205n12> by user <sdehgha2> in cluster <Hazel> at Fri May 23 14:30:43 2025
+Job was executed on host(s) <6*c201n05>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Fri May 23 14:30:45 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Fri May 23 14:30:45 2025
+Terminated at Fri May 23 17:00:44 2025
+Results reported at Fri May 23 17:00:44 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 2:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "MACCS"                                   --regressor_type "MLP"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   18492.00 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.97 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               14.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   9016 sec.
+    Turnaround time :                            9001 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Fluorene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.8310767381584743e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.026301099047337184), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0011828260042615368), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0017020354215817788), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0031579595209046685), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0010161897676917208), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 8.911958023644911e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0014863454776869326), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.5091157368080926e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.015968258475415463), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 6.337573557896935e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.005053454020137269), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.995552889227252e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.002332289479971624), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.004231076954879907), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0168587136004645e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.009228497044562663), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.1003389066964798e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.002016033702792204), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.086375264234672e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0018708001398705287), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.936853175667282e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.0017955349685592622), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0019942169948775996), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.6107107438250974e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005342960284512565), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0010391953415058394), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0002680612029142925), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.8347621449257542e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0006109641823440822), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.00047024814158165817), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0509237365496562e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.006269243581841092), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.014518317703892539), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0018087248327682166), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0006404929498418565), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 8.194363048120676e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0012054623242937295), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0013277675251734823), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.01057339146389664), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0031438159702586368), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0013674567185958369), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0012117980022599629), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003471116446404024), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.005542024297440518), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.006899022755974e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.004405532989038367), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0006940970650482065), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 8.135072187419375e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0021326045719811267), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON PPV
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.082425668440662e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.02056375428670535), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0014931817631517812), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.0303943916181392e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.002215328486943231), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 6.801091460276927e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.006295826100320222), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.075966624522716e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.011689100773713218), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.1252786292889006e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005483434323479225), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0574745479465156e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.005456997432323489), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.044548709171888e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.020766061334384866), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.103865799915433e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.011724261345232292), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0014430435577092173), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0168587136004645e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.009228497044562663), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.972893133963025e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0012778531518898432), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003466284867588288), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0010100930862282176), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0012525754891100057), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005383391586977577), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.00040601272818874994), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0003315712948229214), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.6107107438250974e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005342960284512565), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005875161120874429), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.883125282099818e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0021574281785457458), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.004512427261184004), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0018752585459416882), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.012963639247393445), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.001069404266029109), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.010100163656401743), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0007673505577693117), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0030559848135932027), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.001435482464010168), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0013393369388295822), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0019194603761284697), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 5.761300048264897e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003191007977804329), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0022710292684596416), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.130595386076725e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0005691460836207402), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.005360819021452041), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Thiophene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0026466329691483873), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0008185910334983117), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003755382961628838), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.468936068349172e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.007706761827820035), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.454967314192308e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.006170708634758251), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.9409357762290682e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.019312568125195214), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 6.139891895887905e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.004579533381128424), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.2589803711998653e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.0015895178344524344), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.004959619198743138), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0022843408371376658), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0032187528374238938), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0012215074922122561), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 5.773055792874766e-07), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003188030609630717), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.2212543829922851e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.0009679809588492403), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0025863391672362643), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 7.732852069710005e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0008404561518901699), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005214473810821598), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.05664568376668e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.00033487036124477625), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0017838902698822793), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.002438582877959381), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003774289159344594), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.001897994032556689), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0020367236736437253), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 7.045473403216714e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.02364945812480069), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0005857500598355993), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.007312502026780867), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.003968486930051818), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.690998392117692e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.002821792721409925), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 4.176144190833912e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0013493563897013637), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.001183567200097231), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.004610315528853793), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.006004766595438409), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.013822547127470159), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0009077293441200788), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0022708392471564144), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Polar
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.1635160218652476e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.008694707181779537), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.002412268883623628), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.009910780608280361), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0039054173827410485), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.0048805947349030146), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.9409357762290682e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.019312568125195214), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.86830266289956e-07), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.01087425946998351), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 9.103865799915433e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.011724261345232292), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.004702619747355822), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0077046939759483e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.004698169473475332), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0168587136004645e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.009228497044562663), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.01685740662573034), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.0338478495491374e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0036526153202931398), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0007818450668586645), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 7.463609850963538e-07), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.002292530387678398), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0009233467143150334), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.00039883612633923656), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.6395780170098377e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0003975156677165365), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.245322707803837e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.001661975037772862), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0009594996231946285), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.00698262972500284), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 3.542880715125977e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.0025782327467478443), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0020375940830277698), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 7.045473403216714e-07), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.02364945812480069), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.1343145136141833e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0038660128337329788), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.009290919159213516), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.001412136358456833), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.008569961297150682), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 32), ('regressor__regressor__learning_rate_init', 0.0010825032129352854), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 2.690998392117692e-08), ('regressor__regressor__batch_size', 256), ('regressor__regressor__learning_rate_init', 0.002821792721409925), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.001012798170671067), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.0052729063006818995), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1e-06), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0017726419143622243), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 1.126894525522174e-08), ('regressor__regressor__batch_size', 128), ('regressor__regressor__learning_rate_init', 0.002505047608215819), ('regressor__regressor__max_iter', 200)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR MLP 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 4.5844962382819795e-08), ('regressor__regressor__batch_size', 64), ('regressor__regressor__learning_rate_init', 0.0035453082416873824), ('regressor__regressor__max_iter', 200)])
+
+
+Filename: (MACCS-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_MLP_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n13>
+Subject: Job 551548: <MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> in cluster <Hazel> Done
+
+Job <MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515> was submitted from host <c207n10> by user <sdehgha2> in cluster <Hazel> at Sun May 25 19:30:21 2025
+Job was executed on host(s) <6*c207n13>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sun May 25 19:30:23 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sun May 25 19:30:23 2025
+Terminated at Mon May 26 01:07:13 2025
+Results reported at Mon May 26 01:07:13 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 40:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "MACCS"                                   --regressor_type "MLP"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   39667.00 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.97 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               14.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   20230 sec.
+    Turnaround time :                            20212 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250515/MLP_log Rg (nm)_MACCS_Trimer_substructure cluster_20250515.err> for stderr output of this job.
+
