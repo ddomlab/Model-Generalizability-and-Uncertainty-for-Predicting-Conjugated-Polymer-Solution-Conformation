@@ -17,7 +17,7 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 40:05
+#BSUB -W 30:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250519"  
@@ -30,7 +30,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --representation "${fp}" \
                                       --regressor_type "${regressor}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats  'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
+                                      --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
 
 
 

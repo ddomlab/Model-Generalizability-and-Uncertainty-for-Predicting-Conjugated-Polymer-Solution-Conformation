@@ -1,8 +1,8 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250502
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520
 mkdir -p "$output_dir"
 
-regressors=("RF" "NGB")
+regressors=("RF")
 targets=('log Rg (nm)')
 models=("ECFP")
 radii=(3) 
@@ -20,12 +20,12 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 45:05
+#BSUB -W 30:05
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
-#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250502"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250502.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250502.err"
+#BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_20250520"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250520.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${fp}_${oligo_rep}_${radius}_${vector}_20250520.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
@@ -35,7 +35,7 @@ python ../train_structure_numerical.py --target_features "${target}" \
                                       --radius "${radius}" \
                                       --vector "${vector}" \
                                       --oligomer_representation "${oligo_rep}" \
-                                      --numerical_feats  'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' 
+                                      --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
 
 
 EOT
