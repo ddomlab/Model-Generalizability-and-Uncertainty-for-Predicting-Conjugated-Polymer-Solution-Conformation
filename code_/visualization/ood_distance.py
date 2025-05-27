@@ -228,12 +228,12 @@ if __name__ == "__main__":
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    'substructure cluster',
+                    # 'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP cluster',
                     # 'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster',
+                    'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -341,7 +341,12 @@ if __name__ == "__main__":
                     score_file = ensure_long_path(score_file)
                     if not os.path.exists(score_file):
                         print(f"File not found: {score_file}")
-                        continue
+                        score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_scores.json'
+                        score_file = ensure_long_path(score_file)
+                        if not os.path.exists(score_file):
+                            print(f"File not found: {score_file}")
+                            # continue
+                            continue
                     with open(score_file, "r") as f:
                         scores = json.load(f)
                     model_data = get_ood_iid(scores, accuracy_metric, model)
@@ -350,7 +355,7 @@ if __name__ == "__main__":
                 saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
                 plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
                                 saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
-                                figsize=(8, 6), text_size=16,)
+                                figsize=(14, 8), text_size=16,)
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
