@@ -156,9 +156,10 @@ def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
         # plt.close()
 
 
-def plot_ood_parity(prediction: Dict, ground_truth:Dict, 
-                                       score:Dict=None,folder: Path = None, file_name:str=None) -> None:
+def plot_ood_parity(prediction: Dict, ground_truth: Dict, 
+                    score: Dict = None, folder: Path = None, file_name: str = None) -> None:
     df_results = get_residual_vs_std_full_data(prediction, ground_truth)
+
     for _, row in df_results.iterrows():
         cluster = row['Cluster']
         predicted_y = row['Predicted y']
@@ -169,30 +170,31 @@ def plot_ood_parity(prediction: Dict, ground_truth:Dict,
             "True Values (nm)": true_y,
             "Predicted Values (nm)": predicted_y
         })
-        ax_max = ceil(max(plot_data.max()))
-        ax_min = ceil(min(plot_data.min()))
 
-        # max_range = max(ax_max, ax_min)
-        gridsize = max(15, int(ax_max / 2))
+        # Fixed limits and hexbin density
+        axis_min, axis_max = 0, 3  # Set to domain-appropriate limits
+        gridsize = 20              # Fixed gridsize for consistency
+        bins = 20                  # Fixed bin count for marginal histograms
 
-        # Make the plot
+        # Plot with fixed visual parameters
         g = sns.jointplot(
-            data=plot_data, x="True Values (nm)", y="Predicted Values (nm)",
-            kind="hex", joint_kws={"gridsize": 20, "cmap": "Blues"},
-            marginal_kws={"bins": 20}
+            data=plot_data,
+            x="True Values (nm)", y="Predicted Values (nm)",
+            kind="hex",
+            joint_kws={"gridsize": gridsize, "cmap": "Blues"},
+            marginal_kws={"bins": bins}
         )
 
-
-
-        g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
-        g.ax_joint.set_xlim(0, 3)
-        g.ax_joint.set_ylim(0, 3)
+        g.ax_joint.plot([axis_min, axis_max], [axis_min, axis_max], ls="--", c=".3")
+        g.ax_joint.set_xlim(axis_min, axis_max)
+        g.ax_joint.set_ylim(axis_min, axis_max)
         g.set_axis_labels("True Values", "Predicted Values")
         plt.suptitle(f"Parity Plot for {cluster}", fontweight='bold')
         plt.tight_layout()
 
         if folder:
             save_img_path(folder, f"cluster-{cluster}_{file_name}.png")
+
         # plt.show()
         plt.close()
 
@@ -214,70 +216,70 @@ def get_residual_vs_std_full_data(predicted:Dict,
         for seed, seed_preds in preds.items():
             seed_residuals = np.subtract(seed_preds['y_test_prediction'], true_values)
             residuals.extend(seed_residuals)
-            predictions_std.extend(seed_preds['y_test_uncertainty'])
+            # predictions_std.extend(seed_preds['y_test_uncertainty'])
             predicted_y.extend(seed_preds['y_test_prediction'])
             true_y.extend(true_values)
 
-        results.append([cluster, np.array(residuals), np.array(predictions_std), np.array(predicted_y), np.array(true_y)])
+        results.append([cluster, np.array(residuals), np.array(predicted_y), np.array(true_y)])
 
-    df_results = pd.DataFrame(results, columns=["Cluster", "Residual", "Prediction std", "Predicted y", "True y"])
+    df_results = pd.DataFrame(results, columns=["Cluster", "Residual", "Predicted y", "True y"])
     return df_results
 
 from scipy.stats import pearsonr
 
-def plot_residual_vs_std_full_data(
-                                predicted:Dict,
-                                truth:Dict,
-                                folder_to_save: Path = None,
-                                file_name: str = 'NGB_Mordred'
-                                ) -> None:
-    df = get_residual_vs_std_full_data(predicted, truth)
-    n_clusters = len(df)
-    fig, axes = plt.subplots(1, n_clusters, figsize=(12, 4), sharey=True)
+# def plot_residual_vs_std_full_data(
+#                                 predicted:Dict,
+#                                 truth:Dict,
+#                                 folder_to_save: Path = None,
+#                                 file_name: str = 'NGB_Mordred'
+#                                 ) -> None:
+#     df = get_residual_vs_std_full_data(predicted, truth)
+#     n_clusters = len(df)
+#     fig, axes = plt.subplots(1, n_clusters, figsize=(12, 4), sharey=True)
 
-    if n_clusters == 1:
-        axes = [axes]
+#     if n_clusters == 1:
+#         axes = [axes]
 
-    for ax, (_, row) in zip(axes, df.iterrows()):
-        cluster = row['Cluster']
-        residual = abs(row['Residual'])
-        pred_std = row['Prediction std']
+#     for ax, (_, row) in zip(axes, df.iterrows()):
+#         cluster = row['Cluster']
+#         residual = abs(row['Residual'])
+#         pred_std = row['Prediction std']
         
-        x_values = residual
-        y_values = pred_std
-        # x_errors = pred_std
-        pearson_r = pearsonr(y_values, x_values)[0]
-        plt.sca(ax)  # Set the current axis so plt.gca() works
-        ax = plt.gca()  # Get current axis
+#         x_values = residual
+#         y_values = pred_std
+#         # x_errors = pred_std
+#         pearson_r = pearsonr(y_values, x_values)[0]
+#         plt.sca(ax)  # Set the current axis so plt.gca() works
+#         ax = plt.gca()  # Get current axis
 
-        ax.scatter(x_values, y_values, color='#1f77b430', edgecolors='none', alpha=0.2, s=80)
-        # ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
+#         ax.scatter(x_values, y_values, color='#1f77b430', edgecolors='none', alpha=0.2, s=80)
+#         # ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
 
-        max_y = max(y_values)
-        max_x = max(x_values)
-        x_line = np.linspace(0, max_x, 100)
-        ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
+#         max_y = max(y_values)
+#         max_x = max(x_values)
+#         x_line = np.linspace(0, max_x, 100)
+#         ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
 
-        ax.text(
-            0.95, 0.1, 
-            f"Pearson R = {pearson_r:.2f}",
-            transform=ax.transAxes,
-            fontsize=12,
-            horizontalalignment='right',
-            verticalalignment='bottom',
-            bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="gray")
-        )
-        ax.set_xlabel("Residuals", fontsize=16, fontweight='bold')
-        if ax == axes[0]:
-            ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
-        ax.set_title(f"{cluster}", fontsize=18)
-        ax.tick_params(axis='both', which='major', labelsize=14)
-        ax.set_ylim(0,max_y+.5)
-    plt.tight_layout()
+#         ax.text(
+#             0.95, 0.1, 
+#             f"Pearson R = {pearson_r:.2f}",
+#             transform=ax.transAxes,
+#             fontsize=12,
+#             horizontalalignment='right',
+#             verticalalignment='bottom',
+#             bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="gray")
+#         )
+#         ax.set_xlabel("Residuals", fontsize=16, fontweight='bold')
+#         if ax == axes[0]:
+#             ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
+#         ax.set_title(f"{cluster}", fontsize=18)
+#         ax.tick_params(axis='both', which='major', labelsize=14)
+#         ax.set_ylim(0,max_y+.5)
+#     plt.tight_layout()
 
-    save_img_path(folder_to_save, f"{file_name}.png")
-    plt.show()
-    plt.close()
+#     save_img_path(folder_to_save, f"{file_name}.png")
+#     plt.show()
+#     plt.close()
 
 
 from typing import Tuple
@@ -388,7 +390,8 @@ def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None,
 
 def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
                     saving_path, file_name: str,
-                    figsize=(12, 7), text_size=14):
+                    figsize=(12, 7), text_size=14,
+                    ncol=3):
     
     def parse_cluster_info(cluster_label):
         if cluster_label.startswith("CO_"):
@@ -455,14 +458,14 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
         frameon=True,
         loc='upper center',
         bbox_to_anchor=(0.5, 1.16),
-        ncol=3
+        ncol=ncol
     )
 
     # Compute ymax as multiple of 0.2
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
-    ax.set_yticks(np.arange(0, 1.42, 0.2))
-    ax.set_ylim(0, 1.4)
+    # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
+    # ax.set_ylim(0, 1.4)
 
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
@@ -812,57 +815,57 @@ if __name__ == "__main__":
                     # 'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
-                    'Polymers cluster'
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
+                    # 'Polymers cluster'
                     ]
 
 
 
     for cluster in cluster_list:
         scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', ]:
+        for fp in ['MACCS', 'Mordred']:
             all_score_eq_training_size = []
-            for model in ['RF', ]:
+            for model in ['RF', 'XGBR', 'NGB']:
 
                 # suffix = '_v1_(max_feat_sqrt)'
-                suffix = ''
-                score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_scores.json'
-                predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_predictions.json'
-                # truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-                # predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
-                score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
-                predictions_file_lc = ensure_long_path(predictions_file_lc)
-                # predictions_full = ensure_long_path(predictions_full)
-                # truth_file_full = ensure_long_path(truth_file_full)
-                if not os.path.exists(score_file_lc):
-                    print(f"File not found: {score_file_lc}")
-                    continue  
+                # suffix = ''
+                # score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_scores.json'
+                # predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_predictions.json'
+                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                # score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
+                # predictions_file_lc = ensure_long_path(predictions_file_lc)
+                predictions_full = ensure_long_path(predictions_full)
+                truth_file_full = ensure_long_path(truth_file_full)
+                # if not os.path.exists(score_file_lc):
+                #     print(f"File not found: {score_file_lc}")
+                #     continue  
 
 
 
                     # NGB XGB learning curve
-                with open(score_file_lc, "r") as f:
-                    scores_lc = json.load(f)
+                # with open(score_file_lc, "r") as f:
+                #     scores_lc = json.load(f)
 
-                with open(predictions_file_lc, "r") as s:
-                    predictions_lc = json.load(s)
+                # with open(predictions_file_lc, "r") as s:
+                #     predictions_lc = json.load(s)
 
                 # saving_folder_lc_score = scores_folder_path / f'learning curve'
                 # plot_ood_learning_scores(scores_lc, metric="rmse", folder=saving_folder_lc_score, file_name=f'{model}_{fp}')
                 # print("Save learning curve scores")
                 # saving_uncertainty = scores_folder_path / f'uncertainty'
-                if model == 'XGBR':
-                    continue
+                # if model == 'XGBR':
+                #     continue
         #         # print(predictions_file_lc)
         #         plot_ama_vs_train_size(predictions_lc, saving_uncertainty, file_name=f'{model}_{fp}')
         #         print("Save learning curve uncertainty")
 
                 # uncertenty + score in learning curve
-                saving_uncertainty = scores_folder_path / f'uncertainty_score'
-                plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                        folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
-                print("Save learning curve scores and uncertainty")
+                # saving_uncertainty = scores_folder_path / f'uncertainty_score'
+                # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
+                # print("Save learning curve scores and uncertainty")
 
 
                 # plot OOD vs IID barplot at the same training size 
@@ -940,11 +943,17 @@ if __name__ == "__main__":
 
         # saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
         # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'RF_scaler')
+                if not os.path.exists(predictions_full) or not os.path.exists(truth_file_full):
+                    print(f"File not found: {predictions_full} or {truth_file_full}")
+                    continue  
+                with open(predictions_full, "r") as s:
+                    predictions_data = json.load(s)
 
-
-        # #Plot parity plot
-        # saving_folder = scores_folder_path / f'Parity plot'
-        # plot_ood_parity(predictions_data, truth_data, folder=saving_folder, file_name=f'RF_scaler')
+                with open(truth_file_full, "r") as f:
+                    truth_data = json.load(f)
+                # #Plot parity plot
+                saving_folder = scores_folder_path / f'Parity plot'/ f'{fp}'
+                plot_ood_parity(predictions_data, truth_data, folder=saving_folder, file_name=f'{model}_{fp}')
 
 
 
