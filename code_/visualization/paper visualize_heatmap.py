@@ -549,12 +549,12 @@ def create_structural_result(target_dir:Path,
                              regressor_model:str,
                              target:str,
                              score:str,
-                             var:str,
+                            #  var:str,
                              data_type:str,
                              transformer_type:str,
                              peak_num:int=None
                              ) -> None:
-    ave, anot, model = creat_result_df(target_dir=target_dir,score=score, var=var,data_type=data_type
+    ave, anot, model = creat_result_df(target_dir=target_dir,score=score,data_type=data_type
                                        ,regressor_model=regressor_model, transformer_type=transformer_type,
                                        peak_number=peak_num)
     
@@ -562,9 +562,21 @@ def create_structural_result(target_dir:Path,
     score_txt: str = "$R^2$" if score == "r2" else score.upper()
     reg_name = f'{regressor_model} on peak {peak_num+1}' if peak_num else regressor_model
     fname= f"selected PolymerRepresentation vs Fingerprint trained by {reg_name} search heatmap_{score} score"
+    if score == "r2":
+        vmax= .22
+        vmin= .18
+        n_cbar_tick = 4
+    elif score == "mae":
+        vmax= .5
+        vmin= 0.1
+        n_cbar_tick = 5  
+    elif score == "rmse":
+        vmax= .7
+        vmin= 0.5 
+        n_cbar_tick = 4
     _create_heatmap(root_dir=HERE,
                     score=score,
-                    var=var,
+                    # var=var,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(9, 8),
@@ -572,8 +584,8 @@ def create_structural_result(target_dir:Path,
                     x_title="Molecular Representations",
                     y_title="Polymer Unit Representation",
                     fname=fname,
-                    vmin=.55,
-                    vmax=.57
+                    vmin=vmin,
+                    vmax=vmax
                     )
 
 
@@ -622,17 +634,17 @@ def create_structural_scaler_result(target_dir:Path,
                     )
 
 #    'XGBR','RF','NGB'"GPR.matern", "GPR.rbf" "GPR"
-complex_models = ['NGB', 'XGBR', 'RF']
+complex_models = ['RF']
 
 
-# for transformer in transformer_list:
-#     for model in complex_models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,data_type='structural', transformer_type=transformer)
 
 
 
@@ -677,13 +689,13 @@ def create_scaler_result(target_dir:Path,
 # simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
 #             create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                                 score=i,data_type='structural_scaler', transformer_type=transformer)
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+            #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
 # selected_features: set = [
 #     # "solvent_properties + solvent_HSPs",
