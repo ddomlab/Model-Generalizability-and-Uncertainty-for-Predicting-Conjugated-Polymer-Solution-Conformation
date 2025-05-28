@@ -4,14 +4,14 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("HGBR")
+models_to_run=("RF")
 
 
 for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 6
+#BSUB -n 4
 #BSUB -W 10:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
