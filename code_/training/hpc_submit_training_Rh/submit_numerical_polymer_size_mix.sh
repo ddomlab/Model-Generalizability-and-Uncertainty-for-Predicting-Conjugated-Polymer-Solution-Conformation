@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("ElasticNet" "HGBR")
+models_to_run=("HGBR")
 
 
 for target in "${target_to_assess[@]}"; do
