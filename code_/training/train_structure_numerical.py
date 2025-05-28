@@ -129,7 +129,8 @@ def parse_arguments():
         type=str,
         choices=['Xn','Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)',
                   'Concentration (mg/ml)','solvent dP',	'polymer dP',	'solvent dD',	'polymer dD',	'solvent dH',	'polymer dH', 'Ra',
-                  "abs(solvent dD - polymer dD)", "abs(solvent dP - polymer dP)", "abs(solvent dH - polymer dH)"],
+                  "abs(solvent dD - polymer dD)", "abs(solvent dP - polymer dP)", "abs(solvent dH - polymer dH)",
+                  "Dark/light", "Aging time (hour)", "To Aging Temperature (K)", "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"],
 
         nargs='+',  # Allows multiple choices
         required=None,
