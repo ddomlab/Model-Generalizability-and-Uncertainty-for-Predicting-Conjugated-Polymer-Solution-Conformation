@@ -1,11 +1,11 @@
-from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor,RandomForestClassifier
 from xgboost import XGBRegressor, XGBClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.svm import SVR
 from ngboost import NGBRegressor
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import Lasso, ElasticNet, Ridge,LinearRegression
+from sklearn.ensemble import HistGradientBoostingRegressor
 from GPR_model import GPRegressor
 from sklearn.neural_network import MLPRegressor
 # from sklearn.multioutput import MultiOutputRegressor
@@ -110,6 +110,8 @@ regressor_factory: dict[str, type]={
     "GPR": GPRegressor,
     "sklearn-GPR":GaussianProcessRegressor,
     "MLP": MLPRegressor(),
+    "ElasticNet": ElasticNet(),
+    "HGBR": HistGradientBoostingRegressor(),
 }
 
 def optimized_models(model_name:str,random_state:int=0, **kwargs):
@@ -207,6 +209,18 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         # "classifier__classifier__reg_lambda": Real(1e-5, 1.0, prior="log-uniform"),
         "regressor__n_jobs": [-2],
         "regressor__objective":['binary:logistic']
+    }
+
+
+    if algortihm == "HGBR":
+        return {
+        "regressor__regressor__max_iter": Integer(50, 2000, prior="log-uniform"),
+        "regressor__regressor__max_depth": [None],
+        "regressor__regressor__min_samples_leaf": Real(0.001, 0.99),
+        "regressor__regressor__max_leaf_nodes": Real(0.001, 0.99),
+        "regressor__regressor__learning_rate": Real(1e-5, 1e-1, prior="log-uniform"),
+        "regressor__regressor__l2_regularization": Real(1e-6, 1e-2, prior="log-uniform"),
+        "regressor__regressor__scoring": Categorical(['neg_root_mean_squared_error'])
     }
 
 
