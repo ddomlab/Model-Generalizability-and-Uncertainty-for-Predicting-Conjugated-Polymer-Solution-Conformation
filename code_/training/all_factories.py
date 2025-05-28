@@ -216,10 +216,10 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         return {
         "regressor__regressor__max_iter": Integer(50, 2000, prior="log-uniform"),
         "regressor__regressor__max_depth": [None],
-        "regressor__regressor__min_samples_leaf": Real(0.001, 0.99),
-        "regressor__regressor__max_leaf_nodes": Real(0.001, 0.99),
+        "regressor__regressor__min_samples_leaf": Integer(2, 1000, prior="log-uniform"),
+        "regressor__regressor__max_leaf_nodes": Integer(2, 1000, prior="log-uniform"),
         "regressor__regressor__learning_rate": Real(1e-5, 1e-1, prior="log-uniform"),
-        "regressor__regressor__l2_regularization": Real(1e-6, 1e-2, prior="log-uniform"),
+        "regressor__regressor__l2_regularization": Real(1e-6, 1e-1, prior="log-uniform"),
         "regressor__regressor__scoring": Categorical(['neg_root_mean_squared_error'])
     }
 

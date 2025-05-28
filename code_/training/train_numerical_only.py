@@ -17,7 +17,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -107,7 +107,7 @@ if __name__ == "__main__":
     else:
         main_numerical_only(
             dataset=w_data,
-            regressor_type="MLP",
+            regressor_type="HGBR",
             # kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
             transform_type='Standard',
