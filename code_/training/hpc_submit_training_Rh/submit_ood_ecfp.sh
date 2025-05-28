@@ -8,7 +8,7 @@ models=("ECFP")
 radii=(3) 
 vectors=("count")
 poly_representations=('Trimer')
-group_out=('KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
+group_out=('canonical_name' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
 
 
 for regressor in "${regressors[@]}"; do
@@ -24,7 +24,6 @@ for regressor in "${regressors[@]}"; do
 
 #BSUB -n 6
 #BSUB -W 30:30
-#BSUB -x
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${regressor}_${target}_${fp}_${oligo_rep}_${group}_20250515"  

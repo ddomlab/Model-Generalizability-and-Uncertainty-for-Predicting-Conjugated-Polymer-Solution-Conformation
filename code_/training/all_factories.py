@@ -123,7 +123,7 @@ def optimized_models(model_name:str,random_state:int=0, **kwargs):
     if 'RF'==model_name:
         return RandomForestRegressor(n_estimators=100, max_depth=None, 
                                      random_state=None, n_jobs=-1,**kwargs,
-                                    #    max_features="sqrt"
+                                       max_features="sqrt"
                                        )
     if 'MLP'==model_name:
         return MLPRegressor(max_iter=200)
@@ -173,7 +173,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__regressor__max_depth": [None],
         "regressor__regressor__min_samples_split": Real(0.001, 0.99),
         "regressor__regressor__min_samples_leaf": Real(0.001, 0.99),
-        "regressor__regressor__max_features": Categorical(["sqrt", "log2", None]),
+        "regressor__regressor__max_features": ["sqrt"],
     }
 
     if algortihm == "XGBR":
