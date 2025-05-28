@@ -14,7 +14,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters melted duplicates.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
 # clusters = 'KM4 ECFP6_Count_512bit cluster'	
@@ -109,9 +109,11 @@ if __name__ == "__main__":
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,
-            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
+            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)',
+                              'Temperature SANS/SLS/DLS/SEC (K)',
+                                'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
             oligomer_representation="Trimer",
-            clustering_method='canonical_name'
+            clustering_method='substructure cluster'
             )
         
             # main_structural_numerical(
