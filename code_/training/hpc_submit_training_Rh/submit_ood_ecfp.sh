@@ -8,7 +8,7 @@ models=("ECFP")
 radii=(3) 
 vectors=("count")
 poly_representations=('Trimer')
-group_out=('canonical_name' 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
+group_out=('substructure cluster') 
 
 
 for regressor in "${regressors[@]}"; do
