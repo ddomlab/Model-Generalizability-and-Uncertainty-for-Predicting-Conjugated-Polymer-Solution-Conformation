@@ -23,6 +23,11 @@ feature_abbrev: Dict[str, str] = {
     "First Peak":         "Rh First Peak",
     "Third Peak":         "Rh Third Peak",
     "canonical_name": "Polymers cluster",
+    "Dark/light": "light exposure",
+    "Aging time (hour)": "aging time",
+    "To Aging Temperature (K)": "aging temperature",
+    "Sonication/Stirring/heating Temperature (K)": "Prep temperature",
+    "Merged Stirring /sonication/heating time(min)": "Prep time",
 }
 
 
