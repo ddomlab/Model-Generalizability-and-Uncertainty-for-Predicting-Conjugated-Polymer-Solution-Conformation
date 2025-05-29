@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250529
 mkdir -p "$output_dir"
 
-regressors=("HGBR" "RF")
+regressors=("HGBR")
 targets=("log Rg (nm)")
 models=("Mordred")
 poly_representations=("Trimer")
@@ -34,7 +34,7 @@ python ../make_ood_prediction.py --target_features "${target}" \
                                   --representation "${fp}" \
                                   --regressor_type "${regressor}" \
                                   --oligomer_representation "${oligo_rep}" \
-                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)" \
+                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' \
                                   --clustering_method "${group}" \
 
 
