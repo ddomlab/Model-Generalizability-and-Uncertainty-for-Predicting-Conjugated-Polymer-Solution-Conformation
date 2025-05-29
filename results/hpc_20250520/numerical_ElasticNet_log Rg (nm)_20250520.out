@@ -1,0 +1,1032 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c051n03>
+Subject: Job 610145: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c048n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:16:26 2025
+Job was executed on host(s) <4*c051n03>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:16:28 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:16:28 2025
+Terminated at Wed May 28 10:16:54 2025
+Results reported at Wed May 28 10:16:54 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.21 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   37 sec.
+    Turnaround time :                            28 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c054n01>
+Subject: Job 610148: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c047n02> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:16:48 2025
+Job was executed on host(s) <4*c054n01>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:16:50 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:16:50 2025
+Terminated at Wed May 28 10:17:00 2025
+Results reported at Wed May 28 10:17:00 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   5.57 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   21 sec.
+    Turnaround time :                            12 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c047n02>
+Subject: Job 610229: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c051n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:19:04 2025
+Job was executed on host(s) <4*c047n02>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:19:05 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:19:05 2025
+Terminated at Wed May 28 10:19:31 2025
+Results reported at Wed May 28 10:19:31 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.03 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   36 sec.
+    Turnaround time :                            27 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c054n04>
+Subject: Job 610247: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c047n02> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:20:06 2025
+Job was executed on host(s) <4*c054n04>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:20:07 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:20:07 2025
+Terminated at Wed May 28 10:20:23 2025
+Results reported at Wed May 28 10:20:23 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats "polymer dP" "polymer dD" "polymer dH" 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6.40 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   19 sec.
+    Turnaround time :                            17 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c044n04>
+Subject: Job 610279: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c044n04> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:22:38 2025
+Job was executed on host(s) <4*c044n04>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:22:38 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:22:38 2025
+Terminated at Wed May 28 10:22:47 2025
+Results reported at Wed May 28 10:22:47 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   4.90 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   9 sec.
+    Turnaround time :                            9 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c054n01>
+Subject: Job 610296: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c047n02> by user <sdehgha2> in cluster <Hazel> at Wed May 28 10:23:36 2025
+Job was executed on host(s) <4*c054n01>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 10:23:36 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 10:23:36 2025
+Terminated at Wed May 28 10:23:44 2025
+Results reported at Wed May 28 10:23:44 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   5.59 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   10 sec.
+    Turnaround time :                            8 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c054n03>
+Subject: Job 613511: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c054n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 14:32:50 2025
+Job was executed on host(s) <4*c054n03>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 14:32:50 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 14:32:50 2025
+Terminated at Wed May 28 14:35:15 2025
+Results reported at Wed May 28 14:35:15 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   8.61 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   145 sec.
+    Turnaround time :                            145 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.519677929010943), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.017635616240584004), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.7176068302742431), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.2258376331805941), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.904331794769404), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.2813473205869407), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.1258938618635929), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.8094313320597467), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.39474205499995835), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.5196512123036124), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.6493285108194281), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n0369>
+Subject: Job 614802: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Exited
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <n0369> by user <sdehgha2> in cluster <Hazel> at Wed May 28 14:48:08 2025
+Job was executed on host(s) <4*n0369>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 14:48:09 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 14:48:09 2025
+Terminated at Wed May 28 14:52:15 2025
+Results reported at Wed May 28 14:52:15 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   341.42 sec.
+    Max Memory :                                 5 GB
+    Average Memory :                             3.80 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               3.00 GB
+    Max Swap :                                   -
+    Max Processes :                              70
+    Max Threads :                                73
+    Run time :                                   245 sec.
+    Turnaround time :                            247 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.00011233621690895234), ('regressor__regressor__learning_rate', 0.0081452228834028), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 160), ('regressor__regressor__max_leaf_nodes', 129), ('regressor__regressor__min_samples_leaf', 26), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.00011233621690895234), ('regressor__regressor__learning_rate', 0.0081452228834028), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 160), ('regressor__regressor__max_leaf_nodes', 129), ('regressor__regressor__min_samples_leaf', 26), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 5.248411918589099e-06), ('regressor__regressor__learning_rate', 0.017444131094291594), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 54), ('regressor__regressor__max_leaf_nodes', 264), ('regressor__regressor__min_samples_leaf', 558), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 5.248411918589099e-06), ('regressor__regressor__learning_rate', 0.017444131094291594), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 54), ('regressor__regressor__max_leaf_nodes', 264), ('regressor__regressor__min_samples_leaf', 558), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+Average scores:	 r: nan±nan	 r2: 0.19±0.22
+Filename: (Mw-PDI-concentration-temperature-solvent dP-solvent dD-solvent dH)_HGBR_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c054n03>
+Subject: Job 614874: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c054n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 15:05:47 2025
+Job was executed on host(s) <4*c054n03>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 15:05:47 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 15:05:47 2025
+Terminated at Wed May 28 15:06:08 2025
+Results reported at Wed May 28 15:06:08 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   36.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   21 sec.
+    Turnaround time :                            21 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.5196511664983996), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.016985225341249337), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.6901737916712305), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.2261152155180146), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.8330189195812946), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.2814009485354307), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.12590888097045536), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.8124518036596415), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.39925921378529644), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.48172329578066597), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.6487724825489328), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.23676484998173422), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3888497885014397), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.007241808577917436), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.424889054788168), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.37343364023765624), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.34131729151250806), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3789467537118038), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3663728685571483), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.006375279024447988), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.9990070216988536), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.2685268129974512), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.09109622713516069), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.5851676426419382), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3141643898996212), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.01429965567485778), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3637250276714829), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3448062733922768), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.42567430407784645), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.5420008464882577), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.01754033908890643), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3737703656653602), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.527212510662411), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.34517323694501867), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.4014473203019875), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.010322561300514827), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.29859467694259884), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.3462248565316371), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+Average scores:	 r: 0.44±0.1	 r2: 0.16±0.12
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_ElasticNet_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c027n03>
+Subject: Job 614819: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520> was submitted from host <c027n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 14:51:38 2025
+Job was executed on host(s) <4*c027n03>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 14:51:38 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 14:51:38 2025
+Terminated at Wed May 28 15:14:35 2025
+Results reported at Wed May 28 15:14:35 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1526.19 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.94 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               5.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   1377 sec.
+    Turnaround time :                            1377 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_ElasticNet_log Rg (nm)_20250520.err> for stderr output of this job.
+

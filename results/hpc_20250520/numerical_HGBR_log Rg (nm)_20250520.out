@@ -1,0 +1,1090 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n0372>
+Subject: Job 614803: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <n0369> by user <sdehgha2> in cluster <Hazel> at Wed May 28 14:48:09 2025
+Job was executed on host(s) <4*n0372>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 14:48:09 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 14:48:09 2025
+Terminated at Wed May 28 14:48:34 2025
+Results reported at Wed May 28 14:48:34 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6.12 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   42 sec.
+    Turnaround time :                            25 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c032n04>
+Subject: Job 614820: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c027n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 14:51:38 2025
+Job was executed on host(s) <4*c032n04>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 14:51:40 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 14:51:40 2025
+Terminated at Wed May 28 14:51:54 2025
+Results reported at Wed May 28 14:51:54 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   18.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   43 sec.
+    Turnaround time :                            16 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.00011233621690895234), ('regressor__regressor__learning_rate', 0.0081452228834028), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 160), ('regressor__regressor__max_leaf_nodes', 129), ('regressor__regressor__min_samples_leaf', 26), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.00011233621690895234), ('regressor__regressor__learning_rate', 0.0081452228834028), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 160), ('regressor__regressor__max_leaf_nodes', 129), ('regressor__regressor__min_samples_leaf', 26), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 5.248411918589099e-06), ('regressor__regressor__learning_rate', 0.017444131094291594), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 54), ('regressor__regressor__max_leaf_nodes', 264), ('regressor__regressor__min_samples_leaf', 558), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 5.248411918589099e-06), ('regressor__regressor__learning_rate', 0.017444131094291594), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 54), ('regressor__regressor__max_leaf_nodes', 264), ('regressor__regressor__min_samples_leaf', 558), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+Average scores:	 r: nan±nan	 r2: 0.19±0.22
+Filename: (Mw-PDI-concentration-temperature-solvent dP-solvent dD-solvent dH)_HGBR_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c046n01>
+Subject: Job 614875: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c054n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 15:05:47 2025
+Job was executed on host(s) <4*c046n01>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 15:05:47 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 15:05:47 2025
+Terminated at Wed May 28 15:06:23 2025
+Results reported at Wed May 28 15:06:23 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   36.00 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              23
+    Max Threads :                                24
+    Run time :                                   42 sec.
+    Turnaround time :                            36 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n02>
+Subject: Job 615334: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c205n02> by user <sdehgha2> in cluster <Hazel> at Wed May 28 16:40:17 2025
+Job was executed on host(s) <6*c205n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 16:41:17 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 16:41:17 2025
+Terminated at Wed May 28 16:41:24 2025
+Results reported at Wed May 28 16:41:24 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 10:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3.76 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   34 sec.
+    Turnaround time :                            67 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c045n03>
+Subject: Job 614969: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Exited
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c045n03> by user <sdehgha2> in cluster <Hazel> at Wed May 28 15:42:39 2025
+Job was executed on host(s) <4*c045n03>, in queue <short>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 15:42:39 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 15:42:39 2025
+Terminated at Wed May 28 16:43:43 2025
+Results reported at Wed May 28 16:43:43 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 4
+#BSUB -W 1:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   10276.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.90 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               5.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   3664 sec.
+    Turnaround time :                            3664 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.03402308227880726), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 511), ('regressor__regressor__max_leaf_nodes', 78), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.012608407475153991), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.04552836064600612), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 10), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.045183627358218195), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 201), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 199), ('regressor__regressor__max_leaf_nodes', 198), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.017320874104024785), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 48), ('regressor__regressor__min_samples_leaf', 16), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.06375472167190042), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 51), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 7.223667862260916e-05), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 918), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 10), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1088), ('regressor__regressor__max_leaf_nodes', 235), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1025), ('regressor__regressor__max_leaf_nodes', 193), ('regressor__regressor__min_samples_leaf', 22), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 138), ('regressor__regressor__max_leaf_nodes', 335), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.0030968798809850756), ('regressor__regressor__learning_rate', 0.06489289338710995), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 882), ('regressor__regressor__max_leaf_nodes', 58), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.0005212131190318165), ('regressor__regressor__learning_rate', 0.04786707673794845), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1099), ('regressor__regressor__max_leaf_nodes', 15), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 21), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 11), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1108), ('regressor__regressor__max_leaf_nodes', 210), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.04756646095998211), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 132), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 116), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.07022722125958544), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 9), ('regressor__regressor__min_samples_leaf', 11), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.029702199210972086), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 20), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 9), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.011636982531074645), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 382), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.035875453553833245), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1387), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 5), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 638), ('regressor__regressor__max_leaf_nodes', 381), ('regressor__regressor__min_samples_leaf', 13), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.025780108939145098), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 25), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.03262121264836919), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 10), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.004812109389262486), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 966), ('regressor__regressor__max_leaf_nodes', 249), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.017439125153957184), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 844), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 636), ('regressor__regressor__max_leaf_nodes', 9), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 100), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.020302429447179946), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 839), ('regressor__regressor__max_leaf_nodes', 36), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 389), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.016702651924679384), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 348), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+Average scores:	 r: 0.94±0.04	 r2: 0.88±0.08
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_HGBR_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n02>
+Subject: Job 615379: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c205n02> by user <sdehgha2> in cluster <Hazel> at Wed May 28 16:44:40 2025
+Job was executed on host(s) <6*c205n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 16:45:40 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 16:45:40 2025
+Terminated at Wed May 28 18:20:39 2025
+Results reported at Wed May 28 18:20:39 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 10:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   19572.22 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.99 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               6.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   5726 sec.
+    Turnaround time :                            5759 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 352), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.018958389308646347), ('regressor__regressor__learning_rate', 0.04746078334535759), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1990), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.02037053408693292), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 10), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1.7013839739391844e-05), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1394), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 4.849896935303366e-05), ('regressor__regressor__learning_rate', 0.008896760441777035), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 607), ('regressor__regressor__max_leaf_nodes', 219), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.028298556359355534), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 80), ('regressor__regressor__min_samples_leaf', 19), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 15), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1006), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 10), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.020871730369571788), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.0376141253212556), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 8), ('regressor__regressor__min_samples_leaf', 16), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 23), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.0847779210994802), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 62), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 743), ('regressor__regressor__max_leaf_nodes', 20), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 471), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.0005212131190318165), ('regressor__regressor__learning_rate', 0.04786707673794845), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 1099), ('regressor__regressor__max_leaf_nodes', 15), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 47), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 524), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.029708090792236828), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 231), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.026605952900733875), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 9), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.0312008903675425), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 261), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 26), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.04709817320464221), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 169), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.012059452947703636), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 233), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 717), ('regressor__regressor__max_leaf_nodes', 14), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 3.999770264475599e-05), ('regressor__regressor__learning_rate', 0.033849190653224885), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 626), ('regressor__regressor__max_leaf_nodes', 399), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 93), ('regressor__regressor__max_leaf_nodes', 444), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.025355844919858088), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 423), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1.6737217180543712e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 67), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.09809681022492857), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 575), ('regressor__regressor__max_leaf_nodes', 19), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 9), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 457), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 7), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.1), ('regressor__regressor__learning_rate', 0.07605289820631671), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 50), ('regressor__regressor__max_leaf_nodes', 75), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 9.809825036924959e-06), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 1000), ('regressor__regressor__min_samples_leaf', 8), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-06), ('regressor__regressor__learning_rate', 0.03251097284291914), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 93), ('regressor__regressor__max_leaf_nodes', 695), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+Average scores:	 r: 0.94±0.04	 r2: 0.88±0.08
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-Prep temperature-Prep time)_HGBR_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n09>
+Subject: Job 615426: <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> in cluster <Hazel> Done
+
+Job <numerical_HGBR_with_feats_on_log Rg (nm)_20250520> was submitted from host <c205n09> by user <sdehgha2> in cluster <Hazel> at Wed May 28 16:56:36 2025
+Job was executed on host(s) <6*c205n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Wed May 28 16:57:36 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed May 28 16:57:36 2025
+Terminated at Wed May 28 18:53:52 2025
+Results reported at Wed May 28 18:53:52 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 10:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_HGBR_with_feats_on_log Rg (nm)_20250520"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "HGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   24026.11 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.71 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               5.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   7003 sec.
+    Turnaround time :                            7036 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250520/numerical_HGBR_log Rg (nm)_20250520.err> for stderr output of this job.
+
