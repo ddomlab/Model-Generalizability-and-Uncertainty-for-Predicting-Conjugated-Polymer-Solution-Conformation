@@ -124,9 +124,14 @@ def optimized_models(model_name:str,random_state:int=0, **kwargs):
     
     if 'RF'==model_name:
         return RandomForestRegressor(n_estimators=100, max_depth=None, 
-                                     random_state=None, n_jobs=-1,**kwargs,
-                                       max_features="sqrt"
-                                       )
+                                        random_state=None, n_jobs=-1,**kwargs,
+                                        max_features="sqrt"
+                                        )
+    if 'HGBR'==model_name:
+        return HistGradientBoostingRegressor(max_iter=2000, max_depth=None, 
+                                            #  min_samples_leaf=20, max_leaf_nodes=1000,
+                                             learning_rate=0.01, l2_regularization=1e-6,
+                                             scoring='neg_root_mean_squared_error', random_state=None,**kwargs)
     if 'MLP'==model_name:
         return MLPRegressor(max_iter=200)
 
