@@ -10,7 +10,7 @@ import pandas as pd
 import seaborn as sns
 # from matplotlib import rc
 from visualization_setting import set_plot_style, save_img_path
-
+from visualize_ood_scores import ensure_long_path
 
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
@@ -56,6 +56,7 @@ def parse_property_string(prop_string):
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
         'Ra': ['Ra'],
+        'environmental.thermal history': ['light exposure', 'aging time', 'aging temperature', 'prep temperature', 'prep time'],
         'ECFP6.count.512': ['ECFP3.count.512'],
         'MACCS': ['MACCS'], 
         'Mordred': ['Mordred'],
@@ -139,9 +140,12 @@ def get_results_from_file(
     Returns:
         Average and variance of score
     """
+    file_path = ensure_long_path(file_path)
     if not file_path.exists():
-        features, model = None, None
-        avg, std = np.nan, np.nan
+            print('not exists')
+            features, model = None, None
+            avg, std = np.nan, np.nan
+        
     else:
         # for just scaler features
         if "scaler" == file_path.parent.name:
@@ -310,15 +314,6 @@ def get_polymer_propeties_comparison(target_folder: Path,
     scores_to_report: List = []
     pattern: str = "*_scores.json"
 
-    # Define the features you want to keep
-    # selected_features: set = {
-    #     "solvent_properties + solvent_HSPs",
-    #     "polysize + solvent_properties + solvent_HSPs",
-    #     "solvent_properties + polymer_HSPs + solvent_HSPs",
-    #     "solvent_properties + solvent_HSPs + MACCS",
-    #     "solvent_properties + solvent_HSPs + Mordred",
-    #     "solvent_properties + solvent_HSPs + ECFP6.count.512",
-    # }
     selected_models: set = {
         "RF",
         "NGB",}
@@ -369,8 +364,8 @@ def plot_manual_heatmap(
 
     # Pivot the DataFrame: rows = models, columns = features
     # print(score_to_show)
-    avg_scores = score_to_show.pivot_table(index="model", columns="features", values="score",aggfunc="mean")
-    annotations = score_to_show.pivot_table(index="model", columns="features", values="annotations",aggfunc="first")
+    avg_scores = score_to_show.pivot(index='model', columns='features', values='score')
+    annotations = score_to_show.pivot(index='model', columns='features', values='annotations')
     # print(avg_scores)
     # Apply order if provided
     if feature_order is not None:
@@ -439,7 +434,7 @@ def plot_manual_heatmap(
     plt.tight_layout()
 
     # Save the figure
-    visualization_folder_path = root_dir / "comparison heatmap for polymer properties"
+    visualization_folder_path = root_dir
     save_img_path(visualization_folder_path,f"{fname}.png")
 
     plt.show()
@@ -541,8 +536,6 @@ def creat_result_df(target_dir: Path,
     avg_scores = avg_scores.astype(float)
     annotations = annotations.astype(str)
     return avg_scores, annotations, list(models)
-
-
 
 
 def create_structural_result(target_dir:Path,
@@ -665,7 +658,6 @@ def create_scaler_result(target_dir:Path,
     # reg_name = f'{regressor_model} on {peak_num}' if peak_num else regressor_model
     fname= f"selected Regression Models vs numerical features search heatmap_{score}"
     fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
-    # print(ave.columns.tolist())
 
     _create_heatmap(root_dir=HERE,
                     score=score,
@@ -686,16 +678,19 @@ def create_scaler_result(target_dir:Path,
                     # vmax=0.6,
                     )
 
-# simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
 #             create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
 #                                                 score=i,data_type='structural_scaler', transformer_type=transformer)
-            create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-                                score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+            #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+            
+
+
+
             
 # selected_features: set = [
 #     # "solvent_properties + solvent_HSPs",
@@ -711,13 +706,13 @@ for transformer in transformer_list:
 #                                         score:str,
 #                                         comparison_value:List[str],
 #                                         ) -> None:
-#     scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
-#                                                                    score=score,
-#                                                                    comparison_value=comparison_value,
-#                                                                    features_to_draw=selected_features)
+    # scores_to_show:pd.DataFrame = get_polymer_propeties_comparison(target_folder=target_dir,
+    #                                                                score=score,
+    #                                                                comparison_value=comparison_value,
+    #                                                                features_to_draw=selected_features)
 #     score_txt: str = "$R^2$" if score == "r2" else score.upper()
 #     fname= f"model vs features in {score}"
-#     plot_manual_heatmap(root_dir=target_dir,
+#     plot_manual_heatmap(root_dir=target_dir/"comparison heatmap for polymer properties",
 #                         score=score,
 #                         score_to_show=scores_to_show,
 #                         figsize=(9, 8),
@@ -737,3 +732,93 @@ for transformer in transformer_list:
 #                                     score='r2',
 #                                     comparison_value=['scaler', 'Trimer_scaler'],
 #                                     )
+
+
+
+def get_aging_comparison(target_folder: Path,
+                            score: str,
+                            comparison_value: List[str],
+                            features_to_draw: set[str] = None,
+                            models_to_draw: set[str] = None,
+                            special_namings: List[str] = None,
+                        ) -> pd.DataFrame:
+    scores_to_report: List = []
+    pattern: str = "*_scores.json"
+
+    for value in comparison_value:
+        value_folder = os.path.join(target_folder, value)
+        score_files = list(Path(value_folder).rglob(pattern))
+
+        for score_path in score_files:
+            if "generalizability" in score_path.name or "test" in score_path.name or 'lc_scores' in score_path.name:
+                continue
+            feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
+
+            # Only keep selected features
+            if feats not in features_to_draw:
+                continue
+            if model not in models_to_draw:
+                continue
+            if special_namings:
+                for special_name in special_namings:
+                    if special_name in score_path.name:
+                        feats = f'{feats} ({special_name})'
+                    else:
+                        feats = feats
+
+
+            anot = f"{np.round(av, 2)}\n±{np.round(std, 2)}"
+            scores_to_report.append({
+                "features": feats,
+                "model": model,
+                "score": np.round(av, 2),
+                "annotations": anot
+            })
+    # print(scores_to_report)
+    return pd.DataFrame(scores_to_report) 
+
+
+def creat_aging_comparison_heatmap(target_dir:Path,
+                                        score_metrics:str,
+                                        comparison_value:List[str],
+                                        features_to_draw: List[str] = None,
+                                        models_to_draw: set[str] = None,
+                                        special_namings: List[str] = None,
+                                        ) -> None:
+    
+    scores_to_show:pd.DataFrame = get_aging_comparison(target_folder=target_dir,
+                                                                   score=score_metrics,
+                                                                   comparison_value=comparison_value,
+                                                                   features_to_draw=features_to_draw,
+                                                                   models_to_draw=models_to_draw,
+                                                                   special_namings=special_namings,
+                                                                   )
+    score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
+    fname= f"model vs features in {score_metrics} for aging features"
+    plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
+                        score=score_metrics,
+                        score_to_show=scores_to_show,
+                        figsize=(11, 11),
+                        fig_title=f" predictive performance of aging features ",
+                        x_title="Feature Space",
+                        y_title="Models",
+                        fname=fname,
+                        # vmin=.2,
+                        # vmax=.6,
+                        # feature_order=features_to_draw,
+                        # model_order=['RF','DT','MLR'],
+                        num_ticks=5,
+                        )
+
+aging_features: List = [
+    'environmental.thermal history',
+    'polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
+    'polysize + solvent_properties + polymer_HSPs + solvent_HSPs'
+]
+creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
+                                    score_metrics='r2',
+                                    comparison_value=['scaler'],
+                                    features_to_draw=aging_features,
+                                    models_to_draw={'RF','HGBR'},
+                                    special_namings=['aging_imputed']
+                                    )

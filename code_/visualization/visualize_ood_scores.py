@@ -465,7 +465,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
     # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
-    # ax.set_ylim(0, 1.4)
+    ax.set_ylim(0, 1.4)
 
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
@@ -832,12 +832,12 @@ if __name__ == "__main__":
                 # suffix = ''
                 # score_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_scores.json'
                 # predictions_file_lc = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc{suffix}_predictions.json'
-                truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
-                predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
+                # truth_file_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_ClusterTruth.json'
+                # predictions_full = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_predictions.json'
                 # score_file_lc = ensure_long_path(score_file_lc)  # Ensure long path support
                 # predictions_file_lc = ensure_long_path(predictions_file_lc)
-                predictions_full = ensure_long_path(predictions_full)
-                truth_file_full = ensure_long_path(truth_file_full)
+                # predictions_full = ensure_long_path(predictions_full)
+                # truth_file_full = ensure_long_path(truth_file_full)
                 # if not os.path.exists(score_file_lc):
                 #     print(f"File not found: {score_file_lc}")
                 #     continue  
