@@ -26,8 +26,8 @@ feature_abbrev: Dict[str, str] = {
     "Dark/light": "light exposure",
     "Aging time (hour)": "aging time",
     "To Aging Temperature (K)": "aging temperature",
-    "Sonication/Stirring/heating Temperature (K)": "Prep temperature",
-    "Merged Stirring /sonication/heating time(min)": "Prep time",
+    "Sonication/Stirring/heating Temperature (K)": "prep temperature",
+    "Merged Stirring /sonication/heating time(min)": "prep time",
 }
 
 
