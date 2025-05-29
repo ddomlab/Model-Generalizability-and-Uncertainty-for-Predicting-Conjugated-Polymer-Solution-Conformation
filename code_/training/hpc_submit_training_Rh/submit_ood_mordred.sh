@@ -2,11 +2,11 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250529
 mkdir -p "$output_dir"
 
-regressors=("RF")
+regressors=("HGBR" "RF")
 targets=("log Rg (nm)")
 models=("Mordred")
 poly_representations=("Trimer")
-group_out=('substructure cluster' 'KM4 Mordred_Polysize cluster')
+group_out=('substructure cluster' 'KM4 Mordred_Polysize cluster' 'KM4 polymer_solvent HSP cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'

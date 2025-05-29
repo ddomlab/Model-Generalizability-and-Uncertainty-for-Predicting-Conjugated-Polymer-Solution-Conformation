@@ -219,7 +219,7 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
 
     if algortihm == "HGBR":
         return {
-        "regressor__regressor__max_iter": Integer(50, 2000, prior="log-uniform"),
+        "regressor__regressor__max_iter": [2000],
         "regressor__regressor__max_depth": [None],
         "regressor__regressor__min_samples_leaf": Integer(2, 1000, prior="log-uniform"),
         "regressor__regressor__max_leaf_nodes": Integer(2, 1000, prior="log-uniform"),
