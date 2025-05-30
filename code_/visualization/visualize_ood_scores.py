@@ -13,6 +13,10 @@ from visualization_setting import set_plot_style, save_img_path
 
 set_plot_style()
 
+
+
+
+
 def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
     """
     Helper function to get the mean or std score for a given cluster and score type.
@@ -26,8 +30,12 @@ def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
     )
 
 
-
-
+def ensure_long_path(path):
+        """Ensures Windows handles long paths by adding '\\?\' if needed."""
+        path_str = str(path)
+        if os.name == 'nt' and len(path_str) > 250:  
+            return Path(f"\\\\?\\{path_str}")
+        return path
 
 # def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder:Path=None) -> None:
 #     """
@@ -647,7 +655,9 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
                                            metric="rmse",
                                            folder: Path = None,
                                            file_name: str = 'NGB_Mordred',
-                                           uncertenty_method: str = "AMA") -> None:
+                                           uncertenty_method: str = "AMA",
+                                           title:Optional[str]=None
+                                           ) -> None:
     score_df, _ = process_learning_curve_scores(summary_scores, metric)
     unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
 
@@ -776,16 +786,19 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
         Line2D([0], [0], color='green', lw=3.5, marker='*', linestyle='--', label='OOD Test')
     ]
 
+    if title:
+        g.fig.suptitle(title, fontsize=24, fontweight='bold', y=1.12)
+
     plt.figlegend(
         handles=custom_lines,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.07),
+        bbox_to_anchor=(0.5, 1.05),
         ncol=5,
         fontsize=18,
         frameon=True
     )
 
-    plt.tight_layout(rect=[0, 0, 1, .95])  # leave space for legend
+    plt.tight_layout(rect=[0, 0, 1, 0.98])
 
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
@@ -795,15 +808,15 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
 
 
+comparison_of_features_lc = {
+    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'Mordred+continuous',
+    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'Mordred+continuous+aging',
+    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'continuous',
+    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
+}
 
 
 
-def ensure_long_path(path):
-        """Ensures Windows handles long paths by adding '\\?\' if needed."""
-        path_str = str(path)
-        if os.name == 'nt' and len(path_str) > 250:  
-            return Path(f"\\\\?\\{path_str}")
-        return path
 
 if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
@@ -812,9 +825,9 @@ if __name__ == "__main__":
                     # 'KM4 ECFP6_Count_512bit cluster',	
                     # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
-                    # 'substructure cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
+                    'substructure cluster',
                     'KM4 polymer_solvent HSP cluster',
                     'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster'
@@ -823,10 +836,10 @@ if __name__ == "__main__":
 
 
     for cluster in cluster_list:
-        scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        for fp in ['MACCS', 'Mordred']:
-            all_score_eq_training_size = []
-            for model in ['RF', 'XGBR', 'NGB']:
+        # scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        # for fp in ['MACCS', 'Mordred']:
+        #     all_score_eq_training_size = []
+        #     for model in ['RF']:
 
                 # suffix = '_v1_(max_feat_sqrt)'
                 # suffix = ''
@@ -844,7 +857,7 @@ if __name__ == "__main__":
 
 
 
-                    # NGB XGB learning curve
+                #     # NGB XGB learning curve
                 # with open(score_file_lc, "r") as f:
                 #     scores_lc = json.load(f)
 
@@ -866,6 +879,43 @@ if __name__ == "__main__":
                 # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
                 #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
                 # print("Save learning curve scores and uncertainty")
+
+        # Plot uncertenty + score in learning curve for comparison of features
+        for file, file_discription in comparison_of_features_lc.items():
+
+            scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
+            
+            score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
+            predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
+
+            if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+                print(f"File not found: {file}")
+                continue  
+
+            with open(score_file_lc, "r") as f:
+                scores_lc = json.load(f)
+            with open(predictions_file_lc, "r") as s:
+                predictions_lc = json.load(s)
+
+            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                    folder=saving_folder_lc_score_of_features,
+                                                    file_name=f'{file_discription}',uncertenty_method="Pearson R",
+                                                    title=file_discription)
+            print("Save learning curve scores and uncertainty")
+
+            # Plot OOD vs IID barplot at the same training size for comparison of features
+            all_score_eq_training_size = []
+            _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+            ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+            ood_iid_eq_tarining_size_df['Model'] = file_discription
+            all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        all_score_eq_training_size: pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
+        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
+                         saving_folder, file_name=f'rmse_RF_comparison of feature',
+                             text_size=16, figsize=(8, 6))
+
 
 
                 # plot OOD vs IID barplot at the same training size 
@@ -943,17 +993,17 @@ if __name__ == "__main__":
 
         # saving_folder = scores_folder_path / f'residual vs std (uncertainty)'
         # plot_residual_vs_std_full_data(predictions_data, truth_data, saving_folder, file_name=f'RF_scaler')
-                if not os.path.exists(predictions_full) or not os.path.exists(truth_file_full):
-                    print(f"File not found: {predictions_full} or {truth_file_full}")
-                    continue  
-                with open(predictions_full, "r") as s:
-                    predictions_data = json.load(s)
+                # if not os.path.exists(predictions_full) or not os.path.exists(truth_file_full):
+                #     print(f"File not found: {predictions_full} or {truth_file_full}")
+                #     continue  
+                # with open(predictions_full, "r") as s:
+                #     predictions_data = json.load(s)
 
-                with open(truth_file_full, "r") as f:
-                    truth_data = json.load(f)
-                # #Plot parity plot
-                saving_folder = scores_folder_path / f'Parity plot'/ f'{fp}'
-                plot_ood_parity(predictions_data, truth_data, folder=saving_folder, file_name=f'{model}_{fp}')
+                # with open(truth_file_full, "r") as f:
+                #     truth_data = json.load(f)
+                # # #Plot parity plot
+                # saving_folder = scores_folder_path / f'Parity plot'/ f'{fp}'
+                # plot_ood_parity(predictions_data, truth_data, folder=saving_folder, file_name=f'{model}_{fp}')
 
 
 
