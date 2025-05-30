@@ -881,6 +881,7 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
+        all_score_eq_training_size = []
         for file, file_discription in comparison_of_features_lc.items():
 
             scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
@@ -897,15 +898,15 @@ if __name__ == "__main__":
             with open(predictions_file_lc, "r") as s:
                 predictions_lc = json.load(s)
 
-            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
-            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                    folder=saving_folder_lc_score_of_features,
-                                                    file_name=f'{file_discription}',uncertenty_method="Pearson R",
-                                                    title=file_discription)
-            print("Save learning curve scores and uncertainty")
+            # saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+            # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+            #                                         folder=saving_folder_lc_score_of_features,
+            #                                         file_name=f'{file_discription}',uncertenty_method="Pearson R",
+            #                                         title=file_discription)
+            # print("Save learning curve scores and uncertainty")
 
             # Plot OOD vs IID barplot at the same training size for comparison of features
-            all_score_eq_training_size = []
+            
             _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
             ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
             ood_iid_eq_tarining_size_df['Model'] = file_discription
@@ -914,9 +915,9 @@ if __name__ == "__main__":
         saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
         plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
                          saving_folder, file_name=f'rmse_RF_comparison of feature',
-                             text_size=16, figsize=(8, 6))
+                             text_size=16, figsize=(12, 7), ncol=4)
 
-
+        print("save OOD vs IID bar plot at equal training size for comparison of features")
 
                 # plot OOD vs IID barplot at the same training size 
 

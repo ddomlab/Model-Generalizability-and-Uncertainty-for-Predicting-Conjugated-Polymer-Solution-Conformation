@@ -232,8 +232,8 @@ if __name__ == "__main__":
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     # 'substructure cluster',
                     # 'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster',
+                    # 'KM4 Mordred_Polysize cluster',
+                    'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -335,30 +335,30 @@ if __name__ == "__main__":
             ## plot bar plot for OOD-IID
             models = ['XGBR', 'NGB', 'RF']
             ncol=0
-            # for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
-            combined_data = []
-            for model in models:
-                scores_folder_path = results_path / cluster / 'scaler'
-                score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                score_file = ensure_long_path(score_file)
-                if not os.path.exists(score_file):
-                    print(f"File not found: {score_file}")
-                    # score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_scores.json'
-                    # score_file = ensure_long_path(score_file)
-                    # if not os.path.exists(score_file):
-                    #     print(f"File not found: {score_file}")
-                        # continue
-                    continue
-                with open(score_file, "r") as f:
-                    scores = json.load(f)
-                model_data = get_ood_iid(scores, accuracy_metric, model)
-                combined_data.extend(model_data)
-                # ncol+=1
-                # print(pd.DataFrame(combined_data))
-            saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
-            plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
-                            saving_folder,f'numerical_metric-{accuracy_metric}', 
-                            figsize=(10, 8), text_size=16,ncol=len(models),)
+            for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
+                combined_data = []
+                for model in models:
+                    scores_folder_path = results_path / cluster / 'Trimer_scaler'
+                    score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+                    score_file = ensure_long_path(score_file)
+                    if not os.path.exists(score_file):
+                        print(f"File not found: {score_file}")
+                        # score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_scores.json'
+                        # score_file = ensure_long_path(score_file)
+                        # if not os.path.exists(score_file):
+                        #     print(f"File not found: {score_file}")
+                            # continue
+                        continue
+                    with open(score_file, "r") as f:
+                        scores = json.load(f)
+                    model_data = get_ood_iid(scores, accuracy_metric, model)
+                    combined_data.extend(model_data)
+                    # ncol+=1
+                    # print(pd.DataFrame(combined_data))
+                saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
+                plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
+                                saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
+                                figsize=(10, 8), text_size=16,ncol=len(models),)
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]
