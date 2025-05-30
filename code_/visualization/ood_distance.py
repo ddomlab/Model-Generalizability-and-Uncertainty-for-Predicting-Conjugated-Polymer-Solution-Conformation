@@ -222,6 +222,12 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector,
 
 
 
+comparison_of_features_lc = {
+    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'Mordred+continuous',
+    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'Mordred+continuous+aging',
+    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'continuous',
+    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'continuous+aging',
+}
 
 if __name__ == "__main__":
     cluster_list = [
@@ -230,10 +236,10 @@ if __name__ == "__main__":
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    # 'substructure cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
-                    'Polymers cluster',
+                    'substructure cluster',
+                    'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
+                    # 'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -333,32 +339,68 @@ if __name__ == "__main__":
             
 
             ## plot bar plot for OOD-IID
-            models = ['XGBR', 'NGB', 'RF']
-            ncol=0
-            for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
-                combined_data = []
-                for model in models:
-                    scores_folder_path = results_path / cluster / 'Trimer_scaler'
-                    score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                    score_file = ensure_long_path(score_file)
-                    if not os.path.exists(score_file):
-                        print(f"File not found: {score_file}")
+            # models = ['XGBR', 'NGB', 'RF']
+            # for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
+            #     combined_data = []
+            #     for model in models:
+            #         scores_folder_path = results_path / cluster / 'Trimer_scaler'
+            #         score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
+            #         score_file = ensure_long_path(score_file)
+            #         if not os.path.exists(score_file):
+            #             print(f"File not found: {score_file}")
                         # score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_scores.json'
                         # score_file = ensure_long_path(score_file)
                         # if not os.path.exists(score_file):
                         #     print(f"File not found: {score_file}")
                             # continue
-                        continue
-                    with open(score_file, "r") as f:
-                        scores = json.load(f)
-                    model_data = get_ood_iid(scores, accuracy_metric, model)
-                    combined_data.extend(model_data)
+                    #     continue
+                    # with open(score_file, "r") as f:
+                    #     scores = json.load(f)
+                    # model_data = get_ood_iid(scores, accuracy_metric, model)
+                    # combined_data.extend(model_data)
+
                     # ncol+=1
-                    # print(pd.DataFrame(combined_data))
-                saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
-                plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
-                                saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
-                                figsize=(10, 8), text_size=16,ncol=len(models),)
+                # saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
+                # plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
+                #                 saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
+                #                 figsize=(10, 8), text_size=16,ncol=len(models),)
+
+                # print(fp)
+                # df = pd.DataFrame(combined_data)
+                # df['Group'] = df['Cluster'].str.extract(r'^(ID_|CO_)')
+                # summary = df.groupby(['Model', 'Group'])[['Score', 'Std']].mean().reset_index()
+                # print(summary)
+
+            ## plot bar plot for OOD-IID for comparative features
+            combined_data = []
+            for file, file_discription in comparison_of_features_lc.items():
+
+                scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
+                
+                score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
+                predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
+
+                if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+                    print(f"File not found: {file}")
+                    continue  
+
+                with open(score_file_lc, "r") as f:
+                    scores = json.load(f)
+                with open(predictions_file_lc, "r") as s:
+                    predictions = json.load(s)
+
+                model_data = get_ood_iid(scores, accuracy_metric, file_discription)
+                combined_data.extend(model_data)
+            combined_data = pd.DataFrame(combined_data)
+            saving_folder = results_path / cluster / f'OOD-IID bar plot at full data (comparison of features)'
+            print(combined_data)
+            plot_bar_ood_iid(combined_data, 'rmse', 
+                            saving_folder, file_name=f'{accuracy_metric}_RF_comparison of feature',
+                                text_size=16, figsize=(12, 7), ncol=3)
+
+            print("save OOD vs IID bar plot at equal training size for comparison of features")
+
+
 
         # co_vectors = 'numerical vector'
         # score_metrics = ["rmse", "r2"]

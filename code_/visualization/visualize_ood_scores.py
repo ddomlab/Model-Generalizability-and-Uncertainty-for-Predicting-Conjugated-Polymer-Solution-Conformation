@@ -399,7 +399,7 @@ def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None,
 def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
                     saving_path, file_name: str,
                     figsize=(12, 7), text_size=14,
-                    ncol=3):
+                    ncol=3, title:Optional[str]=None) -> None:
     
     def parse_cluster_info(cluster_label):
         if cluster_label.startswith("CO_"):
@@ -484,6 +484,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     ax.tick_params(axis='y', labelsize=text_size)
 
     # Layout adjustment
+
     plt.tight_layout(rect=[0, 0, 1, 1.03])
     save_img_path(saving_path, f"{file_name}.png")
     plt.show()  
