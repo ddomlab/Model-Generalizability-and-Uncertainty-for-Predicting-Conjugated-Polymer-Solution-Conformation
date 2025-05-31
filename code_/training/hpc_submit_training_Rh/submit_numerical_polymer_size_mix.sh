@@ -23,7 +23,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' \
+                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' "polymer dP" "polymer dD" "polymer dH" \
 conda deactivate
 
 EOT
