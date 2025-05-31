@@ -87,7 +87,6 @@ def main_structural_numerical(
                 transform_type=transform_type,
                 second_transformer=second_transformer,
                 clustering_method=clustering_method,
-                # special_file_name='agging_imputed',
                 # special_folder_name='mean_aggregated',
                 )
     #TODO: Plot the results
