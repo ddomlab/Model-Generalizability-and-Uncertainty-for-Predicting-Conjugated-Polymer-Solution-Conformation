@@ -28,7 +28,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_prediction.py --target_features "${target}" \
                                   --regressor_type "${regressor}" \
-                                  --numerical_feats 'Xn' \
+                                  --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'solvent dP' 'solvent dD' 'solvent dH' \
                                   --clustering_method "${group}" \
 
 
