@@ -51,7 +51,8 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 def parse_property_string(prop_string):
     # Define the categories and their components
     categories = {
-        'polysize': ['Xn','Mw', 'PDI'],
+        'Xn': ['Xn'],
+        'polysize': ['Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -755,6 +756,7 @@ def get_aging_comparison(target_folder: Path,
             feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
 
             # Only keep selected features
+            print(feats)
             if feats not in features_to_draw:
                 continue
             if model not in models_to_draw:
@@ -787,14 +789,14 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                                         ) -> None:
     
     scores_to_show:pd.DataFrame = get_aging_comparison(target_folder=target_dir,
-                                                                   score=score_metrics,
-                                                                   comparison_value=comparison_value,
-                                                                   features_to_draw=features_to_draw,
-                                                                   models_to_draw=models_to_draw,
-                                                                   special_namings=special_namings,
-                                                                   )
+                                                        score=score_metrics,
+                                                        comparison_value=comparison_value,
+                                                        features_to_draw=features_to_draw,
+                                                        models_to_draw=models_to_draw,
+                                                        special_namings=special_namings,
+                                                        )
     score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
-    fname= f"model vs features in {score_metrics} for aging features"
+    fname= f"model vs features in {score_metrics} for separate comparison (three criteria)"
     plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
                         score=score_metrics,
                         score_to_show=scores_to_show,
@@ -811,14 +813,17 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                         )
 
 aging_features: List = [
+    'Xn',
+    'solvent_properties + solvent_HSPs'
     'environmental.thermal history',
-    'polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
-    'polysize + solvent_properties + polymer_HSPs + solvent_HSPs'
+    'solvent_properties + solvent_HSPs + environmental.thermal history',
+    # 'polysize + solvent_properties + polymer_HSPs + solvent_HSPs'
 ]
+
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
                                     score_metrics='r2',
                                     comparison_value=['scaler'],
                                     features_to_draw=aging_features,
-                                    models_to_draw={'RF','HGBR'},
-                                    special_namings=['aging_imputed']
+                                    models_to_draw={'RF','XGBR'},
+                                    # special_namings=['aging_imputed']
                                     )
