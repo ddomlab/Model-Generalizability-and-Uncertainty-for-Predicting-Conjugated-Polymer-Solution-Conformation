@@ -82,3 +82,501 @@ usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
                                [--vector [{count,binary}]]
                                [--clustering_method [CLUSTERING_METHOD]]
 train_numerical_only.py: error: argument --numerical_feats: invalid choice: 'conda' (choose from 'Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)', 'Concentration (mg/ml)', 'solvent dP', 'polymer dP', 'solvent dD', 'polymer dD', 'solvent dH', 'polymer dH', 'Ra', 'abs(solvent dD - polymer dD)', 'abs(solvent dP - polymer dP)', 'abs(solvent dH - polymer dH)', 'Dark/light', 'Aging time (hour)', 'To Aging Temperature (K)', 'Sonication/Stirring/heating Temperature (K)', 'Merged Stirring /sonication/heating time(min)')
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9775682796544523, 0.6773612322645147, 158]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.35351641905259135, 0.6855878042656813, 232]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.19802406626873692, 0.6277756068939906, 59]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.4439523880033292, 0.1911581038615204, 12]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.14995003040898208, 0.6197334363595908, 10]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9185024406387242, 0.8902310807398387, 177]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9108261487454753, 0.08419681044556462, 1048]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9647167196194611, 0.9428784061492957, 316]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.742029558350659, 0.3975202262652743, 1262]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.1810662377503394, 0.53430034026012, 514]
+  warnings.warn(
+Process LokyProcess-16:
+Process LokyProcess-8:
+Process LokyProcess-10:
+Process LokyProcess-19:
+Process LokyProcess-6:
+Process LokyProcess-15:
+Process LokyProcess-25:
+Process LokyProcess-3:
+Process LokyProcess-4:
+Traceback (most recent call last):
+Process LokyProcess-1:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+Process LokyProcess-5:
+Process LokyProcess-2:
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+KeyboardInterrupt
+Process LokyProcess-13:
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 478, in _process_worker
+    _process_reference_size = _get_memory_usage(pid, force_gc=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 109, in _get_memory_usage
+    gc.collect()
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 181, in format_exc
+    def format_exc(limit=None, chain=True):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+KeyboardInterrupt
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+KeyboardInterrupt
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+
+During handling of the above exception, another exception occurred:
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 181, in format_exc
+    def format_exc(limit=None, chain=True):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 498, in __init__
+    _seen = set()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 353, in extract
+    limit = getattr(sys, 'tracebacklimit', None)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 499, in __init__
+    _seen.add(id(exc_value))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 376, in extract
+    result.append(FrameSummary(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 369, in extract
+    fnames.add(filename)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 274, in __init__
+    if lookup_line:
+KeyboardInterrupt
+KeyboardInterrupt
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 113, in get
+    if not self._poll(timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/connection.py", line 257, in poll
+    return self._poll(timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/connection.py", line 424, in _poll
+    r = wait([self], timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/connection.py", line 931, in wait
+    ready = selector.select(timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/selectors.py", line 416, in select
+    fd_event_list = self._selector.poll(timeout)
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 181, in format_exc
+    def format_exc(limit=None, chain=True):
+KeyboardInterrupt
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+Traceback (most recent call last):
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 426, in _process_worker
+    call_item = call_queue.get(block=True, timeout=timeout)
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/queues.py", line 108, in get
+    if not self._rlock.acquire(block, timeout):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 370, in extract
+    linecache.lazycache(filename, f.f_globals)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 170, in lazycache
+    if (loader := module_globals.get('__loader__')) is None:
+
+During handling of the above exception, another exception occurred:
+
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 383, in extract
+    f.line
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 306, in line
+    self._line = linecache.getline(self.filename, self.lineno)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 30, in getline
+    lines = getlines(filename, module_globals)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 438, in _process_worker
+    previous_tb = traceback.format_exc()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 46, in getlines
+    return updatecache(filename, module_globals)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 183, in format_exc
+    return "".join(format_exception(*sys.exc_info(), limit=limit, chain=chain))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 93, in updatecache
+    stat = os.stat(fullname)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 135, in format_exception
+    te = TracebackException(type(value), value, tb, limit=limit, compact=True)
+KeyboardInterrupt
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 502, in __init__
+    self.stack = StackSummary.extract(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 383, in extract
+    f.line
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/traceback.py", line 306, in line
+    self._line = linecache.getline(self.filename, self.lineno)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 30, in getline
+    lines = getlines(filename, module_globals)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 46, in getlines
+    return updatecache(filename, module_globals)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/linecache.py", line 93, in updatecache
+    stat = os.stat(fullname)
+KeyboardInterrupt
+    self._run_search(evaluate_candidates)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 599, in _run_search
+    optim_result, score_name = self._step(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 445, in _step
+    params = optimizer.ask(n_points=n_points)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py", line 438, in ask
+    opt = self.copy(random_state=self.rng.randint(0, np.iinfo(np.int32).max))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py", line 364, in copy
+    optimizer = Optimizer(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py", line 313, in __init__
+    dimensions = normalize_dimensions(dimensions)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/utils.py", line 595, in normalize_dimensions
+    dimension.set_transformer("onehot")
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/space/space.py", line 814, in set_transformer
+    self.transformer.fit(self.categories)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/space/transformers.py", line 112, in fit
+    self._lb.fit([self.mapping_[v] for v in X])
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/preprocessing/_label.py", line 296, in fit
+    self.y_type_ = type_of_target(y, input_name="y")
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/multiclass.py", line 394, in type_of_target
+    if xp.isdtype(y.dtype, "real floating"):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/_array_api.py", line 428, in isdtype
+    return isdtype(dtype, kind, xp=self)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/_array_api.py", line 198, in isdtype
+    return _isdtype_single(dtype, kind, xp=xp)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/_array_api.py", line 202, in _isdtype_single
+    if isinstance(kind, str):
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_numerical_only.py", line 93, in <module>
+    main_numerical_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_numerical_only.py", line 39, in main_numerical_only
+    scores, predictions,data_shapes  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 71, in train_regressor
+    scores, predictions, data_shape = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 145, in _prepare_data
+    score,predication= run(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 226, in run
+    best_estimator, regressor_params = _optimize_hyperparams(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 286, in _optimize_hyperparams
+    bayes.fit(X_train, y_train)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 542, in fit
+    super().fit(X=X, y=y, groups=groups, **fit_params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 947, in fit
+    with parallel:
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1354, in __exit__
+    self._terminate_and_reset()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1386, in _terminate_and_reset
+    self._backend.terminate()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/_parallel_backends.py", line 610, in terminate
+    self._workers._temp_folder_manager._clean_temporary_resources(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/_memmapping_reducer.py", line 641, in _clean_temporary_resources
+    delete_folder(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/disk.py", line 105, in delete_folder
+    def delete_folder(folder_path, onerror=None, allow_non_empty=True):
+KeyboardInterrupt
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9108261487454753, 0.08419681044556462, 1048]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9647167196194611, 0.9428784061492957, 316]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.742029558350659, 0.3975202262652743, 1262]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.037356756056680034, 0.02254599791675271, 203]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.875972698923002, 0.8377774962896616, 11]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.3289412817697544, 0.13413306971358863, 572]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.17175421769069718, 0.7422947240364246, 74]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.875972698923002, 0.8377774962896616, 11]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.875972698923002, 0.8377774962896616, 11]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.3289412817697544, 0.13413306971358863, 572]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.875972698923002, 0.8377774962896616, 11]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.3289412817697544, 0.13413306971358863, 572]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.7686998156790059, 0.691733463498652, 281]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8101791154255582, 0.0767769718076652, 875]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.04638005194524762, 0.029795806969832583, 24]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.3289412817697544, 0.13413306971358863, 572]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.17175421769069718, 0.7422947240364246, 74]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8176468963716914, 0.4846041731161271, 1882]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.9775682796544523, 0.6773612322645147, 158]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.48307756853411354, 0.8632773004951845, 36]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8176468963716914, 0.4846041731161271, 1882]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.10335744652680841, 0.05449027336931741, 170]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5336847701378816, 0.8140175300960636, 1019]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5860277733704382, 0.6350938880294573, 744]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.6303963334917448, 0.5635302828441175, 71]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.812240802596539, 0.32539528145490376, 77]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9111682660281493, 0.7646633488941448, 38]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.399003137611432, 0.7191876903231995, 69]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.08287423985965921, 0.19782374767123437, 1983]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8707434113243266, 0.9490628950754351, 691]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.05123192855654098, 0.9094042319507623, 945]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5537910961899578, 0.33616913637782, 316]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.7686998156790059, 0.691733463498652, 281]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.10335744652680841, 0.05449027336931741, 170]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8173957010869839, 0.9522931085800346, 570]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.42413417230170386, 0.3426305377323405, 23]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.4064124014922122, 0.8124475720302125, 1938]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.10335744652680841, 0.05449027336931741, 170]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.10335744652680841, 0.05449027336931741, 170]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.9324831008384933, 0.6545462659293607, 19]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.7152222175255419, 0.013485320621367352, 1168]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.2730235961434235, 0.8766374435649297, 11]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5818120991719319, 0.7964333630935819, 1152]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.288568392359785, 0.7411612398995149, 621]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.9023074375394246, 0.20529886918251505, 294]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.9324831008384933, 0.6545462659293607, 19]
+  warnings.warn(
