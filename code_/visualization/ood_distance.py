@@ -222,13 +222,24 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str, co_vector,
 
 
 
-comparison_of_features_lc = {
-    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'Mordred+continuous',
-    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'Mordred+continuous+aging',
-    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'continuous',
-    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'continuous+aging',
-}
+# comparison_of_features_lc = {
+#     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'Mordred+continuous',
+#     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'Mordred+continuous+aging',
+#     '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard':'continuous',
+#     '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard':'continuous+aging',
+# }
 
+comparison_of_features_full= {
+    '(concentration-temperature-solvent dP-solvent dD-solvent dH)_RF_Standard': 'solvent_properties + solvent_HSPs',
+    '(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_Standard': 'solvent_properties + solvent_HSPs + environmental.thermal history',
+    '(Xn)_RF_Standard':'Xn',
+    '(Xn-Mw-PDI)_RF_Standard':'Xn + polysize',
+    '(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_RF_Standard':'Xn + polysize + polymer HSPs',
+    '(Mordred-Xn-Mw-PDI)_RF_Standard': 'Xn + polysize + Mordred',
+    '(MACCS-Xn-Mw-PDI)_RF_Standard': 'Xn + polysize + MACCS',
+    '(ECFP3.count.512-Xn-Mw-PDI)_RF_Standard':'Xn + polysize + ECFP6.count.512',
+    # '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
+}
 if __name__ == "__main__":
     cluster_list = [
                     # 'KM4 ECFP6_Count_512bit cluster',	
@@ -238,7 +249,7 @@ if __name__ == "__main__":
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     'substructure cluster',
                     'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster',
                     ]
     for cluster in cluster_list:
@@ -373,7 +384,7 @@ if __name__ == "__main__":
 
             ## plot bar plot for OOD-IID for comparative features
             combined_data = []
-            for file, file_discription in comparison_of_features_lc.items():
+            for file, file_discription in comparison_of_features_full.items():
 
                 scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
                 
@@ -393,10 +404,10 @@ if __name__ == "__main__":
                 combined_data.extend(model_data)
             combined_data = pd.DataFrame(combined_data)
             saving_folder = results_path / cluster / f'OOD-IID bar plot at full data (comparison of features)'
-            print(combined_data)
+            # print(combined_data)
             plot_bar_ood_iid(combined_data, 'rmse', 
                             saving_folder, file_name=f'{accuracy_metric}_RF_comparison of feature',
-                                text_size=16, figsize=(12, 7), ncol=3)
+                                text_size=16, figsize=(13, 8), ncol=3)
 
             print("save OOD vs IID bar plot at equal training size for comparison of features")
 

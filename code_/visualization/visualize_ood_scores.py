@@ -465,7 +465,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
         fontsize=text_size - 4,
         frameon=True,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.16),
+        bbox_to_anchor=(0.5, 1.27),
         ncol=ncol
     )
 
@@ -809,14 +809,24 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
 
 
+# comparison_of_features_lc = {
+#     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'Xn + + Mordred ',
+#     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'Mordred+continuous+aging',
+#     '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'continuous',
+#     '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
+# }
+
 comparison_of_features_lc = {
-    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'Mordred+continuous',
-    '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'Mordred+continuous+aging',
-    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'continuous',
-    '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
+    '(concentration-temperature-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc': 'solvent_properties + solvent_HSPs',
+    '(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc': 'solvent_properties + solvent_HSPs + environmental.thermal history',
+    '(Xn)_RF_hypOFF_Standard_lc':'Xn',
+    '(Xn-Mw-PDI)_RF_hypOFF_Standard_lc':'Xn + polysize',
+    '(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_RF_hypOFF_Standard_lc':'Xn + polysize + polymer HSPs',
+    '(Mordred-Xn-Mw-PDI)_RF_hypOFF_Standard_lc': 'Xn + polysize + Mordred',
+    '(MACCS-Xn-Mw-PDI)_RF_hypOFF_Standard_lc': 'Xn + polysize + MACCS',
+    '(ECFP3.count.512-Xn-Mw-PDI)_RF_hypOFF_Standard_lc':'Xn + polysize + ECFP6.count.512',
+    # '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
 }
-
-
 
 
 if __name__ == "__main__":
@@ -830,7 +840,7 @@ if __name__ == "__main__":
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     'substructure cluster',
                     'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
+                    # 'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster'
                     ]
 
@@ -885,7 +895,10 @@ if __name__ == "__main__":
         all_score_eq_training_size = []
         for file, file_discription in comparison_of_features_lc.items():
 
-            scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
+            if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
+                scores_folder_path = results_path / cluster / 'Trimer_scaler'
+            else:
+                scores_folder_path = results_path / cluster / 'scaler'
             
             score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
             predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
@@ -916,7 +929,7 @@ if __name__ == "__main__":
         saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
         plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
                          saving_folder, file_name=f'rmse_RF_comparison of feature',
-                             text_size=16, figsize=(12, 7), ncol=4)
+                             text_size=16, figsize=(15, 8), ncol=3)
 
         print("save OOD vs IID bar plot at equal training size for comparison of features")
 

@@ -756,7 +756,7 @@ def get_aging_comparison(target_folder: Path,
             feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
 
             # Only keep selected features
-            print(feats)
+            # print(feats)
             if feats not in features_to_draw:
                 continue
             if model not in models_to_draw:
@@ -800,7 +800,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
     plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
                         score=score_metrics,
                         score_to_show=scores_to_show,
-                        figsize=(8, 6),
+                        figsize=(11,10.5),
                         fig_title=f" predictive performance of aging features ",
                         x_title="Feature Space",
                         y_title="Models",
@@ -822,11 +822,14 @@ aging_features: List = [
     'Xn + polysize + MACCS',
     'Xn + polysize + ECFP6.count.512',
     'Xn + polysize + polymer_HSPs',
-    # 'polysize + solvent_properties + polymer_HSPs + solvent_HSPs'
+    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
+
+    # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
+    # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='r2',
+                                    score_metrics='rmse',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','XGBR'},

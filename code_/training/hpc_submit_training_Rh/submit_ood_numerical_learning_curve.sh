@@ -27,7 +27,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_learning_curve.py --target_features "${target}" \
                                       --regressor_type "${regressor}" \
-                                      --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' "polymer dP" "polymer dD" "polymer dH" \
+                                      --numerical_feats 'Xn' \
                                       --clustering_method "${group}" \
 
 
