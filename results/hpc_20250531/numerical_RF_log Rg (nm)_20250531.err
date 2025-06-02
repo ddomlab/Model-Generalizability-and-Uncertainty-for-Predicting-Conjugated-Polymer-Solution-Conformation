@@ -1,0 +1,84 @@
+usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
+                               [--regressor_type {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR,MLP,ElasticNet,Lasso,Ridge,HGBR}]
+                               [--numerical_feats {Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} ...]]
+                               [--columns_to_impute [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                               [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                               [--special_impute [{Mw (g/mol),None}]]
+                               [--transform_type {Standard,Robust Scaler}]
+                               [--kernel KERNEL]
+                               [--representation {ECFP,MACCS,Mordred}]
+                               [--oligomer_representation {Monomer,Dimer,Trimer,RRU Monomer,RRU Dimer,RRU Trimer}]
+                               [--radius [{3,4,5,6}]]
+                               [--vector [{count,binary}]]
+                               [--clustering_method [CLUSTERING_METHOD]]
+train_numerical_only.py: error: argument --numerical_feats: invalid choice: 'conda' (choose from 'Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)', 'Concentration (mg/ml)', 'solvent dP', 'polymer dP', 'solvent dD', 'polymer dD', 'solvent dH', 'polymer dH', 'Ra', 'abs(solvent dD - polymer dD)', 'abs(solvent dP - polymer dP)', 'abs(solvent dH - polymer dH)', 'Dark/light', 'Aging time (hour)', 'To Aging Temperature (K)', 'Sonication/Stirring/heating Temperature (K)', 'Merged Stirring /sonication/heating time(min)')
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5860277733704382, 0.6350938880294573, 744]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.812240802596539, 0.32539528145490376, 77]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.5537910961899578, 0.33616913637782, 316]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.9672039249304096, 0.20725107670543358, 12]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.10335744652680841, 0.05449027336931741, 170]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.8049941833948862, 0.8109194134725953, 409]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.6669695129424634, 0.4739011656038767, 108]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.36865721458133927, 0.7417872021248837, 150]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.40799169626717235, 0.6510621928080408, 14]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.8334996947232868, 0.6574825642526624, 225]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 10] before, using random point [None, 'sqrt', 0.6280070147287131, 0.7269262779725155, 60]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.8173957010869839, 0.9522931085800346, 570]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.42413417230170386, 0.3426305377323405, 23]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [None, 'sqrt', 0.001, 0.001, 2000] before, using random point [None, 'sqrt', 0.4064124014922122, 0.8124475720302125, 1938]
+  warnings.warn(
+usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
+                               [--regressor_type {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR,MLP,ElasticNet,Lasso,Ridge,HGBR}]
+                               [--numerical_feats {Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} ...]]
+                               [--columns_to_impute [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                               [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                               [--special_impute [{Mw (g/mol),None}]]
+                               [--transform_type {Standard,Robust Scaler}]
+                               [--kernel KERNEL]
+                               [--representation {ECFP,MACCS,Mordred}]
+                               [--oligomer_representation {Monomer,Dimer,Trimer,RRU Monomer,RRU Dimer,RRU Trimer}]
+                               [--radius [{3,4,5,6}]]
+                               [--vector [{count,binary}]]
+                               [--clustering_method [CLUSTERING_METHOD]]
+train_numerical_only.py: error: argument --numerical_feats: invalid choice: 'conda' (choose from 'Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)', 'Concentration (mg/ml)', 'solvent dP', 'polymer dP', 'solvent dD', 'polymer dD', 'solvent dH', 'polymer dH', 'Ra', 'abs(solvent dD - polymer dD)', 'abs(solvent dP - polymer dP)', 'abs(solvent dH - polymer dH)', 'Dark/light', 'Aging time (hour)', 'To Aging Temperature (K)', 'Sonication/Stirring/heating Temperature (K)', 'Merged Stirring /sonication/heating time(min)')
+usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
+                               [--regressor_type {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR,MLP,ElasticNet,Lasso,Ridge,HGBR}]
+                               [--numerical_feats {Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} ...]]
+                               [--columns_to_impute [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                               [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                               [--special_impute [{Mw (g/mol),None}]]
+                               [--transform_type {Standard,Robust Scaler}]
+                               [--kernel KERNEL]
+                               [--representation {ECFP,MACCS,Mordred}]
+                               [--oligomer_representation {Monomer,Dimer,Trimer,RRU Monomer,RRU Dimer,RRU Trimer}]
+                               [--radius [{3,4,5,6}]]
+                               [--vector [{count,binary}]]
+                               [--clustering_method [CLUSTERING_METHOD]]
+train_numerical_only.py: error: argument --numerical_feats: invalid choice: 'conda' (choose from 'Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)', 'Concentration (mg/ml)', 'solvent dP', 'polymer dP', 'solvent dD', 'polymer dD', 'solvent dH', 'polymer dH', 'Ra', 'abs(solvent dD - polymer dD)', 'abs(solvent dP - polymer dP)', 'abs(solvent dH - polymer dH)', 'Dark/light', 'Aging time (hour)', 'To Aging Temperature (K)', 'Sonication/Stirring/heating Temperature (K)', 'Merged Stirring /sonication/heating time(min)')
+usage: train_numerical_only.py [-h] --target_features TARGET_FEATURES
+                               [--regressor_type {RF,DT,MLR,SVR,XGBR,KNN,GPR,NGB,sklearn-GPR,MLP,ElasticNet,Lasso,Ridge,HGBR}]
+                               [--numerical_feats {Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra,abs(solvent dD - polymer dD),abs(solvent dP - polymer dP),abs(solvent dH - polymer dH),Dark/light,Aging time (hour),To Aging Temperature (K),Sonication/Stirring/heating Temperature (K),Merged Stirring /sonication/heating time(min)} ...]]
+                               [--columns_to_impute [{Xn,Mn (g/mol),Mw (g/mol),PDI,Temperature SANS/SLS/DLS/SEC (K),Concentration (mg/ml),solvent dP,polymer dP,solvent dD,polymer dD,solvent dH,polymer dH,Ra} ...]]
+                               [--imputer [{mean,median,most_frequent,distance KNN,None}]]
+                               [--special_impute [{Mw (g/mol),None}]]
+                               [--transform_type {Standard,Robust Scaler}]
+                               [--kernel KERNEL]
+                               [--representation {ECFP,MACCS,Mordred}]
+                               [--oligomer_representation {Monomer,Dimer,Trimer,RRU Monomer,RRU Dimer,RRU Trimer}]
+                               [--radius [{3,4,5,6}]]
+                               [--vector [{count,binary}]]
+                               [--clustering_method [CLUSTERING_METHOD]]
+train_numerical_only.py: error: argument --numerical_feats: invalid choice: 'conda' (choose from 'Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Temperature SANS/SLS/DLS/SEC (K)', 'Concentration (mg/ml)', 'solvent dP', 'polymer dP', 'solvent dD', 'polymer dD', 'solvent dH', 'polymer dH', 'Ra', 'abs(solvent dD - polymer dD)', 'abs(solvent dP - polymer dP)', 'abs(solvent dH - polymer dH)', 'Dark/light', 'Aging time (hour)', 'To Aging Temperature (K)', 'Sonication/Stirring/heating Temperature (K)', 'Merged Stirring /sonication/heating time(min)')
