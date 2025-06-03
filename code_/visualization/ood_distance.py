@@ -375,7 +375,7 @@ if __name__ == "__main__":
                 # print(summary)
 
             ## plot bar plot for OOD-IID for comparative features
-            model = 'XGBR'
+            model = 'RF'
             comparison_of_features_full= get_comparison_of_features(model, '_Standard')
 
             combined_data = []

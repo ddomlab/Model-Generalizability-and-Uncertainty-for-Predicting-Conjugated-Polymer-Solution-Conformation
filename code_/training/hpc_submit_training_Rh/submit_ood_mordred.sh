@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 regressors=("RF" "XGBR")
 targets=("log Rg (nm)")
-models=("Mordred" "MACCS")
+models=("MACCS")
 poly_representations=("Trimer")
 group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
@@ -35,7 +35,7 @@ python ../make_ood_prediction.py --target_features "${target}" \
                                   --regressor_type "${regressor}" \
                                   --oligomer_representation "${oligo_rep}" \
                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' \
-                                  --clustering_method "${group}" \
+                                  --clustering_method "${group}" 
 
 
 

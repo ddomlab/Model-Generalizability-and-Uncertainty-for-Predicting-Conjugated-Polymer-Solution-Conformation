@@ -820,6 +820,7 @@ def get_comparison_of_features(model: str, suffix: str):
     return {
         f'(concentration-temperature-solvent dP-solvent dD-solvent dH)_{model}{suffix}': 'solvent_properties + solvent_HSPs',
         f'(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'solvent_properties + solvent_HSPs + environmental.thermal history',
+        f'(light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'environmental.thermal history',
         f'(Xn)_{model}{suffix}': 'Xn',
         f'(Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize',
         f'(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_{model}{suffix}': 'Xn + polysize + polymer HSPs',
@@ -895,7 +896,7 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
-        model = 'XGBR'
+        model = 'RF'
         comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
         all_score_eq_training_size = []
