@@ -895,7 +895,7 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
-        model = 'RF'
+        model = 'XGBR'
         comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
         all_score_eq_training_size = []
