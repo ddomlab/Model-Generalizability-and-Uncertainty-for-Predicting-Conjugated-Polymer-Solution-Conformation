@@ -465,7 +465,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
         fontsize=text_size - 4,
         frameon=True,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.27),
+        bbox_to_anchor=(0.5, 1.38),
         ncol=ncol
     )
 
@@ -485,7 +485,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
 
     # Layout adjustment
 
-    plt.tight_layout(rect=[0, 0, 1, 1.03])
+    plt.tight_layout(rect=[0, 0, 1, 1.08])
     save_img_path(saving_path, f"{file_name}.png")
     plt.show()  
     plt.close()
@@ -816,17 +816,20 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 #     '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
 # }
 
-comparison_of_features_lc = {
-    '(concentration-temperature-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc': 'solvent_properties + solvent_HSPs',
-    '(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc': 'solvent_properties + solvent_HSPs + environmental.thermal history',
-    '(Xn)_RF_hypOFF_Standard_lc':'Xn',
-    '(Xn-Mw-PDI)_RF_hypOFF_Standard_lc':'Xn + polysize',
-    '(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_RF_hypOFF_Standard_lc':'Xn + polysize + polymer HSPs',
-    '(Mordred-Xn-Mw-PDI)_RF_hypOFF_Standard_lc': 'Xn + polysize + Mordred',
-    '(MACCS-Xn-Mw-PDI)_RF_hypOFF_Standard_lc': 'Xn + polysize + MACCS',
-    '(ECFP3.count.512-Xn-Mw-PDI)_RF_hypOFF_Standard_lc':'Xn + polysize + ECFP6.count.512',
-    # '(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'continuous+aging',
-}
+def get_comparison_of_features(model: str, suffix: str):
+    return {
+        f'(concentration-temperature-solvent dP-solvent dD-solvent dH)_{model}{suffix}': 'solvent_properties + solvent_HSPs',
+        f'(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'solvent_properties + solvent_HSPs + environmental.thermal history',
+        f'(Xn)_{model}{suffix}': 'Xn',
+        f'(Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize',
+        f'(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_{model}{suffix}': 'Xn + polysize + polymer HSPs',
+        f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'combination of all',
+        f'(Mordred-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + Mordred',
+        f'(MACCS-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + MACCS',
+        f'(ECFP3.count.512-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + ECFP6.count.512',
+    }
+
+# Example usage:
 
 
 if __name__ == "__main__":
@@ -892,6 +895,9 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
+        model = 'RF'
+        comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
+
         all_score_eq_training_size = []
         for file, file_discription in comparison_of_features_lc.items():
 
@@ -928,7 +934,7 @@ if __name__ == "__main__":
         all_score_eq_training_size: pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
         saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
         plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
-                         saving_folder, file_name=f'rmse_RF_comparison of feature',
+                         saving_folder, file_name=f'rmse_{model}_comparison of feature',
                              text_size=16, figsize=(15, 8), ncol=3)
 
         print("save OOD vs IID bar plot at equal training size for comparison of features")

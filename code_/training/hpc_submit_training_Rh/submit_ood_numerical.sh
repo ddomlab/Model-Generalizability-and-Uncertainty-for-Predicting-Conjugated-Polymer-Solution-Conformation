@@ -17,10 +17,10 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 30:01
+#BSUB -W 48:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_202505031"  
+#BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250531"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${group}_20250531.out"
 #BSUB -e "${output_dir}/${regressor}_${target}_${group}_20250531.err"
 
@@ -28,7 +28,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../make_ood_prediction.py --target_features "${target}" \
                                   --regressor_type "${regressor}" \
-                                  --numerical_feats 'Xn' \
+                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)" \
                                   --clustering_method "${group}" \
 
 
