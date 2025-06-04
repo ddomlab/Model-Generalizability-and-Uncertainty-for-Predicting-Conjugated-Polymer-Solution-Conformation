@@ -1861,3 +1861,163 @@ OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 1234567890
 Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-08), ('regressor__regressor__learning_rate', 0.013496979385212472), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 38), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
 
 
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-08), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 15), ('regressor__regressor__min_samples_leaf', 9), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 8.13987593348933e-07), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 19), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.0001), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 48), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-08), ('regressor__regressor__learning_rate', 0.03667312952681881), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 11), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 0.0001), ('regressor__regressor__learning_rate', 0.013192212261019635), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 341), ('regressor__regressor__min_samples_leaf', 3), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+-------------------------------------------------- 
+OOD TEST ON Thiophene
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-08), ('regressor__regressor__learning_rate', 0.0526736694381355), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 14), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 1e-08), ('regressor__regressor__learning_rate', 0.020045119761313793), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 109), ('regressor__regressor__min_samples_leaf', 6), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 2.861237911612334e-08), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 263), ('regressor__regressor__min_samples_leaf', 2), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__l2_regularization', 4.848293346721042e-07), ('regressor__regressor__learning_rate', 0.007760443831203943), ('regressor__regressor__max_depth', None), ('regressor__regressor__max_iter', 2000), ('regressor__regressor__max_leaf_nodes', 34), ('regressor__regressor__min_samples_leaf', 4), ('regressor__regressor__scoring', 'neg_root_mean_squared_error')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR HGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c203n03>
+Subject: Job 635232: <HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529> in cluster <Hazel> Exited
+
+Job <HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529> was submitted from host <c023n03> by user <sdehgha2> in cluster <Hazel> at Sat May 31 14:48:25 2025
+Job was executed on host(s) <6*c203n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Sat May 31 17:40:06 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Sat May 31 17:40:06 2025
+Terminated at Tue Jun  3 20:41:03 2025
+Results reported at Tue Jun  3 20:41:03 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 45:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250529/HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250529/HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --representation "Mordred"                                   --regressor_type "HGBR"                                   --oligomer_representation "Trimer"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH'                                   --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   1220426.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.26 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   270067 sec.
+    Turnaround time :                            280358 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250529/HGBR_log Rg (nm)_Mordred_Trimer_substructure cluster_20250529.err> for stderr output of this job.
+
