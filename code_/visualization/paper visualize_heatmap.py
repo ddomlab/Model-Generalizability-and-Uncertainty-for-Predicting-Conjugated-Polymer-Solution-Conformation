@@ -822,6 +822,7 @@ aging_features: List = [
     'Xn + polysize + MACCS',
     'Xn + polysize + ECFP6.count.512',
     'Xn + polysize + polymer_HSPs',
+    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
 
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',

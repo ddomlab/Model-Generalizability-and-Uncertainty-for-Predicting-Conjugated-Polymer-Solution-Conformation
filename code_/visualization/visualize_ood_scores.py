@@ -416,7 +416,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     clusters = data['BaseCluster'].unique()
     models = data['Model'].unique()
 
-    palette = sns.color_palette("Set2", n_colors=len(models))
+    palette = sns.color_palette("tab10", n_colors=len(models))
     model_colors = {model: palette[i] for i, model in enumerate(models)}
 
     bar_width = 0.4

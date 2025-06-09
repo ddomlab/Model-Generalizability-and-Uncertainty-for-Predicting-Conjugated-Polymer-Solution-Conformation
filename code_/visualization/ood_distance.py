@@ -381,7 +381,10 @@ if __name__ == "__main__":
             combined_data = []
             for file, file_discription in comparison_of_features_full.items():
 
-                scores_folder_path = results_path / cluster / ('Trimer_scaler' if 'Mordred' in file else 'scaler')
+                if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
+                    scores_folder_path = results_path / cluster / 'Trimer_scaler'
+                else:
+                    scores_folder_path = results_path / cluster / 'scaler'
                 
                 score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
                 predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
