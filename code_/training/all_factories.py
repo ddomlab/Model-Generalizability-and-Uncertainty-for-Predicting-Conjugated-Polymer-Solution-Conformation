@@ -199,7 +199,6 @@ def get_regressor_search_space(algortihm:str, kernel:str=None) -> Dict :
         "regressor__regressor__n_jobs": [-1],
         "regressor__regressor__eval_metric":["rmse"],
         "regressor__regressor__learning_rate": Real(1e-5, 1e-1, prior="log-uniform"),
-        
     }
 
 

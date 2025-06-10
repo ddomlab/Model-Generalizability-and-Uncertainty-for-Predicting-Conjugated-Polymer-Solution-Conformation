@@ -4,15 +4,15 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=("XGBR")
+models_to_run=("ElasticNet")
 
 
 for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
         bsub <<EOT
 
-#BSUB -n 6
-#BSUB -W 7:01
+#BSUB -n 4
+#BSUB -W 3:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250531"
