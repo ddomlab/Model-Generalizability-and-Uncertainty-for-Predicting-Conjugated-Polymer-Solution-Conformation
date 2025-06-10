@@ -3361,3 +3361,443 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.err> for stderr output of this job.
 
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n13>
+Subject: Job 702863: <numerical_XGBR_with_feats_on_log Rg (nm)_20250531> in cluster <Hazel> Done
+
+Job <numerical_XGBR_with_feats_on_log Rg (nm)_20250531> was submitted from host <c207n04> by user <sdehgha2> in cluster <Hazel> at Mon Jun  9 13:41:41 2025
+Job was executed on host(s) <6*c207n13>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Jun  9 13:41:41 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Mon Jun  9 13:41:41 2025
+Terminated at Mon Jun  9 13:42:04 2025
+Results reported at Mon Jun  9 13:42:04 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 7:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_XGBR_with_feats_on_log Rg (nm)_20250531"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "XGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   13.13 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   31 sec.
+    Turnaround time :                            23 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.err> for stderr output of this job.
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.08035723627267036), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 309), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.05155207133136988), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 883), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.0027841494169709735), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.009754378278633648), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.05205930319402899), ('regressor__regressor__max_depth', 20), ('regressor__regressor__n_estimators', 221), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.06106161178038051), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 389), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07247362814850163), ('regressor__regressor__max_depth', 1153), ('regressor__regressor__n_estimators', 924), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.015914091000089434), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 84), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.035345747059067706), ('regressor__regressor__max_depth', 11), ('regressor__regressor__n_estimators', 580), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.007361011012327784), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 807), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.04786707673794845), ('regressor__regressor__max_depth', 309), ('regressor__regressor__n_estimators', 1099), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07625530115818266), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 50), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.00847539905586232), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 587), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07522021673927998), ('regressor__regressor__max_depth', 26), ('regressor__regressor__n_estimators', 1315), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.0130451326673111), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 1192), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.06558964903846966), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.041939282376727234), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 345), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 71), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 79), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.04286665406911074), ('regressor__regressor__max_depth', 13), ('regressor__regressor__n_estimators', 122), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.011914308086883776), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 1377), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 277), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.04169783278135489), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 495), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07184727079004405), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 69), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.05474107656295408), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 1017), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.010776590081436305), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 749), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.01319887870861323), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07532475002980103), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 259), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.008247053446027747), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 667), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 681), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.1), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 1037), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.07176747511041612), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 2000), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.05311294155910897), ('regressor__regressor__max_depth', 10), ('regressor__regressor__n_estimators', 333), ('regressor__regressor__n_jobs', -1)])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__eval_metric', 'rmse'), ('regressor__regressor__learning_rate', 0.028176665481901498), ('regressor__regressor__max_depth', 10000), ('regressor__regressor__n_estimators', 331), ('regressor__regressor__n_jobs', -1)])
+
+
+Average scores:	 r: 0.93±0.05	 r2: 0.86±0.1
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_XGBR_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n08>
+Subject: Job 702880: <numerical_XGBR_with_feats_on_log Rg (nm)_20250531> in cluster <Hazel> Done
+
+Job <numerical_XGBR_with_feats_on_log Rg (nm)_20250531> was submitted from host <c207n04> by user <sdehgha2> in cluster <Hazel> at Mon Jun  9 13:46:03 2025
+Job was executed on host(s) <6*c202n08>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Mon Jun  9 13:46:04 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Mon Jun  9 13:46:04 2025
+Terminated at Mon Jun  9 14:37:26 2025
+Results reported at Mon Jun  9 14:37:26 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 7:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_XGBR_with_feats_on_log Rg (nm)_20250531"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "XGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' 
+
+
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   6933.31 sec.
+    Max Memory :                                 4 GB
+    Average Memory :                             3.92 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               4.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                33
+    Run time :                                   3086 sec.
+    Turnaround time :                            3083 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_XGBR_log Rg (nm)_20250531.err> for stderr output of this job.
+

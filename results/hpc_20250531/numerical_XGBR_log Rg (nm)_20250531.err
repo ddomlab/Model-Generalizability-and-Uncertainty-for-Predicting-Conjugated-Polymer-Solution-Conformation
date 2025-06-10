@@ -336,3 +336,139 @@ ValueError: Invalid parameter 'regressoreval' for estimator TransformedTargetReg
   warnings.warn(
 /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10, 2000, -1, 1e-06, 10.0] before, using random point ['rmse', 8.354714557107682e-05, 115, 110, -1, 0.40341665691368767, 2.9918070329776065]
   warnings.warn(
+joblib.externals.loky.process_executor._RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 463, in _process_worker
+    r = call_item()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py", line 291, in __call__
+    return self.fn(*self.args, **self.kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 598, in __call__
+    return [func(*args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 598, in <listcomp>
+    return [func(*args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 136, in __call__
+    return self.function(*args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_validation.py", line 876, in _fit_and_score
+    estimator = estimator.set_params(**clone(parameters, safe=False))
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/pipeline.py", line 237, in set_params
+    self._set_params("steps", **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/metaestimators.py", line 69, in _set_params
+    super().set_params(**params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 291, in set_params
+    valid_params[key].set_params(**sub_params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 279, in set_params
+    raise ValueError(
+ValueError: Invalid parameter 'regressoreval' for estimator TransformedTargetRegressor(regressor=XGBRegressor(base_score=None, booster=None,
+                                                  callbacks=None,
+                                                  colsample_bylevel=None,
+                                                  colsample_bynode=None,
+                                                  colsample_bytree=None,
+                                                  device=None,
+                                                  early_stopping_rounds=None,
+                                                  enable_categorical=False,
+                                                  eval_metric=None,
+                                                  feature_types=None,
+                                                  gamma=None, grow_policy=None,
+                                                  importance_type=None,
+                                                  interaction_constraints=None,
+                                                  learning_rate=None,
+                                                  max_bin=None,
+                                                  max_cat_threshold=None,
+                                                  max_cat_to_onehot=None,
+                                                  max_delta_step=None,
+                                                  max_depth=None,
+                                                  max_leaves=None,
+                                                  min_child_weight=None,
+                                                  missing=nan,
+                                                  monotone_constraints=None,
+                                                  multi_strategy=None,
+                                                  n_estimators=None,
+                                                  n_jobs=None,
+                                                  num_parallel_tree=None,
+                                                  random_state=None, ...),
+                           transformer=Pipeline(steps=[('y scaler',
+                                                        StandardScaler())])). Valid parameters are: ['check_inverse', 'func', 'inverse_func', 'regressor', 'transformer'].
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_numerical_only.py", line 93, in <module>
+    main_numerical_only(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../train_numerical_only.py", line 39, in main_numerical_only
+    scores, predictions,data_shapes  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 71, in train_regressor
+    scores, predictions, data_shape = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 145, in _prepare_data
+    score,predication= run(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 226, in run
+    best_estimator, regressor_params = _optimize_hyperparams(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/training_utils.py", line 286, in _optimize_hyperparams
+    bayes.fit(X_train, y_train)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 542, in fit
+    super().fit(X=X, y=y, groups=groups, **fit_params)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 1019, in fit
+    self._run_search(evaluate_candidates)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 599, in _run_search
+    optim_result, score_name = self._step(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/searchcv.py", line 453, in _step
+    all_results = evaluate_candidates(params_dict)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/model_selection/_search.py", line 965, in evaluate_candidates
+    out = parallel(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/sklearn/utils/parallel.py", line 74, in __call__
+    return super().__call__(iterable_with_config)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1754, in _retrieve
+    self._raise_error_fast()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1789, in _raise_error_fast
+    error_job.get_result(self.timeout)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 745, in get_result
+    return self._return_or_raise()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 763, in _return_or_raise
+    raise self._result
+ValueError: Invalid parameter 'regressoreval' for estimator TransformedTargetRegressor(regressor=XGBRegressor(base_score=None, booster=None,
+                                                  callbacks=None,
+                                                  colsample_bylevel=None,
+                                                  colsample_bynode=None,
+                                                  colsample_bytree=None,
+                                                  device=None,
+                                                  early_stopping_rounds=None,
+                                                  enable_categorical=False,
+                                                  eval_metric=None,
+                                                  feature_types=None,
+                                                  gamma=None, grow_policy=None,
+                                                  importance_type=None,
+                                                  interaction_constraints=None,
+                                                  learning_rate=None,
+                                                  max_bin=None,
+                                                  max_cat_threshold=None,
+                                                  max_cat_to_onehot=None,
+                                                  max_delta_step=None,
+                                                  max_depth=None,
+                                                  max_leaves=None,
+                                                  min_child_weight=None,
+                                                  missing=nan,
+                                                  monotone_constraints=None,
+                                                  multi_strategy=None,
+                                                  n_estimators=None,
+                                                  n_jobs=None,
+                                                  num_parallel_tree=None,
+                                                  random_state=None, ...),
+                           transformer=Pipeline(steps=[('y scaler',
+                                                        StandardScaler())])). Valid parameters are: ['check_inverse', 'func', 'inverse_func', 'regressor', 'transformer'].
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10, 2000, -1] before, using random point ['rmse', 4.077310880930706e-05, 27, 180, -1]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10, 2000, -1] before, using random point ['rmse', 0.0009812430760617339, 515, 1632, -1]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10000, 2000, -1] before, using random point ['rmse', 0.0002212278924177708, 2114, 188, -1]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10, 2000, -1] before, using random point ['rmse', 8.830965528392182e-05, 115, 64, -1]
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point ['rmse', 0.1, 10000, 2000, -1] before, using random point ['rmse', 0.0029208323637724995, 68, 743, -1]
+  warnings.warn(
