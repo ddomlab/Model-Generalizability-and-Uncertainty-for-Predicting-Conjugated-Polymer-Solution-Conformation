@@ -1,0 +1,69 @@
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n09>
+Subject: Job 824614: <XGBR_log Rg (nm)__KM4 Mordred_Polysize cluster_20250617> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)__KM4 Mordred_Polysize cluster_20250617> was submitted from host <c207n06> by user <sdehgha2> in cluster <Hazel> at Tue Jun 17 11:20:44 2025
+Job was executed on host(s) <6*c207n09>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 17 13:28:11 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 17 13:28:11 2025
+Terminated at Tue Jun 17 13:45:12 2025
+Results reported at Tue Jun 17 13:45:12 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 48:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)__KM4 Mordred_Polysize cluster_20250617"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250617/XGBR_log Rg (nm)_KM4 Mordred_Polysize cluster_20250617.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250617/XGBR_log Rg (nm)_KM4 Mordred_Polysize cluster_20250617.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --regressor_type "XGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                   --clustering_method "KM4 Mordred_Polysize cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   1369.13 sec.
+    Max Memory :                                 4 GB
+    Average Memory :                             2.58 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               12.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   1021 sec.
+    Turnaround time :                            8668 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250617/XGBR_log Rg (nm)_KM4 Mordred_Polysize cluster_20250617.err> for stderr output of this job.
+

@@ -348,3 +348,19 @@
   warnings.warn(
 /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/skopt/optimizer/optimizer.py:517: UserWarning: The objective has been evaluated at point [0.1, 10, 2000, -2] before, using random point [0.003297611668740164, 120, 123, -2]
   warnings.warn(
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_prediction.py", line 100, in <module>
+    main_structural_numerical(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_prediction.py", line 55, in main_structural_numerical
+    scores, predictions, cluster_y_truth  = train_regressor(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split.py", line 76, in train_regressor
+    scores, predictions,cluster_y_ture = _prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split.py", line 147, in _prepare_data
+    score, predication, cluster_y_ture  = run_loco_cv(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split.py", line 250, in run_loco_cv
+    OOD_scores, OOD_predictions, uncertenty_predictions = train_and_predict_ood(OOD_best_estimator, X_tv, y_tv, X_test,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py", line 567, in train_and_predict_ood
+    xgb_u.fit(X_train_val, y_train_val)
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/scoring.py", line 519, in fit
+    self.boosted_reg = BaggingRegressor(base_estimator=self.fitted_model, n_estimators=model_num).fit(X_train,
+TypeError: BaggingRegressor.__init__() got an unexpected keyword argument 'base_estimator'

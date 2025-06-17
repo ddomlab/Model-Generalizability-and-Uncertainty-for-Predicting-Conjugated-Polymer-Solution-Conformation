@@ -1,0 +1,123 @@
+Fluorene
+-------- OOD Parallel --------
+Fluorene
+-------- OOD Parallel --------
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c026n03>
+Subject: Job 819700: <NGB_log Rg (nm)___substructure cluster_20250531> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)___substructure cluster_20250531> was submitted from host <c205n05> by user <sdehgha2> in cluster <Hazel> at Tue Jun 17 02:30:12 2025
+Job was executed on host(s) <4*c026n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 17 02:31:39 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 17 02:31:39 2025
+Terminated at Tue Jun 17 02:59:29 2025
+Results reported at Tue Jun 17 02:59:29 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 06:00
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)___substructure cluster_20250531"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "NGB"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   36208.55 sec.
+    Max Memory :                                 78 GB
+    Average Memory :                             39.32 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -62.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                41
+    Run time :                                   1673 sec.
+    Turnaround time :                            1757 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.err> for stderr output of this job.
+
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n14>
+Subject: Job 819457: <NGB_log Rg (nm)___substructure cluster_20250531> in cluster <Hazel> Exited
+
+Job <NGB_log Rg (nm)___substructure cluster_20250531> was submitted from host <c203n04> by user <sdehgha2> in cluster <Hazel> at Tue Jun 17 00:23:23 2025
+Job was executed on host(s) <4*c200n14>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 17 00:38:13 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 17 00:38:13 2025
+Terminated at Tue Jun 17 06:38:26 2025
+Results reported at Tue Jun 17 06:38:26 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 4
+#BSUB -W 06:00
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "NGB_log Rg (nm)___substructure cluster_20250531"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "NGB"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_RUNLIMIT: job killed after reaching LSF run time limit.
+Exited with exit code 140.
+
+Resource usage summary:
+
+    CPU time :                                   90491.00 sec.
+    Max Memory :                                 4 GB
+    Average Memory :                             3.98 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               12.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   21630 sec.
+    Turnaround time :                            22503 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/NGB_log Rg (nm)___substructure cluster_numerical_20250531.err> for stderr output of this job.
+

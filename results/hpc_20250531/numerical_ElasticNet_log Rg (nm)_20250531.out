@@ -1877,3 +1877,378 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_ElasticNet_log Rg (nm)_20250531.err> for stderr output of this job.
 
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.08782464588019416), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.10388081095358963), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.006202617501923182), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.923763877837812), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.041308598256569073), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.6922993045100676), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 6
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.17438701337842547), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.020227513432626854), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.07892222394530932), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.13097614560275003), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.01031748607308468), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 13
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.18685594314881607), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.1792930604797834), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.09278903346375725), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.05204820941173219), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.014848379358184683), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 42
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.09233351705573717), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.09843175340338968), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.12865718212493293), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.20187519901021458), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.178736337317665), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 69
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.08481387664865031), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.019331672680991275), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.09821669637951742), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.05939796007299091), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.30871932947879505), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.10571302215173631), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 420
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.09923963009508054), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.007720481143502879), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.179033567772092), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.02572484252116075), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.08083159262836115), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.0727264878381457), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.170381949403808), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 1234567890
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.008963297626255282), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.018002253270027944), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.1305063659316513), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.04233615515853754), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 0.0), ('regressor__regressor__selection', 'cyclic')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.04885844540791441), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'random')])
+
+
+
+
+
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR ElasticNet 	SEED: 473129
+
+
+Best parameters: OrderedDict([('regressor__regressor__alpha', 0.014955589770035116), ('regressor__regressor__fit_intercept', True), ('regressor__regressor__l1_ratio', 1.0), ('regressor__regressor__selection', 'random')])
+
+
+Average scores:	 r: 0.59±0.07	 r2: 0.31±0.09
+Filename: (Xn-Mw-PDI-concentration-temperature-abs(solvent dD - polymer dD)-abs(solvent dP - polymer dP)-abs(solvent dH - polymer dH)-light exposure-aging time-aging temperature-prep temperature-prep time)_ElasticNet_Standard
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c207n10>
+Subject: Job 821329: <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250531> in cluster <Hazel> Done
+
+Job <numerical_ElasticNet_with_feats_on_log Rg (nm)_20250531> was submitted from host <c016n04> by user <sdehgha2> in cluster <Hazel> at Tue Jun 17 09:47:04 2025
+Job was executed on host(s) <6*c207n10>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 17 11:09:59 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 17 11:09:59 2025
+Terminated at Tue Jun 17 11:30:21 2025
+Results reported at Tue Jun 17 11:30:21 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+#BSUB -n 6
+#BSUB -W 5:31
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=8GB]"
+#BSUB -J "numerical_ElasticNet_with_feats_on_log Rg (nm)_20250531"
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_ElasticNet_log Rg (nm)_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_ElasticNet_log Rg (nm)_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../train_numerical_only.py --target_features "log Rg (nm)"                                   --regressor_type "ElasticNet"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)" 
+conda deactivate
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1356.29 sec.
+    Max Memory :                                 2 GB
+    Average Memory :                             1.95 GB
+    Total Requested Memory :                     8.00 GB
+    Delta Memory :                               6.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   1224 sec.
+    Turnaround time :                            6197 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/numerical_ElasticNet_log Rg (nm)_20250531.err> for stderr output of this job.
+

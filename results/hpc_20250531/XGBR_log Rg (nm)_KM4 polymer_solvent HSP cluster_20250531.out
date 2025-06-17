@@ -10365,3 +10365,72 @@ PS:
 
 Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/XGBR_log Rg (nm)_KM4 polymer_solvent HSP cluster_20250531.err> for stderr output of this job.
 
+
+
+
+-------------------------------------------------- 
+OOD TEST ON 0
+
+
+
+-------------------------------------------------- 
+OPTIMIZING HYPERPARAMETERS FOR REGRESSOR XGBR 	SEED: 6
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c200n02>
+Subject: Job 819522: <XGBR_log Rg (nm)__KM4 polymer_solvent HSP cluster_20250531> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)__KM4 polymer_solvent HSP cluster_20250531> was submitted from host <c205n06> by user <sdehgha2> in cluster <Hazel> at Tue Jun 17 00:58:16 2025
+Job was executed on host(s) <6*c200n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 17 01:01:15 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 17 01:01:15 2025
+Terminated at Tue Jun 17 01:07:39 2025
+Results reported at Tue Jun 17 01:07:39 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 48:01
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)__KM4 polymer_solvent HSP cluster_20250531"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/XGBR_log Rg (nm)_KM4 polymer_solvent HSP cluster_20250531.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/XGBR_log Rg (nm)_KM4 polymer_solvent HSP cluster_20250531.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_prediction.py --target_features "log Rg (nm)"                                   --regressor_type "XGBR"                                   --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                   --clustering_method "KM4 polymer_solvent HSP cluster" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   777.00 sec.
+    Max Memory :                                 3 GB
+    Average Memory :                             2.33 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               13.00 GB
+    Max Swap :                                   -
+    Max Processes :                              26
+    Max Threads :                                29
+    Run time :                                   384 sec.
+    Turnaround time :                            563 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250531/XGBR_log Rg (nm)_KM4 polymer_solvent HSP cluster_20250531.err> for stderr output of this job.
+
