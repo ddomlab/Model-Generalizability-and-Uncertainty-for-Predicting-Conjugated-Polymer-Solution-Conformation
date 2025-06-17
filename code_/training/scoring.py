@@ -19,7 +19,7 @@ from sklearn.metrics import (
     precision_score,
 )
 
-
+from sklearn.preprocessing import StandardScaler
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
 from sklearn.model_selection import learning_curve
@@ -502,74 +502,70 @@ class _RF_Uncertainty:
     def __init__(self, fitted_model):
         self.fitted_model = fitted_model
 
-    def pred_dist(self, X) -> np.ndarray:
-        X_array = X.values if hasattr(X, "values") else X
+    def fit(self, X_train_u, y_train_u)->None:
+        self.x_scaler= StandardScaler()
+        self.y_scaler= StandardScaler()
+        self.X_train_u = self.x_scaler.fit_transform(X_train_u)
+        self.y_train_u = self.y_scaler.fit_transform(y_train_u)
+        self.trained_u = self.fitted_model.fit(self.X_train_u, self.y_train_u)
 
+    def pred_dist(self, X_test_u) -> np.ndarray:
+        self.X_test_u = self.x_scaler.transform(X_test_u)
         all_preds = Parallel(n_jobs=-1)(
-            delayed(tree.predict)(X_array) for tree in self.fitted_model.estimators_
-            )
+                delayed(tree.predict)(self.X_test_u) for tree in self.fitted_model.estimators_
+                )
         return np.std(all_preds, axis=0)
+
     
 
 class _XGB_Uncertainty:
     def __init__(self, fitted_model):
         self.fitted_model = fitted_model
-    def fit(self, X_train, y_train) -> np.ndarray:
-        model_num = len(self.fitted_model.get_booster().get_dump())
-        self.boosted_reg = BaggingRegressor(base_estimator=self.fitted_model, n_estimators=model_num).fit(X_train,
-                                                                                                    y_train)
-    def pred_dist(self, X_test) -> np.ndarray:
-        X_array = X_test.values if hasattr(X_test, "values") else X_test
+    def fit(self, X_train_u, y_train_u)->None:
+        model_num = 2000
+        self.x_scaler= StandardScaler()
+        self.y_scaler= StandardScaler()
+        self.X_train_u = self.x_scaler.fit_transform(X_train_u)
+        self.y_train_u = self.y_scaler.fit_transform(y_train_u)
+        self.boosted_reg = BaggingRegressor(estimator=self.fitted_model, n_estimators=model_num).fit(self.X_train_u,
+                                                                                                    self.y_train_u)
+    def pred_dist(self, X_test_u) -> np.ndarray:
+        self.X_test_u = self.x_scaler.transform(X_test_u)
         all_preds = Parallel(n_jobs=-1)(
-                delayed(tree.predict)(X_array) for tree in self.boosted_reg.n_estimators
+                delayed(tree.predict)(self.X_test_u ) for tree in self.boosted_reg.n_estimators
                 )
         return np.std(all_preds, axis=0)
     
-        #     if hasattr(self.fitted_model, "trees"):
-        #         model_num = len(self.fitted_model.trees)  # NGB
-        #     elif hasattr(self.fitted_model, "get_booster"):
-        #         model_num = len(self.fitted_model.get_booster().get_dump())  # XGBoost
-        #     else:
-        #         raise AttributeError("Cannot determine number of estimators for this model type.")
-
-        #     boosted_reg = BaggingRegressor(base_estimator=self.fitted_model, n_estimators=model_num).fit(self.X_train,
-        #                                                             self.y_train)
-            
-        #     all_preds = Parallel(n_jobs=-1)(
-        #         delayed(tree.predict)(X_array) for tree in boosted_reg.n_estimators
-        #     )
-
-        
-
-
 
 def train_and_predict_ood(reg, X_train_val, y_train_val, X_test, y_test, 
                             algorithm:str, return_train_pred:bool=False,
                             manual_preprocessor:Pipeline=None) -> tuple:
     
-    
-    x_test_scaled = manual_preprocessor.fit_transform(X_test)
-    # print(x_test_scaled)
+    reg_u = reg.named_steps['regressor'].regressor
+    reg.fit(X_train_val, y_train_val)
     if algorithm == 'NGB':
-        reg.fit(X_train_val, y_train_val)
-        y_test_predist = reg.named_steps['regressor'].regressor_.pred_dist(x_test_scaled)
+        x_scaler = StandardScaler()
+        y_scaler = StandardScaler()
+
+        X_train_val_u = x_scaler.fit_transform(X_train_val)
+        y_train_val_u = y_scaler.fit_transform(y_train_val)
+        X_test_u = x_scaler.transform(X_test)
+        reg_u.fit(X_train_val_u, y_train_val_u)
+        y_test_predist = reg_u.pred_dist(X_test_u)
         y_test_pred_uncertainty = np.array(np.sqrt(y_test_predist.var)).reshape(y_test.shape)
         y_test_pred = reg.predict(X_test)
 
     elif algorithm == 'RF':
-        reg.fit(X_train_val, y_train_val)
-        uncertainty_estimator = _RF_Uncertainty(reg.named_steps['regressor'].regressor_)
-        y_test_pred_uncertainty = uncertainty_estimator.pred_dist(x_test_scaled).reshape(y_test.shape)
+        uncertainty_estimator = _RF_Uncertainty(reg_u)
+        uncertainty_estimator.fit(X_train_val, y_train_val)
+        y_test_pred_uncertainty = uncertainty_estimator.pred_dist(X_test).reshape(y_test.shape)
         y_test_pred = reg.predict(X_test)
     elif algorithm == 'XGBR':
-        reg_u = reg
-        xgb_u = _XGB_Uncertainty(reg_u.named_steps['regressor'].regressor_)
+        xgb_u = _XGB_Uncertainty(reg_u)
         xgb_u.fit(X_train_val, y_train_val)
-        y_test_pred_uncertainty = xgb_u.pred_dist(x_test_scaled).reshape(y_test.shape)
-        reg.fit(X_train_val, y_train_val)
+        y_test_pred_uncertainty = xgb_u.pred_dist(X_test).reshape(y_test.shape)
         y_test_pred = reg.predict(X_test)
     else:
-        reg.fit(X_train_val, y_train_val)
         y_test_pred = reg.predict(X_test)
         y_test_pred_uncertainty = None
 

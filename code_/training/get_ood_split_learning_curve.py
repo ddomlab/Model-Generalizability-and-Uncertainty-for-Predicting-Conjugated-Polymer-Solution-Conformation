@@ -118,10 +118,10 @@ def prepare_data(
 def run_single_ood(
     seed: int,
     train_ratio: float,
-    X_train_val: np.ndarray,
-    y_train_val: np.ndarray,
-    X_test: np.ndarray,
-    y_test: np.ndarray,
+    X_train_val,
+    y_train_val,
+    X_test,
+    y_test,
     cluster_train_val_labels_OOD: np.ndarray,
     model_name: str,
     transform_type: str,
@@ -145,8 +145,8 @@ def run_single_iid(
     seed: int,
     test_seed: int,
     train_ratio: float,
-    X_full: np.ndarray,
-    y_full: np.ndarray,
+    X_full,
+    y_full,
     y_test_len: int,
     model_name: str,
     transform_type: str,
@@ -191,8 +191,8 @@ def fit_and_eval(
     )
 
 def run_ood_learning_curve(
-    X: np.ndarray,
-    y: np.ndarray,
+    X,
+    y,
     cluster_labels: Union[np.ndarray, dict[str, np.ndarray]],
     model_name: str,
     transform_type: str = None,
