@@ -4,9 +4,9 @@ mkdir -p "$output_dir"
 
 regressors=("RF" "XGBR")
 targets=("log Rg (nm)")
-models=("MACCS")
+models=("MACCS" "Mordred")
 poly_representations=("Trimer")
-group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster')
+group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
@@ -34,7 +34,7 @@ python ../make_ood_prediction.py --target_features "${target}" \
                                   --representation "${fp}" \
                                   --regressor_type "${regressor}" \
                                   --oligomer_representation "${oligo_rep}" \
-                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' \
+                                  --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI'  'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 'abs(solvent dD - polymer dD)' 'abs(solvent dP - polymer dP)' 'abs(solvent dH - polymer dH)' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)" \
                                   --clustering_method "${group}" 
 
 
