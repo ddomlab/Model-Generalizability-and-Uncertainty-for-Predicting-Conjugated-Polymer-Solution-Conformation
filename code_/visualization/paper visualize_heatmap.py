@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+import re
 # from matplotlib import rc
 from visualization_setting import set_plot_style, save_img_path
 from visualize_ood_scores import ensure_long_path
@@ -48,8 +49,10 @@ scores_list: list = [
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 
 
+
+
 def parse_property_string(prop_string):
-    # Define the categories and their components
+    # Categories and their features
     categories = {
         'Xn': ['Xn'],
         'polysize': ['Mw', 'PDI'],
@@ -57,43 +60,61 @@ def parse_property_string(prop_string):
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
         'Ra': ['Ra'],
-        'environmental.thermal history': ['light exposure', 'aging time', 'aging temperature', 'prep temperature', 'prep time'],
+        'HSPs differences': [
+            'abs(solvent dD - polymer dD)',
+            'abs(solvent dP - polymer dP)',
+            'abs(solvent dH - polymer dH)'
+        ],
+        'environmental.thermal history': [
+            'light exposure', 'aging time', 'aging temperature',
+            'prep temperature', 'prep time'
+        ],
         'ECFP6.count.512': ['ECFP3.count.512'],
-        'MACCS': ['MACCS'], 
+        'MACCS': ['MACCS'],
         'Mordred': ['Mordred'],
     }
-    
-    # Split the input string by hyphens
-    parts = prop_string.split('-')
-    
-    # Reconstruct the original component names (handling cases like 'polymer dP')
+
+    # Get the part inside the parentheses
+    print(f"Parsing property string: {prop_string}")
+    feature_block = prop_string.split(')_')[0].strip('()')
+
+    # Step 1: split by 'abs(' to isolate complex terms
+    parts = feature_block.split('abs(')
+
     components = []
-    i = 0
-    while i < len(parts):
-        if i + 1 < len(parts) and parts[i] in ['polymer', 'solvent'] and parts[i+1] in ['dP', 'dD', 'dH']:
-            components.append(f"{parts[i]} {parts[i+1]}")
-            i += 2
+
+    # First part has normal features, split by '-'
+    components.extend(parts[0].split('-'))
+
+    # Remaining parts are abs(...) expressions
+    for p in parts[1:]:
+        # Find closing ')'
+        end_idx = p.find(')')
+        if end_idx != -1:
+            abs_feature = 'abs(' + p[:end_idx+1]
+            components.append(abs_feature)
+            # Add any extra standard features after abs(...)
+            tail = p[end_idx+1:]
+            if tail.startswith('-'):
+                tail = tail[1:]
+            if tail:
+                components.extend(tail.split('-'))
         else:
-            components.append(parts[i])
-            i += 1
-    
-    # Find which categories are present
+            # malformed, skip
+            continue
+
+    # Now match exactly
     present_categories = []
+    for cat, feats in categories.items():
+        if all(f in components for f in feats):
+            present_categories.append(cat)
+    print(' + '.join(present_categories) if present_categories else 'unknown format')
+    return ' + '.join(present_categories) if present_categories else 'unknown format'
+
     
-    # Check each category
-    for cat_name, cat_components in categories.items():
-        # Check if all components of this category are present
-        if all(comp in components for comp in cat_components):
-            present_categories.append(cat_name)
     
-    # Handle special cases where we might have partial matches
-    # (though your examples suggest categories are either fully present or not)
     
-    # Join the present categories with '+'
-    if present_categories:
-        return ' + '.join(present_categories)
-    else:
-        return "unknown format"
+
     
 
 
@@ -151,12 +172,14 @@ def get_results_from_file(
         # for just scaler features
         if "scaler" == file_path.parent.name:
             model:str = file_path.name.split("_")[1] 
-            features:str = file_path.name.split("_")[0].replace("(", "", 1)[::-1].replace(")", "", 1)[::-1]
-            features = parse_property_string(features)
+            # features:str = file_path.name.split("_")[0].replace("(", "", 1)[::-1].replace(")", "", 1)[::-1]
+            # print(file_path.name)
+            features = parse_property_string(file_path.name)
+            # print(features)
         # for mixture of scaler and structural 
         elif "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
-            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
-            features = parse_property_string(features)
+            # features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+            features = parse_property_string(file_path.name)
             # print(features)
             model:str = file_path.name.split("_")[1]
 
@@ -824,6 +847,7 @@ aging_features: List = [
     'Xn + polysize + polymer_HSPs',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
+    'Xn + polysize + solvent_properties + HSPs differences + environmental.thermal history',
 
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
