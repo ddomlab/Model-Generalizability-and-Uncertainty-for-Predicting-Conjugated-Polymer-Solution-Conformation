@@ -725,13 +725,13 @@ def create_scaler_result(target_dir:Path,
 
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
             # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                                     score=i,data_type='structural_scaler', transformer_type=transformer)
-            create_scaler_result(target_dir=RESULTS/target_folder,
-                                score=i,data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,
+            #                     score=i,data_type='scaler',transformer_type=transformer)
             
 
 
@@ -858,26 +858,26 @@ def creat_aging_comparison_heatmap(target_dir:Path,
 
 
 aging_features: List = [
-    'environmental.thermal history',
-    'solvent_properties + solvent_HSPs',
-    'solvent_properties + solvent_HSPs + environmental.thermal history',
-    'Xn',
+    'Xn + polysize',
     'Xn + polysize + Mordred',
     'Xn + polysize + MACCS',
     'Xn + polysize + ECFP6.count.512',
     'Xn + polysize + polymer_HSPs',
+    'environmental.thermal history',
+    'solvent_properties + solvent_HSPs',
+    'solvent_properties + solvent_HSPs + environmental.thermal history',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
-    'Xn + polysize + solvent_properties + HSPs differences + environmental.thermal history',
+    # 'Xn + polysize + solvent_properties + environmental.thermal history',
 
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
 ]
 
-# creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-#                                     score_metrics='rmse',
-#                                     comparison_value=['scaler', 'Trimer_scaler'],
-#                                     features_to_draw=aging_features,
-#                                     models_to_draw={'RF','XGBR', 'NGB'},
-#                                     # special_namings=['aging_imputed']
-#                                     )
+creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
+                                    score_metrics='rmse',
+                                    comparison_value=['scaler', 'Trimer_scaler'],
+                                    features_to_draw=aging_features,
+                                    models_to_draw={'RF','XGBR', 'NGB'},
+                                    # special_namings=['aging_imputed']
+                                    )
