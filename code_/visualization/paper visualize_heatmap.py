@@ -667,8 +667,6 @@ complex_models = ['RF']
 
 def create_scaler_result(target_dir:Path,
                         score:str,
-                        target:str,
-                        var:str,
                         data_type:str,
                         transformer_type:str,
                         peak_num:int=None
@@ -688,15 +686,15 @@ def create_scaler_result(target_dir:Path,
                     # var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(12, 9),
+                    figsize=(20, 12),
                     fig_title=f" \n ",
                     x_title="Feature Space",
                     y_title="Regression Models",
                     fname=fname,
                     vmin=.4,
                     vmax=.6,
-                    feature_order=['polysize','solvent_properties','polymer_HSPs','solvent_HSPs','polymer_HSPs + solvent_HSPs','solvent_properties + polymer_HSPs + solvent_HSPs','polysize + solvent_properties + polymer_HSPs + solvent_HSPs'],
-                    model_order=['RF','DT','MLR', 'ElasticNet', 'HGBR'],
+                    feature_order=['Xn', 'polysize', 'solvent_properties','polymer_HSPs','solvent_HSPs', 'Ra','environmental.thermal history'],
+                    model_order=['RF', 'DT','ElasticNet','MLR'],
                     num_ticks=3,
                     # vmin=0.4,
                     # vmax=0.6,
@@ -704,13 +702,13 @@ def create_scaler_result(target_dir:Path,
 
 
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
-#             create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-#                                                 score=i,data_type='structural_scaler', transformer_type=transformer)
-            # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
-            #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
+            # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
+            #                                     score=i,data_type='structural_scaler', transformer_type=transformer)
+            create_scaler_result(target_dir=RESULTS/target_folder,
+                                score=i,data_type='scaler',transformer_type=transformer)
             
 
 
@@ -853,10 +851,10 @@ aging_features: List = [
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
 ]
 
-creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='rmse',
-                                    comparison_value=['scaler', 'Trimer_scaler'],
-                                    features_to_draw=aging_features,
-                                    models_to_draw={'RF','XGBR', 'NGB'},
-                                    # special_namings=['aging_imputed']
-                                    )
+# creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
+#                                     score_metrics='rmse',
+#                                     comparison_value=['scaler', 'Trimer_scaler'],
+#                                     features_to_draw=aging_features,
+#                                     models_to_draw={'RF','XGBR', 'NGB'},
+#                                     # special_namings=['aging_imputed']
+#                                     )
