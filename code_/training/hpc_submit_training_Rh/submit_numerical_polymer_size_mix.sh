@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 # Correctly define models and numerical features
 target_to_assess=('log Rg (nm)')
-models_to_run=('DT' 'MLR')
+models_to_run=('DT' 'MLR' 'ElasticNet')
 
 
 for target in "${target_to_assess[@]}"; do
@@ -23,7 +23,8 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Xn'
+                                  --numerical_feats "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"
+
 conda deactivate
 
 EOT
