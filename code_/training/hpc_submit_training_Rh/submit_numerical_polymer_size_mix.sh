@@ -12,7 +12,7 @@ for target in "${target_to_assess[@]}"; do
         bsub <<EOT
 
 #BSUB -n 4
-#BSUB -W 07:31
+#BSUB -W 05:31
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=8GB]"
 #BSUB -J "numerical_${model}_with_feats_on_${target}_20250531"
@@ -23,7 +23,7 @@ source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
 python ../train_numerical_only.py --target_features "${target}" \
                                   --regressor_type "${model}" \
-                                  --numerical_feats 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' 
+                                  --numerical_feats "polymer dP" "polymer dD" "polymer dH"
 
 conda deactivate
 
