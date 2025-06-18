@@ -52,7 +52,9 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 
 def parse_property_string(prop_string):
-    # Categories and their features
+    import re
+
+    # Define the feature categories
     categories = {
         'Xn': ['Xn'],
         'polysize': ['Mw', 'PDI'],
@@ -74,41 +76,42 @@ def parse_property_string(prop_string):
         'Mordred': ['Mordred'],
     }
 
-    # Get the part inside the parentheses
-    print(f"Parsing property string: {prop_string}")
-    feature_block = prop_string.split(')_')[0].strip('()')
+    # ✅ Step 1: Split by `)_` and remove leading `(` to isolate feature block
+    try:
+        feature_block = prop_string.split(')_')[0][1:]
+    except IndexError:
+        return 'unknown format'
 
-    # Step 1: split by 'abs(' to isolate complex terms
-    parts = feature_block.split('abs(')
-
+    # ✅ Step 2: Tokenize into features while preserving abs(...) blocks
     components = []
-
-    # First part has normal features, split by '-'
-    components.extend(parts[0].split('-'))
-
-    # Remaining parts are abs(...) expressions
-    for p in parts[1:]:
-        # Find closing ')'
-        end_idx = p.find(')')
-        if end_idx != -1:
-            abs_feature = 'abs(' + p[:end_idx+1]
-            components.append(abs_feature)
-            # Add any extra standard features after abs(...)
-            tail = p[end_idx+1:]
-            if tail.startswith('-'):
-                tail = tail[1:]
-            if tail:
-                components.extend(tail.split('-'))
+    i = 0
+    while i < len(feature_block):
+        if feature_block[i:i+4] == 'abs(':
+            j = i + 4
+            bracket_level = 1
+            while j < len(feature_block) and bracket_level > 0:
+                if feature_block[j] == '(':
+                    bracket_level += 1
+                elif feature_block[j] == ')':
+                    bracket_level -= 1
+                j += 1
+            components.append('abs(' + feature_block[i+4:j-1].strip() + ')')
+            i = j + 1 if j < len(feature_block) and feature_block[j] == '-' else j
         else:
-            # malformed, skip
-            continue
+            j = i
+            while j < len(feature_block) and feature_block[j] != '-':
+                j += 1
+            token = feature_block[i:j].strip()
+            if token:
+                components.append(token)
+            i = j + 1
 
-    # Now match exactly
+    # ✅ Step 3: Match categories exactly
     present_categories = []
-    for cat, feats in categories.items():
-        if all(f in components for f in feats):
-            present_categories.append(cat)
-    print(' + '.join(present_categories) if present_categories else 'unknown format')
+    for cat_name, feat_list in categories.items():
+        if all(f in components for f in feat_list):
+            present_categories.append(cat_name)
+
     return ' + '.join(present_categories) if present_categories else 'unknown format'
 
     
@@ -235,6 +238,7 @@ def _create_heatmap(
     feature_order: list[str] = None,
     model_order: list[str] = None,
     num_ticks: int = 3,
+    fontsize: int = 16,
     **kwargs,
 ) -> None:
     """
@@ -257,12 +261,11 @@ def _create_heatmap(
 
     # Reorder DataFrames if specific order is provided
     if feature_order is not None:
-        avg_scores = avg_scores[feature_order]
-        annotations = annotations[feature_order]
-
+        avg_scores = avg_scores.loc[feature_order]
+        annotations = annotations.loc[feature_order]
     if model_order is not None:
-        avg_scores = avg_scores.loc[model_order]
-        annotations = annotations.loc[model_order]
+        avg_scores = avg_scores[model_order]
+        annotations = annotations[model_order]
 
     # Create heatmap
     fig, ax = plt.subplots(figsize=figsize)
@@ -280,7 +283,7 @@ def _create_heatmap(
         vmax=vmax,
         ax=ax,
         mask=avg_scores.isnull(),
-        annot_kws={"fontsize": 16},
+        annot_kws={"fontsize": fontsize},
     )
 
     # Set axis labels and tick labels
@@ -289,13 +292,13 @@ def _create_heatmap(
     x_tick_labels: list[str] = avg_scores.columns.tolist()
     y_tick_labels: list[str] = avg_scores.index.tolist()
 
-    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=fontsize)
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=fontsize)
 
     # Set plot and axis titles
-    plt.title(fig_title, fontsize=18, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
+    plt.title(fig_title, fontsize=fontsize+2, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=fontsize+2, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=fontsize+2, fontweight='bold')
 
     # Set colorbar title and custom ticks
     score_txt: str = "$R^2$" if score == "r2" else score
@@ -314,10 +317,10 @@ def _create_heatmap(
         f"Average {score_txt.upper()} ± {var_titles.get('stdev')}",
         rotation=270,
         labelpad=20,
-        fontsize=14,
+        fontsize=fontsize,
         fontweight='bold',
     )
-    cbar.ax.tick_params(labelsize=16)
+    cbar.ax.tick_params(labelsize=fontsize)
 
     # Save the figure
     visualization_folder_path = root_dir / "heatmap"
@@ -536,12 +539,18 @@ def creat_result_df(target_dir: Path,
                     feats = simplified_feats
 
             if data_type in ['scaler', 'structural_scaler']:
-                if feats not in avg_scores.columns:
-                    avg_scores.loc[model, feats] = av
-                    std_scores.loc[model, feats] = std
+                if data_type== 'structural_scaler':
+                    x= model
+                    y= feats
                 else:
-                    avg_scores.at[model, feats] = av
-                    std_scores.at[model, feats] = std
+                    x = feats
+                    y = model
+                if feats not in avg_scores.columns:
+                    avg_scores.loc[x, y] = av
+                    std_scores.loc[x, y] = std
+                else:
+                    avg_scores.at[x, y] = av
+                    std_scores.at[x, y] = std
             else:  # structural
                 if feats not in avg_scores.columns:
                     avg_scores.loc[filterd_rep, feats] = av
@@ -681,21 +690,35 @@ def create_scaler_result(target_dir:Path,
     fname= f"selected Regression Models vs numerical features search heatmap_{score}"
     fname = f'{fname} on peak {peak_num+1}' if peak_num else fname
 
+
+    if score == "r2":
+        vmax= .9
+        vmin= .1
+        n_cbar_tick = 9  
+    elif score == "mae":
+        vmax= .5
+        vmin= 0.1
+        n_cbar_tick = 5  
+    elif score == "rmse":
+        vmax= .6
+        vmin= 0.3 
+        n_cbar_tick = 4 
+
     _create_heatmap(root_dir=HERE,
                     score=score,
                     # var=var,
                     avg_scores=ave,
                     annotations=anot,
-                    figsize=(20, 12),
+                    figsize=(10,9),
                     fig_title=f" \n ",
-                    x_title="Feature Space",
-                    y_title="Regression Models",
+                    x_title="Regression Models",
+                    y_title="Feature Space",
                     fname=fname,
-                    vmin=.4,
-                    vmax=.6,
-                    feature_order=['Xn', 'polysize', 'solvent_properties','polymer_HSPs','solvent_HSPs', 'Ra','environmental.thermal history'],
-                    model_order=['RF', 'DT','ElasticNet','MLR'],
-                    num_ticks=3,
+                    vmin=vmin,
+                    vmax=vmax,
+                    feature_order=['Xn', 'polysize', 'Xn + polysize', 'solvent_properties','polymer_HSPs','solvent_HSPs', 'polymer_HSPs + solvent_HSPs', 'HSPs differences','Ra','environmental.thermal history', ],
+                    model_order=['RF', 'ElasticNet','MLR'],
+                    num_ticks=n_cbar_tick,
                     # vmin=0.4,
                     # vmax=0.6,
                     )
