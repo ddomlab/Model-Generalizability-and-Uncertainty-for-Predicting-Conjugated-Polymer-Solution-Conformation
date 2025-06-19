@@ -419,7 +419,7 @@ def plot_manual_heatmap(
         vmax=vmax,
         ax=ax,
         mask=avg_scores.isnull(),
-        annot_kws={"fontsize": 16},
+        annot_kws={"fontsize": kwargs['fontsize']},
     )
 
     # Set axis labels and tick labels
@@ -429,13 +429,13 @@ def plot_manual_heatmap(
     x_tick_labels: list[str] = avg_scores.columns.tolist()
     y_tick_labels: list[str] = avg_scores.index.tolist()
 
-    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=16)
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
+    ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=kwargs['fontsize'])
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=kwargs['fontsize'])
 
     # Set plot and axis titles
-    plt.title(fig_title, fontsize=18, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=18, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=18, fontweight='bold')
+    plt.title(fig_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
 
     # Set colorbar title and custom ticks
     var_titles = {"stdev": "Stdev"}  # define this mapping if needed
@@ -454,10 +454,10 @@ def plot_manual_heatmap(
         f"Average {score_txt.upper()} ± {var_titles.get('stdev', 'Stdev')}",
         rotation=270,
         labelpad=20,
-        fontsize=14,
+        fontsize=kwargs['fontsize'],
         fontweight='bold',
     )
-    cbar.ax.tick_params(labelsize=16)
+    cbar.ax.tick_params(labelsize=kwargs['fontsize'])
     plt.tight_layout()
 
     # Save the figure
@@ -844,7 +844,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
     plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
                         score=score_metrics,
                         score_to_show=scores_to_show,
-                        figsize=(15,12),
+                        figsize=(14,12),
                         fig_title=f" ",
                         x_title="Feature Space",
                         y_title="Models",
@@ -852,8 +852,9 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                         vmin=.2,
                         vmax=.6,
                         feature_order=features_to_draw,
-                        # model_order=['RF','DT','MLR'],
+                        model_order=list(models_to_draw),
                         num_ticks=5,
+                        fontsize=16,
                         )
 
 
@@ -863,7 +864,7 @@ aging_features: List = [
     'Xn + polysize + MACCS',
     'Xn + polysize + ECFP6.count.512',
     'Xn + polysize + polymer_HSPs',
-    'environmental.thermal history',
+    # 'environmental.thermal history',
     'solvent_properties + solvent_HSPs',
     'solvent_properties + solvent_HSPs + environmental.thermal history',
     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
@@ -875,7 +876,7 @@ aging_features: List = [
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='rmse',
+                                    score_metrics='r2',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','XGBR', 'NGB'},
