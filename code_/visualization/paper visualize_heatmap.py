@@ -597,8 +597,8 @@ def create_structural_result(target_dir:Path,
         vmin= 0.1
         n_cbar_tick = 5  
     elif score == "rmse":
-        vmax= .7
-        vmin= 0.5 
+        vmax= .6
+        vmin= 0.4
         n_cbar_tick = 4
     _create_heatmap(root_dir=HERE,
                     score=score,
@@ -663,14 +663,14 @@ def create_structural_scaler_result(target_dir:Path,
 complex_models = ['RF']
 
 
-# for transformer in transformer_list:
-#     for model in complex_models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                #                             score=i,data_type='structural', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                                            score=i,data_type='structural', transformer_type=transformer)
 
 
 
