@@ -375,12 +375,12 @@ def optimize_ood_hp(
     n_cluster = len(np.unique(cluster_lables))
     if n_cluster>1:
         # print('yes it is stratified')
-        cv = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
-        for train_index, val_index in cv.split(x_train_val, cluster_lables):
-            X_t = split_for_training(x_train_val,train_index)
-            y_t = split_for_training(y_train_val,train_index)
-            cluster_label_t = split_for_training(cluster_lables,train_index)
-            cv_inner = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_label_t,shuffle=True, random_state=seed)
+        # cv = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
+        # for train_index, val_index in cv.split(x_train_val, cluster_lables):
+        #     X_t = split_for_training(x_train_val,train_index)
+        #     y_t = split_for_training(y_train_val,train_index)
+        #     cluster_label_t = split_for_training(cluster_lables,train_index)
+            cv_inner = StratifiedKFoldWithLabels(n_splits=N_FOLDS, labels=cluster_lables,shuffle=True, random_state=seed)
 
             bayes = BayesSearchCV(
             regressor,
@@ -394,14 +394,14 @@ def optimize_ood_hp(
             return_train_score=True,
             )
 
-            bayes.fit(X_t, y_t)
+            bayes.fit(x_train_val, y_train_val)
             # print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
             estimators.append(bayes)
     else: 
-        cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
-        for train_index, val_index in cv.split(x_train_val, y_train_val):
-            X_t = split_for_training(x_train_val,train_index)
-            y_t = split_for_training(y_train_val,train_index)
+        # cv = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
+        # for train_index, val_index in cv.split(x_train_val, y_train_val):
+        #     X_t = split_for_training(x_train_val,train_index)
+        #     y_t = split_for_training(y_train_val,train_index)
             cv_inner = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
             bayes = BayesSearchCV(
                 regressor,
@@ -415,7 +415,7 @@ def optimize_ood_hp(
                 return_train_score=True,
                 )
             
-            bayes.fit(X_t, y_t)
+            bayes.fit(x_train_val, y_train_val)
             # print(f"\n\nBest parameters: {bayes.best_params_}\n\n")
             estimators.append(bayes)
 
