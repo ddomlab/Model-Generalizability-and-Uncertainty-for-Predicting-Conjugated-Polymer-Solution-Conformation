@@ -701,8 +701,8 @@ def create_scaler_result(target_dir:Path,
         n_cbar_tick = 5  
     elif score == "rmse":
         vmax= .6
-        vmin= 0.3 
-        n_cbar_tick = 4 
+        vmin= 0.2
+        n_cbar_tick = 5
 
     _create_heatmap(root_dir=HERE,
                     score=score,
@@ -725,13 +725,13 @@ def create_scaler_result(target_dir:Path,
 
 
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
             # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                                     score=i,data_type='structural_scaler', transformer_type=transformer)
-            # create_scaler_result(target_dir=RESULTS/target_folder,
-            #                     score=i,data_type='scaler',transformer_type=transformer)
+            create_scaler_result(target_dir=RESULTS/target_folder,
+                                score=i,data_type='scaler',transformer_type=transformer)
             
 
 
@@ -841,6 +841,18 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                                                         )
     score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
     fname= f"model vs features in {score_metrics} for separate comparison (three criteria)"
+    if score_metrics == "r2":
+        vmax= .9
+        vmin= .6
+        n_cbar_tick = 9  
+    elif score_metrics == "mae":
+        vmax= .5
+        vmin= 0.1
+        n_cbar_tick = 5  
+    elif score_metrics == "rmse":
+        vmax= .6
+        vmin= 0.2 
+        n_cbar_tick = 4 
     plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
                         score=score_metrics,
                         score_to_show=scores_to_show,
@@ -849,8 +861,8 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                         x_title="Feature Space",
                         y_title="Models",
                         fname=fname,
-                        vmin=.2,
-                        vmax=.6,
+                        vmin=vmin,
+                        vmax=vmax,
                         feature_order=features_to_draw,
                         model_order=list(models_to_draw),
                         num_ticks=5,
@@ -876,7 +888,7 @@ aging_features: List = [
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='r2',
+                                    score_metrics='rmse',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','XGBR', 'NGB'},
