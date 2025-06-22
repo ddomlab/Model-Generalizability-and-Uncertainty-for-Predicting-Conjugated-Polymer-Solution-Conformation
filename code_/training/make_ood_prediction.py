@@ -125,7 +125,7 @@ if __name__ == "__main__":
             transform_type='Standard',
             second_transformer=None,
             numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
-            hyperparameter_optimization=True,
+            hyperparameter_optimization=False,
             # oligomer_representation="Trimer",
             clustering_method='substructure cluster'
         )
