@@ -522,7 +522,7 @@ class _XGB_Uncertainty:
     def __init__(self, fitted_model):
         self.fitted_model = fitted_model
     def fit(self, X_train_u, y_train_u)->None:
-        model_num = 2000
+        model_num = self.fitted_model.get_params().get('n_estimators', 500)
         self.x_scaler= StandardScaler()
         self.y_scaler= StandardScaler()
         self.X_train_u = self.x_scaler.fit_transform(X_train_u)
@@ -532,7 +532,7 @@ class _XGB_Uncertainty:
     def pred_dist(self, X_test_u) -> np.ndarray:
         self.X_test_u = self.x_scaler.transform(X_test_u)
         all_preds = Parallel(n_jobs=-1)(
-                delayed(tree.predict)(self.X_test_u ) for tree in self.boosted_reg.n_estimators
+                delayed(tree.predict)(self.X_test_u ) for tree in self.boosted_reg.estimators_
                 )
         return np.std(all_preds, axis=0)
     

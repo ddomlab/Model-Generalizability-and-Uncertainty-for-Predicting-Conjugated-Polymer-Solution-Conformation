@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250617
 mkdir -p "$output_dir"
 
-regressors=("RF" "XGBR") 
+regressors=(]"XGBR") 
 targets=('log Rg (nm)')
 group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster') 
 # 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
