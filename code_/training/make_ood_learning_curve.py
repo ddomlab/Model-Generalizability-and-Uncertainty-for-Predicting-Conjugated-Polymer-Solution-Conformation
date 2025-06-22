@@ -24,7 +24,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM5 polymer_solvent HSP and polysize cluster'	
 # 'KM4 polymer_solvent HSP cluster'
 # 'KM4 Mordred_Polysize cluster'
-TEST = True
+TEST = False
 
 
 def main_structural_numerical(
