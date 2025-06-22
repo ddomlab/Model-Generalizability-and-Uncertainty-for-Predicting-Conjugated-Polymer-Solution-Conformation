@@ -227,7 +227,7 @@ def run_loco_cv(X, y,
                         ("regressor", y_transform_regressor),
                             ])
             regressor.set_output(transform="pandas")
-
+            regressor_IID = regressor 
             ID_n_split = round(len(y)/len(y_test))
             IID_cv_baseline = KFold(n_splits=ID_n_split, shuffle=True, random_state=seed)
             uncertainty_preprocessr: Pipeline = Pipeline(steps=[
@@ -262,7 +262,7 @@ def run_loco_cv(X, y,
                     n_iter=BO_ITER,
                     regressor_type=regressor_type,
                     search_space=search_space,
-                    regressor=regressor,
+                    regressor=regressor_IID,
                     scoring=skop_scoring,
                     classification=False
                 )
