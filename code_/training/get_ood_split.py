@@ -24,6 +24,13 @@ from scoring import (
                     train_and_predict_ood,
                     process_ood_scores
                 )
+
+import warnings
+from sklearn.exceptions import DataConversionWarning
+warnings.filterwarnings(action='ignore', category=DataConversionWarning)
+
+
+
 def set_globals(Test: bool=False) -> None:
     global SEEDS, N_FOLDS, BO_ITER
     if not Test:
@@ -34,6 +41,11 @@ def set_globals(Test: bool=False) -> None:
         SEEDS = [42,13]
         N_FOLDS = 2
         BO_ITER = 1
+
+
+
+
+
 
 
 class StratifiedKFoldWithLabels(StratifiedKFold):
