@@ -10,6 +10,7 @@ import pandas as pd
 import seaborn as sns
 from math import ceil
 from visualization_setting import set_plot_style, save_img_path
+from visualize_uncertainty_calibration import compute_residual_error_cal
 
 set_plot_style()
 
@@ -233,7 +234,6 @@ def get_residual_vs_std_full_data(predicted:Dict,
     df_results = pd.DataFrame(results, columns=["Cluster", "Residual", "Predicted y", "True y"])
     return df_results
 
-from scipy.stats import pearsonr
 
 # def plot_residual_vs_std_full_data(
 #                                 predicted:Dict,
@@ -576,9 +576,6 @@ def plot_residual_distribution_learning_curve(predictions: pd.DataFrame, folder_
     plt.close()
 
 
-from visualize_uncertainty_calibration import get_calibration_confidence_interval, AbsoluteMiscalibrationArea
-ama = AbsoluteMiscalibrationArea()
-
 def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
     results = []
     for cluster, ratios in pred_file.items():
@@ -591,24 +588,20 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
                 train_ratio = float(ratio.replace("ratio_", ""))
                 train_set_size = round((train_ratio * cluster_size))
                 # train_sizes.append(train_set_size)
-                y_predictions= []
+                # y_predictions= []
                 uncertainties = []
-                y_true_all = []
+                # y_true_all = []
                 for seed, predictions in seeds.items():
                     y_pred = np.array(predictions.get("y_test_pred", []))
                     y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
                     y_true = np.array(ratios.get("y_true", []))
-                    residual = abs(np.subtract(y_pred, y_true))
+                    # residual = abs(np.subtract(y_pred, y_true))
                     # y_predictions.extend(y_pred)
                     # uncertainties.extend(y_uncertainty)
                     # y_true_all.extend(y_true)
 
-                    if method=="AMA":
-                        uncertainty, _ = get_calibration_confidence_interval(np.array(y_true), np.array(y_pred), np.array(y_uncertainty),
-                                                                    ama,n_samples=1)
-                    else:
-                        uncertainty = pearsonr(np.array(y_uncertainty), np.array(residual))[0]  
 
+                    uncertainty = compute_residual_error_cal(y_true, y_pred, y_uncertainty)
                     uncertainties.append(uncertainty)
 
                     
@@ -736,7 +729,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
             linestyle="--",
             linewidth=2.5,
             markersize=6,
-            label=uncertenty_method
+            label='Spearman R'
         )
 
         ax2.fill_between(
@@ -803,7 +796,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
     if folder:
         save_img_path(folder, f"learning curve ({file_name}).png")
-    # plt.show()
+    plt.show()
     plt.close()
 
 
@@ -818,16 +811,16 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
 def get_comparison_of_features(model: str, suffix: str):
     return {
-        f'(concentration-temperature-solvent dP-solvent dD-solvent dH)_{model}{suffix}': 'solvent_properties + solvent_HSPs',
-        f'(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'solvent_properties + solvent_HSPs + environmental.thermal history',
-        f'(light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'environmental.thermal history',
-        f'(Xn)_{model}{suffix}': 'Xn',
-        f'(Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize',
-        f'(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_{model}{suffix}': 'Xn + polysize + polymer HSPs',
+        # f'(concentration-temperature-solvent dP-solvent dD-solvent dH)_{model}{suffix}': 'solvent_properties + solvent_HSPs',
+        # f'(concentration-temperature-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'solvent_properties + solvent_HSPs + environmental.thermal history',
+        # f'(light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'environmental.thermal history',
+        # f'(Xn)_{model}{suffix}': 'Xn',
+        # f'(Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize',
+        # f'(Xn-Mw-PDI-polymer dP-polymer dD-polymer dH)_{model}{suffix}': 'Xn + polysize + polymer HSPs',
         f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}{suffix}': 'combination of all',
-        f'(Mordred-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + Mordred',
-        f'(MACCS-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + MACCS',
-        f'(ECFP3.count.512-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + ECFP6.count.512',
+        # f'(Mordred-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + Mordred',
+        # f'(MACCS-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + MACCS',
+        # f'(ECFP3.count.512-Xn-Mw-PDI)_{model}{suffix}': 'Xn + polysize + ECFP6.count.512',
     }
 
 # Example usage:
@@ -844,7 +837,7 @@ if __name__ == "__main__":
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     'substructure cluster',
                     'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
+                    'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster'
                     ]
 
@@ -919,26 +912,26 @@ if __name__ == "__main__":
             with open(predictions_file_lc, "r") as s:
                 predictions_lc = json.load(s)
 
-            # saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
-            # plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-            #                                         folder=saving_folder_lc_score_of_features,
-            #                                         file_name=f'{file_discription}',uncertenty_method="Pearson R",
-            #                                         title=file_discription)
-            # print("Save learning curve scores and uncertainty")
+            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                    folder=saving_folder_lc_score_of_features,
+                                                    file_name=f'{file_discription}',uncertenty_method="Pearson R",
+                                                    title=file_discription)
+            print("Save learning curve scores and uncertainty")
 
             # Plot OOD vs IID barplot at the same training size for comparison of features
             
-            _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
-            ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-            ood_iid_eq_tarining_size_df['Model'] = file_discription
-            all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-        all_score_eq_training_size: pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-        saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
-        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
-                         saving_folder, file_name=f'rmse_{model}_comparison of feature',
-                             text_size=16, figsize=(15, 8), ncol=3)
+        #     _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
+        #     ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+        #     ood_iid_eq_tarining_size_df['Model'] = file_discription
+        #     all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        # all_score_eq_training_size: pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        # saving_folder = results_path / cluster / f'OOD-IID bar plot at equal training set (comparison of features)'
+        # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', 
+        #                  saving_folder, file_name=f'rmse_{model}_comparison of feature',
+        #                      text_size=16, figsize=(15, 8), ncol=3)
 
-        print("save OOD vs IID bar plot at equal training size for comparison of features")
+        # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
                 # plot OOD vs IID barplot at the same training size 
 
