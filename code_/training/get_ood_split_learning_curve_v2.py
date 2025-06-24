@@ -200,6 +200,7 @@ def fit_and_eval(
         None if y_unc is None else y_unc.flatten()
     )
 
+
 def run_ood_learning_curve(
     X,
     y,
@@ -212,40 +213,43 @@ def run_ood_learning_curve(
 ) -> Tuple[dict, dict]:
 
     loco_split_idx = get_loco_splits(cluster_labels)
-    learning_curve_scores, learning_curve_predictions = {}, {}
-
     train_sizes = [len(tv_idxs) for tv_idxs, _ in loco_split_idx.values()]
     min_train_size = min(train_sizes)
-    for cluster, (tv_idx, test_idx) in loco_split_idx.items():
+
+    def process_cluster(cluster, tv_idx, test_idx):
+        print(f"Processing cluster: {cluster}")
         if cluster == 'Polar':
             cluster_tv_labels_OOD = split_for_training(cluster_labels['Side Chain Cluster'], tv_idx)
         elif cluster in ['Fluorene', 'PPV', 'Thiophene']:
             cluster_tv_labels_OOD = split_for_training(cluster_labels['substructure cluster'], tv_idx)
         else:
-            # cluster_tv_labels_OOD = split_for_training(cluster_labels, tv_idx)
             raw_labels = split_for_training(cluster_labels, tv_idx)
             cluster_tv_labels_OOD = merge_small_clusters(raw_labels, min_count=2)
-            # name, counts = np.unique(cluster_tv_labels_OOD, return_counts=True)
-        print(cluster)
-            
 
         X_tv_OOD = split_for_training(X, tv_idx)
         y_tv_OOD = split_for_training(y, tv_idx)
         X_test_OOD = split_for_training(X, test_idx)
         y_test_OOD = split_for_training(y, test_idx)
 
-        learning_curve_predictions.setdefault(f'CO_{cluster}', {})['y_true'] = y_test_OOD.flatten()
-        train_ratios = [
-            .1, 0.3, 0.5, 0.7,
-                         .9,1]
-        min_ratio = min_train_size / len(X_tv_OOD)
-        if min_ratio not in train_ratios:
-            train_ratios.append(min_ratio)
+        co_key = f'CO_{cluster}'
+        iid_key = f'IID_{cluster}'
+        cluster_scores = {co_key: {}, iid_key: {}}
+        cluster_preds = {co_key: {}, iid_key: {}}
 
-        for train_ratio in train_ratios:
+        cluster_preds[co_key]['y_true'] = y_test_OOD.flatten()
+
+        base_ratios = [.1, 0.3, 0.5, 0.7, .9, 1]
+        min_ratio = min_train_size / len(X_tv_OOD)
+        train_ratios = sorted(set(base_ratios + [min_ratio]))
+
+        def run_ood_and_iid(train_ratio):
             seeds = random_state_generator(train_ratio)
-            print("-------- OOD Parallel --------")
-            ood_results = Parallel(n_jobs=n_jobs)(
+            y_test_len = len(y_test_OOD)
+            test_ratio = y_test_len / len(y)
+            test_seeds = random_state_generator(test_ratio)
+
+            # Run OOD in parallel
+            ood_results = Parallel(n_jobs=n_jobs, backend='loky')(
                 delayed(run_single_ood)(
                     seed, train_ratio, X_tv_OOD, y_tv_OOD,
                     X_test_OOD, y_test_OOD, cluster_tv_labels_OOD,
@@ -253,18 +257,8 @@ def run_ood_learning_curve(
                 ) for seed in seeds
             )
 
-            for seed, (train_scores, test_scores, y_pred, y_unc) in ood_results:
-                learning_curve_scores.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_scores)
-                learning_curve_predictions.setdefault(f'CO_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
-                    'y_test_pred': y_pred,
-                    'y_test_uncertainty': y_unc,
-                }
-            
-            print("-------- IID Parallel --------")
-            y_test_len = len(y_test_OOD)
-            test_ratio = y_test_len / len(y)
-            test_seeds = random_state_generator(test_ratio)
-            iid_results = Parallel(n_jobs=n_jobs)(
+            # Run IID in parallel
+            iid_results = Parallel(n_jobs=n_jobs, backend='loky')(
                 delayed(run_single_iid)(
                     seed, test_seed, train_ratio, X, y,
                     y_test_len, model_name, transform_type,
@@ -272,18 +266,48 @@ def run_ood_learning_curve(
                 ) for seed in seeds for test_seed in test_seeds
             )
 
-            for seed, test_seed, (train_scores, test_scores, y_pred, y_unc) in iid_results:
-                scores = learning_curve_scores.setdefault(f'IID_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {}).setdefault(f'seed_{seed}', {})
-                preds = learning_curve_predictions.setdefault(f'IID_{cluster}', {}).setdefault(f'ratio_{train_ratio}', {}).setdefault(f'seed_{seed}', {})
-                scores[f'test_set_seed_{test_seed}'] = (train_scores, test_scores)
-                preds[f'test_set_seed_{test_seed}'] = {
+            return train_ratio, ood_results, iid_results
+
+        # Run OOD and IID simultaneously for all train_ratios
+        all_results = Parallel(n_jobs=n_jobs, backend='loky')(
+            delayed(run_ood_and_iid)(train_ratio) for train_ratio in train_ratios
+        )
+
+        # Unpack results
+        for train_ratio, ood_results, iid_results in all_results:
+            for seed, (train_scores, test_scores, y_pred, y_unc) in ood_results:
+                cluster_scores[co_key].setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = (train_scores, test_scores)
+                cluster_preds[co_key].setdefault(f'ratio_{train_ratio}', {})[f'seed_{seed}'] = {
                     'y_test_pred': y_pred,
                     'y_test_uncertainty': y_unc,
                 }
 
-        for prefix in ['CO', 'IID']:
-            learning_curve_scores[f'{prefix}_{cluster}']['training size'] = len(X_tv_OOD)
-            learning_curve_predictions[f'{prefix}_{cluster}']['training size'] = len(X_tv_OOD)
+            for seed, test_seed, (train_scores, test_scores, y_pred, y_unc) in iid_results:
+                s_key = f'seed_{seed}'
+                t_key = f'test_set_seed_{test_seed}'
+                cluster_scores[iid_key].setdefault(f'ratio_{train_ratio}', {}).setdefault(s_key, {})[t_key] = (train_scores, test_scores)
+                cluster_preds[iid_key].setdefault(f'ratio_{train_ratio}', {}).setdefault(s_key, {})[t_key] = {
+                    'y_test_pred': y_pred,
+                    'y_test_uncertainty': y_unc,
+                }
+
+        for prefix in [co_key, iid_key]:
+            cluster_scores[prefix]['training size'] = len(X_tv_OOD)
+            cluster_preds[prefix]['training size'] = len(X_tv_OOD)
+
+        return cluster, cluster_scores, cluster_preds
+
+    # Top-level parallel over clusters
+    results = Parallel(n_jobs=n_jobs, backend='loky')(
+        delayed(process_cluster)(cluster, tv_idx, test_idx)
+        for cluster, (tv_idx, test_idx) in loco_split_idx.items()
+    )
+
+    # Aggregate results
+    learning_curve_scores, learning_curve_predictions = {}, {}
+    for _, scores, preds in results:
+        learning_curve_scores.update(scores)
+        learning_curve_predictions.update(preds)
 
     return learning_curve_scores, learning_curve_predictions
 

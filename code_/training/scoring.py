@@ -527,7 +527,7 @@ class _XGB_Uncertainty:
         self.y_scaler= StandardScaler()
         self.X_train_u = self.x_scaler.fit_transform(X_train_u)
         self.y_train_u = self.y_scaler.fit_transform(y_train_u)
-        self.boosted_reg = BaggingRegressor(estimator=self.fitted_model, n_estimators=model_num).fit(self.X_train_u,
+        self.boosted_reg = BaggingRegressor(estimator=self.fitted_model, n_estimators=model_num,n_jobs=-1).fit(self.X_train_u,
                                                                                                     self.y_train_u)
     def pred_dist(self, X_test_u) -> np.ndarray:
         self.X_test_u = self.x_scaler.transform(X_test_u)
