@@ -10,7 +10,7 @@ import pandas as pd
 import seaborn as sns
 from math import ceil
 from visualization_setting import set_plot_style, save_img_path
-from visualize_uncertainty_calibration import compute_residual_error_cal, compute_ama
+from visualize_uncertainty_calibration import compute_residual_error_cal, compute_ama,gaussian_nll, compute_cv
 
 set_plot_style()
 
@@ -601,6 +601,10 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
                         uncertainty = compute_residual_error_cal(y_true, y_pred, y_uncertainty)
                     elif method == "AMA":
                         uncertainty = compute_ama(y_true, y_pred, y_uncertainty)
+                    elif method == "NLL":
+                        uncertainty = gaussian_nll(y_true, y_pred, y_uncertainty)
+                    elif method =='cv':
+                        uncertainty = compute_cv(y_uncertainty)
                     else:
                         raise ValueError(f"Unknown uncertainty method: {method}")
                     uncertainties.append(uncertainty)
@@ -890,35 +894,37 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
-        # model = 'RF'
-        # comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
+        model = 'RF'
+        comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
-        # all_score_eq_training_size = []
-        # for file, file_discription in comparison_of_features_lc.items():
+        all_score_eq_training_size = []
+        uncertenty_method = 'NLL'
+        for file, file_discription in comparison_of_features_lc.items():
 
-        #     if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
-        #         scores_folder_path = results_path / cluster / 'Trimer_scaler'
-        #     else:
-        #         scores_folder_path = results_path / cluster / 'scaler'
+            if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
+                scores_folder_path = results_path / cluster / 'Trimer_scaler'
+            else:
+                scores_folder_path = results_path / cluster / 'scaler'
             
-        #     score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
-        #     predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
+            score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
+            predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
 
-        #     if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
-        #         print(f"File not found: {file}")
-        #         continue  
+            if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+                print(f"File not found: {file}")
+                continue  
 
-        #     with open(score_file_lc, "r") as f:
-        #         scores_lc = json.load(f)
-        #     with open(predictions_file_lc, "r") as s:
-        #         predictions_lc = json.load(s)
+            with open(score_file_lc, "r") as f:
+                scores_lc = json.load(f)
+            with open(predictions_file_lc, "r") as s:
+                predictions_lc = json.load(s)
 
-        #     saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
-        #     plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-        #                                             folder=saving_folder_lc_score_of_features,
-        #                                             file_name=f'{file_discription}_AMA',uncertenty_method='AMA',
-        #                                             title=file_discription)
-        #     print("Save learning curve scores and uncertainty")
+            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+                                                    folder=saving_folder_lc_score_of_features,
+                                                    file_name=f'{file_discription}_{uncertenty_method}_{model}', uncertenty_method=uncertenty_method,
+                                                    title=file_discription
+                                                    )
+            print("Save learning curve scores and uncertainty")
 
             # Plot OOD vs IID barplot at the same training size for comparison of features
             

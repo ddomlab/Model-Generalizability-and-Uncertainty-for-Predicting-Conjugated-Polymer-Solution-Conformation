@@ -104,6 +104,26 @@ def gaussian_nll(
 
 
 
+def compute_cv(stdevs):
+    """
+    Calculates the coefficient of variation (Cv) of predicted uncertainties.
+
+    Parameters:
+    -----------
+    stdevs : np.ndarray
+        Array of predicted standard deviations (uncertainty values), shape (n_samples,)
+
+    Returns:
+    --------
+    cv : float
+        Coefficient of variation of the uncertainty estimates
+    """
+    stdevs = np.asarray(stdevs)
+    eps = 1e-8  # prevent division by zero
+    mean_std = np.mean(stdevs)
+    std_std = np.std(stdevs, ddof=1)  # unbiased estimator
+    cv = std_std / (mean_std + eps)
+    return cv
 
 
 def uncertainty_metrics(y_true: np.ndarray, 
@@ -116,7 +136,7 @@ def uncertainty_metrics(y_true: np.ndarray,
     spearman_cor= compute_residual_error_cal(y_true, y_pred, y_err)
     calibration_area = compute_ama(y_true, y_pred, y_err, step=step)
     sharpness = np.sqrt(np.mean(y_err**2))
-    cv = np.sqrt(((y_err - y_err.mean())**2).sum() / (len(y_err)-1)) / y_err.mean()
+    cv = compute_cv(y_err)
     nll_score = gaussian_nll(y_true, y_pred, y_err, reduce='mean')
     
     return {
