@@ -10,7 +10,7 @@ import pandas as pd
 import seaborn as sns
 from math import ceil
 from visualization_setting import set_plot_style, save_img_path
-from visualize_uncertainty_calibration import compute_residual_error_cal
+from visualize_uncertainty_calibration import compute_residual_error_cal, compute_ama
 
 set_plot_style()
 
@@ -600,8 +600,12 @@ def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
                     # uncertainties.extend(y_uncertainty)
                     # y_true_all.extend(y_true)
 
-
-                    uncertainty = compute_residual_error_cal(y_true, y_pred, y_uncertainty)
+                    if method == "Spearman R":
+                        uncertainty = compute_residual_error_cal(y_true, y_pred, y_uncertainty)
+                    elif method == "AMA":
+                        uncertainty = compute_ama(y_true, y_pred, y_uncertainty)
+                    else:
+                        raise ValueError(f"Unknown uncertainty method: {method}")
                     uncertainties.append(uncertainty)
 
                     
@@ -662,7 +666,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     max_score = np.ceil(score_df["Score"].max() * 10) / 10  
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
 
-    if uncertenty_method == "Pearson R":
+    if uncertenty_method == "Spearman R":
         u_yticks = np.arange(-1, 1.5, 0.5)
     else:
         max_uncertainty = np.ceil(unceretainty_df[f'{uncertenty_method} mean'].max() * 10) / 10
@@ -729,7 +733,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
             linestyle="--",
             linewidth=2.5,
             markersize=6,
-            label='Spearman R'
+            label=uncertenty_method
         )
 
         ax2.fill_between(
@@ -915,7 +919,7 @@ if __name__ == "__main__":
             saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
             plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
                                                     folder=saving_folder_lc_score_of_features,
-                                                    file_name=f'{file_discription}',uncertenty_method="Pearson R",
+                                                    file_name=f'{file_discription}_AMA',uncertenty_method='AMA',
                                                     title=file_discription)
             print("Save learning curve scores and uncertainty")
 

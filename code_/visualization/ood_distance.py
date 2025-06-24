@@ -7,7 +7,8 @@ from pathlib import Path
 import os
 from visualization_setting import set_plot_style, save_img_path
 from typing import Callable, Optional, Union, Dict, Tuple
-from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
+# from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
+from scipy.stats import wasserstein_distance_nd
 from sklearn.preprocessing import StandardScaler
 import json
 from matplotlib.lines import Line2D
@@ -42,12 +43,9 @@ target = 'OOD_target_log Rg (nm)'
 results_path = HERE.parent.parent / 'results'/ target
 
 
-def get_cluster_scores(fp_vector:np.ndarray, predicted_clusters, metric: Union[str, Callable]):
-    si_score = silhouette_score(fp_vector, predicted_clusters, metric=metric)
-    db_score = davies_bouldin_score(fp_vector, predicted_clusters)
-    ch_score = calinski_harabasz_score(fp_vector, predicted_clusters)
-    return si_score, db_score, ch_score
-
+def get_wasserstein_distance(test:np.ndarray, train=np.ndarray):
+    
+    return wasserstein_distance_nd(test,train)
 
 
 covarience_features = ['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 
@@ -96,12 +94,7 @@ def make_accumulating_scores(scores, ml_score_metric: str,
                              co_vector, cluster_types: str,
                             algorithm: str, is_equal_size:bool=False,
                             is_ood_iid_distance:bool=True) -> list:
-    if 'ECFP' in co_vector:
-        metric = weighted_jaccard 
-    elif 'MACCS' in co_vector:
-        metric = 'jaccard'
-    else:
-        metric = 'euclidean'
+
 
     data = []
     all_clusters = rg_data[cluster_types].unique().tolist()
@@ -110,13 +103,15 @@ def make_accumulating_scores(scores, ml_score_metric: str,
         all_clusters.append('Polar')
 
     for cluster_id in all_clusters:
-        labels = (
-            np.where(rg_data['Side Chain Cluster'] == 'Polar', "test", "train")
-            if cluster_id == 'Polar'
-            else np.where(rg_data[cluster_types] == cluster_id, "test", "train")
-        )
+        test_mask = naming[co_vector] == cluster_id
+        train_mask = ~test_mask
+        # labels = (
+        #     np.where(rg_data['Side Chain Cluster'] == 'Polar', "test", "train")
+        #     if cluster_id == 'Polar'
+        #     else np.where(rg_data[cluster_types] == cluster_id, "test", "train")
+        # )
 
-        si_score, db_score, ch_score = get_cluster_scores(naming[co_vector], labels, metric=metric)
+        wasserstein_distance = get_wasserstein_distance(naming[co_vector][test_mask], naming[co_vector][train_mask])
 
         if is_equal_size==True:
             _, scores_at_equal_training_size = process_learning_curve_scores(scores,ml_score_metric)
@@ -137,9 +132,7 @@ def make_accumulating_scores(scores, ml_score_metric: str,
         data.append({
             "Cluster": cluster_id,
             "Model": algorithm,
-            "Silhouette": si_score,
-            "Davies-Bouldin": db_score,
-            "Calinski-Harabasz": ch_score,
+            "wasserstein distance": wasserstein_distance,
             f"{ml_score_metric}_mean": mean,
             f"{ml_score_metric}_std": std
         })
