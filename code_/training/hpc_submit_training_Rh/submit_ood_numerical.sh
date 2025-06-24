@@ -1,10 +1,10 @@
 #!/bin/bash
-output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250617
+output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624
 mkdir -p "$output_dir"
 
-regressors=("NGB")
+regressors=("RF" "XGBR")
 targets=("log Rg (nm)")
-group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster')
+group_out=('KM3 Mordred cluster' 'KM4 ECFP6_Count_512bit cluster' 'Polymers cluster')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
@@ -20,9 +20,9 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 48:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250617"  
-#BSUB -o "${output_dir}/${regressor}_${target}_${group}_20250617.out"
-#BSUB -e "${output_dir}/${regressor}_${target}_${group}_20250617.err"
+#BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250624"  
+#BSUB -o "${output_dir}/${regressor}_${target}_${group}_20250624.out"
+#BSUB -e "${output_dir}/${regressor}_${target}_${group}_20250624.err"
 
 source ~/.bashrc
 conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env

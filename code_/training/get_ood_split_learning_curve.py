@@ -134,10 +134,17 @@ def run_single_ood(
     if train_ratio == 1:
         X_train_OOD, y_train_OOD = X_train_val, y_train_val
     else:
-        X_train_OOD, _, y_train_OOD, _ = train_test_split(
-            X_train_val, y_train_val, train_size=train_ratio,
-            random_state=seed, stratify=cluster_train_val_labels_OOD, shuffle=True,
-        )
+        try:
+            X_train_OOD, _, y_train_OOD, _ = train_test_split(
+                X_train_val, y_train_val, train_size=train_ratio,
+                random_state=seed, stratify=cluster_train_val_labels_OOD, shuffle=True,
+            )
+        
+        except ValueError:
+             X_train_OOD, _, y_train_OOD, _ = train_test_split(
+                X_train_val, y_train_val, train_size=train_ratio,
+                random_state=seed, shuffle=True,
+            )
     return seed, fit_and_eval(
         X_train_OOD, y_train_OOD, X_test, y_test,
         model_name, transform_type, second_transformer, preprocessor

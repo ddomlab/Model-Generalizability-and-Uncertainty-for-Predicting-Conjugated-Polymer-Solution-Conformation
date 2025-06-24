@@ -314,7 +314,7 @@ def _get_splits(cluster_labels: np.ndarray) -> dict[int, tuple[np.ndarray, np.nd
     
     if len(cluster_names) > 2:
         for cluster, count in zip(cluster_names, counts):
-            if count <3:
+            if count <2:
                 continue
 
             mask = cluster_labels == cluster

@@ -459,7 +459,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
 
     ax.legend(
         seen.values(), seen.keys(),
-        fontsize=text_size - 4,
+        fontsize=text_size - 3,
         frameon=True,
         loc='upper center',
         # bbox_to_anchor=(0.5, 1.12),
@@ -471,7 +471,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     ymax = np.ceil(max_score / .2) * .2
     # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
     ax.set_ylim(0, 1.4)
-
+    ax.set_yticks(np.arange(0, 1.4 + .2, .2))
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
@@ -935,25 +935,25 @@ if __name__ == "__main__":
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
                 # plot OOD vs IID barplot at the same training size 
-        accuracy_metric = "rmse"
-        all_score_eq_training_size = []
-        for model in ['XGBR', 'RF']:
+        # accuracy_metric = "rmse"
+        # all_score_eq_training_size = []
+        # for model in ['XGBR', 'RF']:
 
-                scores_folder_path = results_path / cluster / 'scaler'
-                scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}__hypOFF_Standard_lc_scores.json'
-                scores_lc = ensure_long_path(scores_lc)
-                with open(scores_lc, "r") as f:
-                    scores = json.load(f)
-                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
-                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-                ood_iid_eq_tarining_size_df['Model'] = model
+        #         scores_folder_path = results_path / cluster / 'scaler'
+        #         scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
+        #         scores_lc = ensure_long_path(scores_lc)
+        #         with open(scores_lc, "r") as f:
+        #             scores = json.load(f)
+        #         _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
+        #         ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+        #         ood_iid_eq_tarining_size_df['Model'] = model
 
-                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-        all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-        saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
-        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
-                            text_size=16,figsize=(8, 6))
-        print("save OOD vs IID bar plot at equal training size")
+        #         all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        # saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
+        # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
+        #                     text_size=22,figsize=(8, 6), ncol=2)
+        # print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'

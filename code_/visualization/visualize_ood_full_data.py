@@ -324,18 +324,18 @@ if __name__ == "__main__":
                 ncol+=1
    
 
-            saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
-            f_name = f"{co_vector}_{accuracy_metric}" 
-            f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
-                                        saving_path=saving_folder, file_name=f_name, is_ood_iid_distance=OOD_IID_distance)
-            print('Plot scores vs distance (full data)')
+            # saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
+            # f_name = f"{co_vector}_{accuracy_metric}" 
+            # f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
+            #                             saving_path=saving_folder, file_name=f_name, is_ood_iid_distance=OOD_IID_distance)
+            # print('Plot scores vs distance (full data)')
 
 
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(8, 6), text_size=16,ncol=ncol)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+                            saving_folder,f'metric-{accuracy_metric}', 
+                            figsize=(8, 6), text_size=20,ncol=ncol)
 
 
 
