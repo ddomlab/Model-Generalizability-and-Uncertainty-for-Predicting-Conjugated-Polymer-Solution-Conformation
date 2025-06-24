@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import simpson
-from typing import Callable, Optional, Tuple, OrderedDict
+from typing import Callable, Optional, Tuple, OrderedDict, Dict, Union
 from scipy.stats import pearsonr, spearmanr, norm
 from sklearn.metrics import root_mean_squared_error
 
@@ -126,23 +126,25 @@ def compute_cv(stdevs):
     return cv
 
 
-def uncertainty_metrics(y_true: np.ndarray, 
-                        y_pred: np.ndarray,
-                        y_err: np.ndarray,
-                        step: float = 0.05
-                        ):
+def compute_all_uncertainty_metrics(
+    y_true: np.ndarray, 
+    y_pred: np.ndarray, 
+    y_err: np.ndarray, 
+    step: float = 0.05, 
+    method: Optional[str] = None
+) -> Union[float, Dict[str, float]]:
     
+    def sharpness(err): return np.sqrt(np.mean(err**2))
 
-    spearman_cor= compute_residual_error_cal(y_true, y_pred, y_err)
-    calibration_area = compute_ama(y_true, y_pred, y_err, step=step)
-    sharpness = np.sqrt(np.mean(y_err**2))
-    cv = compute_cv(y_err)
-    nll_score = gaussian_nll(y_true, y_pred, y_err, reduce='mean')
+    metrics = {
+        'NLL': lambda: gaussian_nll(y_true, y_pred, y_err, reduce='mean'),
+        'Sharpness': lambda: sharpness(y_err),
+        'Cv': lambda: compute_cv(y_err),
+        'Spearman R': lambda: compute_residual_error_cal(y_true, y_pred, y_err),
+        'AMA': lambda: compute_ama(y_true, y_pred, y_err, step=step)
+    }
+
+    if method:
+        return metrics[method]()
     
-    return {
-            'NLL': nll_score,
-            'Sharpness': sharpness,
-            'CV': cv,
-            'Spearman': spearman_cor,
-            'Calibration Area': calibration_area
-            }
+    return {name: func() for name, func in metrics.items()}

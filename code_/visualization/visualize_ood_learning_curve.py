@@ -3,14 +3,17 @@ from itertools import product
 from pathlib import Path
 from typing import List, Optional, Dict, Tuple
 import os 
-# import cmcrameri.cm as cmc
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from math import ceil
 from visualization_setting import set_plot_style, save_img_path
-from visualize_uncertainty_calibration import compute_residual_error_cal, compute_ama,gaussian_nll, compute_cv
+from visualize_uncertainty_calibration import (compute_residual_error_cal, 
+                                               compute_ama,gaussian_nll, 
+                                               compute_cv,
+                                               compute_all_uncertainty_metrics)
 
 set_plot_style()
 
@@ -34,132 +37,6 @@ def ensure_long_path(path):
         if os.name == 'nt' and len(path_str) > 250:  
             return Path(f"\\\\?\\{path_str}")
         return path
-
-# def plot_splits_scores(scores: Dict, scores_criteria: List[str], folder:Path=None) -> None:
-#     """
-#     Plot the scores of the splits with error bars for standard deviation, showing CO_{cluster} and ID_{cluster} scores on the same column.
-
-#     Parameters:
-#     scores (dict): Dictionary containing scores for different clusters.
-#     scores_criteria (List[str]): List of scoring criteria to plot (e.g., ['mad', 'mae', 'rmse', 'r2', 'std']).
-#     """
-#     # Extract clusters based on the prefix
-#     clusters = [cluster for cluster in scores if cluster.startswith("CO_")]
-#     id_clusters = [cluster for cluster in scores if cluster.startswith("ID_")]
-
-#     # Initialize data storage for mean and std values for both CO_ and ID_ clusters
-#     data_mean, data_std = {score: [] for score in scores_criteria}, {score: [] for score in scores_criteria}
-#     id_data_mean, id_data_std = {score: [] for score in scores_criteria}, {score: [] for score in scores_criteria}
-
-#     # Extract mean and std values for CO_ clusters
-#     for score in scores_criteria:
-#         for cluster in clusters:
-#             mean, std = get_score(scores, cluster, score)
-#             data_mean[score].append(mean)
-#             data_std[score].append(std)
-
-#     # Extract mean and std values for ID_ clusters
-#         for id_cluster in id_clusters:
-#             mean, std = get_score(scores, id_cluster, score)
-#             id_data_mean[score].append(mean)
-#             id_data_std[score].append(std)
-
-#     # Plot each score criterion separately
-#     for score in scores_criteria:
-#         if all(np.isnan(value) or value == 0 for value in data_mean[score]):
-#             continue
-
-#         plt.figure(figsize=(8, 6))
-
-#         # Plot CO_ cluster scores (blue)
-#         sns.lineplot(x=clusters, y=data_mean[score], marker="o", linewidth=3, color='blue', label=f"OOD_{score.upper()} Scores",
-#                      markersize=10)
-#         plt.errorbar(clusters, data_mean[score], yerr=data_std[score], fmt="none", capsize=3, alpha=0.7, color='blue')
-
-#         # Plot ID_ cluster scores (orange)
-#         sns.lineplot(x=clusters, y=id_data_mean[score], marker="v", linewidth=3, color='orange', label=f"ID_{score.upper()} Scores",
-#                      markersize=10)
-#         plt.errorbar(clusters, id_data_mean[score], yerr=id_data_std[score], fmt="none", capsize=3, alpha=0.7, color='orange')
-
-#         # Customize labels, title, and legend
-#         plt.ylabel(f"{score.upper()} Score", fontsize=20)
-#         plt.xlabel("Clusters", fontsize=20)
-#         plt.xticks(rotation=0,fontsize=18)
-#         plt.yticks(fontsize=18)
-#         plt.title(f"{score.upper()} Score Across Clusters", fontsize=22)
-#         plt.legend()
-#         plt.tight_layout()
-#         if folder:
-#             save_img_path(folder, f"Comparitive clusters {score} scores.png")
-#         # Display plot
-#         # plt.show()
-#         plt.close()
-
-
-# def plot_splits_parity(predicted_values: dict,
-#                        ground_truth: dict,
-#                        score: dict,
-#                        folder: Path) -> None:
-#     """
-#     Generate parity plots for each target based on predicted values and ground truth.
-
-#     Parameters:
-#     - predicted_values (dict): Nested dictionary with structure {target: {cluster: [values]}}
-#     - ground_truth (dict): Dictionary with structure {target: [true_values]}
-#     - score (dict): Dictionary with structure {target: (r2_avg, r2_stderr)}
-#     """
-
-    # seeds = list(next(iter(predicted_values.values())).keys())
-
-    # for target in predicted_values.keys():
-    #     if target.startswith("ID_"):
-    #         true_values_ext = np.tile(ground_truth.get("ID_y_true", []), len(seeds)) 
-    #     else:
-    #         true_values_ext = np.tile(ground_truth.get(target, []), len(seeds))  
-
-    #     predicted_values_ext = pd.concat(
-    #         [pd.Series(predicted_values[target][col]) for col in seeds],
-    #         axis=0, ignore_index=True
-    #     )
-
-    #     combined_data = pd.DataFrame({"True Values (nm)": true_values_ext, "Predicted Values (nm)": predicted_values_ext})
-
-    #     range_x = combined_data["True Values (nm)"].max() - combined_data["True Values (nm)"].min()
-    #     range_y = combined_data["Predicted Values (nm)"].max() - combined_data["Predicted Values (nm)"].min()
-    #     max_range = max(range_x, range_y)
-    #     gridsize = max(15, int(max_range / 2))
-
-    #     r2_avg = score[target]["summary_stats"].get(f"test_r2_mean", 0)
-    #     r2_stderr = score[target]["summary_stats"].get(f"test_r2_std", 0)
-
-#         r2_avg = score[target]["summary_stats"].get(f"test_rmse_mean", 0)
-#         r2_stderr = score[target]["summary_stats"].get(f"test_rmse_std", 0)
-
-        # g = sns.jointplot(
-        #     data=combined_data, x="True Values (nm)", y="Predicted Values (nm)",
-        #     kind="hex",
-        #     joint_kws={"gridsize": gridsize, "cmap": "Blues"},
-        #     marginal_kws={"bins": 25}
-        # )
-
-        # ax_max = ceil(max(combined_data.max()))
-        # ax_min = ceil(min(combined_data.min()))
-
-#         g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
-
-#         g.ax_joint.annotate(f"$R^2$ = {r2_avg:.2f} ± {r2_stderr:.2f}",
-#                             xy=(0.1, 0.9), xycoords='axes fraction',
-#                             ha='left', va='center',
-#                             bbox={'boxstyle': 'round', 'fc': 'white', 'ec': 'white'})
-
-        # g.ax_joint.set_xlim(ax_min, ax_max)
-        # g.ax_joint.set_ylim(ax_min, ax_max)
-        # g.set_axis_labels("True Values", "Predicted Values")
-        # plt.suptitle(f"Parity Plot for {target}", fontweight='bold')
-        # plt.tight_layout()
-        # if folder:
-        #     save_img_path(folder, f"Parity Plot {target}.png")
-        # plt.close()
 
 
 def plot_ood_parity(prediction: Dict, ground_truth: Dict, 
@@ -206,7 +83,6 @@ def plot_ood_parity(prediction: Dict, ground_truth: Dict,
 
 
 
-
 def get_residual_vs_std_full_data(predicted:Dict,
                                   truth:Dict)->pd.DataFrame:
     
@@ -232,63 +108,7 @@ def get_residual_vs_std_full_data(predicted:Dict,
     return df_results
 
 
-# def plot_residual_vs_std_full_data(
-#                                 predicted:Dict,
-#                                 truth:Dict,
-#                                 folder_to_save: Path = None,
-#                                 file_name: str = 'NGB_Mordred'
-#                                 ) -> None:
-#     df = get_residual_vs_std_full_data(predicted, truth)
-#     n_clusters = len(df)
-#     fig, axes = plt.subplots(1, n_clusters, figsize=(12, 4), sharey=True)
 
-#     if n_clusters == 1:
-#         axes = [axes]
-
-#     for ax, (_, row) in zip(axes, df.iterrows()):
-#         cluster = row['Cluster']
-#         residual = abs(row['Residual'])
-#         pred_std = row['Prediction std']
-        
-#         x_values = residual
-#         y_values = pred_std
-#         # x_errors = pred_std
-#         pearson_r = pearsonr(y_values, x_values)[0]
-#         plt.sca(ax)  # Set the current axis so plt.gca() works
-#         ax = plt.gca()  # Get current axis
-
-#         ax.scatter(x_values, y_values, color='#1f77b430', edgecolors='none', alpha=0.2, s=80)
-#         # ax.errorbar(x_values, y_values, xerr=x_errors, fmt='o', ecolor='blue', elinewidth=2)
-
-#         max_y = max(y_values)
-#         max_x = max(x_values)
-#         x_line = np.linspace(0, max_x, 100)
-#         ax.plot(x_line, x_line, linestyle='--', color='grey', linewidth=1.5, label='y = x')
-
-#         ax.text(
-#             0.95, 0.1, 
-#             f"Pearson R = {pearson_r:.2f}",
-#             transform=ax.transAxes,
-#             fontsize=12,
-#             horizontalalignment='right',
-#             verticalalignment='bottom',
-#             bbox=dict(boxstyle="round,pad=0.3", facecolor="white", edgecolor="gray")
-#         )
-#         ax.set_xlabel("Residuals", fontsize=16, fontweight='bold')
-#         if ax == axes[0]:
-#             ax.set_ylabel("Std of Predictions", fontsize=16, fontweight='bold')
-#         ax.set_title(f"{cluster}", fontsize=18)
-#         ax.tick_params(axis='both', which='major', labelsize=14)
-#         ax.set_ylim(0,max_y+.5)
-#     plt.tight_layout()
-
-#     save_img_path(folder_to_save, f"{file_name}.png")
-#     plt.show()
-#     plt.close()
-
-
-from typing import Tuple
-import pandas as pd
 
 def process_learning_curve_scores(summary_scores,
                                    metric="rmse") -> Tuple[pd.DataFrame, pd.DataFrame]:
@@ -573,80 +393,61 @@ def plot_residual_distribution_learning_curve(predictions: pd.DataFrame, folder_
     plt.close()
 
 
-def get_uncertenty_in_learning_curve(pred_file:Dict,method:str)-> pd.DataFrame:
+def get_uncertenty_in_learning_curve(pred_file: Dict, method: Optional[str] = None) -> pd.DataFrame:
     results = []
+
     for cluster, ratios in pred_file.items():
-        if cluster.startswith("CO_"):
-            cluster_size = ratios.get("training size", 0)
-            # train_sizes= []
-            for ratio, seeds in ratios.items():
-                if ratio == "y_true" or ratio == "training size":
-                    continue
-                train_ratio = float(ratio.replace("ratio_", ""))
-                train_set_size = round((train_ratio * cluster_size))
-                # train_sizes.append(train_set_size)
-                # y_predictions= []
-                uncertainties = []
-                # y_true_all = []
-                for seed, predictions in seeds.items():
-                    y_pred = np.array(predictions.get("y_test_pred", []))
-                    y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
-                    y_true = np.array(ratios.get("y_true", []))
-                    # residual = abs(np.subtract(y_pred, y_true))
-                    # y_predictions.extend(y_pred)
-                    # uncertainties.extend(y_uncertainty)
-                    # y_true_all.extend(y_true)
+        if not cluster.startswith("CO_"):
+            continue
 
-                    if method == "Spearman R":
-                        uncertainty = compute_residual_error_cal(y_true, y_pred, y_uncertainty)
-                    elif method == "AMA":
-                        uncertainty = compute_ama(y_true, y_pred, y_uncertainty)
-                    elif method == "NLL":
-                        uncertainty = gaussian_nll(y_true, y_pred, y_uncertainty)
-                    elif method =='cv':
-                        uncertainty = compute_cv(y_uncertainty)
-                    else:
-                        raise ValueError(f"Unknown uncertainty method: {method}")
-                    uncertainties.append(uncertainty)
+        cluster_size = ratios.get("training size", 0)
+        y_true = np.array(ratios.get("y_true", []))
 
-                    
+        for ratio_key, seeds in ratios.items():
+            if ratio_key in {"y_true", "training size"}:
+                continue
+
+            train_ratio = float(ratio_key.replace("ratio_", ""))
+            train_set_size = round(train_ratio * cluster_size)
+
+            all_metrics = []
+
+            for seed, predictions in seeds.items():
+                y_pred = np.array(predictions.get("y_test_pred", []))
+                y_uncertainty = np.array(predictions.get("y_test_uncertainty", []))
+
+                metrics = compute_all_uncertainty_metrics(y_true, y_pred, y_uncertainty, method=method)
+                all_metrics.append(metrics)
+
+            # Aggregate
+            if method:
+                metric_values = np.array(all_metrics)
                 results.append({
                     "Cluster": cluster,
                     "Train Set Size": train_set_size,
-                    f"{method} mean": np.mean(uncertainties),
-                    f"{method} std": np.std(uncertainties),
+                    f"{method} mean": np.mean(metric_values),
+                    f"{method} std": np.std(metric_values),
                 })
+            else:
+                # Compute mean/std for each metric in the returned dictionary
+                aggregated = {"Cluster": cluster, "Train Set Size": train_set_size}
+                keys = all_metrics[0].keys()
+                for k in keys:
+                    vals = [m[k] for m in all_metrics]
+                    aggregated[f"{k} mean"] = np.mean(vals)
+                    aggregated[f"{k} std"] = np.std(vals)
+                results.append(aggregated)
 
     return pd.DataFrame(results)
 
-
-# def plot_ama_vs_train_size(prediction:Dict ,folder:Path=None,file_name:str='NGB_Mordred') -> None:
-#     df = get_uncertenty_in_learning_curve(prediction)
-#     # print(df)
-#     num_clusters = df["Cluster"].nunique()
-#     g = sns.FacetGrid(df, col="Cluster", col_wrap=num_clusters, height=4, sharey=True)
-
-#     g.map_dataframe(sns.scatterplot, x="Train Set Size", y="Uncertainty_ama", s=100)  
-#     g.map_dataframe(sns.lineplot, x="Train Set Size", y="Uncertainty_ama", linewidth=2.5)
-
-#     g.set_axis_labels("Train Set Size", "Absolute Miscalibration Area")
-
-#     g.set_titles(col_template="{col_name}", fontsize=22)
-#     for ax, title in zip(g.axes.flat, g.col_names):
-#         ax.set_title(title, fontsize=20)
-#     for ax in g.axes.flatten():
-#         ax.tick_params(axis='both', which='major', labelsize=16)
-#         ax.set_xlabel(ax.get_xlabel(), fontsize=18)
-#         ax.set_ylabel(ax.get_ylabel(), fontsize=18)
-
-#     plt.tight_layout()
-#     save_img_path(folder, f"Uncertainty vs Train Size ({file_name}).png")
-#     # plt.show()
-#     plt.close()
-
-
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
+def plot_ood_learning_uncertainty(
+                                prediction: Dict,
+                                folder: Path = None,
+                                file_name: str = 'NGB_Mordred',
+                                title:Optional[str]=None
+                                ) -> None:
+    
+    unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
 
 
 def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
@@ -661,8 +462,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
 
     if score_df.empty:
-        print(f"No data found for metric '{metric}'.")
-        return
+        raise ValueError(f"No data found for metric '{metric}' in the learning curve scores.")
 
     max_score = np.ceil(score_df["Score"].max() * 10) / 10  
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
@@ -898,7 +698,7 @@ if __name__ == "__main__":
         comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
         all_score_eq_training_size = []
-        uncertenty_method = 'NLL'
+        uncertenty_method = 'Spearman R'
         for file, file_discription in comparison_of_features_lc.items():
 
             if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
