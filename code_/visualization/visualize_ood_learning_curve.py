@@ -15,9 +15,6 @@ from visualize_uncertainty_calibration import compute_residual_error_cal, comput
 set_plot_style()
 
 
-
-
-
 def get_score(scores: Dict, cluster: str, score_metric: str) -> float:
     """
     Helper function to get the mean or std score for a given cluster and score type.
@@ -416,7 +413,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     clusters = data['BaseCluster'].unique()
     models = data['Model'].unique()
 
-    palette = sns.color_palette("tab10", n_colors=len(models))
+    palette = sns.color_palette("Set2", n_colors=len(models))
     model_colors = {model: palette[i] for i, model in enumerate(models)}
 
     bar_width = 0.4
@@ -457,15 +454,15 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     seen = {}
     for h, l in zip(handles, labels):
         seen[l] = h
-    sub_sufix = '(equal train size)' if 'equal' in saving_path.name else ''
-    fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster {sub_sufix}", fontsize=text_size + 2, fontweight='bold')
+    # sub_sufix = '(equal train size)' if 'equal' in saving_path.name else ''
+    # fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster {sub_sufix}", fontsize=text_size + 2, fontweight='bold')
 
     ax.legend(
         seen.values(), seen.keys(),
         fontsize=text_size - 4,
         frameon=True,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.38),
+        # bbox_to_anchor=(0.5, 1.12),
         ncol=ncol
     )
 
@@ -480,12 +477,12 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     ax.set_xticks(cluster_ticks)
     
     ax.set_xticklabels(cluster_labels, fontsize=text_size,rotation=45)
-    ax.set_ylabel(ml_score_metric.upper(), fontsize=text_size, fontweight='bold')
+    ax.set_ylabel(f'{ml_score_metric.upper()}', fontsize=text_size, fontweight='bold')
     ax.tick_params(axis='y', labelsize=text_size)
 
     # Layout adjustment
 
-    plt.tight_layout(rect=[0, 0, 1, 1.08])
+    plt.tight_layout(rect=[0, 0, 1, 1.03])
     save_img_path(saving_path, f"{file_name}.png")
     plt.show()  
     plt.close()
@@ -851,7 +848,7 @@ if __name__ == "__main__":
         # scores_folder_path = results_path / cluster / 'Trimer_scaler'
         # for fp in ['MACCS', 'Mordred']:
         #     all_score_eq_training_size = []
-        #     for model in ['RF']:
+            # for model in ['RF']:
 
                 # suffix = '_v1_(max_feat_sqrt)'
                 # suffix = ''
@@ -893,35 +890,35 @@ if __name__ == "__main__":
                 # print("Save learning curve scores and uncertainty")
 
         # Plot uncertenty + score in learning curve for comparison of features
-        model = 'RF'
-        comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
+        # model = 'RF'
+        # comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
-        all_score_eq_training_size = []
-        for file, file_discription in comparison_of_features_lc.items():
+        # all_score_eq_training_size = []
+        # for file, file_discription in comparison_of_features_lc.items():
 
-            if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
-                scores_folder_path = results_path / cluster / 'Trimer_scaler'
-            else:
-                scores_folder_path = results_path / cluster / 'scaler'
+        #     if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
+        #         scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        #     else:
+        #         scores_folder_path = results_path / cluster / 'scaler'
             
-            score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
-            predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
+        #     score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
+        #     predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
 
-            if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
-                print(f"File not found: {file}")
-                continue  
+        #     if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+        #         print(f"File not found: {file}")
+        #         continue  
 
-            with open(score_file_lc, "r") as f:
-                scores_lc = json.load(f)
-            with open(predictions_file_lc, "r") as s:
-                predictions_lc = json.load(s)
+        #     with open(score_file_lc, "r") as f:
+        #         scores_lc = json.load(f)
+        #     with open(predictions_file_lc, "r") as s:
+        #         predictions_lc = json.load(s)
 
-            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
-            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                    folder=saving_folder_lc_score_of_features,
-                                                    file_name=f'{file_discription}_AMA',uncertenty_method='AMA',
-                                                    title=file_discription)
-            print("Save learning curve scores and uncertainty")
+        #     saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+        #     plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+        #                                             folder=saving_folder_lc_score_of_features,
+        #                                             file_name=f'{file_discription}_AMA',uncertenty_method='AMA',
+        #                                             title=file_discription)
+        #     print("Save learning curve scores and uncertainty")
 
             # Plot OOD vs IID barplot at the same training size for comparison of features
             
@@ -938,17 +935,25 @@ if __name__ == "__main__":
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
                 # plot OOD vs IID barplot at the same training size 
+        accuracy_metric = "rmse"
+        all_score_eq_training_size = []
+        for model in ['XGBR', 'RF']:
 
-            #     _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores_lc, metric="rmse")
-            #     ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-            #     ood_iid_eq_tarining_size_df['Model'] = model
+                scores_folder_path = results_path / cluster / 'scaler'
+                scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}__hypOFF_Standard_lc_scores.json'
+                scores_lc = ensure_long_path(scores_lc)
+                with open(scores_lc, "r") as f:
+                    scores = json.load(f)
+                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
+                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+                ood_iid_eq_tarining_size_df['Model'] = model
 
-            #     all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-            # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot at equal training set (RF_max_feat_sqrt)'
-            # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'numerical-{fp}_metric-rmse_noraml',
-            #                  text_size=16,figsize=(8, 6))
-            # print("save OOD vs IID bar plot at equal training size")
+                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
+        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
+                            text_size=16,figsize=(8, 6))
+        print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'

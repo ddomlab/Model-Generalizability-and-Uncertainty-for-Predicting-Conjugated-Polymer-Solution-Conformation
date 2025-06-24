@@ -6,7 +6,9 @@ from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
 import sys
 import os
-
+import warnings
+from sklearn.exceptions import DataConversionWarning
+warnings.filterwarnings(action='ignore', category=DataConversionWarning)
 from argparse import ArgumentParser
 from data_handling import save_results
 from train_structure_numerical import parse_arguments

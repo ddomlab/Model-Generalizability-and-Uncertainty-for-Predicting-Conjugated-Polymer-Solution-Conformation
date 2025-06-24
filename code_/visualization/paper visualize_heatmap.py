@@ -11,7 +11,7 @@ import seaborn as sns
 import re
 # from matplotlib import rc
 from visualization_setting import set_plot_style, save_img_path
-from visualize_ood_scores import ensure_long_path
+from code_.visualization.visualize_ood_learning_curve import ensure_long_path
 
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'

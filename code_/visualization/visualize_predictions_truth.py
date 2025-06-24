@@ -9,7 +9,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from typing import List, Optional
 from matplotlib import rc
-from visualize_ood_scores import ensure_long_path
+from visualize_ood_learning_curve import ensure_long_path
 
 
 HERE: Path = Path(__file__).resolve().parent

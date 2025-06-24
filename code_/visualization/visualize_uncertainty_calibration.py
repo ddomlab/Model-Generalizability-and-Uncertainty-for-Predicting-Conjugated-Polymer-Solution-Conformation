@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.integrate import simpson
 from typing import Callable, Optional, Tuple, OrderedDict
-from scipy.stats import pearsonr, spearmanr, norm, kendalltau
+from scipy.stats import pearsonr, spearmanr, norm
 from sklearn.metrics import root_mean_squared_error
 
 
