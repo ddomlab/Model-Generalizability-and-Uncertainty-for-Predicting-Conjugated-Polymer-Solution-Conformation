@@ -4,7 +4,7 @@ mkdir -p "$output_dir"
 
 regressors=("RF" "XGBR")
 targets=("log Rg (nm)")
-group_out=('KM3 Mordred cluster' 'KM4 ECFP6_Count_512bit cluster' 'Polymers cluster')
+group_out=('canonical_name')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'

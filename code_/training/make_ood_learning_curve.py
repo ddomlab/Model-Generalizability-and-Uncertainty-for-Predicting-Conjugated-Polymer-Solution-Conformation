@@ -113,7 +113,7 @@ if __name__ == "__main__":
                               'Temperature SANS/SLS/DLS/SEC (K)',
                                 'polymer dP', 'polymer dD' , 'polymer dH', 'solvent dP', 'solvent dD', 'solvent dH'],
             # oligomer_representation="Trimer",
-            clustering_method='substructure cluster'
+            clustering_method='canonical_name'
             )
         
             # main_structural_numerical(
