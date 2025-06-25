@@ -15,7 +15,7 @@ for regressor in "${regressors[@]}"; do
 
 
 
-#BSUB -n 8
+#BSUB -n 24
 #BSUB -W 15:30
 #BSUB -R span[hosts=1]
 #BSUB -x
