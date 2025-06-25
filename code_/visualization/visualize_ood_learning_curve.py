@@ -440,14 +440,150 @@ def get_uncertenty_in_learning_curve(pred_file: Dict, method: Optional[str] = No
 
     return pd.DataFrame(results)
 
+
 def plot_ood_learning_uncertainty(
-                                prediction: Dict,
-                                folder: Path = None,
-                                file_name: str = 'NGB_Mordred',
-                                title:Optional[str]=None
-                                ) -> None:
-    
-    unceretainty_df = get_uncertenty_in_learning_curve(prediction, uncertenty_method)
+    model_predictions: Dict[str, Dict],
+    folder: Path = None,
+    file_name: str = 'model_comparison',
+    title: Optional[str] = None,
+    fontsize: int = 18,
+    uncertainty_methods: Tuple[str, str] = ("Spearman R", "Cv")
+) -> None:
+
+    method1, method2 = uncertainty_methods
+    color_1 = '#E74747'
+    color_2 = '#367CE2'
+
+    model_markers = {'RF': 'o', 'XGBR': 's', 'NGB': 'D'}
+
+    all_df_1, all_df_2 = [], []
+
+    for model_name, prediction in model_predictions.items():
+        df_1 = get_uncertenty_in_learning_curve(prediction, method=method1)
+        df_1["Model"] = model_name
+        all_df_1.append(df_1)
+
+        df_2 = get_uncertenty_in_learning_curve(prediction, method=method2)
+        df_2["Model"] = model_name
+        all_df_2.append(df_2)
+
+    df_1 = pd.concat(all_df_1, ignore_index=True)
+    df_2 = pd.concat(all_df_2, ignore_index=True)
+
+    co_clusters = sorted([c for c in df_1['Cluster'].unique() if c.startswith("CO_")])
+    col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
+
+    g = sns.FacetGrid(df_1[df_1['Cluster'].isin(co_clusters)],
+                    col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
+    twin_axes = []
+
+    def plot_model_uncertainties(data, **kwargs):
+        cluster = data["Cluster"].iloc[0]
+        ax = plt.gca()
+        ax2 = ax.twinx()
+        twin_axes.append((ax, ax2))
+
+        for model_name in data["Model"].unique():
+            marker = model_markers.get(model_name, 'o')
+
+            data_1 = df_1[
+                (df_1["Cluster"] == cluster) & (df_1["Model"] == model_name)
+            ].sort_values("Train Set Size")
+
+            data_2 = df_2[
+                (df_2["Cluster"] == cluster) & (df_2["Model"] == model_name)
+            ].sort_values("Train Set Size")
+
+            ax.plot(
+                data_1["Train Set Size"],
+                data_1[f"{method1} mean"],
+                label=None,
+                marker=marker,
+                linewidth=2.5,
+                linestyle="-",
+                color=color_1
+            )
+            ax.fill_between(
+                data_1["Train Set Size"],
+                data_1[f"{method1} mean"] - data_1[f"{method1} std"],
+                data_1[f"{method1} mean"] + data_1[f"{method1} std"],
+                alpha=0.2,
+                color=color_1
+            )
+
+            ax2.plot(
+                data_2["Train Set Size"],
+                data_2[f"{method2} mean"],
+                label=None,
+                marker=marker,
+                linewidth=2.5,
+                linestyle="--",
+                color=color_2
+            )
+            ax2.fill_between(
+                data_2["Train Set Size"],
+                data_2[f"{method2} mean"] - data_2[f"{method2} std"],
+                data_2[f"{method2} mean"] + data_2[f"{method2} std"],
+                alpha=0.2,
+                color=color_2
+            )
+
+        xticks = np.arange(0, 251, 50)
+        ax.set_xticks(xticks)
+        ax.set_ylim(-1, 1)
+        ax.set_yticks(np.arange(-1, 1.5, 0.5))
+        ax2.set_ylim(0, .5)
+        ax2.set_yticks(np.arange(0, .6, 0.1))
+
+        ax.set_xlabel("Training Set Size", fontsize=fontsize, fontweight='bold')
+        ax.tick_params(axis='both', labelsize=fontsize - 2)
+        ax2.tick_params(axis='y', labelsize=fontsize - 2)
+
+    g.map_dataframe(plot_model_uncertainties)
+
+    for i, (ax, ax2) in enumerate(twin_axes):
+        if i == 0:
+            ax.set_ylabel(method1, fontsize=fontsize, color=color_1, fontweight='bold')
+        else:
+            ax.set_ylabel("")
+            ax.set_yticklabels([])
+
+        if i == len(twin_axes) - 1:
+            ax2.set_ylabel(method2, fontsize=fontsize, color=color_2, fontweight='bold')
+        else:
+            ax2.set_ylabel("")
+            ax2.set_yticklabels([])
+
+        ax.set_title(g.col_names[i], fontsize=fontsize + 2)
+
+    legend_lines = [
+        Line2D([0], [0], color='black', marker=marker, linestyle='None', label=model)
+        for model, marker in model_markers.items()
+        if model in df_1["Model"].unique()
+    ]
+
+    if title:
+        g.fig.suptitle(title, fontsize=fontsize + 6, fontweight='bold', y=1.12)
+
+    plt.figlegend(
+        handles=legend_lines,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.12),
+        ncol=len(legend_lines),
+        fontsize=fontsize,
+        frameon=True,
+    )
+    plt.tight_layout(rect=[0, 0, 1, 0.98])
+
+    if folder:
+        save_img_path(folder, f"uncertainty comparison ({file_name}).png")
+
+    plt.show()
+    plt.close()
+
+
+
+
 
 
 def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
@@ -469,6 +605,10 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
 
     if uncertenty_method == "Spearman R":
         u_yticks = np.arange(-1, 1.5, 0.5)
+
+    elif uncertenty_method == "AMA":
+        u_yticks = np.arange(0, .6, 0.1)
+        
     else:
         max_uncertainty = np.ceil(unceretainty_df[f'{uncertenty_method} mean'].max() * 10) / 10
         u_yticks = np.arange(0, max_uncertainty + 0.1, 0.1)
@@ -605,6 +745,141 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     plt.close()
 
 
+def plot_ood_learning_accuracy_only(
+    all_scores: Dict[str, Dict],
+    metric: str = "rmse",
+    folder: Path = None,
+    file_name: str = 'model_accuracy_comparison',
+    title: Optional[str] = None,
+    fontsize: int = 14
+) -> None:
+    set2_palette = sns.color_palette("Set2")
+
+    model_colors = {
+        'RF': set2_palette[1],
+        'XGBR': set2_palette[0],
+        'NGB': set2_palette[2],
+    }
+
+    cluster_markers = {
+        "CO_": 'o',     # OOD marker
+        "IID_": 's',    # IID marker
+    }
+
+    all_dfs = []
+
+    for model_name, summary_scores in all_scores.items():
+        score_df, _ = process_learning_curve_scores(summary_scores, metric)
+        score_df["Model"] = model_name
+        all_dfs.append(score_df)
+
+    score_df = pd.concat(all_dfs, ignore_index=True)
+
+    if score_df.empty:
+        raise ValueError(f"No data found for metric '{metric}'.")
+
+    score_df = score_df[score_df["Score Type"] == "Test"]
+
+    max_score = np.ceil(score_df["Score"].max() * 10) / 10
+    score_yticks = np.arange(0, max_score + 0.4, 0.4)
+
+    co_clusters = sorted(set(c.replace("CO_", "") for c in score_df['Cluster'].unique() if c.startswith("CO_")))
+    col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
+
+    g = sns.FacetGrid(score_df[score_df['Cluster'].str.startswith("CO_")],
+                    col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
+    def plot_accuracy(data, **kwargs):
+        cluster_oid = data["Cluster"].iloc[0]
+        cluster_idx = cluster_oid.replace("CO_", "")
+        ax = plt.gca()
+
+        for model in data["Model"].unique():
+            for prefix in ["CO_", "IID_"]:
+                cluster_name = f"{prefix}{cluster_idx}"
+                sub_df = score_df[(score_df["Cluster"] == cluster_name) & (score_df["Model"] == model)]
+
+                if sub_df.empty:
+                    continue
+
+                sub_df = sub_df.sort_values("Train Set Size")
+                color = model_colors.get(model, 'black')
+                marker = cluster_markers[prefix]
+
+                ax.plot(
+                    sub_df["Train Set Size"],
+                    sub_df["Score"],
+                    label=None,
+                    marker=marker,
+                    linestyle="--" if prefix == "IID_" else "-",
+                    linewidth=2.5,
+                    color=color
+                )
+                ax.fill_between(
+                    sub_df["Train Set Size"],
+                    sub_df["Score"] - sub_df["Std"],
+                    sub_df["Score"] + sub_df["Std"],
+                    alpha=0.2,
+                    color=color
+                )
+
+        ax.set_xticks(np.arange(0, 251, 50))
+        ax.set_ylim(0, max_score)
+        ax.set_yticks(score_yticks)
+        ax.tick_params(axis='x', labelsize=fontsize)
+        ax.tick_params(axis='y', labelsize=fontsize)
+        ax.set_xlabel("Training Set Size", fontsize=fontsize + 2, fontweight='bold')
+
+        for spine in ['top', 'right', 'bottom', 'left']:
+            ax.spines[spine].set_visible(True)
+
+    g.map_dataframe(plot_accuracy)
+
+    for i, ax in enumerate(g.axes.flat):
+        if i == 0:
+            ax.set_ylabel(metric.upper(), fontsize=fontsize + 2, fontweight='bold')
+        else:
+            ax.set_ylabel("")
+            ax.set_yticklabels([])
+
+        ax.set_title(g.col_names[i], fontsize=fontsize + 4)
+
+    # Legend
+    color_legend = [
+        Line2D([0], [0], color=color, lw=3, label=model)
+        for model, color in model_colors.items()
+        if model in score_df["Model"].unique()
+    ]
+    marker_legend = [
+        Line2D([0], [0], color='black', marker=marker, linestyle='None', markersize=10, label=label)
+        for prefix, marker, label in [
+            ("CO_", 'o', "OOD"),
+            ("IID_", 's', "IID")
+        ]
+    ]
+
+    if title:
+        g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
+
+    plt.figlegend(
+        handles=color_legend + marker_legend,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.10),
+        ncol=len(color_legend + marker_legend),
+        fontsize=fontsize,
+        frameon=True
+    )
+
+    plt.tight_layout(rect=[0, 0, 1, 0.98])
+
+    if folder:
+        save_img_path(folder, f"accuracy comparison ({file_name}).png")
+
+    plt.show()
+    plt.close()
+
+
+
+
 
 
 # comparison_of_features_lc = {
@@ -640,10 +915,10 @@ if __name__ == "__main__":
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster'
+                    # 'substructure cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
+                    'Polymers cluster'
                     ]
 
 
@@ -693,38 +968,102 @@ if __name__ == "__main__":
                 #                                         folder=saving_uncertainty, file_name=f'{model}_{fp}',uncertenty_method="Pearson R")
                 # print("Save learning curve scores and uncertainty")
 
-        # Plot uncertenty + score in learning curve for comparison of features
-        model = 'RF'
-        comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
+        # Plot uncertenty + score in learning curve for comparison of features ##############
+        # model = 'RF'
+        # comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
-        all_score_eq_training_size = []
-        uncertenty_method = 'Spearman R'
-        for file, file_discription in comparison_of_features_lc.items():
+        # all_score_eq_training_size = []
+        # uncertenty_method = 'AMA'
+        # all_model_predictions = {}
+        # models = ['RF', 'XGBR']
 
-            if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
-                scores_folder_path = results_path / cluster / 'Trimer_scaler'
-            else:
-                scores_folder_path = results_path / cluster / 'scaler'
-            
-            score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
-            predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
+        # for model in models:
+        #     comparison_of_features_lc = get_comparison_of_features(model, "_hypOFF_Standard_lc")
 
-            if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
-                print(f"File not found: {file}")
-                continue  
+        #     for file, file_discription in comparison_of_features_lc.items():
 
-            with open(score_file_lc, "r") as f:
-                scores_lc = json.load(f)
-            with open(predictions_file_lc, "r") as s:
-                predictions_lc = json.load(s)
+        #         if any(keyword in file for keyword in ['Mordred', 'MACCS', 'ECFP3.count.512']):
+        #             scores_folder_path = results_path / cluster / 'Trimer_scaler'
+        #         else:
+        #             scores_folder_path = results_path / cluster / 'scaler'
+                
+        #         score_file_lc = ensure_long_path(scores_folder_path / f'{file}_scores.json')
+        #         predictions_file_lc = ensure_long_path(scores_folder_path / f'{file}_predictions.json')
 
-            saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
-            plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
-                                                    folder=saving_folder_lc_score_of_features,
-                                                    file_name=f'{file_discription}_{uncertenty_method}_{model}', uncertenty_method=uncertenty_method,
-                                                    title=file_discription
-                                                    )
-            print("Save learning curve scores and uncertainty")
+        #         if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+        #             print(f"File not found: {file}")
+        #             continue  
+
+        #         with open(score_file_lc, "r") as f:
+        #             scores_lc = json.load(f)
+        #         with open(predictions_file_lc, "r") as s:
+        #             predictions_lc = json.load(s)
+
+
+        #         all_model_predictions[model] = predictions_lc
+        #         saving_folder_lc_score_of_features = results_path / cluster / f'comparison of features learning curve'            
+        #         plot_ood_learning_accuracy_uncertainty(scores_lc, predictions_lc, metric="rmse",
+        #                                                 folder=saving_folder_lc_score_of_features,
+        #                                                 file_name=f'{file_discription}_{uncertenty_method}_{model}', uncertenty_method=uncertenty_method,
+        #                                                 title=file_discription
+        #                                                 )
+        #         print("Save learning curve scores and uncertainty")
+
+
+                # plot_ood_learning_uncertainty(prediction=predictions_lc, folder= saving_folder_lc_score_of_features,
+                #                             file_name=f'{file_discription}_{model}')
+                
+                # print("Save learning curve uncertainties")
+
+
+        # Plot ood_learning_uncertainty and score new
+
+        # all_model_predictions = {}
+        # all_model_scores = {}
+
+        # models = ['RF', 'XGBR']
+        # for model in models:
+        #     scores_folder_path = results_path / cluster / 'scaler'
+        #     score_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
+        #     predictions_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_predictions.json'
+        #     predictions_file_lc = ensure_long_path(predictions_file_lc)
+        #     score_file_lc = ensure_long_path(score_file_lc)
+        #     if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+        #         print(f"File not found: {predictions_file_lc}")
+        #         continue  
+
+        #     with open(score_file_lc, "r") as f:
+        #         scores_lc = json.load(f)
+        #     with open(predictions_file_lc, "r") as s:
+        #         predictions_lc = json.load(s)
+
+        #     all_model_predictions[model] = predictions_lc
+        #     all_model_scores[model] = scores_lc
+        # saving_folder = results_path / cluster / 'comparison of models learning curve (score and uncertainty)'
+        # plot_ood_learning_uncertainty(
+        #     model_predictions=all_model_predictions,
+        #     folder=saving_folder,
+        #     file_name=f"combination of all features",
+        #     fontsize=20,
+        #     uncertainty_methods=("Spearman R", "AMA"),
+        #     # title=f"Uncertainty Comparison for {file_discription}"
+        # )
+
+        # print("Saved model uncertainty comparison plots.")
+
+
+        # plot_ood_learning_accuracy_only(
+        #     all_scores=all_model_scores,
+        #     metric="rmse",
+        #     folder=saving_folder,
+        #     file_name="accuracy only combination of all features",
+        #     # title="Model Accuracy Comparison",
+        #     fontsize=18
+        # )
+
+        # print("Saved model accuracy-only learning curve plot.")
+
+
 
             # Plot OOD vs IID barplot at the same training size for comparison of features
             
@@ -740,26 +1079,31 @@ if __name__ == "__main__":
 
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
-                # plot OOD vs IID barplot at the same training size 
-        # accuracy_metric = "rmse"
-        # all_score_eq_training_size = []
-        # for model in ['XGBR', 'RF']:
+        # plot OOD vs IID barplot at the same training size 
+        accuracy_metric = "rmse"
+        all_score_eq_training_size = []
+        for model in ['XGBR', 'RF']:
 
-        #         scores_folder_path = results_path / cluster / 'scaler'
-        #         scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
-        #         scores_lc = ensure_long_path(scores_lc)
-        #         with open(scores_lc, "r") as f:
-        #             scores = json.load(f)
-        #         _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
-        #         ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-        #         ood_iid_eq_tarining_size_df['Model'] = model
+                scores_folder_path = results_path / cluster / 'scaler'
+                scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
+                scores_lc = ensure_long_path(scores_lc)
+                if not os.path.exists(scores_lc):
+                    print(f"File not found: {scores_lc}")
+                    continue  
+                with open(scores_lc, "r") as f:
+                    scores = json.load(f)
+                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
+                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+                ood_iid_eq_tarining_size_df['Model'] = model
 
-        #         all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-        # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-        # saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
-        # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
-        #                     text_size=22,figsize=(8, 6), ncol=2)
-        # print("save OOD vs IID bar plot at equal training size")
+                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
+        
+        figsize = (16, 10) if cluster == 'Polymers cluster' else (8, 6)
+        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
+                            text_size=22,figsize=figsize, ncol=2)
+        print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'
