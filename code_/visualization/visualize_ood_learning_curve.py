@@ -910,15 +910,16 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-                    # 'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
+
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     # 'substructure cluster',
+                    'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM3 Mordred cluster',
                     # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
-                    'Polymers cluster'
+                    'KM4 Mordred_Polysize cluster',
+                    # 'Polymers cluster'
                     ]
 
 
@@ -1018,50 +1019,50 @@ if __name__ == "__main__":
 
         # Plot ood_learning_uncertainty and score new
 
-        # all_model_predictions = {}
-        # all_model_scores = {}
+        all_model_predictions = {}
+        all_model_scores = {}
 
-        # models = ['RF', 'XGBR']
-        # for model in models:
-        #     scores_folder_path = results_path / cluster / 'scaler'
-        #     score_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
-        #     predictions_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_predictions.json'
-        #     predictions_file_lc = ensure_long_path(predictions_file_lc)
-        #     score_file_lc = ensure_long_path(score_file_lc)
-        #     if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
-        #         print(f"File not found: {predictions_file_lc}")
-        #         continue  
+        models = ['RF', 'XGBR']
+        for model in models:
+            scores_folder_path = results_path / cluster / 'scaler'
+            score_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
+            predictions_file_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_predictions.json'
+            predictions_file_lc = ensure_long_path(predictions_file_lc)
+            score_file_lc = ensure_long_path(score_file_lc)
+            if not os.path.exists(score_file_lc) or not os.path.exists(predictions_file_lc):
+                print(f"File not found: {predictions_file_lc}")
+                continue  
 
-        #     with open(score_file_lc, "r") as f:
-        #         scores_lc = json.load(f)
-        #     with open(predictions_file_lc, "r") as s:
-        #         predictions_lc = json.load(s)
+            with open(score_file_lc, "r") as f:
+                scores_lc = json.load(f)
+            with open(predictions_file_lc, "r") as s:
+                predictions_lc = json.load(s)
 
-        #     all_model_predictions[model] = predictions_lc
-        #     all_model_scores[model] = scores_lc
-        # saving_folder = results_path / cluster / 'comparison of models learning curve (score and uncertainty)'
-        # plot_ood_learning_uncertainty(
-        #     model_predictions=all_model_predictions,
-        #     folder=saving_folder,
-        #     file_name=f"combination of all features",
-        #     fontsize=20,
-        #     uncertainty_methods=("Spearman R", "AMA"),
-        #     # title=f"Uncertainty Comparison for {file_discription}"
-        # )
+            all_model_predictions[model] = predictions_lc
+            all_model_scores[model] = scores_lc
+        saving_folder = results_path / cluster / 'comparison of models learning curve (score and uncertainty)'
+        plot_ood_learning_uncertainty(
+            model_predictions=all_model_predictions,
+            folder=saving_folder,
+            file_name=f"combination of all features",
+            fontsize=20,
+            uncertainty_methods=("Spearman R", "AMA"),
+            # title=f"Uncertainty Comparison for {file_discription}"
+        )
 
-        # print("Saved model uncertainty comparison plots.")
+        print("Saved model uncertainty comparison plots.")
 
 
-        # plot_ood_learning_accuracy_only(
-        #     all_scores=all_model_scores,
-        #     metric="rmse",
-        #     folder=saving_folder,
-        #     file_name="accuracy only combination of all features",
-        #     # title="Model Accuracy Comparison",
-        #     fontsize=18
-        # )
+        plot_ood_learning_accuracy_only(
+            all_scores=all_model_scores,
+            metric="rmse",
+            folder=saving_folder,
+            file_name="accuracy only combination of all features",
+            # title="Model Accuracy Comparison",
+            fontsize=18
+        )
 
-        # print("Saved model accuracy-only learning curve plot.")
+        print("Saved model accuracy-only learning curve plot.")
 
 
 
@@ -1080,30 +1081,30 @@ if __name__ == "__main__":
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
         # plot OOD vs IID barplot at the same training size 
-        accuracy_metric = "rmse"
-        all_score_eq_training_size = []
-        for model in ['XGBR', 'RF']:
+        # accuracy_metric = "rmse"
+        # all_score_eq_training_size = []
+        # for model in ['XGBR', 'RF']:
 
-                scores_folder_path = results_path / cluster / 'scaler'
-                scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
-                scores_lc = ensure_long_path(scores_lc)
-                if not os.path.exists(scores_lc):
-                    print(f"File not found: {scores_lc}")
-                    continue  
-                with open(scores_lc, "r") as f:
-                    scores = json.load(f)
-                _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
-                ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
-                ood_iid_eq_tarining_size_df['Model'] = model
+        #         scores_folder_path = results_path / cluster / 'scaler'
+        #         scores_lc = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_lc_scores.json'
+        #         scores_lc = ensure_long_path(scores_lc)
+        #         if not os.path.exists(scores_lc):
+        #             print(f"File not found: {scores_lc}")
+        #             continue  
+        #         with open(scores_lc, "r") as f:
+        #             scores = json.load(f)
+        #         _, ood_iid_eq_tarining_size_df = process_learning_curve_scores(scores, metric=accuracy_metric)
+        #         ood_iid_eq_tarining_size_df = ood_iid_eq_tarining_size_df[ood_iid_eq_tarining_size_df["Score Type"] == "Test"]
+        #         ood_iid_eq_tarining_size_df['Model'] = model
 
-                all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
-        all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
-        saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
+        #         all_score_eq_training_size.append(ood_iid_eq_tarining_size_df)
+        # all_score_eq_training_size:pd.DataFrame = pd.concat(all_score_eq_training_size, ignore_index=True)
+        # saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
         
-        figsize = (16, 10) if cluster == 'Polymers cluster' else (8, 6)
-        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
-                            text_size=22,figsize=figsize, ncol=2)
-        print("save OOD vs IID bar plot at equal training size")
+        # figsize = (16, 10) if cluster == 'Polymers cluster' else (8, 6)
+        # plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
+        #                     text_size=22,figsize=figsize, ncol=2)
+        # print("save OOD vs IID bar plot at equal training size")
 
                 # residual distribution
                 # saving_folder = scores_folder_path / f'KDE of residuals'

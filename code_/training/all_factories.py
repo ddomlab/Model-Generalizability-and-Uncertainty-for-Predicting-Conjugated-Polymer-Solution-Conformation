@@ -112,7 +112,7 @@ def optimized_models(model_name:str,random_state:int=0, **kwargs):
                              random_state=None, verbose=False,**kwargs)
     if 'XGBR'==model_name:
         return  XGBRegressor(eval_metric="rmse", n_estimators=500,
-                              learning_rate=0.01, max_depth=10000, random_state=None, n_jobs=-1,**kwargs)
+                              learning_rate=0.01, random_state=None, n_jobs=-1,**kwargs)
     
     if 'RF'==model_name:
         return RandomForestRegressor(n_estimators=100, max_depth=None, 
