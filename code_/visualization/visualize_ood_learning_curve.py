@@ -457,7 +457,7 @@ def plot_ood_learning_uncertainty(
     model_markers = {'RF': 'o', 'XGBR': 's', 'NGB': 'D'}
 
     all_df_1, all_df_2 = [], []
-
+    
     for model_name, prediction in model_predictions.items():
         df_1 = get_uncertenty_in_learning_curve(prediction, method=method1)
         df_1["Model"] = model_name
@@ -469,7 +469,8 @@ def plot_ood_learning_uncertainty(
 
     df_1 = pd.concat(all_df_1, ignore_index=True)
     df_2 = pd.concat(all_df_2, ignore_index=True)
-
+    print(df_1)
+    print(df_2)
     co_clusters = sorted([c for c in df_1['Cluster'].unique() if c.startswith("CO_")])
     col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
 
@@ -753,17 +754,32 @@ def plot_ood_learning_accuracy_only(
     title: Optional[str] = None,
     fontsize: int = 14
 ) -> None:
-    set2_palette = sns.color_palette("Set2")
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import numpy as np
+    import pandas as pd
+    from matplotlib.lines import Line2D
 
+    set2_palette = sns.color_palette("Set2")
     model_colors = {
         'RF': set2_palette[1],
         'XGBR': set2_palette[0],
         'NGB': set2_palette[2],
     }
 
-    cluster_markers = {
-        "CO_": 'o',     # OOD marker
-        "IID_": 's',    # IID marker
+    # Fixed colors for curve types
+    curve_colors = {
+        ('CO_', 'Train'): "#CA364A",   # OOD Train
+        ('IID_', 'Train'): "#7B47B6",  # IID Train
+        ('IID_', 'Test'): "#8295D4",   # IID Test
+    }
+
+    # Markers
+    style_map = {
+        ('CO_', 'Train'): '^',
+        ('CO_', 'Test'): 'o',
+        ('IID_', 'Train'): 's',
+        ('IID_', 'Test'): '*',
     }
 
     all_dfs = []
@@ -778,8 +794,6 @@ def plot_ood_learning_accuracy_only(
     if score_df.empty:
         raise ValueError(f"No data found for metric '{metric}'.")
 
-    score_df = score_df[score_df["Score Type"] == "Test"]
-
     max_score = np.ceil(score_df["Score"].max() * 10) / 10
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
 
@@ -787,40 +801,59 @@ def plot_ood_learning_accuracy_only(
     col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
 
     g = sns.FacetGrid(score_df[score_df['Cluster'].str.startswith("CO_")],
-                    col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
+                      col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
+
     def plot_accuracy(data, **kwargs):
         cluster_oid = data["Cluster"].iloc[0]
         cluster_idx = cluster_oid.replace("CO_", "")
         ax = plt.gca()
 
-        for model in data["Model"].unique():
+        # Choose reference model
+        preferred_models = ['RF', 'XGBR']
+        available_models = data["Model"].unique().tolist()
+        shared_model = next((m for m in preferred_models if m in available_models), available_models[0])
+
+        for model in score_df["Model"].unique():
             for prefix in ["CO_", "IID_"]:
-                cluster_name = f"{prefix}{cluster_idx}"
-                sub_df = score_df[(score_df["Cluster"] == cluster_name) & (score_df["Model"] == model)]
+                for score_type in ["Train", "Test"]:
+                    cluster_name = f"{prefix}{cluster_idx}"
+                    subset = score_df[
+                        (score_df["Cluster"] == cluster_name) &
+                        (score_df["Model"] == model) &
+                        (score_df["Score Type"] == score_type)
+                    ]
 
-                if sub_df.empty:
-                    continue
+                    if subset.empty:
+                        continue
 
-                sub_df = sub_df.sort_values("Train Set Size")
-                color = model_colors.get(model, 'black')
-                marker = cluster_markers[prefix]
+                    subset = subset.sort_values("Train Set Size")
+                    marker = style_map[(prefix, score_type)]
 
-                ax.plot(
-                    sub_df["Train Set Size"],
-                    sub_df["Score"],
-                    label=None,
-                    marker=marker,
-                    linestyle="--" if prefix == "IID_" else "-",
-                    linewidth=2.5,
-                    color=color
-                )
-                ax.fill_between(
-                    sub_df["Train Set Size"],
-                    sub_df["Score"] - sub_df["Std"],
-                    sub_df["Score"] + sub_df["Std"],
-                    alpha=0.2,
-                    color=color
-                )
+                    # Color logic:
+                    if (prefix, score_type) == ('CO_', 'Test'):
+                        color = model_colors.get(model, 'black')  # Per model
+                    else:
+                        if model != shared_model:
+                            continue
+                        color = curve_colors[(prefix, score_type)]
+
+                    ax.plot(
+                        subset["Train Set Size"],
+                        subset["Score"],
+                        label=None,
+                        marker=marker,
+                        markersize=8,
+                        linestyle="--" if prefix == "IID_" else "-",
+                        linewidth=2.5,
+                        color=color
+                    )
+                    ax.fill_between(
+                        subset["Train Set Size"],
+                        subset["Score"] - subset["Std"],
+                        subset["Score"] + subset["Std"],
+                        alpha=0.2,
+                        color=color
+                    )
 
         ax.set_xticks(np.arange(0, 251, 50))
         ax.set_ylim(0, max_score)
@@ -843,28 +876,27 @@ def plot_ood_learning_accuracy_only(
 
         ax.set_title(g.col_names[i], fontsize=fontsize + 4)
 
-    # Legend
-    color_legend = [
+    # Legends
+    model_legend = [
         Line2D([0], [0], color=color, lw=3, label=model)
         for model, color in model_colors.items()
         if model in score_df["Model"].unique()
     ]
-    marker_legend = [
-        Line2D([0], [0], color='black', marker=marker, linestyle='None', markersize=10, label=label)
-        for prefix, marker, label in [
-            ("CO_", 'o', "OOD"),
-            ("IID_", 's', "IID")
-        ]
+    curve_type_legend = [
+        Line2D([0], [0], color=curve_colors[('CO_', 'Train')], marker='^', linestyle='-', lw=2, label="Train OOD"),
+        Line2D([0], [0], color=curve_colors[('IID_', 'Train')], marker='s', linestyle='--', lw=2, label="Train IID"),
+        Line2D([0], [0], color=curve_colors[('IID_', 'Test')], marker='*', linestyle='--', lw=2, label="Test IID"),
+        Line2D([0], [0], color='gray', marker='o', linestyle='-', lw=2, label="Test OOD (per model)")
     ]
 
     if title:
         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
 
     plt.figlegend(
-        handles=color_legend + marker_legend,
+        handles=curve_type_legend + model_legend,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.10),
-        ncol=len(color_legend + marker_legend),
+        bbox_to_anchor=(0.5, 1.12),
+        ncol=7,
         fontsize=fontsize,
         frameon=True
     )
@@ -1053,16 +1085,16 @@ if __name__ == "__main__":
         print("Saved model uncertainty comparison plots.")
 
 
-        plot_ood_learning_accuracy_only(
-            all_scores=all_model_scores,
-            metric="rmse",
-            folder=saving_folder,
-            file_name="accuracy only combination of all features",
-            # title="Model Accuracy Comparison",
-            fontsize=18
-        )
+        # plot_ood_learning_accuracy_only(
+        #     all_scores=all_model_scores,
+        #     metric="rmse",
+        #     folder=saving_folder,
+        #     file_name="accuracy only combination of all features",
+        #     # title="Model Accuracy Comparison",
+        #     fontsize=18
+        # )
 
-        print("Saved model accuracy-only learning curve plot.")
+        # print("Saved model accuracy-only learning curve plot.")
 
 
 
