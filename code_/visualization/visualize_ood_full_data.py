@@ -27,6 +27,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 training_df_dir: Path = DATASETS/ "training_dataset"
 RG_DATA = pd.read_pickle(training_df_dir/'Rg data with clusters aging imputed.pkl')
+RG_DATA['Polymers cluster'] = RG_DATA['canonical_name'] 
 target = 'OOD_target_log Rg (nm)'
 results_path = HERE.parent.parent / 'results'/ target
 
@@ -141,7 +142,7 @@ def make_accumulating_scores(scores, ml_score_metric: str,
             if is_ood_iid_distance==True:
                 mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
                 mean_ID, std_ID = get_score(scores, f"ID_{cluster_id}", ml_score_metric)
-                mean = abs(mean_ood - mean_ID)/abs(mean_ID)*100
+                mean = abs(mean_ood - mean_ID)
                 std = 0
             else:
                 mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
@@ -163,7 +164,8 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
                                 saving_path: Optional[Path] = None,
                                 file_name: str = None,
                                 is_equal_size:bool=False,
-                                is_ood_iid_distance:bool=True
+                                is_ood_iid_distance:bool=True,
+                                figsize=(6, 5),
                                 ) -> None:
     
     # clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
@@ -185,7 +187,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
         ]
 
     # for clustering_metric in clustering_score_metrics:
-    plt.figure(figsize=(6, 5))
+    plt.figure(figsize=figsize)
 
     for row in df:
         plt.errorbar(
@@ -206,16 +208,24 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
     y_max = max(row[f"{ml_score_metric}_mean"] for row in df)
     y_max_tick = np.ceil(y_max * 5) / 5    # nearest higher multiple of 0.2
-    yticks = np.arange(0, y_max_tick + 100, 100)
+    yticks = np.arange(0, y_max_tick+.2 , .2)
     
     
     plt.ylabel(y_label, fontsize=16, fontweight='bold')
     plt.xlabel(f"Wasserstein Test-Train Distance", fontsize=16, fontweight='bold')
-    # plt.title(f"{co_vector}".capitalize(), fontsize=20)
-    plt.legend(handles=legend_elements, loc="best", fontsize=12)
+    
+    # Modified legend
+    plt.legend(
+        handles=legend_elements,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.50),
+        ncol=5,
+        fontsize=12,
+        frameon=True
+    )
+
     plt.yticks(yticks)
-    # plt.ylim(y_min_tick-.2, y_max_tick + 0.2)
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0, 1, 1.05])
     save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
     plt.show()
     plt.close()
@@ -234,15 +244,15 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
 if __name__ == "__main__":
     cluster_list = [
-                    'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM4 ECFP6_Count_512bit cluster',	
                     # 'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
                     # 'substructure cluster',
                     # 'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster',
+                    # 'KM4 Mordred_Polysize cluster',
+                    'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -307,7 +317,7 @@ if __name__ == "__main__":
             
             combined_data = []
             ood_iid_bar_combined_models = []
-            OOD_IID_distance = True
+            OOD_IID_distance = False
             ncol = 0
             for model in ['RF', 'XGBR']:
                 scores_folder_path = results_path / cluster / 'scaler'
@@ -328,7 +338,8 @@ if __name__ == "__main__":
             f_name = f"{co_vector}_{accuracy_metric}" 
             f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
             plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
-                                        saving_path=saving_folder, file_name=f_name, is_ood_iid_distance=OOD_IID_distance)
+                                        saving_path=saving_folder, file_name=f_name,
+                                        is_ood_iid_distance=OOD_IID_distance,figsize=(12,5.7))
             print('Plot scores vs distance (full data)')
 
 
