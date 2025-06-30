@@ -129,8 +129,11 @@ def make_accumulating_scores(scores, ml_score_metric: str,
     if cluster_types == 'substructure cluster':
         all_clusters.append('Polar')
 
+    all_clusters = [
+        cluster_id for cluster_id in all_clusters 
+        if (RG_DATA[cluster_types] == cluster_id).sum() >= 2
+    ]
     for cluster_id in all_clusters:
- 
 
         if is_equal_size==True:
             _, scores_at_equal_training_size = process_learning_curve_scores(scores,ml_score_metric)
@@ -142,7 +145,7 @@ def make_accumulating_scores(scores, ml_score_metric: str,
             if is_ood_iid_distance==True:
                 mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
                 mean_ID, std_ID = get_score(scores, f"ID_{cluster_id}", ml_score_metric)
-                mean = abs(mean_ood - mean_ID)
+                mean = abs(mean_ood - mean_ID)/abs(mean_ID)*100
                 std = 0
             else:
                 mean_ood, std_ood = get_score(scores, f"CO_{cluster_id}", ml_score_metric)
@@ -172,7 +175,8 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
     models = list({row['Model'] for row in df})
     clusters = list({row['Cluster'] for row in df})
 
-    palette = sns.color_palette("Set2", len(clusters))
+    palette = sns.color_palette("tab20", len(clusters)) if len(clusters) > 8 else sns.color_palette("Set2", len(clusters))
+
     color_map = {cluster: palette[i] for i, cluster in enumerate(sorted(clusters))}
     marker_map = {model: MARKERS[i % len(MARKERS)] for i, model in enumerate(sorted(models))}
 
@@ -208,7 +212,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
     y_max = max(row[f"{ml_score_metric}_mean"] for row in df)
     y_max_tick = np.ceil(y_max * 5) / 5    # nearest higher multiple of 0.2
-    yticks = np.arange(0, y_max_tick+.2 , .2)
+    yticks = np.arange(0, y_max_tick+100 , 100)
     
     
     plt.ylabel(y_label, fontsize=16, fontweight='bold')
@@ -218,13 +222,14 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
     plt.legend(
         handles=legend_elements,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.50),
-        ncol=5,
+        bbox_to_anchor=(0.5, 1.40),
+        ncol=6,
         fontsize=12,
         frameon=True
     )
 
     plt.yticks(yticks)
+    # plt.ylim(0, 500)
     plt.tight_layout(rect=[0, 0, 1, 1.05])
     save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
     plt.show()
@@ -317,7 +322,7 @@ if __name__ == "__main__":
             
             combined_data = []
             ood_iid_bar_combined_models = []
-            OOD_IID_distance = False
+            OOD_IID_distance = True
             ncol = 0
             for model in ['RF', 'XGBR']:
                 scores_folder_path = results_path / cluster / 'scaler'
