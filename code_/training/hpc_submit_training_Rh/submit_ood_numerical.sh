@@ -2,9 +2,9 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624
 mkdir -p "$output_dir"
 
-regressors=("XGBR")
+regressors=("RF" "XGBR")
 targets=("log Rg (nm)")
-group_out=('canonical_name')
+group_out=('substructure cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster' 'canonical_name')
 # 'KM3 Mordred cluster' 'substructure cluster' 'KM4 polymer_solvent HSP and polysize cluster' 'KM5 polymer_solvent HSP and polysize cluster' 'KM4 polymer_solvent HSP cluster' 'KM4 Mordred_Polysize cluster'
 # 'KM3 Mordred cluster'
 # 'KM4 Mordred_Polysize cluster'
@@ -17,9 +17,10 @@ for regressor in "${regressors[@]}"; do
 
 
 #BSUB -n 6
-#BSUB -W 48:01
+#BSUB -W 35:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
+#BSUB -x
 #BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250624"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${group}_20250624.out"
 #BSUB -e "${output_dir}/${regressor}_${target}_${group}_20250624.err"
