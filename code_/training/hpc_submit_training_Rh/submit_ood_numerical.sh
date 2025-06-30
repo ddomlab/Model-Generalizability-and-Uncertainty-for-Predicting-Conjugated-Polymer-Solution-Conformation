@@ -20,7 +20,6 @@ for regressor in "${regressors[@]}"; do
 #BSUB -W 35:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
-#BSUB -x
 #BSUB -J "${regressor}_${target}_${oligo_rep}_${group}_20250624"  
 #BSUB -o "${output_dir}/${regressor}_${target}_${group}_20250624.out"
 #BSUB -e "${output_dir}/${regressor}_${target}_${group}_20250624.err"
