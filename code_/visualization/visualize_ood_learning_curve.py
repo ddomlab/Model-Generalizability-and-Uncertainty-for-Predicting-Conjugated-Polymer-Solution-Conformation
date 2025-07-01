@@ -281,7 +281,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
         seen.values(), seen.keys(),
         fontsize=text_size - 3,
         frameon=True,
-        loc='upper center',
+        loc='upper left',
         # bbox_to_anchor=(0.5, 1.12),
         ncol=ncol
     )
@@ -290,8 +290,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
     # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
-    ax.set_ylim(0, 1.4)
-    ax.set_yticks(np.arange(0, 1.4 + .2, .2))
+    ax.set_ylim(0, 1.2)
+    ax.set_yticks(np.arange(0, 1.2 + .2, .2))
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
@@ -1073,28 +1073,28 @@ if __name__ == "__main__":
             all_model_predictions[model] = predictions_lc
             all_model_scores[model] = scores_lc
         saving_folder = results_path / cluster / 'comparison of models learning curve (score and uncertainty)'
-        plot_ood_learning_uncertainty(
-            model_predictions=all_model_predictions,
-            folder=saving_folder,
-            file_name=f"combination of all features",
-            fontsize=20,
-            uncertainty_methods=("Spearman R", "AMA"),
-            # title=f"Uncertainty Comparison for {file_discription}"
-        )
-
-        print("Saved model uncertainty comparison plots.")
-
-
-        # plot_ood_learning_accuracy_only(
-        #     all_scores=all_model_scores,
-        #     metric="rmse",
+        # plot_ood_learning_uncertainty(
+        #     model_predictions=all_model_predictions,
         #     folder=saving_folder,
-        #     file_name="accuracy only combination of all features",
-        #     # title="Model Accuracy Comparison",
-        #     fontsize=18
+        #     file_name=f"combination of all features",
+        #     fontsize=20,
+        #     uncertainty_methods=("Spearman R", "AMA"),
+        #     # title=f"Uncertainty Comparison for {file_discription}"
         # )
 
-        # print("Saved model accuracy-only learning curve plot.")
+        # print("Saved model uncertainty comparison plots.")
+
+
+        plot_ood_learning_accuracy_only(
+            all_scores=all_model_scores,
+            metric="rmse",
+            folder=saving_folder,
+            file_name="accuracy only combination of all features",
+            # title="Model Accuracy Comparison",
+            fontsize=18
+        )
+
+        print("Saved model accuracy-only learning curve plot.")
 
 
 

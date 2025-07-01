@@ -21,7 +21,7 @@ from visualize_ood_learning_curve import (
                                         )
 
 set_plot_style(tick_size=16)
-MARKERS = ['o', 's', '^', 'D', 'v', '<', '>', 'p', '*', 'X', 'h']
+MARKERS = ['o', '^', 's', 'D', 'v', '<', '>', 'p', '*', 'X', 'h']
 
 HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
@@ -126,13 +126,15 @@ def make_accumulating_scores(scores, ml_score_metric: str,
                                                         data=RG_DATA)
     
     all_clusters = RG_DATA[cluster_types].unique().tolist()
-    if cluster_types == 'substructure cluster':
-        all_clusters.append('Polar')
 
     all_clusters = [
         cluster_id for cluster_id in all_clusters 
         if (RG_DATA[cluster_types] == cluster_id).sum() >= 2
     ]
+    if cluster_types == 'substructure cluster':
+        all_clusters.append('Polar')
+    print(all_clusters)
+
     for cluster_id in all_clusters:
 
         if is_equal_size==True:
@@ -166,72 +168,81 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
                                 co_vector,
                                 saving_path: Optional[Path] = None,
                                 file_name: str = None,
-                                is_equal_size:bool=False,
-                                is_ood_iid_distance:bool=True,
+                                is_equal_size: bool = False,
+                                is_ood_iid_distance: bool = True,
                                 figsize=(6, 5),
                                 ) -> None:
-    
-    # clustering_score_metrics = ["Silhouette", "Davies-Bouldin", "Calinski-Harabasz"]
+
     models = list({row['Model'] for row in df})
     clusters = list({row['Cluster'] for row in df})
 
     palette = sns.color_palette("tab20", len(clusters)) if len(clusters) > 8 else sns.color_palette("Set2", len(clusters))
-
     color_map = {cluster: palette[i] for i, cluster in enumerate(sorted(clusters))}
     marker_map = {model: MARKERS[i % len(MARKERS)] for i, model in enumerate(sorted(models))}
 
     legend_elements = [
-            Line2D([0], [0], marker='_', color=color_map[cluster], linestyle='None',
-                   label=f"CO {cluster}", markersize=20, markeredgewidth=5)
-            for cluster in sorted(clusters)
-        ] + [
-            Line2D([0], [0], marker=marker_map[model], color='k', linestyle='None', 
-                   label=model, markersize=10)
-            for model in sorted(models)
-        ]
+        Line2D([0], [0], marker='_', color=color_map[cluster], linestyle='None',
+               label=f"CO {cluster}", markersize=20, markeredgewidth=5)
+        for cluster in sorted(clusters)
+    ] + [
+        Line2D([0], [0],
+               marker=marker_map[model],
+               linestyle='None',
+               label=model,
+               markersize=10,
+               markerfacecolor='none' if marker_map[model] == 'o' else 'k',
+               markeredgecolor='k')
+        for model in sorted(models)
+    ]
 
-    # for clustering_metric in clustering_score_metrics:
     plt.figure(figsize=figsize)
 
     for row in df:
+        marker = marker_map[row["Model"]]
+        is_circle = marker == 'o'
+
         plt.errorbar(
             row['wasserstein distance'],
             row[f"{ml_score_metric}_mean"],
             yerr=row[f"{ml_score_metric}_std"],
-            fmt=marker_map[row["Model"]],
-            color=color_map[row["Cluster"]],
-            capsize=4,
-            capthick=1.2,
-            markersize=10
+            fmt=marker,
+            markerfacecolor='none' if is_circle else color_map[row["Cluster"]],
+            markeredgecolor=color_map[row["Cluster"]],
+            # capsize=4,
+            # capthick=1.2,
+            markersize=10,
+            linestyle='none'
         )
 
-    if is_equal_size==True or is_ood_iid_distance==False:
+    if is_equal_size or not is_ood_iid_distance:
         y_label = f"{ml_score_metric.upper()} Score"
     else:
         y_label = f"Performance Degradation % (RMSE)"
 
     y_max = max(row[f"{ml_score_metric}_mean"] for row in df)
-    y_max_tick = np.ceil(y_max * 5) / 5    # nearest higher multiple of 0.2
-    yticks = np.arange(0, y_max_tick+100 , 100)
-    
-    
+    y_max_tick = np.ceil(y_max * 5) / 5
+    yticks = np.arange(0, y_max_tick + 100, 100)
+
     plt.ylabel(y_label, fontsize=16, fontweight='bold')
     plt.xlabel(f"Wasserstein Test-Train Distance", fontsize=16, fontweight='bold')
-    
-    # Modified legend
+
     plt.legend(
         handles=legend_elements,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.40),
+        bbox_to_anchor=(0.5, 1.30),
         ncol=6,
         fontsize=12,
         frameon=True
     )
+    # plt.legend(handles=legend_elements, loc="best", fontsize=12)
+
 
     plt.yticks(yticks)
-    # plt.ylim(0, 500)
     plt.tight_layout(rect=[0, 0, 1, 1.05])
-    save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
+    # plt.tight_layout()
+    if saving_path and file_name:
+        plt.savefig(saving_path / f"{file_name}_distance_metric-Wasserstein.png", dpi=300)
+
     plt.show()
     plt.close()
 
@@ -322,7 +333,7 @@ if __name__ == "__main__":
             
             combined_data = []
             ood_iid_bar_combined_models = []
-            OOD_IID_distance = True
+            OOD_IID_distance = False
             ncol = 0
             for model in ['RF', 'XGBR']:
                 scores_folder_path = results_path / cluster / 'scaler'
@@ -339,19 +350,19 @@ if __name__ == "__main__":
                 ncol+=1
    
 
-            saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
-            f_name = f"{co_vector}_{accuracy_metric}" 
-            f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
-                                        saving_path=saving_folder, file_name=f_name,
-                                        is_ood_iid_distance=OOD_IID_distance,figsize=(12,5.7))
-            print('Plot scores vs distance (full data)')
+            # saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
+            # f_name = f"{co_vector}_{accuracy_metric}" 
+            # f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
+            #                             saving_path=saving_folder, file_name=f_name,
+            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(12.5,5.7))
+            # print('Plot scores vs distance (full data)')
 
 
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(20, 6), text_size=20,ncol=ncol)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+                            saving_folder,f'metric-{accuracy_metric}', 
+                            figsize=(18, 6), text_size=20,ncol=ncol)
 
 
 
