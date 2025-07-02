@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_learning_curve.py", line 87, in <module>
+    main_structural_numerical(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_learning_curve.py", line 46, in main_structural_numerical
+    scores, predictions  = train_ood_learning_curve(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 64, in train_ood_learning_curve
+    score, predictions = prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 92, in prepare_data
+    X, y, unrolled_feats, cluster_labels, _ = filter_dataset(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/filter_data.py", line 92, in filter_dataset
+    dataset: pd.DataFrame = raw_dataset[all_feats]
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/frame.py", line 4108, in __getitem__
+    indexer = self.columns._get_indexer_strict(key, "columns")[1]
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 6200, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 6252, in _raise_if_missing
+    raise KeyError(f"{not_found} not in index")
+KeyError: "['Polymers cluster'] not in index"

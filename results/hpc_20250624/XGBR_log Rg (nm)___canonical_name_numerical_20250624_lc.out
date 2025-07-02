@@ -1,0 +1,272 @@
+DP10-PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+DPPDTT
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c013n01.hpc.ncsu.edu>
+Subject: Job 873314: <XGBR_log Rg (nm)___canonical_name_20250624_lc> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)___canonical_name_20250624_lc> was submitted from host <c205n02> by user <sdehgha2> in cluster <Hazel> at Tue Jun 24 17:55:19 2025
+Job was executed on host(s) <8*c013n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jun 24 17:55:19 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jun 24 17:55:19 2025
+Terminated at Wed Jun 25 04:07:57 2025
+Results reported at Wed Jun 25 04:07:57 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 8
+#BSUB -W 15:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)___canonical_name_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "canonical_name" 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   544263.00 sec.
+    Max Memory :                                 77 GB
+    Average Memory :                             43.59 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -61.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                1178
+    Run time :                                   36783 sec.
+    Turnaround time :                            36758 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err> for stderr output of this job.
+
+DP10-PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+DPPDTT
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Processing cluster: rr-P3HT
+Processing cluster: DPPDTT
+Processing cluster: P3EOT
+Processing cluster: P7DPF
+Processing cluster: DP10-PPV
+Processing cluster: MEH-PPV
+Processing cluster: PBTTT-C14
+Processing cluster: P3OT
+Processing cluster: P3(4MP)T
+Processing cluster: MBL-PPV
+Processing cluster: PPFOH
+Processing cluster: PBTTT-C16
+Processing cluster: P3EHT
+Processing cluster: P3DDT
+Processing cluster: PFO
+Processing cluster: PBDT-TTz
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c018n01.hpc.ncsu.edu>
+Subject: Job 877994: <XGBR_log Rg (nm)___canonical_name_20250624_lc> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)___canonical_name_20250624_lc> was submitted from host <c018n01.hpc.ncsu.edu> by user <sdehgha2> in cluster <Hazel> at Wed Jun 25 17:49:43 2025
+Job was executed on host(s) <32*c018n01>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Wed Jun 25 17:49:44 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed Jun 25 17:49:44 2025
+Terminated at Wed Jun 25 18:09:58 2025
+Results reported at Wed Jun 25 18:09:58 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 32
+#BSUB -W 15:30
+#BSUB -R span[hosts=1]
+#BSUB -x
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)___canonical_name_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "canonical_name" 
+
+
+
+------------------------------------------------------------
+
+Exited with exit code 120.
+
+Resource usage summary:
+
+    CPU time :                                   14576.00 sec.
+    Max Memory :                                 170 GB
+    Average Memory :                             110.12 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -154.00 GB
+    Max Swap :                                   32 GB
+    Max Processes :                              3082
+    Max Threads :                                3335
+    Run time :                                   1203 sec.
+    Turnaround time :                            1215 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err> for stderr output of this job.
+
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+MBL-PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+MEH-PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c205n08>
+Subject: Job 875709: <XGBR_log Rg (nm)___canonical_name_20250624_lc> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)___canonical_name_20250624_lc> was submitted from host <c020n01> by user <sdehgha2> in cluster <Hazel> at Wed Jun 25 04:31:07 2025
+Job was executed on host(s) <18*c205n08>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Wed Jun 25 05:20:28 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Wed Jun 25 05:20:28 2025
+Terminated at Thu Jun 26 14:19:00 2025
+Results reported at Thu Jun 26 14:19:00 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 18
+#BSUB -W 15:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)___canonical_name_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "canonical_name" 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   2175256.00 sec.
+    Max Memory :                                 57 GB
+    Average Memory :                             30.34 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -41.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                698
+    Run time :                                   118713 sec.
+    Turnaround time :                            121673 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___canonical_name_numerical_20250624_lc.err> for stderr output of this job.
+

@@ -1,0 +1,26 @@
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py:752: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py:752: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(
+Traceback (most recent call last):
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_learning_curve.py", line 87, in <module>
+    main_structural_numerical(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh/../make_ood_learning_curve.py", line 46, in main_structural_numerical
+    scores, predictions  = train_ood_learning_curve(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 64, in train_ood_learning_curve
+    score, predictions = prepare_data(
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 112, in prepare_data
+    return run_ood_learning_curve(X, y,
+  File "/gpfs_common/share03/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/get_ood_split_learning_curve.py", line 267, in run_ood_learning_curve
+    iid_results = Parallel(n_jobs=n_jobs)(
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 2007, in __call__
+    return output if self.return_generator else list(output)
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1650, in _get_outputs
+    yield from self._retrieve()
+  File "/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/parallel.py", line 1762, in _retrieve
+    time.sleep(0.01)
+KeyboardInterrupt
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/backend/resource_tracker.py:314: UserWarning: resource_tracker: There appear to be 40 leaked semlock objects to clean up at shutdown
+  warnings.warn(
+/usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env/lib/python3.10/site-packages/joblib/externals/loky/process_executor.py:752: UserWarning: A worker stopped while some jobs were given to the executor. This can be caused by a too short worker timeout or by a memory leak.
+  warnings.warn(

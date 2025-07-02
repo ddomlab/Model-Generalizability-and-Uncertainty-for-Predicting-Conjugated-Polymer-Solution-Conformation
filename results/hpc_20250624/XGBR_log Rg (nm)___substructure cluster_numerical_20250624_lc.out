@@ -1,0 +1,304 @@
+Fluorene
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Thiophene
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Polar
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_XGBR_hypOFF_Standard_lc
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c017n03.hpc.ncsu.edu>
+Subject: Job 880047: <XGBR_log Rg (nm)___substructure cluster_20250624_lc> in cluster <Hazel> Done
+
+Job <XGBR_log Rg (nm)___substructure cluster_20250624_lc> was submitted from host <c017n03.hpc.ncsu.edu> by user <sdehgha2> in cluster <Hazel> at Thu Jun 26 09:44:07 2025
+Job was executed on host(s) <18*c017n03>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Thu Jun 26 09:44:08 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Thu Jun 26 09:44:08 2025
+Terminated at Thu Jun 26 18:25:57 2025
+Results reported at Thu Jun 26 18:25:57 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 18
+#BSUB -W 15:30
+#BSUB -R span[hosts=1]
+#BSUB -x
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -J "XGBR_log Rg (nm)___substructure cluster_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   921470.00 sec.
+    Max Memory :                                 49 GB
+    Average Memory :                             34.49 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -33.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                1166
+    Run time :                                   31310 sec.
+    Turnaround time :                            31310 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err> for stderr output of this job.
+
+Fluorene
+-------- OOD Parallel --------
+-------- IID Parallel --------
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c202n13>
+Subject: Job 924653: <XGBR_log Rg (nm)___substructure cluster_20250624_lc> in cluster <Hazel> Exited
+
+Job <XGBR_log Rg (nm)___substructure cluster_20250624_lc> was submitted from host <c202n13> by user <sdehgha2> in cluster <Hazel> at Tue Jul  1 10:08:09 2025
+Job was executed on host(s) <6*c202n13>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jul  1 10:08:11 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jul  1 10:08:11 2025
+Terminated at Tue Jul  1 10:45:53 2025
+Results reported at Tue Jul  1 10:45:53 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 6
+#BSUB -W 7:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -x
+#BSUB -J "XGBR_log Rg (nm)___substructure cluster_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   50756.00 sec.
+    Max Memory :                                 19 GB
+    Average Memory :                             16.32 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -3.00 GB
+    Max Swap :                                   -
+    Max Processes :                              30
+    Max Threads :                                681
+    Run time :                                   2263 sec.
+    Turnaround time :                            2264 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err> for stderr output of this job.
+
+Fluorene
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+PPV
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Thiophene
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Polar
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+-------- OOD Parallel --------
+-------- IID Parallel --------
+Filename: (Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_XGBR_hypOFF_Standard_lc
+Done Saving scores!
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@c022n02.hpc.ncsu.edu>
+Subject: Job 925707: <XGBR_log Rg (nm)___substructure cluster_20250624_lc> in cluster <Hazel> Done
+
+Job <XGBR_log Rg (nm)___substructure cluster_20250624_lc> was submitted from host <c022n02.hpc.ncsu.edu> by user <sdehgha2> in cluster <Hazel> at Tue Jul  1 13:37:24 2025
+Job was executed on host(s) <18*c022n02>, in queue <single_chassis>, as user <sdehgha2> in cluster <Hazel> at Tue Jul  1 13:37:26 2025
+</home/sdehgha2> was used as the home directory.
+</share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/code_/training/hpc_submit_training_Rh> was used as the working directory.
+Started at Tue Jul  1 13:37:26 2025
+Terminated at Tue Jul  1 22:20:48 2025
+Results reported at Tue Jul  1 22:20:48 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+
+
+
+#BSUB -n 18
+#BSUB -W 7:30
+#BSUB -R span[hosts=1]
+#BSUB -R "rusage[mem=16GB]"
+#BSUB -x
+#BSUB -J "XGBR_log Rg (nm)___substructure cluster_20250624_lc"  
+#BSUB -o "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.out"
+#BSUB -e "/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err"
+
+source ~/.bashrc
+conda activate /usr/local/usrapps/ddomlab/sdehgha2/pls-dataset-env
+python ../make_ood_learning_curve.py --target_features "log Rg (nm)"                                       --regressor_type "XGBR"                                       --numerical_feats 'Xn' 'Mw (g/mol)' 'PDI' 'Concentration (mg/ml)' 'Temperature SANS/SLS/DLS/SEC (K)' "polymer dP" "polymer dD" "polymer dH" 'solvent dP' 'solvent dD' 'solvent dH' "Dark/light" "Aging time (hour)" "To Aging Temperature (K)" "Sonication/Stirring/heating Temperature (K)" "Merged Stirring /sonication/heating time(min)"                                       --clustering_method "substructure cluster" 
+
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   924046.00 sec.
+    Max Memory :                                 50 GB
+    Average Memory :                             34.68 GB
+    Total Requested Memory :                     16.00 GB
+    Delta Memory :                               -34.00 GB
+    Max Swap :                                   -
+    Max Processes :                              38
+    Max Threads :                                1166
+    Run time :                                   31404 sec.
+    Turnaround time :                            31404 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file </share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250624/XGBR_log Rg (nm)___substructure cluster_numerical_20250624_lc.err> for stderr output of this job.
+
