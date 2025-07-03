@@ -189,7 +189,7 @@ def draw_single_parity_plot(
     ax_min = ceil(min(combined_data.min()))
     g.ax_joint.plot([0, ax_max], [0, ax_max], ls="--", c=".3")
     score_sign = '$R^2$' if score_metrics == 'r2' else '$RMSE$'
-    g.ax_joint.annotate(f"{score_sign} = {r2_avg} ± {r2_stderr}\n$R_{{\mathrm{{Pearson}}}}$ = {r_preason:.2f}",
+    g.ax_joint.annotate(f"{score_sign} = {r2_avg} ± {r2_stderr}",
                         xy=(0.1, 0.9), xycoords='axes fraction',
                         ha='left', va='center',
                         fontsize=16.5,

@@ -11,7 +11,7 @@ import seaborn as sns
 import re
 # from matplotlib import rc
 from visualization_setting import set_plot_style, save_img_path
-from code_.visualization.visualize_ood_learning_curve import ensure_long_path
+from visualize_ood_learning_curve import ensure_long_path
 
 HERE: Path = Path(__file__).resolve().parent
 RESULTS: Path = HERE.parent.parent/ 'results'
@@ -373,39 +373,43 @@ def get_polymer_propeties_comparison(target_folder: Path,
 
 
 def plot_manual_heatmap(
-            root_dir: Path,
-            score: str,
-            score_to_show: pd.DataFrame,
-            figsize: tuple[int, int],
-            fig_title: str,
-            x_title: str,
-            y_title: str,
-            fname: str,
-            vmin: float = None,
-            vmax: float = None,
-            feature_order: list[str] = None,
-            model_order: list[str] = None,
-            num_ticks: int = 3,
-            **kwargs,
-        ) -> None:
+    root_dir: Path,
+    score: str,
+    score_to_show: pd.DataFrame,
+    figsize: tuple[int, int],
+    fig_title: str,
+    x_title: str,
+    y_title: str,
+    fname: str,
+    vmin: float = None,
+    vmax: float = None,
+    feature_order: list[str] = None,
+    model_order: list[str] = None,
+    num_ticks: int = 3,
+    **kwargs,
+) -> None:
+    
+    def wrap_label(label: str, max_words_per_line: int = 2) -> str:
+        words = label.split(" + ")
+        return "\n".join(
+            [" + ".join(words[i:i + max_words_per_line]) for i in range(0, len(words), max_words_per_line)]
+        )
 
-    # Pivot the DataFrame: rows = models, columns = features
-    # print(score_to_show)
-    avg_scores = score_to_show.pivot(index='model', columns='features', values='score')
-    annotations = score_to_show.pivot(index='model', columns='features', values='annotations')
-    # print(avg_scores)
-    # Apply order if provided
+    # Pivot the DataFrame
+    avg_scores = score_to_show.pivot(index='features', columns='model', values='score')
+    annotations = score_to_show.pivot(index='features', columns='model', values='annotations')
+
     if feature_order is not None:
-        avg_scores = avg_scores[feature_order]
-        annotations = annotations[feature_order]
+        avg_scores = avg_scores.reindex(feature_order)
+        annotations = annotations.reindex(feature_order)
 
     if model_order is not None:
-        avg_scores = avg_scores.reindex(model_order)
-        annotations = annotations.reindex(model_order)
+        avg_scores = avg_scores[model_order]
+        annotations = annotations[model_order]
 
     fig, ax = plt.subplots(figsize=figsize)
 
-    palette: str = "viridis" if score in ["r", "r2"] else "viridis_r"
+    palette = "viridis" if score in ["r", "r2"] else "viridis_r"
     custom_cmap = sns.color_palette(palette, as_cmap=True)
     custom_cmap.set_bad(color="lightgray")
 
@@ -422,24 +426,25 @@ def plot_manual_heatmap(
         annot_kws={"fontsize": kwargs['fontsize']},
     )
 
-    # Set axis labels and tick labels
+    # Tick labels
     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
 
-    x_tick_labels: list[str] = avg_scores.columns.tolist()
-    y_tick_labels: list[str] = avg_scores.index.tolist()
+    x_tick_labels = avg_scores.columns.tolist()
+    y_tick_labels = [wrap_label(label) for label in avg_scores.index]
 
     ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=kwargs['fontsize'])
     ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=kwargs['fontsize'])
+    ax.tick_params(axis='y', pad=5)
 
-    # Set plot and axis titles
-    plt.title(fig_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=kwargs['fontsize']+2, fontweight='bold')
+    # Titles
+    plt.title(fig_title, fontsize=kwargs['fontsize'] + 2, fontweight='bold')
+    ax.set_xlabel(x_title, fontsize=kwargs['fontsize'] + 2, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=kwargs['fontsize'] + 2, fontweight='bold')
 
-    # Set colorbar title and custom ticks
-    var_titles = {"stdev": "Stdev"}  # define this mapping if needed
-    score_txt: str = "$R^2$" if score == "r2" else score
+    # Colorbar
+    var_titles = {"stdev": "Stdev"}
+    score_txt = "$R^2$" if score == "r2" else score
     cbar = hmap.collections[0].colorbar
 
     if vmin is None:
@@ -458,14 +463,14 @@ def plot_manual_heatmap(
         fontweight='bold',
     )
     cbar.ax.tick_params(labelsize=kwargs['fontsize'])
+
     plt.tight_layout()
 
-    # Save the figure
-    visualization_folder_path = root_dir
-    save_img_path(visualization_folder_path,f"{fname}.png")
+    save_img_path(root_dir, f"{fname}.png")
 
     plt.show()
     plt.close()
+
 
 
 def creat_result_df(target_dir: Path,
@@ -663,14 +668,14 @@ def create_structural_scaler_result(target_dir:Path,
 complex_models = ['RF']
 
 
-for transformer in transformer_list:
-    for model in complex_models: 
-        for target_folder in target_list:
-            for i in scores_list:
+# for transformer in transformer_list:
+#     for model in complex_models: 
+#         for target_folder in target_list:
+#             for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,data_type='structural', transformer_type=transformer)
+                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                #                             score=i,data_type='structural', transformer_type=transformer)
 
 
 
@@ -725,13 +730,13 @@ def create_scaler_result(target_dir:Path,
 
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
             # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                                     score=i,data_type='structural_scaler', transformer_type=transformer)
-            create_scaler_result(target_dir=RESULTS/target_folder,
-                                score=i,data_type='scaler',transformer_type=transformer)
+            # create_scaler_result(target_dir=RESULTS/target_folder,
+            #                     score=i,data_type='scaler',transformer_type=transformer)
             
 
 
@@ -839,7 +844,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                                                         models_to_draw=models_to_draw,
                                                         special_namings=special_namings,
                                                         )
-    score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
+    # score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
     fname= f"model vs features in {score_metrics} for separate comparison (three criteria)"
     if score_metrics == "r2":
         vmax= .9
@@ -856,7 +861,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
     plot_manual_heatmap(root_dir=target_dir/'comparison heatmap for polymer properties',
                         score=score_metrics,
                         score_to_show=scores_to_show,
-                        figsize=(14,12),
+                        figsize=(10,12),
                         fig_title=f" ",
                         x_title="Feature Space",
                         y_title="Models",
