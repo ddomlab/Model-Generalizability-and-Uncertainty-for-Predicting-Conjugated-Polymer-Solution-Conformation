@@ -86,4 +86,4 @@ def save_img_path(folder_path:Union[str, Path], file_name:str)->None:
     if os.name == 'nt':  # Only for Windows
         save_path = Path(f"\\\\?\\{save_path.resolve()}")
 
-    plt.savefig(save_path, dpi=600, bbox_inches='tight')
+    plt.savefig(save_path, dpi=800, bbox_inches='tight')

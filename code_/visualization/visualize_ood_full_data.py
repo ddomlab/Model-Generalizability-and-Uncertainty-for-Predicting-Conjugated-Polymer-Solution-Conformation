@@ -240,8 +240,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
     plt.yticks(yticks)
     plt.tight_layout(rect=[0, 0, 1, 1.05])
     # plt.tight_layout()
-    if saving_path and file_name:
-        plt.savefig(saving_path / f"{file_name}_distance_metric-Wasserstein.png", dpi=300)
+    save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
 
     plt.show()
     plt.close()
