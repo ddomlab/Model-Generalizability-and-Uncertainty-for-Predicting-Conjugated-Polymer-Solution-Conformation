@@ -10,6 +10,7 @@ from skopt import BayesSearchCV
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.multioutput import MultiOutputRegressor,MultiOutputClassifier
 # from optuna.integration import OptunaSearchCV
+from scipy.stats import wasserstein_distance_nd
 
 # from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
 from data_handling import remove_unserializable_keys, save_results
@@ -21,6 +22,7 @@ from all_factories import (
                             construct_kernel,
                             get_regressor_search_space)
 
+from sklearn.preprocessing import StandardScaler
 
 from imputation_normalization import preprocessing_workflow
 from scoring import (
@@ -165,7 +167,8 @@ def run(
     transform_type: str, hyperparameter_optimization: bool = True,
     kernel:Optional[str] = None,**kwargs,
     ) -> tuple[dict[int, dict[str, float]], pd.DataFrame]:
-
+    
+    wasserstein_dis : dict[int, dict[str, float]] = {}
     seed_scores: dict[int, dict[str, float]] = {}
     seed_predictions: dict[int, np.ndarray] = {}
     # if 'Rh (IW avg log)' in target_features:
@@ -244,13 +247,24 @@ def run(
 
       else:
             scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
-      seed_scores[seed] = scores
+        
+      wd_list = []
+      for tr_dis, te_dis in cv_outer.split(X, y):
+            sd_caler = StandardScaler()
+            X_scaled = sd_caler.fit_transform(X)
+            X_tr_dis, X_te_dis = split_for_training(X_scaled, tr_dis), split_for_training(X_scaled, te_dis)
+            wd = wasserstein_distance_nd(X_tr_dis, X_te_dis)
+            wd_list.append(wd)
+            print(len(X_tr_dis), len(X_te_dis))
 
+      wasserstein_dis[seed] = {"mean": np.mean(wd_list),
+                                "std": np.std(wd_list)}
+      seed_scores[seed] = scores
       seed_predictions[seed] = predictions.flatten()
 
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(
                       seed_predictions, orient="columns")
-
+    print(wasserstein_dis)
     return seed_scores, seed_predictions
 
 

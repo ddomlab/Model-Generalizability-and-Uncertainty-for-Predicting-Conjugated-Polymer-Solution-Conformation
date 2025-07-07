@@ -87,35 +87,35 @@ def main_numerical_only(
 
 
 if __name__ == "__main__":
-    if TEST==False:
+    # if TEST==False:
 
-        args = parse_arguments()
+    #     args = parse_arguments()
+    #     main_numerical_only(
+    #         dataset=w_data,
+    #         regressor_type=args.regressor_type,
+    #         kernel=args.kernel,
+    #         target_features=[args.target_features],  
+    #         transform_type='Standard',
+    #         hyperparameter_optimization=True,
+    #         columns_to_impute=args.columns_to_impute,  
+    #         special_impute=args.special_impute,
+    #         numerical_feats=args.numerical_feats,  
+    #         imputer=args.imputer,
+    #         cutoff=None,  
+    #         second_transformer=None,
+    #         classification=False
+    #     )
+    # else:
         main_numerical_only(
             dataset=w_data,
-            regressor_type=args.regressor_type,
-            kernel=args.kernel,
-            target_features=[args.target_features],  
-            transform_type='Standard',
-            hyperparameter_optimization=True,
-            columns_to_impute=args.columns_to_impute,  
-            special_impute=args.special_impute,
-            numerical_feats=args.numerical_feats,  
-            imputer=args.imputer,
-            cutoff=None,  
-            second_transformer=None,
-            classification=False
-        )
-    else:
-        main_numerical_only(
-            dataset=w_data,
-            regressor_type="HGBR",
+            regressor_type="RF",
             # kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
             transform_type='Standard',
-            hyperparameter_optimization=True,
+            hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
-            numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH"],
+            numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH","Dark/light", "Aging time (hour)", "To Aging Temperature (K)", "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"],
             imputer=None,
             classification=False,
             cutoff=None)

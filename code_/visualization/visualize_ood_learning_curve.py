@@ -290,8 +290,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
     # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
-    ax.set_ylim(0, 1)
-    ax.set_yticks(np.arange(0, 1.2 , .2))
+    ax.set_ylim(-1, 1)
+    ax.set_yticks(np.arange(-1, 1.2 , .2))
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
@@ -1235,7 +1235,7 @@ if __name__ == "__main__":
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
         # plot OOD vs IID barplot at the same training size 
-        accuracy_metric = "rmse"
+        accuracy_metric = "r2"
         all_score_eq_training_size = []
         for model in ['XGBR', 'RF']:
 
@@ -1256,7 +1256,7 @@ if __name__ == "__main__":
         saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
         
         figsize = (16, 10) if cluster == 'Polymers cluster' else (8, 6)
-        plot_bar_ood_iid(all_score_eq_training_size, 'rmse', saving_folder, file_name=f'metric-{accuracy_metric}',
+        plot_bar_ood_iid(all_score_eq_training_size, 'r2', saving_folder, file_name=f'metric-{accuracy_metric}',
                             text_size=22,figsize=figsize, ncol=2)
         print("save OOD vs IID bar plot at equal training size")
 
