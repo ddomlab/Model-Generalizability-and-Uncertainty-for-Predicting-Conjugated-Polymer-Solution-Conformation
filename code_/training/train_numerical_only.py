@@ -17,7 +17,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -87,25 +87,25 @@ def main_numerical_only(
 
 
 if __name__ == "__main__":
-    # if TEST==False:
+    if TEST==False:
 
-    #     args = parse_arguments()
-    #     main_numerical_only(
-    #         dataset=w_data,
-    #         regressor_type=args.regressor_type,
-    #         kernel=args.kernel,
-    #         target_features=[args.target_features],  
-    #         transform_type='Standard',
-    #         hyperparameter_optimization=True,
-    #         columns_to_impute=args.columns_to_impute,  
-    #         special_impute=args.special_impute,
-    #         numerical_feats=args.numerical_feats,  
-    #         imputer=args.imputer,
-    #         cutoff=None,  
-    #         second_transformer=None,
-    #         classification=False
-    #     )
-    # else:
+        args = parse_arguments()
+        main_numerical_only(
+            dataset=w_data,
+            regressor_type=args.regressor_type,
+            kernel=args.kernel,
+            target_features=[args.target_features],  
+            transform_type='Standard',
+            hyperparameter_optimization=True,
+            columns_to_impute=args.columns_to_impute,  
+            special_impute=args.special_impute,
+            numerical_feats=args.numerical_feats,  
+            imputer=args.imputer,
+            cutoff=None,  
+            second_transformer=None,
+            classification=False
+        )
+    else:
         main_numerical_only(
             dataset=w_data,
             regressor_type="RF",
