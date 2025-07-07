@@ -560,11 +560,11 @@ def train_and_predict_ood(reg, X_train_val, y_train_val, X_test, y_test,
         uncertainty_estimator.fit(X_train_val, y_train_val)
         y_test_pred_uncertainty = uncertainty_estimator.pred_dist(X_test).reshape(y_test.shape)
         y_test_pred = reg.predict(X_test)
-    elif algorithm == 'XGBR':
-        xgb_u = _XGB_Uncertainty(reg_u)
-        xgb_u.fit(X_train_val, y_train_val)
-        y_test_pred_uncertainty = xgb_u.pred_dist(X_test).reshape(y_test.shape)
-        y_test_pred = reg.predict(X_test)
+    # elif algorithm == 'XGBR':
+    #     xgb_u = _XGB_Uncertainty(reg_u)
+    #     xgb_u.fit(X_train_val, y_train_val)
+    #     y_test_pred_uncertainty = xgb_u.pred_dist(X_test).reshape(y_test.shape)
+    #     y_test_pred = reg.predict(X_test)
     else:
         y_test_pred = reg.predict(X_test)
         y_test_pred_uncertainty = None
