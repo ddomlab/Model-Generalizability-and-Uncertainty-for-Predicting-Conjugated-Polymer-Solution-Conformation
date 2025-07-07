@@ -413,12 +413,13 @@ def plot_manual_heatmap(
     custom_cmap = sns.color_palette(palette, as_cmap=True)
     custom_cmap.set_bad(color="lightgray")
 
+    # Create heatmap without automatic colorbar
     hmap = sns.heatmap(
         avg_scores,
         annot=annotations,
         fmt="",
         cmap=custom_cmap,
-        cbar=True,
+        cbar=False,
         vmin=vmin,
         vmax=vmax,
         ax=ax,
@@ -426,7 +427,10 @@ def plot_manual_heatmap(
         annot_kws={"fontsize": kwargs['fontsize']},
     )
 
-    # Tick labels
+    # Flip y-ticks to the right side
+    ax.yaxis.tick_right()
+
+    # Set tick labels
     ax.set_xticks(np.arange(len(avg_scores.columns)) + 0.5)
     ax.set_yticks(np.arange(len(avg_scores.index)) + 0.5)
 
@@ -434,7 +438,7 @@ def plot_manual_heatmap(
     y_tick_labels = [wrap_label(label) for label in avg_scores.index]
 
     ax.set_xticklabels(x_tick_labels, rotation=45, ha="right", fontsize=kwargs['fontsize'])
-    ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=kwargs['fontsize'])
+    ax.set_yticklabels(y_tick_labels, rotation=0, ha="left", fontsize=kwargs['fontsize'])
     ax.tick_params(axis='y', pad=5)
 
     # Titles
@@ -442,10 +446,9 @@ def plot_manual_heatmap(
     ax.set_xlabel(x_title, fontsize=kwargs['fontsize'] + 2, fontweight='bold')
     ax.set_ylabel(y_title, fontsize=kwargs['fontsize'] + 2, fontweight='bold')
 
-    # Colorbar
+    # Colorbar manually on the left
     var_titles = {"stdev": "Stdev"}
     score_txt = "$R^2$" if score == "r2" else score
-    cbar = hmap.collections[0].colorbar
 
     if vmin is None:
         vmin = np.nanmin(avg_scores.values)
@@ -453,21 +456,22 @@ def plot_manual_heatmap(
         vmax = np.nanmax(avg_scores.values)
 
     ticks = np.linspace(vmin, vmax, num_ticks)
-    cbar.set_ticks(np.round(ticks, 1))
 
+    # Get the QuadMesh from heatmap and create colorbar manually
+    im = hmap.get_children()[0]
+    cbar = fig.colorbar(im, ax=ax, orientation='vertical', location='left', shrink=0.6, pad=0.02)
+    cbar.set_ticks(np.round(ticks, 1))
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles.get('stdev', 'Stdev')}",
-        rotation=270,
-        labelpad=20,
+        rotation=90,
+        labelpad=10,
         fontsize=kwargs['fontsize'],
         fontweight='bold',
     )
     cbar.ax.tick_params(labelsize=kwargs['fontsize'])
 
     plt.tight_layout()
-
     save_img_path(root_dir, f"{fname}.png")
-
     plt.show()
     plt.close()
 
