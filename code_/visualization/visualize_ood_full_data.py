@@ -239,14 +239,9 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
     # plt.yticks(yticks)
     plt.tight_layout(rect=[0, 0, 1, 1.05])
-    # plt.tight_layout()
-<<<<<<< HEAD
+    plt.tight_layout()
     if saving_path and file_name:
         save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
-=======
-    save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
-
->>>>>>> 96e8cd390fc4bd9cfdf8d407dabbb8e962b7599f
     plt.show()
     plt.close()
 
@@ -264,18 +259,18 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
 if __name__ == "__main__":
     cluster_list = [
-                    # 'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
+                    'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
+                    # 'substructure cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster',
                     ]
     for cluster in cluster_list:
-        score_metrics = ["r2"]
+        score_metrics = ["rmse"]
         for accuracy_metric in score_metrics:
             ## Plot OOD-IID vs distance for mix of fingerprints and numerical
 
@@ -337,7 +332,7 @@ if __name__ == "__main__":
             
             combined_data = []
             ood_iid_bar_combined_models = []
-            OOD_IID_distance = False
+            OOD_IID_distance = True
             ncol = 0
             for model in ['RF', 'XGBR']:
                 scores_folder_path = results_path / cluster / 'scaler'
@@ -354,13 +349,12 @@ if __name__ == "__main__":
                 ncol+=1
    
 
-<<<<<<< HEAD
             # saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
             # f_name = f"{co_vector}_{accuracy_metric}" 
             # f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
             #                             saving_path=saving_folder, file_name=f_name,
-            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(11,5.7))
+            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(6,5))
             # print('Plot scores vs distance (full data)')
 
 
@@ -368,21 +362,6 @@ if __name__ == "__main__":
             plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
                             saving_folder,f'metric-{accuracy_metric}', 
                             figsize=(8, 6), text_size=20,ncol=ncol)
-=======
-            saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
-            f_name = f"{co_vector}_{accuracy_metric}" 
-            f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
-                                        saving_path=saving_folder, file_name=f_name,
-                                        is_ood_iid_distance=OOD_IID_distance,figsize=(6,4),score_metric= accuracy_metric)
-            print('Plot scores vs distance (full data)')
-
-
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(8, 6), text_size=20,ncol=ncol)
->>>>>>> 96e8cd390fc4bd9cfdf8d407dabbb8e962b7599f
 
 
 

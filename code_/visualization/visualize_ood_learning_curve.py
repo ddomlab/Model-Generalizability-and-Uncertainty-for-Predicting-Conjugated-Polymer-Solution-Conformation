@@ -290,8 +290,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
     # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
-    ax.set_ylim(-1, 1)
-    ax.set_yticks(np.arange(-1, 1.2 , .2))
+    ax.set_ylim(0, 1.2)
+    ax.set_yticks(np.arange(0, 1.4 , .2))
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
@@ -749,182 +749,35 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     plt.close()
 
 # all models
-# def plot_ood_learning_accuracy_only(
-#     all_scores: Dict[str, Dict],
-#     metric: str = "rmse",
-#     folder: Path = None,
-#     file_name: str = 'model_accuracy_comparison',
-#     title: Optional[str] = None,
-#     fontsize: int = 14
-# ) -> None:
-#     set2_palette = sns.color_palette("Set2")
-
-#     model_colors = {
-#         'RF': set2_palette[1],
-#         'XGBR': set2_palette[0],
-#         'NGB': set2_palette[2],
-#     }
-
-#     # Style mapping
-#     domain_styles = {
-#         "CO_": "-",      # OOD: solid
-#         "IID_": "--",    # IID: dashed
-#     }
-
-#     score_type_markers = {
-#         "Train": 'o',
-#         "Test": '^'
-#     }
-
-#     all_dfs = []
-#     for model_name, summary_scores in all_scores.items():
-#         score_df, _ = process_learning_curve_scores(summary_scores, metric)
-#         score_df["Model"] = model_name
-#         all_dfs.append(score_df)
-
-#     score_df = pd.concat(all_dfs, ignore_index=True)
-
-#     if score_df.empty:
-#         raise ValueError(f"No data found for metric '{metric}'.")
-
-#     max_score = np.ceil(score_df["Score"].max() * 10) / 10
-#     score_yticks = np.arange(0, max_score + 0.4, 0.4)
-
-#     co_clusters = sorted(set(c.replace("CO_", "") for c in score_df['Cluster'].unique() if c.startswith("CO_")))
-#     col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
-
-#     g = sns.FacetGrid(score_df[score_df['Cluster'].str.startswith("CO_")],
-#                       col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
-
-#     def plot_accuracy(data, **kwargs):
-#         cluster_oid = data["Cluster"].iloc[0]
-#         cluster_idx = cluster_oid.replace("CO_", "")
-#         ax = plt.gca()
-
-#         for model in data["Model"].unique():
-#             for prefix in ["CO_", "IID_"]:
-#                 for score_type in ["Train", "Test"]:
-#                     cluster_name = f"{prefix}{cluster_idx}"
-#                     sub_df = score_df[
-#                         (score_df["Cluster"] == cluster_name) &
-#                         (score_df["Model"] == model) &
-#                         (score_df["Score Type"] == score_type)
-#                     ]
-
-#                     if sub_df.empty:
-#                         continue
-
-#                     sub_df = sub_df.sort_values("Train Set Size")
-#                     color = model_colors.get(model, 'black')
-#                     linestyle = domain_styles[prefix]
-#                     marker = score_type_markers[score_type]
-
-#                     ax.plot(
-#                         sub_df["Train Set Size"],
-#                         sub_df["Score"],
-#                         label=None,
-#                         marker=marker,
-#                         linestyle=linestyle,
-#                         linewidth=2.5,
-#                         color=color,
-#                         markersize=8
-#                     )
-#                     ax.fill_between(
-#                         sub_df["Train Set Size"],
-#                         sub_df["Score"] - sub_df["Std"],
-#                         sub_df["Score"] + sub_df["Std"],
-#                         alpha=0.15,
-#                         color=color
-#                     )
-
-#         ax.set_xticks(np.arange(0, 251, 50))
-#         ax.set_ylim(0, max_score)
-#         ax.set_yticks(score_yticks)
-#         ax.tick_params(axis='x', labelsize=fontsize)
-#         ax.tick_params(axis='y', labelsize=fontsize)
-#         ax.set_xlabel("Training Set Size", fontsize=fontsize + 2, fontweight='bold')
-
-#         for spine in ['top', 'right', 'bottom', 'left']:
-#             ax.spines[spine].set_visible(True)
-
-#     g.map_dataframe(plot_accuracy)
-
-#     for i, ax in enumerate(g.axes.flat):
-#         if i == 0:
-#             ax.set_ylabel(metric.upper(), fontsize=fontsize + 2, fontweight='bold')
-#         else:
-#             ax.set_ylabel("")
-#             ax.set_yticklabels([])
-#         ax.set_title(g.col_names[i], fontsize=fontsize + 4)
-
-#     # Legend
-#     color_legend = [
-#         Line2D([0], [0], color=color, lw=3, label=model)
-#         for model, color in model_colors.items()
-#         if model in score_df["Model"].unique()
-#     ]
-#     domain_legend = [
-#         Line2D([0], [0], color='black', lw=2.5, linestyle=linestyle, label=label)
-#         for label, linestyle in zip(["OOD", "IID"], ["-", "--"])
-#     ]
-#     score_type_legend = [
-#         Line2D([0], [0], color='black', marker=marker, linestyle='None', markersize=10, label=label)
-#         for label, marker in score_type_markers.items()
-#     ]
-
-#     if title:
-#         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
-
-#     plt.figlegend(
-#         handles=color_legend + domain_legend + score_type_legend,
-#         loc='upper center',
-#         bbox_to_anchor=(0.5, 1.10),
-#         ncol=len(color_legend + domain_legend + score_type_legend),
-#         fontsize=fontsize,
-#         frameon=True
-#     )
-
-#     plt.tight_layout(rect=[0, 0, 1, 0.98])
-
-#     if folder:
-#         save_img_path(folder, f"accuracy comparison ({file_name}).png")
-
-#     plt.show()
-#     plt.close()
-
-
 def plot_ood_learning_accuracy_only(
     all_scores: Dict[str, Dict],
     metric: str = "rmse",
     folder: Path = None,
     file_name: str = 'model_accuracy_comparison',
     title: Optional[str] = None,
-    mode_to_show: Optional[List[str]] = 'RF',
     fontsize: int = 14
 ) -> None:
-    import matplotlib.pyplot as plt
-    import seaborn as sns
-    import numpy as np
-    import pandas as pd
-    from matplotlib.lines import Line2D
+    set2_palette = sns.color_palette("Set2")
 
-    # Color map for OOD vs IID
-    color_map = {
-        'CO_': "#B93C4D",   # OOD
-        'IID_': "#4A6FB4",  # IID
+    model_colors = {
+        'RF': set2_palette[1],
+        'XGBR': set2_palette[0],
+        'NGB': set2_palette[2],
     }
 
-    # Markers only depend on Train/Test now
-    marker_map = {
-        'Train': 'o',
-        'Test': '^'
+    # Style mapping
+    domain_styles = {
+        "CO_": "-",      # OOD: solid
+        "IID_": "--",    # IID: dashed
+    }
+
+    score_type_markers = {
+        "Train": 'o',
+        "Test": '^'
     }
 
     all_dfs = []
-
     for model_name, summary_scores in all_scores.items():
-        if model_name != mode_to_show:
-            continue
         score_df, _ = process_learning_curve_scores(summary_scores, metric)
         score_df["Model"] = model_name
         all_dfs.append(score_df)
@@ -948,40 +801,41 @@ def plot_ood_learning_accuracy_only(
         cluster_idx = cluster_oid.replace("CO_", "")
         ax = plt.gca()
 
-        for prefix in ["CO_", "IID_"]:
-            for score_type in ["Train", "Test"]:
-                cluster_name = f"{prefix}{cluster_idx}"
-                subset = score_df[
-                    (score_df["Cluster"] == cluster_name) &
-                    (score_df["Model"] == "RF") &
-                    (score_df["Score Type"] == score_type)
-                ]
+        for model in data["Model"].unique():
+            for prefix in ["CO_", "IID_"]:
+                for score_type in ["Train", "Test"]:
+                    cluster_name = f"{prefix}{cluster_idx}"
+                    sub_df = score_df[
+                        (score_df["Cluster"] == cluster_name) &
+                        (score_df["Model"] == model) &
+                        (score_df["Score Type"] == score_type)
+                    ]
 
-                if subset.empty:
-                    continue
+                    if sub_df.empty:
+                        continue
 
-                subset = subset.sort_values("Train Set Size")
-                color = color_map[prefix]
-                marker = marker_map[score_type]
-                linestyle = '--' if score_type == "Train" else '-'
+                    sub_df = sub_df.sort_values("Train Set Size")
+                    color = model_colors.get(model, 'black')
+                    linestyle = domain_styles[prefix]
+                    marker = score_type_markers[score_type]
 
-                ax.plot(
-                    subset["Train Set Size"],
-                    subset["Score"],
-                    label=None,
-                    marker=marker,
-                    markersize=8,
-                    linestyle=linestyle,
-                    linewidth=2.5,
-                    color=color
-                )
-                ax.fill_between(
-                    subset["Train Set Size"],
-                    subset["Score"] - subset["Std"],
-                    subset["Score"] + subset["Std"],
-                    alpha=0.2,
-                    color=color
-                )
+                    ax.plot(
+                        sub_df["Train Set Size"],
+                        sub_df["Score"],
+                        label=None,
+                        marker=marker,
+                        linestyle=linestyle,
+                        linewidth=2.5,
+                        color=color,
+                        markersize=8
+                    )
+                    ax.fill_between(
+                        sub_df["Train Set Size"],
+                        sub_df["Score"] - sub_df["Std"],
+                        sub_df["Score"] + sub_df["Std"],
+                        alpha=0.15,
+                        color=color
+                    )
 
         ax.set_xticks(np.arange(0, 251, 50))
         ax.set_ylim(0, max_score)
@@ -1001,25 +855,31 @@ def plot_ood_learning_accuracy_only(
         else:
             ax.set_ylabel("")
             ax.set_yticklabels([])
-
         ax.set_title(g.col_names[i], fontsize=fontsize + 4)
 
-    # Combined Legend
-    legend_elements = [
-        Line2D([0], [0], color=color_map['CO_'], marker='o', linestyle='--', lw=3, markersize=10, label="Train OOD"),
-        Line2D([0], [0], color=color_map['CO_'], marker='^', linestyle='-', lw=3, markersize=12, label="Test OOD"),
-        Line2D([0], [0], color=color_map['IID_'], marker='o', linestyle='--', markersize=10, lw=3, label="Train IID"),
-        Line2D([0], [0], color=color_map['IID_'], marker='^', linestyle='-', markersize=12, lw=3, label="Test IID"),
+    # Legend
+    color_legend = [
+        Line2D([0], [0], color=color, lw=3, label=model)
+        for model, color in model_colors.items()
+        if model in score_df["Model"].unique()
+    ]
+    domain_legend = [
+        Line2D([0], [0], color='black', lw=2.5, linestyle=linestyle, label=label)
+        for label, linestyle in zip(["OOD", "IID"], ["-", "--"])
+    ]
+    score_type_legend = [
+        Line2D([0], [0], color='black', marker=marker, linestyle='None', markersize=10, label=label)
+        for label, marker in score_type_markers.items()
     ]
 
     if title:
         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
 
     plt.figlegend(
-        handles=legend_elements,
+        handles=color_legend + domain_legend + score_type_legend,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.12),
-        ncol=4,
+        bbox_to_anchor=(0.5, 1.10),
+        ncol=len(color_legend + domain_legend + score_type_legend),
         fontsize=fontsize,
         frameon=True
     )
@@ -1031,6 +891,146 @@ def plot_ood_learning_accuracy_only(
 
     plt.show()
     plt.close()
+
+
+# def plot_ood_learning_accuracy_only(
+#     all_scores: Dict[str, Dict],
+#     metric: str = "rmse",
+#     folder: Path = None,
+#     file_name: str = 'model_accuracy_comparison',
+#     title: Optional[str] = None,
+#     mode_to_show: Optional[List[str]] = 'RF',
+#     fontsize: int = 14
+# ) -> None:
+#     import matplotlib.pyplot as plt
+#     import seaborn as sns
+#     import numpy as np
+#     import pandas as pd
+#     from matplotlib.lines import Line2D
+
+#     # Color map for OOD vs IID
+#     color_map = {
+#         'CO_': "#B93C4D",   # OOD
+#         'IID_': "#4A6FB4",  # IID
+#     }
+
+#     # Markers only depend on Train/Test now
+#     marker_map = {
+#         'Train': 'o',
+#         'Test': '^'
+#     }
+
+#     all_dfs = []
+
+#     for model_name, summary_scores in all_scores.items():
+#         if model_name != mode_to_show:
+#             continue
+#         score_df, _ = process_learning_curve_scores(summary_scores, metric)
+#         score_df["Model"] = model_name
+#         all_dfs.append(score_df)
+
+#     score_df = pd.concat(all_dfs, ignore_index=True)
+
+#     if score_df.empty:
+#         raise ValueError(f"No data found for metric '{metric}'.")
+
+#     max_score = np.ceil(score_df["Score"].max() * 10) / 10
+#     score_yticks = np.arange(0, max_score + 0.4, 0.4)
+
+#     co_clusters = sorted(set(c.replace("CO_", "") for c in score_df['Cluster'].unique() if c.startswith("CO_")))
+#     col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
+
+#     g = sns.FacetGrid(score_df[score_df['Cluster'].str.startswith("CO_")],
+#                       col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
+
+#     def plot_accuracy(data, **kwargs):
+#         cluster_oid = data["Cluster"].iloc[0]
+#         cluster_idx = cluster_oid.replace("CO_", "")
+#         ax = plt.gca()
+
+#         for prefix in ["CO_", "IID_"]:
+#             for score_type in ["Train", "Test"]:
+#                 cluster_name = f"{prefix}{cluster_idx}"
+#                 subset = score_df[
+#                     (score_df["Cluster"] == cluster_name) &
+#                     (score_df["Model"] == "RF") &
+#                     (score_df["Score Type"] == score_type)
+#                 ]
+
+#                 if subset.empty:
+#                     continue
+
+#                 subset = subset.sort_values("Train Set Size")
+#                 color = color_map[prefix]
+#                 marker = marker_map[score_type]
+#                 linestyle = '--' if score_type == "Train" else '-'
+
+#                 ax.plot(
+#                     subset["Train Set Size"],
+#                     subset["Score"],
+#                     label=None,
+#                     marker=marker,
+#                     markersize=8,
+#                     linestyle=linestyle,
+#                     linewidth=2.5,
+#                     color=color
+#                 )
+#                 ax.fill_between(
+#                     subset["Train Set Size"],
+#                     subset["Score"] - subset["Std"],
+#                     subset["Score"] + subset["Std"],
+#                     alpha=0.2,
+#                     color=color
+#                 )
+
+#         ax.set_xticks(np.arange(0, 251, 50))
+#         ax.set_ylim(0, max_score)
+#         ax.set_yticks(score_yticks)
+#         ax.tick_params(axis='x', labelsize=fontsize)
+#         ax.tick_params(axis='y', labelsize=fontsize)
+#         ax.set_xlabel("Training Set Size", fontsize=fontsize + 2, fontweight='bold')
+
+#         for spine in ['top', 'right', 'bottom', 'left']:
+#             ax.spines[spine].set_visible(True)
+
+#     g.map_dataframe(plot_accuracy)
+
+#     for i, ax in enumerate(g.axes.flat):
+#         if i == 0:
+#             ax.set_ylabel(metric.upper(), fontsize=fontsize + 2, fontweight='bold')
+#         else:
+#             ax.set_ylabel("")
+#             ax.set_yticklabels([])
+
+#         ax.set_title(g.col_names[i], fontsize=fontsize + 4)
+
+#     # Combined Legend
+#     legend_elements = [
+#         Line2D([0], [0], color=color_map['CO_'], marker='o', linestyle='--', lw=3, markersize=10, label="Train OOD"),
+#         Line2D([0], [0], color=color_map['CO_'], marker='^', linestyle='-', lw=3, markersize=12, label="Test OOD"),
+#         Line2D([0], [0], color=color_map['IID_'], marker='o', linestyle='--', markersize=10, lw=3, label="Train IID"),
+#         Line2D([0], [0], color=color_map['IID_'], marker='^', linestyle='-', markersize=12, lw=3, label="Test IID"),
+#     ]
+
+#     if title:
+#         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
+
+#     plt.figlegend(
+#         handles=legend_elements,
+#         loc='upper center',
+#         bbox_to_anchor=(0.5, 1.12),
+#         ncol=4,
+#         fontsize=fontsize,
+#         frameon=True
+#     )
+
+#     plt.tight_layout(rect=[0, 0, 1, 0.98])
+
+#     if folder:
+#         save_img_path(folder, f"accuracy comparison ({file_name}).png")
+
+#     plt.show()
+#     plt.close()
 
 
 
@@ -1066,13 +1066,11 @@ if __name__ == "__main__":
     cluster_list = [
 
                     # 'HBD3 MACCS cluster',
-                    # 'KM5 polymer_solvent HSP and polysize cluster',
-                    # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
-                    # 'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
+                    # 'substructure cluster',
+                    'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster'
                     ]
 
@@ -1235,7 +1233,7 @@ if __name__ == "__main__":
         # print("save OOD vs IID bar plot at equal training size for comparison of features")
 
         # plot OOD vs IID barplot at the same training size 
-        accuracy_metric = "r2"
+        accuracy_metric = "rmse"
         all_score_eq_training_size = []
         for model in ['XGBR', 'RF']:
 
@@ -1256,7 +1254,7 @@ if __name__ == "__main__":
         saving_folder = scores_folder_path/  f'OOD-IID bar plot(equal training set)'
         
         figsize = (16, 10) if cluster == 'Polymers cluster' else (8, 6)
-        plot_bar_ood_iid(all_score_eq_training_size, 'r2', saving_folder, file_name=f'metric-{accuracy_metric}',
+        plot_bar_ood_iid(all_score_eq_training_size, accuracy_metric, saving_folder, file_name=f'metric-{accuracy_metric}',
                             text_size=22,figsize=figsize, ncol=2)
         print("save OOD vs IID bar plot at equal training size")
 
