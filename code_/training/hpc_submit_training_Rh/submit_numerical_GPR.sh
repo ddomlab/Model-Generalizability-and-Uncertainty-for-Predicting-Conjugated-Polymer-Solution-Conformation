@@ -3,8 +3,8 @@ output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset
 # Define arrays for regressor types, targets, and models
 target_to_assess=('log Rg (nm)')
 models_to_run=('sklearn-GPR')
-scalers=('Standard')
-kernels=('matern')
+scalers=('Standard' 'Robust Scaler')
+kernels=('matern' 'rbf')
 # Loop through each combination of regressor, target, and model
 for target in "${target_to_assess[@]}"; do
     for model in "${models_to_run[@]}"; do
@@ -14,7 +14,7 @@ for target in "${target_to_assess[@]}"; do
               bsub <<EOT
 
 #BSUB -n 8
-#BSUB -W 30:01
+#BSUB -W 20:01
 #BSUB -R span[hosts=1]
 #BSUB -R "rusage[mem=16GB]"
 #BSUB -J "${model}" 
