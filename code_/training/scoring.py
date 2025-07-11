@@ -221,12 +221,12 @@ def process_scores(
                 ]
                 # print(avgs)
             else:
-                avg_r = round(np.mean([seed["test_pearson_r"] for seed in scores.values()]), 2)
-                stdev_r = round(np.std([seed["test_pearson_r"] for seed in scores.values()]), 2)
+                avg_rmse = round(np.mean([seed["test_rmse"] for seed in scores.values()]), 2)
+                stdev_rmse = round(np.std([seed["test_rmse"] for seed in scores.values()]), 2)
                 avg_r2 = round(np.mean([seed["test_r2"] for seed in scores.values()]), 2)
                 stdev_r2 = round(np.std([seed["test_r2"] for seed in scores.values()]), 2)
                 print("Average scores:\t",
-                    f"r: {avg_r}±{stdev_r}\t",
+                    f"rmse: {-avg_rmse}±{stdev_rmse}\t",
                     f"r2: {avg_r2}±{stdev_r2}")
 
 

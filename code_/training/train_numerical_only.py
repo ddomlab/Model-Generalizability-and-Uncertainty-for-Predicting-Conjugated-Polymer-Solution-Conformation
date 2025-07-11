@@ -17,7 +17,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = True
+TEST = False
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -95,7 +95,7 @@ if __name__ == "__main__":
             regressor_type=args.regressor_type,
             kernel=args.kernel,
             target_features=[args.target_features],  
-            transform_type='Standard',
+            transform_type=args.transform_type,
             hyperparameter_optimization=True,
             columns_to_impute=args.columns_to_impute,  
             special_impute=args.special_impute,
@@ -108,14 +108,14 @@ if __name__ == "__main__":
     else:
         main_numerical_only(
             dataset=w_data,
-            regressor_type="RF",
-            # kernel= "matern",
+            regressor_type="sklearn-GPR",
+            kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
-            transform_type='Standard',
+            transform_type='Robust Scaler',  
             hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
-            numerical_feats=['Mw (g/mol)','PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "solvent dP", "solvent dD", "solvent dH","Dark/light", "Aging time (hour)", "To Aging Temperature (K)", "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"],
+            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH'],
             imputer=None,
             classification=False,
             cutoff=None)
