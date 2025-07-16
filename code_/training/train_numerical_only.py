@@ -87,7 +87,7 @@ def main_numerical_only(
 
 
 if __name__ == "__main__":
-    if TEST==False:
+    if TEST==True:
 
         args = parse_arguments()
         main_numerical_only(
@@ -111,7 +111,7 @@ if __name__ == "__main__":
             regressor_type="sklearn-GPR",
             kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
-            transform_type='Robust Scaler',  
+            transform_type='Standard',  
             hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
