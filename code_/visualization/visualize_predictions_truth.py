@@ -213,7 +213,7 @@ def draw_single_parity_plot(
     os.makedirs(visualization_folder_path, exist_ok=True)
 
     saving_path = visualization_folder_path/ file_name
-
+    print(saving_path)
     try:
         save_img_path(visualization_folder_path, file_name)
     except Exception as e:
@@ -234,7 +234,7 @@ if __name__ == "__main__":
 
 
     target_to_an = 'target_log Rg (nm)'
-    file_n = "(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_NGB_Standard_predictions.csv"
+    file_n = "(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_XGBR_Standard_predictions.csv"
     poly_representation_name = 'scaler'
     truth_val_file:Path = RESULTS/target_to_an/poly_representation_name/file_n
     truth_val_file = ensure_long_path(truth_val_file)
