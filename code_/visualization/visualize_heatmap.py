@@ -233,19 +233,22 @@ def _create_heatmap(
     ax.set_yticklabels(y_tick_labels, rotation=0, ha="right", fontsize=16)
 
     # Titles
-    plt.title(fig_title, fontsize=28, fontweight='bold')
-    ax.set_xlabel(x_title, fontsize=24, fontweight='bold')
-    ax.set_ylabel(y_title, fontsize=24, fontweight='bold')
+    plt.title(fig_title, fontsize=22, fontweight='bold',pad=10)
+    ax.set_xlabel(x_title, fontsize=20, fontweight='bold')
+    ax.set_ylabel(y_title, fontsize=20, fontweight='bold')
 
     # Colorbar
     score_txt: str = "$R^2$" if score == "r2" else score
     cbar = hmap.collections[0].colorbar
-    
-    # if vmin is not None and vmax is not None:
-    #     num_ticks = round((vmax - vmin) / 0.1)
-    
-    # cbar.set_ticks(np.round(np.linspace(vmin, vmax, num_ticks), 2))
-    
+
+    if vmin is None:
+        vmin = np.nanmin(avg_scores.values)
+    if vmax is None:
+        vmax = np.nanmax(avg_scores.values)
+
+    num_ticks = num_ticks
+    ticks = np.linspace(vmin, vmax, num_ticks)
+    cbar.set_ticks(np.round(ticks,1))
     cbar.set_label(
         f"Average {score_txt.upper()} ± {var_titles[var]}",
         rotation=270,
@@ -254,7 +257,7 @@ def _create_heatmap(
         fontweight='bold',
     )
 
-    cbar.ax.tick_params(labelsize=20)
+    cbar.ax.tick_params(labelsize=18)
 
     # Save
     visualization_folder_path = root_dir / "heatmap"
@@ -388,16 +391,17 @@ def create_structural_result(target_dir:Path,
     # vmin, vmax = set_minmax_cbar(score)
    
     if score == "r2":
-        vmax= .2
-        vmin= .0
+        vmax= .9
+        vmin= .1
+        n_cbar_tick = 9
     elif score == "mae":
-        vmax= .55
-        vmin= 0.45
-    
+        vmax= .5
+        vmin= 0.1
+        n_cbar_tick = 5  
     elif score == "rmse":
-        vmax= .65
-        vmin= 0.50 
-
+        vmax= .6
+        vmin= 0.2
+        n_cbar_tick = 5
 
 
     _create_heatmap(root_dir=target_dir,
@@ -406,12 +410,12 @@ def create_structural_result(target_dir:Path,
                     avg_scores=ave,
                     annotations=anot,
                     figsize=(14, 8),
-                    fig_title=f"Average {score_txt} of {target.split('_')[1]} with strctural features (model: {model_in_title})",
+                    fig_title=f"Algorithm: {model_in_title}",
                     x_title="Fingerprint Representations",
                     y_title="Polymer Unit Representation",
                     vmax=vmax,
                     vmin=vmin,
-                    num_ticks=4,
+                    num_ticks=n_cbar_tick,
                     fname=fname)
 
 
@@ -488,14 +492,14 @@ def create_structural_scaler_result(target_dir:Path,
 complex_models = ['XGBR','RF', 'NGB']
 
 
-# for transformer in transformer_list:
-#     for model in complex_models: 
-#         for target_folder in target_list:
-#             for i in scores_list:
+for transformer in transformer_list:
+    for model in complex_models: 
+        for target_folder in target_list:
+            for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder}',
-                #                             score=i,var='stdev',data_type='structural', transformer_type=transformer)
+                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder}',
+                                            score=i,var='stdev',data_type='structural', transformer_type=transformer)
 
 # for peak in [0,1,2]:
 #     for transformer in transformer_list:
@@ -558,15 +562,15 @@ def create_scaler_result(target_dir:Path,
 # simple_models = ['MLR','DT','RF']
 
 
-for transformer in transformer_list:
-    for target_folder in target_list:
-        for i in scores_list:
+# for transformer in transformer_list:
+#     for target_folder in target_list:
+#         for i in scores_list:
             # create_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder}',
             #                     score=i,var='stdev',data_type='scaler',transformer_type=transformer)
             
 
-            create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder}',
-                                                score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
+            # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder}',
+            #                                     score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
             
 # for peak in [0,1,2]:
 #     for transformer in transformer_list:
