@@ -673,14 +673,14 @@ def create_structural_scaler_result(target_dir:Path,
 complex_models = ['NGB']
 
 
-for transformer in transformer_list:
-    for model in complex_models: 
-        for target_folder in target_list:
-            for i in scores_list:
+# for transformer in transformer_list:
+#     for model in complex_models: 
+#         for target_folder in target_list:
+#             for i in scores_list:
 #                 create_structural_scaler_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
 #                                                 score=i,var='stdev',data_type='structural_scaler', transformer_type=transformer)
-                create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
-                                            score=i,data_type='structural', transformer_type=transformer)
+                # create_structural_result(target_dir=RESULTS/target_folder,regressor_model= model,target=f'{target_folder} with',
+                #                             score=i,data_type='structural', transformer_type=transformer)
 
 
 
@@ -853,7 +853,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
     fname= f"model vs features in {score_metrics} for separate comparison (three criteria)"
     if score_metrics == "r2":
         vmax= .9
-        vmin= .6
+        vmin= .1
         n_cbar_tick = 9  
     elif score_metrics == "mae":
         vmax= .5
@@ -874,33 +874,33 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                         vmin=vmin,
                         vmax=vmax,
                         feature_order=features_to_draw,
-                        model_order=list(models_to_draw),
+                        model_order=['RF','NGB','XGBR'],
                         num_ticks=5,
                         fontsize=16,
                         )
 
 
-# aging_features: List = [
-#     'Xn + polysize',
-#     'Xn + polysize + Mordred',
-#     'Xn + polysize + MACCS',
-#     'Xn + polysize + ECFP6.count.512',
-#     'Xn + polysize + polymer_HSPs',
-#     # 'environmental.thermal history',
-#     'solvent_properties + solvent_HSPs',
-#     'solvent_properties + solvent_HSPs + environmental.thermal history',
-#     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
-#     'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
-#     # 'Xn + polysize + solvent_properties + environmental.thermal history',
+aging_features: List = [
+    'Xn + polysize',
+    'Xn + polysize + Mordred',
+    'Xn + polysize + MACCS',
+    'Xn + polysize + ECFP6.count.512',
+    'Xn + polysize + polymer_HSPs',
+    # 'environmental.thermal history',
+    'solvent_properties + solvent_HSPs',
+    'solvent_properties + solvent_HSPs + environmental.thermal history',
+    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
+    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
+    # 'Xn + polysize + solvent_properties + environmental.thermal history',
 
-#     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
-#     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
-# ]
+    # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
+    # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
+]
 
-# creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-#                                     score_metrics='rmse',
-#                                     comparison_value=['scaler', 'Trimer_scaler'],
-#                                     features_to_draw=aging_features,
-#                                     models_to_draw={'RF','XGBR', 'NGB'},
-#                                     # special_namings=['aging_imputed']
-#                                     )
+creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
+                                    score_metrics='rmse',
+                                    comparison_value=['scaler', 'Trimer_scaler'],
+                                    features_to_draw=aging_features,
+                                    models_to_draw={'RF','NGB','XGBR'},
+                                    # special_namings=['aging_imputed']
+                                    )
