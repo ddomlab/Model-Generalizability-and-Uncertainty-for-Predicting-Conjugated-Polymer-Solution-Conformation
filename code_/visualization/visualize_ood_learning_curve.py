@@ -259,11 +259,11 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
                 if row["SplitType"] == "OOD":
                     ax.bar(base_x, row["Score"], bar_width, yerr=row["Std"],
                            error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
-                           color=color, alpha=0.6, label=f"{model} OOD")
+                           color=color, alpha=1, label=f"{model} OOD")
                 elif row["SplitType"] == "IID":
                     ax.bar(base_x + bar_width, row["Score"], bar_width, yerr=row["Std"],
                            error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
-                           color=color, alpha=1.0, label=f"{model} IID")
+                           color=color, alpha=.5, label=f"{model} IID")
 
         center_of_group = cluster_offset + (n_models * bar_width)
         cluster_ticks.append(center_of_group)
@@ -1066,10 +1066,10 @@ if __name__ == "__main__":
     cluster_list = [
 
                     # 'HBD3 MACCS cluster',
-                    # 'substructure cluster',
+                    'substructure cluster',
                     'KM4 ECFP6_Count_512bit cluster',	
                     'KM3 Mordred cluster',
-                    # 'KM4 polymer_solvent HSP cluster',
+                    'KM4 polymer_solvent HSP cluster',
                     'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster'
                     ]
