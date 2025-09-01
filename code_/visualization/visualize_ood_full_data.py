@@ -171,6 +171,7 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
                                 is_equal_size: bool = False,
                                 is_ood_iid_distance: bool = True,
                                 figsize=(6, 5),
+                                fontsize: int = 14,  
                                 ) -> None:
 
     models = list({row['Model'] for row in df})
@@ -208,8 +209,6 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
             fmt=marker,
             markerfacecolor='none' if is_circle else color_map[row["Cluster"]],
             markeredgecolor=color_map[row["Cluster"]],
-            # capsize=4,
-            # capthick=1.2,
             markersize=10,
             linestyle='none'
         )
@@ -221,29 +220,20 @@ def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
 
     y_max = max(row[f"{ml_score_metric}_mean"] for row in df)
     y_max_tick = np.ceil(y_max * 5) / 5
-    yticks = np.arange(0, y_max_tick + 100, 100)
+    yticks = np.arange(0,  500, 100)
+    plt.yticks(yticks)
+    plt.ylabel(y_label, fontsize=fontsize-1.5, fontweight='bold')
+    plt.xlabel("Wasserstein Test-Train Distance", fontsize=fontsize-.5, fontweight='bold')
+    plt.legend(handles=legend_elements, loc="best", fontsize=fontsize - 3)  # keep legend slightly smaller
+    plt.tick_params(axis='both', labelsize=fontsize-1)
 
-    plt.ylabel(y_label, fontsize=16, fontweight='bold')
-    plt.xlabel(f"Wasserstein Test-Train Distance", fontsize=16, fontweight='bold')
-
-    # plt.legend(
-    #     handles=legend_elements,
-    #     loc='upper center',
-    #     bbox_to_anchor=(0.5, 1.30),
-    #     ncol=6,
-    #     fontsize=12,
-    #     frameon=True
-    # )
-    plt.legend(handles=legend_elements, loc="best", fontsize=12)
-
-
-    # plt.yticks(yticks)
     plt.tight_layout(rect=[0, 0, 1, 1.05])
     plt.tight_layout()
     if saving_path and file_name:
         save_img_path(saving_path, f"{file_name}_distance_metric-Wasserstein.png")
     plt.show()
     plt.close()
+
 
 
 
@@ -264,10 +254,10 @@ if __name__ == "__main__":
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
-                    'KM4 polymer_solvent HSP cluster',
+                    # 'substructure cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
                     # 'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster',
+                    'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -352,16 +342,16 @@ if __name__ == "__main__":
             saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
             f_name = f"{co_vector}_{accuracy_metric}" 
             f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
-                                        saving_path=saving_folder, file_name=f_name,
-                                        is_ood_iid_distance=OOD_IID_distance,figsize=(6,5))
-            print('Plot scores vs distance (full data)')
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
+            #                             saving_path=saving_folder, file_name=f_name,
+            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(12,5),fontsize=18)
+            # print('Plot scores vs distance (full data)')
 
 
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(8, 6), text_size=20,ncol=ncol)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+                            saving_folder,f'metric-{accuracy_metric}', 
+                            figsize=(16, 7), text_size=22,ncol=ncol)
 
 
 

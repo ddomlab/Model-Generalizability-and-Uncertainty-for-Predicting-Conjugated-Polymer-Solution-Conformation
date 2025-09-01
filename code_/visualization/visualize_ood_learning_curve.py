@@ -236,7 +236,7 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     palette = sns.color_palette("Set2", n_colors=len(models))
     model_colors = {model: palette[i] for i, model in enumerate(models)}
 
-    bar_width = 0.4
+    bar_width = 0.45
     n_models = len(models)
     group_width = n_models * 2 * bar_width + 0.5
 
@@ -258,11 +258,11 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
             for _, row in subset.iterrows():
                 if row["SplitType"] == "OOD":
                     ax.bar(base_x, row["Score"], bar_width, yerr=row["Std"],
-                           error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                           error_kw={'elinewidth': 1, 'capthick': 1}, capsize=3,
                            color=color, alpha=1, label=f"{model} OOD")
                 elif row["SplitType"] == "IID":
                     ax.bar(base_x + bar_width, row["Score"], bar_width, yerr=row["Std"],
-                           error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+                           error_kw={'elinewidth': 1, 'capthick': 1}, capsize=3,
                            color=color, alpha=.5, label=f"{model} IID")
 
         center_of_group = cluster_offset + (n_models * bar_width)
@@ -279,9 +279,9 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
 
     ax.legend(
         seen.values(), seen.keys(),
-        fontsize=text_size - 3,
+        fontsize=text_size - 2,
         frameon=True,
-        loc='upper center',
+        loc='upper left',
         # bbox_to_anchor=(0.5, 1.12),
         ncol=ncol
     )
@@ -295,8 +295,8 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     # Axis labels and ticks
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
-    
-    ax.set_xticklabels(cluster_labels, fontsize=text_size,rotation=45)
+
+    ax.set_xticklabels(cluster_labels, fontsize=text_size, rotation=45)
     ax.set_ylabel(f'{ml_score_metric.upper()}', fontsize=text_size, fontweight='bold')
     ax.tick_params(axis='y', labelsize=text_size)
 
@@ -308,6 +308,107 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     plt.close()
 
 
+# def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
+#                     saving_path, file_name: str,
+#                     figsize=(12, 7), text_size=14,
+#                     ncol=3, title:Optional[str]=None) -> None:
+    
+#     def parse_cluster_info(cluster_label):
+#         if cluster_label.startswith("CO_"):
+#             return cluster_label.split("_")[1], "OOD"
+#         elif cluster_label.startswith("ID_") or cluster_label.startswith("IID_"):
+#             return cluster_label.split("_")[1], "IID"
+#         else:
+#             return cluster_label, "Unknown"
+
+#     parsed_info = data['Cluster'].apply(parse_cluster_info)
+#     data['BaseCluster'] = parsed_info.apply(lambda x: x[0])
+#     data['SplitType'] = parsed_info.apply(lambda x: x[1])
+
+#     clusters = data['BaseCluster'].unique()
+#     models = data['Model'].unique()
+
+#     palette = sns.color_palette("Set2", n_colors=len(models))
+#     model_colors = {model: palette[i] for i, model in enumerate(models)}
+
+#     bar_width = 0.4
+#     n_models = len(models)
+#     group_width = n_models * 2 * bar_width + 0.5
+
+#     # Separate polar cluster from others
+#     polar_cluster = "Polar"
+#     nonpolar_clusters = [c for c in clusters if c != polar_cluster]
+
+#     # ---- Create two side-by-side axes (shared y-axis) ----
+#     fig, (ax_main, ax_polar) = plt.subplots(
+#         1, 2, figsize=figsize, gridspec_kw={'width_ratios':[4,1]}, sharey=True
+#     )
+
+#     # ---- Plot non-polar clusters ----
+#     cluster_ticks = []
+#     cluster_labels = []
+#     for i, cluster in enumerate(nonpolar_clusters):
+#         cluster_offset = i * group_width
+#         for j, model in enumerate(models):
+#             subset = data[(data["BaseCluster"] == cluster) & (data["Model"] == model)]
+#             if subset.empty:
+#                 continue
+#             base_x = cluster_offset + j * 2 * bar_width
+#             color = model_colors[model]
+
+#             for _, row in subset.iterrows():
+#                 xpos = base_x if row["SplitType"]=="OOD" else base_x+bar_width
+#                 alpha = 1 if row["SplitType"]=="OOD" else 0.5
+#                 ax_main.bar(xpos, row["Score"], bar_width, yerr=row["Std"],
+#                            error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+#                            color=color, alpha=alpha, label=f"{model} {row['SplitType']}")
+
+#         center_of_group = cluster_offset + (n_models * bar_width)
+#         cluster_ticks.append(center_of_group)
+#         cluster_labels.append(cluster)
+
+#     ax_main.set_xticks(cluster_ticks)
+#     ax_main.set_xticklabels(cluster_labels, fontsize=text_size)
+#     fig.supxlabel("Cluster", fontsize=text_size, fontweight="bold")
+
+#     # ---- Plot polar cluster on right axis ----
+#     for j, model in enumerate(models):
+#         subset = data[(data["BaseCluster"] == polar_cluster) & (data["Model"] == model)]
+#         if subset.empty:
+#             continue
+#         base_x = j * 2 * bar_width
+#         color = model_colors[model]
+
+#         for _, row in subset.iterrows():
+#             xpos = base_x if row["SplitType"]=="OOD" else base_x+bar_width
+#             alpha = 1 if row["SplitType"]=="OOD" else 0.5
+#             ax_polar.bar(xpos, row["Score"], bar_width, yerr=row["Std"],
+#                          error_kw={'elinewidth': 1.1, 'capthick': 1.1}, capsize=4,
+#                          color=color, alpha=alpha)
+
+#     ax_polar.set_xticks([bar_width])
+#     ax_polar.set_xticklabels([polar_cluster], fontsize=text_size)
+#     # ax_polar.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
+
+#     # ---- Shared Y-axis ----
+#     ax_main.set_ylabel(f'{ml_score_metric.upper()}', fontsize=text_size, fontweight='bold')
+#     ax_main.set_ylim(0, 1)
+#     ax_main.set_yticks(np.arange(0, 1.4, .2))
+#     ax_main.tick_params(axis='y', labelsize=text_size)
+#     ax_polar.tick_params(axis='y', labelsize=text_size)
+
+#     # ---- Legend (deduplicated) ----
+#     handles, labels = ax_main.get_legend_handles_labels()
+#     seen = {}
+#     for h, l in zip(handles, labels):
+#         seen[l] = h
+#     ax_main.legend(seen.values(), seen.keys(), fontsize=text_size-4, frameon=True,
+#                    loc='upper center', ncol=ncol)
+
+#     plt.tight_layout()
+#     save_img_path(saving_path, f"{file_name}.png")
+#     plt.show()
+#     plt.close()
 
 
 def get_residuals_dist_learning_curve_data(data:Dict) -> pd.DataFrame:
@@ -1066,12 +1167,12 @@ if __name__ == "__main__":
     cluster_list = [
 
                     # 'HBD3 MACCS cluster',
-                    'substructure cluster',
-                    'KM4 ECFP6_Count_512bit cluster',	
-                    'KM3 Mordred cluster',
-                    'KM4 polymer_solvent HSP cluster',
-                    'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster'
+                    # 'substructure cluster',
+                    # 'KM4 ECFP6_Count_512bit cluster',	
+                    # 'KM3 Mordred cluster',
+                    # 'KM4 polymer_solvent HSP cluster',
+                    # 'KM4 Mordred_Polysize cluster',
+                    'Polymers cluster'
                     ]
 
 
