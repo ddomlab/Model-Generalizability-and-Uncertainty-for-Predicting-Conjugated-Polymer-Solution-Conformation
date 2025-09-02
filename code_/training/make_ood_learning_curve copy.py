@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from get_ood_split_learning_curve import train_ood_learning_curve
+from get_ood_split_learning_curve_copy import train_ood_learning_curve
 from train_structure_numerical import get_structural_info
 from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
@@ -43,24 +43,24 @@ def main_structural_numerical(
 ) -> None:
     
     structural_features, unroll_single_feat = get_structural_info(representation,oligomer_representation,radius,vector)
-    scores, predictions  = train_ood_learning_curve(
-                                                    dataset=dataset,
-                                                    target_features=target_features,
-                                                    representation=representation,
-                                                    structural_features=structural_features,
-                                                    unroll=unroll_single_feat,
-                                                    numerical_feats=numerical_feats,
-                                                    regressor_type=regressor_type,
-                                                    transform_type=transform_type,
-                                                    second_transformer=second_transformer,
-                                                    clustering_method=clustering_method,
-                                                    Test=TEST,
-                                                )
+    scores_distance = train_ood_learning_curve(
+                                                dataset=dataset,
+                                                target_features=target_features,
+                                                representation=representation,
+                                                structural_features=structural_features,
+                                                unroll=unroll_single_feat,
+                                                numerical_feats=numerical_feats,
+                                                regressor_type=regressor_type,
+                                                transform_type=transform_type,
+                                                second_transformer=second_transformer,
+                                                clustering_method=clustering_method,
+                                                Test=TEST,
+                                            )
 
 
     _ = save_results(
-                    scores,
-                    predictions=predictions,
+                    scores_distance,
+                    # predictions=predictions,
                     representation= representation,
                     pu_type= oligomer_representation,
                     target_features=target_features,
@@ -74,7 +74,7 @@ def main_structural_numerical(
                     second_transformer=second_transformer,
                     clustering_method=clustering_method,
                     learning_curve=True,
-                    # special_folder_name='mean_aggregated',
+                    special_folder_name='wasserstein_distances',
                     # special_file_name='v1_(max_feat_sqrt)'
                     )
     
