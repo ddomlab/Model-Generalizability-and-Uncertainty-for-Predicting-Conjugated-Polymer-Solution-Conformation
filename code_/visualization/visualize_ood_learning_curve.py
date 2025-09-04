@@ -216,7 +216,8 @@ def plot_ood_learning_scores(summary_scores, metric="rmse", folder: Path = None,
 def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
                     saving_path, file_name: str,
                     figsize=(12, 7), text_size=14,
-                    ncol=3, title:Optional[str]=None) -> None:
+                    ncol=3, title:Optional[str]=None,
+                    cluster_order:Optional[list]=None) -> None:
     
     def parse_cluster_info(cluster_label):
         if cluster_label.startswith("CO_"):
@@ -230,9 +231,13 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     data['BaseCluster'] = parsed_info.apply(lambda x: x[0])
     data['SplitType'] = parsed_info.apply(lambda x: x[1])
 
-    clusters = data['BaseCluster'].unique()
-    models = data['Model'].unique()
+    # Use given order or fallback to unique values
+    if cluster_order is None:
+        clusters = data['BaseCluster'].unique()
+    else:
+        clusters = cluster_order
 
+    models = data['Model'].unique()
     palette = sns.color_palette("Set2", n_colors=len(models))
     model_colors = {model: palette[i] for i, model in enumerate(models)}
 
@@ -241,7 +246,6 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
     group_width = n_models * 2 * bar_width + 0.5
 
     fig, ax = plt.subplots(figsize=figsize)
-
     cluster_ticks = []
     cluster_labels = []
 
@@ -271,41 +275,29 @@ def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str,
 
     # De-duplicate legend
     handles, labels = ax.get_legend_handles_labels()
-    seen = {}
-    for h, l in zip(handles, labels):
-        seen[l] = h
-    # sub_sufix = '(equal train size)' if 'equal' in saving_path.name else ''
-    # fig.suptitle(f"OOD vs IID {ml_score_metric.upper()} by Cluster {sub_sufix}", fontsize=text_size + 2, fontweight='bold')
+    seen = {l: h for h, l in zip(handles, labels)}
+    ax.legend(seen.values(), seen.keys(), fontsize=text_size - 2,
+              frameon=True, loc='upper left', ncol=ncol)
 
-    ax.legend(
-        seen.values(), seen.keys(),
-        fontsize=text_size - 2,
-        frameon=True,
-        loc='upper left',
-        # bbox_to_anchor=(0.5, 1.12),
-        ncol=ncol
-    )
-
-    # Compute ymax as multiple of 0.2
+    # Y axis
     max_score = np.nanmax(data["Score"].values)
     ymax = np.ceil(max_score / .2) * .2
-    # ax.set_yticks(np.arange(0, ymax+.1, 0.2))
     ax.set_ylim(0, 1.2)
     ax.set_yticks(np.arange(0, 1.4 , .2))
-    # Axis labels and ticks
+
+    # X axis
     ax.set_xlabel("Cluster", fontsize=text_size, fontweight='bold')
     ax.set_xticks(cluster_ticks)
-
     ax.set_xticklabels(cluster_labels, fontsize=text_size, rotation=45)
+
     ax.set_ylabel(f'{ml_score_metric.upper()}', fontsize=text_size, fontweight='bold')
     ax.tick_params(axis='y', labelsize=text_size)
 
-    # Layout adjustment
-
     plt.tight_layout()
     save_img_path(saving_path, f"{file_name}.png")
-    plt.show()  
+    plt.show()
     plt.close()
+
 
 
 # def plot_bar_ood_iid(data: pd.DataFrame, ml_score_metric: str, 
@@ -548,7 +540,7 @@ def plot_ood_learning_uncertainty(
     file_name: str = 'model_comparison',
     title: Optional[str] = None,
     fontsize: int = 18,
-    uncertainty_methods: Tuple[str, str] = ("Spearman R", "Cv")
+    uncertainty_methods: Tuple[str, str] = ("RUSC", "Cv")
 ) -> None:
     method1, method2 = uncertainty_methods
     color_1 = '#E74747'  # For method1
@@ -657,8 +649,10 @@ def plot_ood_learning_uncertainty(
         else:
             ax2.set_ylabel("")
             ax2.set_yticklabels([])
-
-        ax.set_title(g.col_names[i], fontsize=fontsize + 2)
+        
+        raw_title = g.col_names[i]  
+        clean_title = raw_title.replace("CO_", "Cluster ")
+        ax.set_title(clean_title, fontsize=fontsize + 4)
 
     # Legend for models (using linestyle instead of color)
     legend_lines = [
@@ -708,7 +702,7 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     max_score = np.ceil(score_df["Score"].max() * 10) / 10  
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
 
-    if uncertenty_method == "Spearman R":
+    if uncertenty_method == "RUSC":
         u_yticks = np.arange(-1, 1.5, 0.5)
 
     elif uncertenty_method == "AMA":
@@ -818,8 +812,11 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
         else:
             ax2.set_ylabel("")
             ax2.set_yticklabels([])
-
-        ax.set_title(g.col_names[i], fontsize=20)
+        raw_title = g.col_names[i]  
+        # Replace "CO_" with "Cluster "
+        clean_title = raw_title.replace("CO_", "Cluster ")
+        ax.set_title(clean_title, fontsize=18 + 4)
+        # ax.set_title(g.col_names[i], fontsize=20)
 
     # Shared legend
     custom_lines = [
@@ -850,6 +847,9 @@ def plot_ood_learning_accuracy_uncertainty(summary_scores: Dict,
     plt.close()
 
 
+
+
+
 def plot_ood_learning_accuracy_only(
     all_scores: Dict[str, Dict],
     metric: str = "rmse",
@@ -858,23 +858,21 @@ def plot_ood_learning_accuracy_only(
     title: Optional[str] = None,
     fontsize: int = 14
 ) -> None:
-    set2_palette = sns.color_palette("Set2")
-
+    # Custom colors
     model_colors = {
-        'RF': set2_palette[1],
-        'XGBR': set2_palette[0],
-        'NGB': set2_palette[2],
+        'RF': "#D32A41",    # orange
+        'XGBR': "#6190bb",  # green
+        'NGB': "#7570b3",   # purple as fallback
     }
 
-    # Style mapping
+    # Line/marker styles
     domain_styles = {
-        "CO_": "-",      # OOD: solid
-        "IID_": "--",    # IID: dashed
+        "CO_": "-",      # OOD solid
+        "IID_": "--",    # IID dashed
     }
-
-    score_type_markers = {
-        "Train": 'o',
-        "Test": '^'
+    domain_markers = {
+        "CO_": 'o',      # OOD circle
+        "IID_": '^',     # IID triangle
     }
 
     all_dfs = []
@@ -887,6 +885,9 @@ def plot_ood_learning_accuracy_only(
 
     if score_df.empty:
         raise ValueError(f"No data found for metric '{metric}'.")
+
+    # Keep only Test scores
+    score_df = score_df[score_df["Score Type"] == "Test"]
 
     max_score = np.ceil(score_df["Score"].max() * 10) / 10
     score_yticks = np.arange(0, max_score + 0.4, 0.4)
@@ -903,47 +904,44 @@ def plot_ood_learning_accuracy_only(
         ax = plt.gca()
 
         for model in data["Model"].unique():
-            for prefix in ["CO_", "IID_"]:
-                for score_type in ["Train", "Test"]:
-                    cluster_name = f"{prefix}{cluster_idx}"
-                    sub_df = score_df[
-                        (score_df["Cluster"] == cluster_name) &
-                        (score_df["Model"] == model) &
-                        (score_df["Score Type"] == score_type)
-                    ]
+            for prefix in ["CO_", "IID_"]:  # OOD and IID
+                cluster_name = f"{prefix}{cluster_idx}"
+                sub_df = score_df[
+                    (score_df["Cluster"] == cluster_name) &
+                    (score_df["Model"] == model)
+                ]
+                if sub_df.empty:
+                    continue
 
-                    if sub_df.empty:
-                        continue
+                sub_df = sub_df.sort_values("Train Set Size")
+                color = model_colors.get(model, 'black')
+                linestyle = domain_styles[prefix]
+                marker = domain_markers[prefix]
 
-                    sub_df = sub_df.sort_values("Train Set Size")
-                    color = model_colors.get(model, 'black')
-                    linestyle = domain_styles[prefix]
-                    marker = score_type_markers[score_type]
-
-                    ax.plot(
-                        sub_df["Train Set Size"],
-                        sub_df["Score"],
-                        label=None,
-                        marker=marker,
-                        linestyle=linestyle,
-                        linewidth=2.5,
-                        color=color,
-                        markersize=8
-                    )
-                    ax.fill_between(
-                        sub_df["Train Set Size"],
-                        sub_df["Score"] - sub_df["Std"],
-                        sub_df["Score"] + sub_df["Std"],
-                        alpha=0.15,
-                        color=color
-                    )
+                ax.plot(
+                    sub_df["Train Set Size"],
+                    sub_df["Score"],
+                    label=None,
+                    marker=marker,
+                    linestyle=linestyle,
+                    linewidth=2.5,
+                    color=color,
+                    markersize=8
+                )
+                ax.fill_between(
+                    sub_df["Train Set Size"],
+                    sub_df["Score"] - sub_df["Std"],
+                    sub_df["Score"] + sub_df["Std"],
+                    alpha=0.15,
+                    color=color
+                )
 
         ax.set_xticks(np.arange(0, 251, 50))
         ax.set_ylim(0, max_score)
         ax.set_yticks(score_yticks)
-        ax.tick_params(axis='x', labelsize=fontsize)
-        ax.tick_params(axis='y', labelsize=fontsize)
-        ax.set_xlabel("Training Set Size", fontsize=fontsize + 2, fontweight='bold')
+        ax.tick_params(axis='x', labelsize=fontsize-1)
+        ax.tick_params(axis='y', labelsize=fontsize-1)
+        ax.set_xlabel("Training Set Size", fontsize=fontsize + 1, fontweight='bold')
 
         for spine in ['top', 'right', 'bottom', 'left']:
             ax.spines[spine].set_visible(True)
@@ -952,35 +950,34 @@ def plot_ood_learning_accuracy_only(
 
     for i, ax in enumerate(g.axes.flat):
         if i == 0:
-            ax.set_ylabel(metric.upper(), fontsize=fontsize + 2, fontweight='bold')
+            ax.set_ylabel(metric.upper(), fontsize=fontsize + 1, fontweight='bold')
         else:
             ax.set_ylabel("")
             ax.set_yticklabels([])
-        ax.set_title(g.col_names[i], fontsize=fontsize + 4)
 
-    # Legend
+        raw_title = g.col_names[i]
+        clean_title = raw_title.replace("CO_", "Cluster ")
+        ax.set_title(clean_title, fontsize=fontsize + 4)
+
+    # Legend: models + domain
     color_legend = [
         Line2D([0], [0], color=color, lw=3, label=model)
         for model, color in model_colors.items()
         if model in score_df["Model"].unique()
     ]
     domain_legend = [
-        Line2D([0], [0], color='black', lw=2.5, linestyle=linestyle, label=label)
-        for label, linestyle in zip(["OOD", "IID"], ["-", "--"])
-    ]
-    score_type_legend = [
-        Line2D([0], [0], color='black', marker=marker, linestyle='None', markersize=10, label=label)
-        for label, marker in score_type_markers.items()
+        Line2D([0], [0], color='black', lw=2.5, linestyle=ls, marker=mk, markersize=8, label=label)
+        for label, (ls, mk) in zip(["OOD Test", "IID Test"], [("-", "o"), ("--", "^")])
     ]
 
     if title:
         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
 
     plt.figlegend(
-        handles=color_legend + domain_legend + score_type_legend,
+        handles=color_legend + domain_legend,
         loc='upper center',
-        bbox_to_anchor=(0.5, 1.10),
-        ncol=len(color_legend + domain_legend + score_type_legend),
+        bbox_to_anchor=(0.5, 1.11),
+        ncol=len(color_legend + domain_legend),
         fontsize=fontsize,
         frameon=True
     )
@@ -994,144 +991,182 @@ def plot_ood_learning_accuracy_only(
     plt.close()
 
 
-# def plot_ood_learning_accuracy_only(
-#     all_scores: Dict[str, Dict],
-#     metric: str = "rmse",
-#     folder: Path = None,
-#     file_name: str = 'model_accuracy_comparison',
-#     title: Optional[str] = None,
-#     mode_to_show: Optional[List[str]] = 'RF',
-#     fontsize: int = 14
-# ) -> None:
-#     import matplotlib.pyplot as plt
-#     import seaborn as sns
-#     import numpy as np
-#     import pandas as pd
-#     from matplotlib.lines import Line2D
 
-#     # Color map for OOD vs IID
-#     color_map = {
-#         'CO_': "#B93C4D",   # OOD
-#         'IID_': "#4A6FB4",  # IID
-#     }
+def process_learning_curve_distances(all_distances: Dict[str, Dict]) -> pd.DataFrame:
+    """
+    Convert raw learning curve distance results into a DataFrame with mean/std across seeds.
+    
+    Handles OOD (flat dict), IID (nested dict), and edge cases (direct value).
+    """
+    records = []
+    for cluster_key, cluster_dict in all_distances.items():
+        # skip metadata
+        train_size = cluster_dict.get("training size", None)
 
-#     # Markers only depend on Train/Test now
-#     marker_map = {
-#         'Train': 'o',
-#         'Test': '^'
-#     }
+        for ratio_key, seeds_dict in cluster_dict.items():
+            if ratio_key == "training size":
+                continue
 
-#     all_dfs = []
+            # Handle ratio key type
+            if isinstance(ratio_key, str) and ratio_key.startswith("ratio_"):
+                train_ratio = float(ratio_key.replace("ratio_", ""))
+            else:
+                train_ratio = float(ratio_key)
 
-#     for model_name, summary_scores in all_scores.items():
-#         if model_name != mode_to_show:
-#             continue
-#         score_df, _ = process_learning_curve_scores(summary_scores, metric)
-#         score_df["Model"] = model_name
-#         all_dfs.append(score_df)
+            values = []
 
-#     score_df = pd.concat(all_dfs, ignore_index=True)
+            if isinstance(seeds_dict, dict):
+                if cluster_key.startswith("IID_"):
+                    # Nested dict: seed -> test_seed -> value
+                    for _, test_seeds in seeds_dict.items():
+                        if isinstance(test_seeds, dict):
+                            values.extend(test_seeds.values())
+                        else:  # already a value
+                            values.append(test_seeds)
+                else:  
+                    # OOD: dict of {seed: value}
+                    values.extend(seeds_dict.values())
+            else:
+                # Edge case: already a single value
+                values.append(seeds_dict)
 
-#     if score_df.empty:
-#         raise ValueError(f"No data found for metric '{metric}'.")
+            if not values:
+                continue
 
-#     max_score = np.ceil(score_df["Score"].max() * 10) / 10
-#     score_yticks = np.arange(0, max_score + 0.4, 0.4)
+            mean_val = np.mean(values)
+            std_val = np.std(values)
+            effective_size = int(round(train_ratio * train_size))
+            records.append({
+                "Cluster": cluster_key,
+                "Prefix": "CO" if cluster_key.startswith("CO_") else "IID",
+                "Train Ratio": round(train_ratio,2),
+                "Train Set Size": effective_size,
+                "Mean": mean_val,
+                "Std": std_val
+            })
+    
+    return pd.DataFrame(records)
 
-#     co_clusters = sorted(set(c.replace("CO_", "") for c in score_df['Cluster'].unique() if c.startswith("CO_")))
-#     col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
 
-#     g = sns.FacetGrid(score_df[score_df['Cluster'].str.startswith("CO_")],
-#                       col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
 
-#     def plot_accuracy(data, **kwargs):
-#         cluster_oid = data["Cluster"].iloc[0]
-#         cluster_idx = cluster_oid.replace("CO_", "")
-#         ax = plt.gca()
 
-#         for prefix in ["CO_", "IID_"]:
-#             for score_type in ["Train", "Test"]:
-#                 cluster_name = f"{prefix}{cluster_idx}"
-#                 subset = score_df[
-#                     (score_df["Cluster"] == cluster_name) &
-#                     (score_df["Model"] == "RF") &
-#                     (score_df["Score Type"] == score_type)
-#                 ]
 
-#                 if subset.empty:
-#                     continue
+def plot_ood_learning_distances(
+    all_distances: Dict[str, Dict],
+    folder: Optional[Path] = None,
+    file_name: str = 'ood_distance_comparison',
+    title: Optional[str] = None,
+    fontsize: int = 14
+) -> None:
 
-#                 subset = subset.sort_values("Train Set Size")
-#                 color = color_map[prefix]
-#                 marker = marker_map[score_type]
-#                 linestyle = '--' if score_type == "Train" else '-'
+    df = all_distances.copy()
 
-#                 ax.plot(
-#                     subset["Train Set Size"],
-#                     subset["Score"],
-#                     label=None,
-#                     marker=marker,
-#                     markersize=8,
-#                     linestyle=linestyle,
-#                     linewidth=2.5,
-#                     color=color
-#                 )
-#                 ax.fill_between(
-#                     subset["Train Set Size"],
-#                     subset["Score"] - subset["Std"],
-#                     subset["Score"] + subset["Std"],
-#                     alpha=0.2,
-#                     color=color
-#                 )
+    if df.empty:
+        raise ValueError("No distance data found.")
 
-#         ax.set_xticks(np.arange(0, 251, 50))
-#         ax.set_ylim(0, max_score)
-#         ax.set_yticks(score_yticks)
-#         ax.tick_params(axis='x', labelsize=fontsize)
-#         ax.tick_params(axis='y', labelsize=fontsize)
-#         ax.set_xlabel("Training Set Size", fontsize=fontsize + 2, fontweight='bold')
+    # Style
+    set2_palette = sns.color_palette("Set2")
+    domain_styles = {"CO": "-", "IID": "--"}  # OOD solid, IID dashed
 
-#         for spine in ['top', 'right', 'bottom', 'left']:
-#             ax.spines[spine].set_visible(True)
+    max_val = np.ceil(df["Mean"].max() * 10) / 10
+    yticks = np.arange(0, 11, 2)
 
-#     g.map_dataframe(plot_accuracy)
+    # Extract clusters (only CO to anchor panels)
+    co_clusters = sorted(c.replace("CO_", "") for c in df['Cluster'].unique() if c.startswith("CO_"))
+    col_wrap = 4 if len(co_clusters) > 4 else len(co_clusters)
 
-#     for i, ax in enumerate(g.axes.flat):
-#         if i == 0:
-#             ax.set_ylabel(metric.upper(), fontsize=fontsize + 2, fontweight='bold')
-#         else:
-#             ax.set_ylabel("")
-#             ax.set_yticklabels([])
+    g = sns.FacetGrid(df[df['Cluster'].str.startswith("CO_")],
+                      col="Cluster", col_wrap=col_wrap, height=4, sharey=False)
 
-#         ax.set_title(g.col_names[i], fontsize=fontsize + 4)
+    def plot_cluster(data, **kwargs):
+        cluster_oid = data["Cluster"].iloc[0]
+        cluster_idx = cluster_oid.replace("CO_", "")
+        ax = plt.gca()
 
-#     # Combined Legend
-#     legend_elements = [
-#         Line2D([0], [0], color=color_map['CO_'], marker='o', linestyle='--', lw=3, markersize=10, label="Train OOD"),
-#         Line2D([0], [0], color=color_map['CO_'], marker='^', linestyle='-', lw=3, markersize=12, label="Test OOD"),
-#         Line2D([0], [0], color=color_map['IID_'], marker='o', linestyle='--', markersize=10, lw=3, label="Train IID"),
-#         Line2D([0], [0], color=color_map['IID_'], marker='^', linestyle='-', markersize=12, lw=3, label="Test IID"),
-#     ]
+        for prefix in ["CO", "IID"]:
+            cluster_name = f"{prefix}_{cluster_idx}"
+            sub_df = df[df["Cluster"] == cluster_name]
+            if sub_df.empty:
+                continue
 
-#     if title:
-#         g.fig.suptitle(title, fontsize=fontsize + 10, fontweight='bold', y=1.12)
+            sub_df = sub_df.sort_values("Train Set Size")
 
-#     plt.figlegend(
-#         handles=legend_elements,
-#         loc='upper center',
-#         bbox_to_anchor=(0.5, 1.12),
-#         ncol=4,
-#         fontsize=fontsize,
-#         frameon=True
-#     )
+            linestyle = domain_styles[prefix]
+            color = set2_palette[0] if prefix == "CO" else set2_palette[1]
 
-#     plt.tight_layout(rect=[0, 0, 1, 0.98])
+            ax.plot(
+                sub_df["Train Set Size"],
+                sub_df["Mean"],
+                label=None,
+                marker="o",
+                linestyle=linestyle,
+                linewidth=2.5,
+                color=color,
+                markersize=8
+            )
+            ax.fill_between(
+                sub_df["Train Set Size"],
+                sub_df["Mean"] - sub_df["Std"],
+                sub_df["Mean"] + sub_df["Std"],
+                alpha=0.2,
+                color=color
+            )
 
-#     if folder:
-#         save_img_path(folder, f"accuracy comparison ({file_name}).png")
 
-#     plt.show()
-#     plt.close()
+
+        xticks = np.arange(0, 251, 50)
+        ax.set_xticks(xticks)
+        # ax.set_xticks(sorted(sub_df["Train Set Size"].unique()))
+        ax.set_ylim(0, max_val)
+        ax.set_yticks(yticks)
+        ax.tick_params(axis='both', labelsize=fontsize+2)
+        ax.set_xlabel("Train Set Size", fontsize=fontsize + 2, fontweight='bold')
+
+        for spine in ['top', 'right', 'bottom', 'left']:
+            ax.spines[spine].set_visible(True)
+
+    g.map_dataframe(plot_cluster)
+
+    # y-axis labels
+    for i, ax in enumerate(g.axes.flat):
+        if i == 0:
+            ax.set_ylabel("Wasserstein Distance", fontsize=fontsize , fontweight='bold')
+        else:
+            ax.set_ylabel("")
+            ax.set_yticklabels([])
+
+
+        raw_title = g.col_names[i]  
+        clean_title = raw_title.replace("CO_", "Cluster ")
+        ax.set_title(clean_title, fontsize=fontsize + 3)
+        # ax.set_title(g.col_names[i], fontsize=fontsize + 4)
+
+    # Legend
+    domain_legend = [
+        Line2D([0], [0], color=set2_palette[0], lw=2.5, linestyle="-", marker="o", label="OOD"),
+        Line2D([0], [0], color=set2_palette[1], lw=2.5, linestyle="--", marker="o", label="IID"),
+    ]
+
+    if title:
+        g.fig.suptitle(title, fontsize=fontsize + 8, fontweight='bold', y=1.08)
+
+    plt.figlegend(
+        handles=domain_legend,
+        loc='upper center',
+        bbox_to_anchor=(0.5, 1.11),
+        ncol=len(domain_legend),
+        fontsize=fontsize,
+        frameon=True
+    )
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+
+    if folder:
+        save_img_path(folder, f"{file_name}.png")
+
+    plt.show()
+    plt.close()
+
 
 
 
@@ -1165,14 +1200,13 @@ if __name__ == "__main__":
     HERE: Path = Path(__file__).resolve().parent
     results_path = HERE.parent.parent / 'results'/ 'OOD_target_log Rg (nm)'
     cluster_list = [
-
                     # 'HBD3 MACCS cluster',
                     # 'substructure cluster',
-                    # 'KM4 ECFP6_Count_512bit cluster',	
-                    # 'KM3 Mordred cluster',
+                    'KM4 ECFP6_Count_512bit cluster',	
+                    'KM3 Mordred cluster',
                     # 'KM4 polymer_solvent HSP cluster',
-                    # 'KM4 Mordred_Polysize cluster',
-                    'Polymers cluster'
+                    'KM4 Mordred_Polysize cluster',
+                    # 'Polymers cluster'
                     ]
 
 
@@ -1269,6 +1303,26 @@ if __name__ == "__main__":
                 
                 # print("Save learning curve uncertainties")
 
+        # distance_folder_path = results_path / cluster / 'scaler'
+        # distance_file= distance_folder_path/ 'distance.json'
+        # distance_file = ensure_long_path(distance_file)
+        # if not os.path.exists(distance_file):
+        #     print(f"File not found: {distance_file}")
+        #     continue
+
+        # with open(distance_file, "r") as f:
+        #     distance_scores = json.load(f)
+
+
+        # summary_df = process_learning_curve_distances(distance_scores)
+        # # print(summary_df)
+        # saving_folder = results_path / cluster / 'distance learning curve'
+        # plot_ood_learning_distances(summary_df, folder=saving_folder,
+        #                              file_name='ood_distance_comparison',
+        #                              fontsize=20)
+
+        # print('Saved OOD distance comparison plot.')
+
 
         # Plot ood_learning_uncertainty and score new
 
@@ -1299,7 +1353,7 @@ if __name__ == "__main__":
             folder=saving_folder,
             file_name=f"combination of all features",
             fontsize=20,
-            uncertainty_methods=("Spearman R", "AMA"),
+            uncertainty_methods=("RUSC", "AMA"),
             # title=f"Uncertainty Comparison for {file_discription}"
         )
 
@@ -1312,7 +1366,7 @@ if __name__ == "__main__":
             folder=saving_folder,
             file_name="accuracy only combination of all features_RF",
             # title="Model Accuracy Comparison",
-            fontsize=18
+            fontsize=20
         )
 
         print("Saved model accuracy-only learning curve plot.")

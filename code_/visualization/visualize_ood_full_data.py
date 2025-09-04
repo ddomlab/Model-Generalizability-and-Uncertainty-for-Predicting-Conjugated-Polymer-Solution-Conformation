@@ -255,7 +255,7 @@ if __name__ == "__main__":
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
+                    # 'substructure cluster',
                     # 'KM4 polymer_solvent HSP cluster',
                     # 'KM4 Mordred_Polysize cluster',
                     # 'Polymers cluster',
@@ -340,19 +340,37 @@ if __name__ == "__main__":
                 ncol+=1
    
 
-            saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
-            f_name = f"{co_vector}_{accuracy_metric}" 
-            f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
-            plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
-                                        saving_path=saving_folder, file_name=f_name,
-                                        is_ood_iid_distance=OOD_IID_distance,figsize=(6,5),fontsize=18)
-            print('Plot scores vs distance (full data)')
+            # saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
+            # f_name = f"{co_vector}_{accuracy_metric}" 
+            # f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
+            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
+            #                             saving_path=saving_folder, file_name=f_name,
+            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(6,5),fontsize=18)
+            # print('Plot scores vs distance (full data)')
 
+            # order = [
+            #     "PBTTT-C16",
+            #     "PBDT-TTz",
+            #     "DP10-PPV",
+            #     "DPPDTT",
+            #     "P3(4MP)T",
+            #     "MBL-PPV",
+            #     "P3EHT",
+            #     "P7DPF",
+            #     "P3OT",
+            #     "P3DDT",
+            #     "P3EOT",
+            #     "PBTTT-C14",
+            #     "PPFOH",
+            #     "MEH-PPV",
+            #     "PFO",
+            #     "rr-P3HT"
+            # ]
 
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(16, 7), text_size=22,ncol=ncol)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+                            saving_folder,f'metric-{accuracy_metric}', 
+                            figsize=(6, 5), text_size=18,ncol=ncol)
 
 
 

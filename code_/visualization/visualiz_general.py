@@ -15,10 +15,11 @@ def plot_data_reduction_steps()->None:
     with open(JSONS/'data_summary_monitor.json', 'r') as f:
         data = json.load(f)
     targets = data["Target"]
-    initial_cleaned = np.array(data["Initial Cleaned"])
-    block_copolymer = initial_cleaned - np.array(data["After dropping block copolymer"])
-    solid_additives = np.array(data["After dropping block copolymer"]) - np.array(data["After dropping solid additives"])
-    polymer_hsps = np.array(data["After dropping solid additives"]) - np.array(data["After dropping unknown polymer HSPs"])
+    initial_cleaned = np.array(data["Initial Cleaned"]).squeeze()
+    block_copolymer = initial_cleaned - np.array(data["After dropping block copolymer"]).squeeze()
+    solid_additives = np.array(data["After dropping block copolymer"]).squeeze() - np.array(data["After dropping solid additives"]).squeeze()
+    polymer_hsps = np.array(data["After dropping solid additives"]).squeeze() - np.array(data["After dropping unknown polymer HSPs"]).squeeze()
+
 
     def clean_target_labels(targets):
         # Replace specific labels with cleaned versions
@@ -47,7 +48,7 @@ def plot_data_reduction_steps()->None:
 
 
     ax.set_ylabel('Number of Data Points', fontsize=20, fontweight='bold')
-    ax.set_title('Data Reduction at Each Step of Cleaning', fontsize=21, fontweight='bold')
+    # ax.set_title('Data Reduction at Each Step of Cleaning', fontsize=21, fontweight='bold')
     ax.set_xticks(x)
     ax.set_xticklabels(targets, rotation=45, ha='right')
     ax.tick_params(axis='x', labelsize=21)

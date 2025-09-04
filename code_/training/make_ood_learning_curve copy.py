@@ -26,7 +26,7 @@ w_data = pd.read_pickle(training_df_dir)
 # 'KM5 polymer_solvent HSP and polysize cluster'	
 # 'KM4 polymer_solvent HSP cluster'
 # 'KM4 Mordred_Polysize cluster'
-TEST = True
+TEST = False
 
 def main_structural_numerical(
     dataset: pd.DataFrame,
@@ -74,32 +74,32 @@ def main_structural_numerical(
                     second_transformer=second_transformer,
                     clustering_method=clustering_method,
                     learning_curve=True,
-                    special_folder_name='wasserstein_distances',
+                    # special_folder_name='wasserstein_distances',
                     # special_file_name='v1_(max_feat_sqrt)'
                     )
     
 
 
 if __name__ == "__main__":
-    if TEST==False:
-        args = parse_arguments()
+    # if TEST==False:
+        # args = parse_arguments()
 
-        main_structural_numerical(
-            dataset=w_data,
-            representation=args.representation,
-            radius=args.radius,
-            vector=args.vector,
-            oligomer_representation = args.oligomer_representation,
-            regressor_type=args.regressor_type,
-            target_features=[args.target_features],  
-            transform_type='Standard',
-            second_transformer=None,
-            numerical_feats=args.numerical_feats, 
-            clustering_method=args.clustering_method,
-        )
+        # main_structural_numerical(
+        #     dataset=w_data,
+        #     representation=args.representation,
+        #     radius=args.radius,
+        #     vector=args.vector,
+        #     oligomer_representation = args.oligomer_representation,
+        #     regressor_type=args.regressor_type,
+        #     target_features=[args.target_features],  
+        #     transform_type='Standard',
+        #     second_transformer=None,
+        #     numerical_feats=args.numerical_feats, 
+        #     clustering_method=args.clustering_method,
+        # )
 
 
-    else:
+    # else:
             main_structural_numerical(
             dataset=w_data,
             # representation="Mordred",
@@ -109,14 +109,16 @@ if __name__ == "__main__":
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,
-            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)',
-                            'Temperature SANS/SLS/DLS/SEC (K)', 'polymer dP', 'polymer dD' , 'polymer dH',
+            numerical_feats=[
+                            'Xn', 'Mw (g/mol)', 'PDI', 
+                            'Concentration (mg/ml)','Temperature SANS/SLS/DLS/SEC (K)',
+                            'polymer dP', 'polymer dD' , 'polymer dH',
                             'solvent dP', 'solvent dD', 'solvent dH',
                             "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
                             "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"
                             ],
             # oligomer_representation="Trimer",
-            clustering_method='substructure cluster'
+            clustering_method='KM4 polymer_solvent HSP cluster'
             )
         
             # main_structural_numerical(

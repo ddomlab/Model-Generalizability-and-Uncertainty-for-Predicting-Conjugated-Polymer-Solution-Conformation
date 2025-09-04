@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Callable, Optional, Union, Dict, Tuple
+from sklearn.discriminant_analysis import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer, TransformedTargetRegressor
 from joblib import Parallel, delayed
@@ -102,17 +103,10 @@ def prepare_data(
                                                     cluster_type=clustering_method,
                                                     )
 
-    preprocessor: Pipeline = preprocessing_workflow(imputer=None,
-                                                    feat_to_impute=None,
-                                                    representation = representation,
-                                                    numerical_feat=numerical_feats,
-                                                    structural_feat = unrolled_feats,
-                                                    special_column=None,
-                                                    scaler=transform_type
-                                                    )
-    preprocessor.set_output(transform="pandas")
+    sd_caler = StandardScaler()
+    X_scaled = sd_caler.fit_transform(X)
 
-    return run_ood_learning_curve_distance(X, y,
+    return run_ood_learning_curve_distance(X_scaled, y,
                                     cluster_labels,
                                     # regressor_type,
                                     # transform_type,
@@ -171,6 +165,7 @@ def run_single_iid_distance(
         )
 
     # Compute train–test Wasserstein distance
+    # print(X_test_IID)
     distance_score = wasserstein_distance_nd(X_test_IID, X_train_IID)
     return seed, test_seed, distance_score
 

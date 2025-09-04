@@ -140,7 +140,7 @@ def compute_all_uncertainty_metrics(
         'NLL': lambda: gaussian_nll(y_true, y_pred, y_err, reduce='mean'),
         'Sharpness': lambda: sharpness(y_err),
         'Cv': lambda: compute_cv(y_err),
-        'Spearman R': lambda: compute_residual_error_cal(y_true, y_pred, y_err),
+        'RUSC': lambda: compute_residual_error_cal(y_true, y_pred, y_err),
         'AMA': lambda: compute_ama(y_true, y_pred, y_err, step=step)
     }
 
