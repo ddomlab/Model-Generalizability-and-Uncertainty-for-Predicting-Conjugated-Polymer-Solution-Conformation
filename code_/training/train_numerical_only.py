@@ -17,7 +17,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
 
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -73,7 +73,7 @@ def main_numerical_only(
                 second_transformer=second_transformer,
                 classification=classification,
                 # special_folder_name='hp_RF_differences'
-                special_file_name='pfo_p3ht',
+                # special_file_name='pfo_p3ht',
                 )
 
 
@@ -87,7 +87,7 @@ def main_numerical_only(
 
 
 if __name__ == "__main__":
-    if TEST==True:
+    if TEST==False:
 
         args = parse_arguments()
         main_numerical_only(
@@ -106,35 +106,35 @@ if __name__ == "__main__":
             classification=False
         )
     else:
-        # main_numerical_only(
-        #     dataset=w_data,
-        #     regressor_type="sklearn-GPR",
-        #     kernel= "matern",
-        #     target_features=['log Rg (nm)'],  # Can adjust based on actual usage
-        #     transform_type='Standard',  
-        #     hyperparameter_optimization=False,
-        #     columns_to_impute=None,
-        #     special_impute=None,
-        #     numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH'],
-        #     imputer=None,
-        #     classification=False,
-        #     cutoff=None)
-
-
-            pfo_pht_data = w_data[w_data['canonical_name'].isin(['rr-P3HT', 'PFO'])]
-            main_numerical_only(
-            dataset=pfo_pht_data,
-            regressor_type="MLR",
+        main_numerical_only(
+            dataset=w_data,
+            regressor_type="RF",
             # kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
-            transform_type=None,  
+            transform_type='Standard',  
             hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
-            numerical_feats=['Xn'],
+            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH'],
             imputer=None,
             classification=False,
             cutoff=None)
+
+
+            # pfo_pht_data = w_data[w_data['canonical_name'].isin(['rr-P3HT', 'PFO'])]
+            # main_numerical_only(
+            # dataset=pfo_pht_data,
+            # regressor_type="MLR",
+            # # kernel= "matern",
+            # target_features=['log Rg (nm)'],  # Can adjust based on actual usage
+            # transform_type=None,  
+            # hyperparameter_optimization=False,
+            # columns_to_impute=None,
+            # special_impute=None,
+            # numerical_feats=['Xn'],
+            # imputer=None,
+            # classification=False,
+            # cutoff=None)
 
     # columns_to_impute: list[str] = ["PDI","Temperature SANS/SLS/DLS/SEC (K)","Concentration (mg/ml)"]
     # special_column: str = "Mw (g/mol)"
