@@ -18,7 +18,6 @@ training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters agi
 w_data = pd.read_pickle(training_df_dir)
 TEST = False
 
-
 def main_numerical_only(
     dataset: pd.DataFrame,
     regressor_type: str,
@@ -36,7 +35,7 @@ def main_numerical_only(
 ) -> None:
 
 
-    scores, predictions,_  = train_regressor(
+    scores, predictions = train_regressor(
                                             dataset=dataset,
                                             features_impute=columns_to_impute,
                                             special_impute=special_impute,
