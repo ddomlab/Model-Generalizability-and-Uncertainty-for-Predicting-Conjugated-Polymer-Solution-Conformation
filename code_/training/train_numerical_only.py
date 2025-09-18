@@ -16,8 +16,8 @@ RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
+TEST = False
 
-TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -36,7 +36,7 @@ def main_numerical_only(
 ) -> None:
 
 
-    scores, predictions,data_shapes  = train_regressor(
+    scores, predictions,_  = train_regressor(
                                             dataset=dataset,
                                             features_impute=columns_to_impute,
                                             special_impute=special_impute,
@@ -58,7 +58,7 @@ def main_numerical_only(
     
     save_results(scores,
                 predictions=predictions,
-                df_shapes=data_shapes,
+                # df_shapes=data_shapes,
                 imputer=imputer,
                 representation= None,
                 pu_type= None,

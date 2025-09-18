@@ -90,7 +90,7 @@ def train_regressor(
                                                     )
         scores = process_scores(scores,classification)
   
-        return scores, predictions, data_shape
+        return scores, predictions
         
 
 
