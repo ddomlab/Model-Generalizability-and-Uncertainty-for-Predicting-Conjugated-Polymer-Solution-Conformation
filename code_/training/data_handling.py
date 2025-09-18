@@ -117,7 +117,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     if scores:
         # cv_indices = get_cv_splits(scores)
         # print("CV Indices:", cv_indices)
-        scores_file: Path = results_dir / f"{fname_root}_scores.csv"
+        scores_file: Path = results_dir / f"{fname_root}_scores.json"
         with open(scores_file, "w") as f:
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
         
