@@ -898,7 +898,7 @@ aging_features: List = [
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='rmse',
+                                    score_metrics='mae',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','NGB','XGBR'},
