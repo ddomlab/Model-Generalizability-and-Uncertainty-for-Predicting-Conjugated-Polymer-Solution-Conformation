@@ -735,13 +735,13 @@ def create_scaler_result(target_dir:Path,
 
 
 
-# for transformer in transformer_list:
-#     for target_folder in target_list:
-#         for i in scores_list:
+for transformer in transformer_list:
+    for target_folder in target_list:
+        for i in scores_list:
             # create_structural_scaler_result(target_dir=RESULTS/target_folder,target=f'{target_folder} with',
             #                                     score=i,data_type='structural_scaler', transformer_type=transformer)
-            # create_scaler_result(target_dir=RESULTS/target_folder,
-            #                     score=i,data_type='scaler',transformer_type=transformer)
+            create_scaler_result(target_dir=RESULTS/target_folder,
+                                score=i,data_type='scaler',transformer_type=transformer)
             
 
 
@@ -897,10 +897,10 @@ aging_features: List = [
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
 ]
 
-creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='rmse',
-                                    comparison_value=['scaler', 'Trimer_scaler'],
-                                    features_to_draw=aging_features,
-                                    models_to_draw={'RF','NGB','XGBR'},
-                                    # special_namings=['aging_imputed']
-                                    )
+# creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
+#                                     score_metrics='rmse',
+#                                     comparison_value=['scaler', 'Trimer_scaler'],
+#                                     features_to_draw=aging_features,
+#                                     models_to_draw={'RF','NGB','XGBR'},
+#                                     # special_namings=['aging_imputed']
+#                                     )
