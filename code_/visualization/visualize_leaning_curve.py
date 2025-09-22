@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 # from matplotlib import rc
+from visualize_ood_learning_curve import ensure_long_path
 from visualization_setting import set_plot_style
 
 HERE: Path = Path(__file__).resolve().parent
@@ -24,9 +25,9 @@ RESULTS: Path = HERE.parent.parent/ 'results'
 var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard Error"}
 target_list = ['target_log Rg (nm)']
 models = [
-    # 'XGBR'
+    'XGBR'
         #   ,'RF',
-        'NGB'
+        # 'NGB'
           ]
 
 
@@ -104,7 +105,7 @@ def _save_path(features, result_type, model, root_dir, polymer_representation,hy
     visualization_folder_path =  root_dir/result_type/polymer_representation
     
     os.makedirs(visualization_folder_path, exist_ok=True)
-    fname = f"{features}({model})"
+    fname = f"({model})"
     fname = f"{fname}_hypeOFF" if hyp_status==False else fname 
     saving_path = visualization_folder_path/ f"{fname}.png"
     return saving_path
@@ -159,15 +160,15 @@ def _create_learning_curve(
 
 
     # plt.title(fig_title, fontsize=22, fontweight='bold')  # Plot title with size and bold
-    ax.set_xlabel("Training set size", fontsize=22, fontweight='bold')  # X-axis label
-    ax.set_ylabel("$R^2$", fontsize=22, fontweight='bold')  # Y-axis label
+    ax.set_xlabel("Training set size", fontsize=24, fontweight='bold')  # X-axis label
+    ax.set_ylabel("$R^2$", fontsize=24, fontweight='bold')  # Y-axis label
 
     # Customizing tick labels
-    ax.tick_params(axis='both', which='major', labelsize=20)  # Set tick label size
+    ax.tick_params(axis='both', which='major', labelsize=21)  # Set tick label size
     # plt.xticks(fontsize=20)  # Set x-tick labels bold
     # plt.yticks(fontsize=20)  # Set y-tick labels bold
 
-    plt.legend(fontsize=20)
+    plt.legend(fontsize=21)
 
     print(hyp_status)
     # make folder and save the files
@@ -219,9 +220,30 @@ def save_learning_curve(target_dir: Path,
 
 # (Mordred-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_NGB_hypOFF_Standard_lc_scores.json
 
-for target_folder in target_list:
-    save_learning_curve(target_dir=RESULTS/target_folder)
+# for target_folder in target_list:
+#     save_learning_curve(target_dir=RESULTS/target_folder)
 
+
+
+# manual
+# f_name = "(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_XGBR_hypOFF_Standard_lc_scores.json"
+# poly_representation_name = 'scaler'
+# target_to_an = 'target_log Rg (nm)'
+# lc_file:Path = RESULTS/target_to_an/poly_representation_name/f_name
+# lc_file = ensure_long_path(lc_file)
+# feats, model, learning_score_data = get_learning_data(file_path=lc_file)  
+# print(feats, model)
+# hyper_param_status = True if "hypOFF" not in lc_file.name else False  
+# _create_learning_curve(
+#                     RESULTS/target_to_an,
+#                     feats,
+#                     model,
+#                     hyper_param_status,
+#                     poly_representation_name,
+#                     learning_score_data,
+#                     figsize=(8, 6),
+#                     fig_title ="Learning Curve"
+#                     )
 
 
 
