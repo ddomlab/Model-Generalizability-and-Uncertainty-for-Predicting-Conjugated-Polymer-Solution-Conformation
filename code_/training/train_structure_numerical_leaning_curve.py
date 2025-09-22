@@ -15,7 +15,7 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging added.pkl"
 w_data = pd.read_pickle(training_df_dir)
 # ['Monomer', 'Dimer', 'Trimer', 'RRU Monomer', 'RRU Dimer', 'RRU Trimer']
 TEST=False
@@ -110,7 +110,7 @@ if __name__ == '__main__':
             # representation="Mordred",
             # radius=3,
             # vector="count",
-            regressor_type="NGB",
+            regressor_type="XGBR",
             target_features=['log Rg (nm)'],  
             transform_type='Standard',
             second_transformer=None,
