@@ -1171,7 +1171,6 @@ def plot_ood_learning_distances(
 
 
 
-
 # comparison_of_features_lc = {
 #     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_hypOFF_Standard_lc':'Xn + + Mordred ',
 #     '(Mordred-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_RF_hypOFF_Standard_lc':'Mordred+continuous+aging',

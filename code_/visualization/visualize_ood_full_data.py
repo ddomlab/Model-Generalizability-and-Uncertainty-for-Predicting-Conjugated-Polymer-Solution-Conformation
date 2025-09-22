@@ -8,7 +8,7 @@ import os
 from visualization_setting import set_plot_style, save_img_path
 from typing import Callable, Optional, Union, Dict, Tuple
 # from sklearn.metrics import calinski_harabasz_score, davies_bouldin_score, silhouette_score
-from scipy.stats import wasserstein_distance_nd
+from scipy.stats import wasserstein_distance_nd,spearmanr
 from sklearn.preprocessing import StandardScaler
 import json
 from matplotlib.lines import Line2D
@@ -133,7 +133,6 @@ def make_accumulating_scores(scores, ml_score_metric: str,
     ]
     if cluster_types == 'substructure cluster':
         all_clusters.append('Polar')
-    print(all_clusters)
 
     for cluster_id in all_clusters:
 
@@ -255,10 +254,10 @@ if __name__ == "__main__":
                     # 'HBD3 MACCS cluster',
                     # 'KM5 polymer_solvent HSP and polysize cluster',
                     # 'KM4 polymer_solvent HSP and polysize cluster',
-                    'substructure cluster',
+                    # 'substructure cluster',
                     # 'KM4 polymer_solvent HSP cluster',
                     # 'KM4 Mordred_Polysize cluster',
-                    # 'Polymers cluster',
+                    'Polymers cluster',
                     ]
     for cluster in cluster_list:
         score_metrics = ["rmse"]
@@ -343,16 +342,30 @@ if __name__ == "__main__":
             saving_folder = scores_folder_path/  f'scores vs distance (full data)'/ f"{co_vector}"
             f_name = f"{co_vector}_{accuracy_metric}" 
             f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
+
             # plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
             #                             saving_path=saving_folder, file_name=f_name,
             #                             is_ood_iid_distance=OOD_IID_distance,figsize=(6,5),fontsize=18)
             # print('Plot scores vs distance (full data)')
 
 
-            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-                            saving_folder,f'metric-{accuracy_metric}', 
-                            figsize=(16, 7), text_size=22,ncol=ncol)
+            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+            #                 saving_folder,f'metric-{accuracy_metric}', 
+            #                 figsize=(16, 7), text_size=22,ncol=ncol)
+ 
+            # Quantify correlation between distance and performance degradation
+            df = pd.DataFrame(combined_data)
+            results = {}
+            for model in df['Model'].unique():
+                sub = df[df['Model'] == model]
+                rho, pval = spearmanr(sub['wasserstein distance'], sub['rmse_mean'])
+                results[model] = {'rho': rho, 'pval': pval}
+
+            # Show results
+            for model, res in results.items():
+                print(f"{model}: Spearman rho = {res['rho']:.3f}, p = {res['pval']:.3g}")
+
 
 
 
