@@ -2,7 +2,7 @@
 output_dir=/share/ddomlab/sdehgha2/working-space/main/P1_pls-dataset/pls-dataset-space/PLS-Dataset/results/hpc_20250430
 mkdir -p "$output_dir"
 
-regressors=('XGBR')
+regressors=('XGBR' 'NGB' 'RF')
 targets=('log Rg (nm)')
 
 
