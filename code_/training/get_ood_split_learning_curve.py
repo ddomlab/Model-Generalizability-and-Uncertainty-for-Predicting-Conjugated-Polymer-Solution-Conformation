@@ -31,7 +31,7 @@ from sklearn.exceptions import DataConversionWarning
 warnings.filterwarnings(action='ignore', category=DataConversionWarning)
 
 def set_globals(Test: bool=False) -> None:
-    global SEEDS, N_FOLDS, BO_ITER
+    global N_FOLDS, BO_ITER
     if not Test:
         # SEEDS = [6, 13, 42, 69, 420, 1234567890, 473129]
         N_FOLDS = 5
@@ -41,7 +41,6 @@ def set_globals(Test: bool=False) -> None:
         # SEEDS = [42,13]
         N_FOLDS = 2
         BO_ITER = 1
-
 
 
 

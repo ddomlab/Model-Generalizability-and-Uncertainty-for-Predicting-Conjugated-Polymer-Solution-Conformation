@@ -57,7 +57,6 @@ def main_numerical_only(
     
     save_results(scores,
                 predictions=predictions,
-                # df_shapes=data_shapes,
                 imputer=imputer,
                 representation= None,
                 pu_type= None,

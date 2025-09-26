@@ -70,7 +70,7 @@ def train_regressor(
         """
             #seed scores and seed prediction
         set_globals(Test)
-        scores, predictions, data_shape = _prepare_data(
+        scores, predictions = _prepare_data(
                                                     dataset=dataset,
                                                     features_impute= features_impute,
                                                     special_impute= special_impute,
@@ -122,7 +122,7 @@ def _prepare_data(
 
 
 
-    X, y, unrolled_feats, X_y_shape = filter_dataset(
+    X, y, unrolled_feats, _ = filter_dataset(
                                                     raw_dataset=dataset,
                                                     structure_feats=structural_features,
                                                     scalar_feats=numerical_feats,
@@ -160,7 +160,7 @@ def _prepare_data(
     y_frame = pd.DataFrame(y.flatten(),columns=target_features)
     combined_prediction_ground_truth = pd.concat([predication, y_frame], axis=1)
 
-    return score, combined_prediction_ground_truth, X_y_shape
+    return score, combined_prediction_ground_truth
 
 def run(
     X, y, preprocessor: Union[ColumnTransformer, Pipeline], classification:bool,second_transformer:str, regressor_type: str,

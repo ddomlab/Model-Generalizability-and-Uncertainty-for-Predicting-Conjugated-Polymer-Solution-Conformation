@@ -34,14 +34,15 @@ code_/
 │   ├── train_structure_numerical.py          # Train with both structural or/and numerical
 │   ├── training_utils.py                     # Shared training helpers
 │   ├── unrolling_utils.py                    # Unrolling utilities for molecular representations
-├── visualization/           
+├── visualization/    
+│   ├── utils_uncertainty_calibration.py      # Calibration plots for uncertainty  
 │   ├── visualization_setting.py              # Plot style/setting configs
 │   ├── visualize_heatmap.py                  # Heatmap plotting
 │   ├── visualize_IID_learning_curve.py       # Visualize IID learning curves
 │   ├── visualize_ood_full_data.py            # Visualize full OOD dataset results
 │   ├── visualize_ood_learning_curve.py       # Visualize OOD learning curves
-│   ├── visualize_predictions_truth.py        # Prediction vs truth Hex plots
-│   └── visualize_uncertainty_calibration.py  # Calibration plots for uncertainty
+│   └── visualize_predictions_truth.py        # Prediction vs truth Hex plots
+
 ├── datasets/                    
 │   ├── fingerprint/
 |       ├── structural_features.csv           # Molecular representation for mapping to dataset   

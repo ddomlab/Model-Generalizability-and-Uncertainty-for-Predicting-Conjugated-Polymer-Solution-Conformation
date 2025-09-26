@@ -38,7 +38,7 @@ def main_structural(
 ) -> None:
     
     structural_features, unroll_single_feat = get_structural_info(representation,oligomer_representation,radius,vector)
-    scores, predictions,data_shapes  = train_regressor(
+    scores, predictions  = train_regressor(
                                                     dataset=dataset,
                                                     representation=representation,
                                                     structural_features=structural_features,
@@ -58,7 +58,6 @@ def main_structural(
                                                 )
     save_results(scores,
                 predictions=predictions,
-                df_shapes=data_shapes,
                 representation= representation,
                 pu_type= oligomer_representation,
                 target_features=target_features,

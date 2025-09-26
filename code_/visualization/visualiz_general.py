@@ -4,10 +4,15 @@ from pathlib import Path
 import pandas as pd
 import json
 from visualization_setting import save_img_path
+from matplotlib.ticker import MaxNLocator
+import os
 
 HERE = Path(__file__).resolve().parent
 DATASETS = HERE.parent.parent/'datasets'
 JSONS =  DATASETS/'json_resources'
+VISUALIZATION = HERE.parent/ "visualization"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters aging imputed.pkl"
+w_data = pd.read_pickle(training_df_dir)
 
 
 def plot_data_reduction_steps()->None:
@@ -61,9 +66,62 @@ def plot_data_reduction_steps()->None:
     plt.close()
 
 
+def plot_hanson_space(df, hsp_material:str):
+
+    dP = df[f"{hsp_material} dP"]
+    dD = df[f"{hsp_material} dD"]
+    dH = df[f"{hsp_material} dH"]
+
+    dP_freq = dP.map(dP.value_counts())
+    # dD_freq = dD.map(dD.value_counts())
+    # dH_freq = dH.map(dH.value_counts())
+
+    # Create subplots
+    fig, axes = plt.subplots(1, 3, figsize=(12, 4))
+
+    maxlocator = {
+        "integer":True,
+        "prune":"lower",
+        "nbins":6,
+                  }
+    
+    sc = axes[0].scatter(dP, dD, c=dP_freq, cmap="viridis",edgecolors='none')
+    axes[0].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
+    axes[0].set_ylabel(r'$\delta D$ (MPa$^{1/2}$)')
+    axes[0].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[0].yaxis.set_major_locator(MaxNLocator(**maxlocator))
+
+
+    # Scatter plot for dP vs dH
+    sc = axes[1].scatter(dP, dH, c=dP_freq, cmap="viridis",edgecolors='none')
+    axes[1].set_xlabel(r'$\delta P$ (MPa$^{1/2}$)')
+    axes[1].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
+    axes[1].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[1].yaxis.set_major_locator(MaxNLocator(**maxlocator))
+
+
+    # Scatter plot for dD vs dH
+    sc = axes[2].scatter(dD, dH, c=dP_freq, cmap='viridis',edgecolors='none')
+    axes[2].set_xlabel(r'$\delta D$ (MPa$^{1/2}$)')
+    axes[2].set_ylabel(r'$\delta H$ (MPa$^{1/2}$)')
+    axes[2].xaxis.set_major_locator(MaxNLocator(**maxlocator))
+    axes[2].yaxis.set_major_locator(MaxNLocator(**maxlocator))
+    cbar3 = fig.colorbar(sc, ax=axes[2], orientation="vertical", shrink=0.7, aspect=25)
+    cbar3.set_label("Frequency")
+    cbar3.set_ticks(np.linspace(cbar3.vmin, cbar3.vmax, 3))  # <-- set 3 ticks
+    fig.suptitle(f"{hsp_material} Hansen Solubility Parameters", fontsize=14, fontweight="bold")
+
+    plt.tight_layout()
+    # plt.show()
+    fname = f"Scattering of {hsp_material} Hansen Solubility Parameters"
+    save_img_path(VISUALIZATION/"analysis and test",f"{fname}.png")
+    plt.close()
 
 
 
 
-if __name__ == "__main__":
-    plot_data_reduction_steps()
+
+
+# if __name__ == "__main__":
+    # plot_data_reduction_steps()
+    # plot_hanson_space(w_data,'solvent')

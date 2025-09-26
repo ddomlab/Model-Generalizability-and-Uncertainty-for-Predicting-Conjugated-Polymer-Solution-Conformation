@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from scipy.spatial.distance import pdist, squareform
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
@@ -24,16 +23,15 @@ set_plot_style(tick_size=16)
 MARKERS = ['o', '^', 's', 'D', 'v', '<', '>', 'p', '*', 'X', 'h']
 
 HERE: Path = Path(__file__).resolve().parent
-DATASETS: Path = HERE.parent.parent / "datasets"
-training_df_dir: Path = DATASETS/ "training_dataset"
+DATASETS: Path = HERE.parent.parent / 'datasets'
+training_df_dir: Path = DATASETS/ 'training_dataset'
 RG_DATA = pd.read_pickle(training_df_dir/'Rg data with clusters aging imputed.pkl')
 RG_DATA['Polymers cluster'] = RG_DATA['canonical_name'] 
 target = 'OOD_target_log Rg (nm)'
 results_path = HERE.parent.parent / 'results'/ target
 
 
-
-
+#---------Covariance Features---------
 covarience_features = ['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 
                         'Temperature SANS/SLS/DLS/SEC (K)',
                         'polymer dP', 'polymer dD' , 'polymer dH',
@@ -61,6 +59,7 @@ naming: dict = {
 }
 
 
+#----------- Helper Functions --------------
 def get_ood_iid(scores,ml_score_metric: str,algorithm: str):
     data = []
     for cluster, _ in scores.items():
@@ -114,6 +113,7 @@ def calculate_wasserstein_distance(feature_space:np.ndarray,
 
     return wasserstein_scores
 
+
 def make_accumulating_scores(scores, ml_score_metric: str, 
                              co_vector, cluster_types: str,
                             algorithm: str, is_equal_size:bool=False,
@@ -162,6 +162,7 @@ def make_accumulating_scores(scores, ml_score_metric: str,
     return data
 
 
+#----------- Plotting Function --------------
 
 def plot_OOD_Score_vs_distance(df, ml_score_metric: str,
                                 score_metric: str = 'rmse',
@@ -343,16 +344,16 @@ if __name__ == "__main__":
             f_name = f"{co_vector}_{accuracy_metric}" 
             f_name =  f"{f_name}_OOD-IID" if OOD_IID_distance else f"{f_name}_OOD"
 
-            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
-            #                             saving_path=saving_folder, file_name=f_name,
-            #                             is_ood_iid_distance=OOD_IID_distance,figsize=(6,5),fontsize=18)
-            # print('Plot scores vs distance (full data)')
+            plot_OOD_Score_vs_distance(combined_data, accuracy_metric,
+                                        saving_path=saving_folder, file_name=f_name,
+                                        is_ood_iid_distance=OOD_IID_distance,figsize=(6,5),fontsize=18)
+            print('Plot scores vs distance (full data)')
 
 
-            # saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
-            # plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
-            #                 saving_folder,f'metric-{accuracy_metric}', 
-            #                 figsize=(16, 7), text_size=22,ncol=ncol)
+            saving_folder = scores_folder_path/  f'OOD-IID bar plot (full data)'
+            plot_bar_ood_iid(pd.DataFrame(ood_iid_bar_combined_models), accuracy_metric,
+                            saving_folder,f'metric-{accuracy_metric}', 
+                            figsize=(16, 7), text_size=22,ncol=ncol)
  
             # Quantify correlation between distance and performance degradation
             df = pd.DataFrame(combined_data)
@@ -366,63 +367,9 @@ if __name__ == "__main__":
             for model, res in results.items():
                 print(f"{model}: Spearman rho = {res['rho']:.3f}, p = {res['pval']:.3g}")
 
-
-
-
-
-
-            #  Plot OOD-IID vs distance for equal training size
-            #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_lc_scores.json'
-            #     score_file = ensure_long_path(score_file)
-            #     if not os.path.exists(score_file):
-            #         print(f"File not found: {score_file}")
-            #         continue 
-
-            #     with open(score_file, "r") as f:
-            #         scores = json.load(f)
-
-            #     model_data = make_accumulating_scores(scores, accuracy_metric, co_vector, cluster, model,is_equal_size=True)
-            #     combined_data.extend(model_data)
-
-
-            # saving_folder = scores_folder_path/ f'scores vs distance at equal training size'/ f"{co_vector}"
-            # plot_OOD_Score_vs_distance(combined_data, accuracy_metric, co_vector=co_vector,
-            #                 saving_path=saving_folder, file_name=f"numerical_metric-{accuracy_metric}", is_equal_size=True)
-            # print('Plot equal size scores')
             
 
-            ## plot bar plot for OOD-IID
-            # models = ['XGBR', 'NGB', 'RF']
-            # for fp in ['MACCS', 'Mordred', 'ECFP3.count.512']:
-                # combined_data = []
-                # for model in models:
-                #     scores_folder_path = results_path / cluster / 'Trimer_scaler'
-                #     score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_Standard_scores.json'
-                #     score_file = ensure_long_path(score_file)
-                #     if not os.path.exists(score_file):
-                #         print(f"File not found: {score_file}")
-                #         score_file = scores_folder_path / f'({fp}-Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_{model}_hypOFF_Standard_scores.json'
-                #         score_file = ensure_long_path(score_file)
-                #         if not os.path.exists(score_file):
-                #             print(f"File not found: {score_file}")
-                #             continue
-                #         continue
-                #     with open(score_file, "r") as f:
-                #         scores = json.load(f)
-                #     model_data = get_ood_iid(scores, accuracy_metric, model)
-                #     combined_data.extend(model_data)
 
-                #     ncol+=1
-                # saving_folder = scores_folder_path/  f'OOD-IID bar plot for full training set'
-                # plot_bar_ood_iid(pd.DataFrame(combined_data), accuracy_metric,
-                #                 saving_folder,f'numerical-{fp}_metric-{accuracy_metric}', 
-                #                 figsize=(10, 8), text_size=16,ncol=len(models),)
-
-                # print(fp)
-                # df = pd.DataFrame(combined_data)
-                # df['Group'] = df['Cluster'].str.extract(r'^(ID_|CO_)')
-                # summary = df.groupby(['Model', 'Group'])[['Score', 'Std']].mean().reset_index()
-                # print(summary)
 
             ## plot bar plot for OOD-IID for comparative features
             # model = 'RF'
@@ -461,14 +408,3 @@ if __name__ == "__main__":
 
 
 
-        # co_vectors = 'numerical vector'
-        # score_metrics = ["rmse", "r2"]
-        # for ml_metric in score_metrics:
-        #     scores_folder_path = results_path / cluster / 'scaler'
-        #     score_file = scores_folder_path / f'(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH)_RF_Standard_scores.json'
-        #     score_file = ensure_long_path(score_file)
-        #     with open(score_file, "r") as f:
-        #         scores = json.load(f)
-        #     saving_folder = scores_folder_path / f'scores vs distance'
-        #     plot_OOD_Score_vs_distance(scores, ml_metric, co_vector=co_vectors,cluster_types=cluster,
-        #                                 saving_path=saving_folder, file_name=f"RF_{co_vectors}_{ml_metric}")

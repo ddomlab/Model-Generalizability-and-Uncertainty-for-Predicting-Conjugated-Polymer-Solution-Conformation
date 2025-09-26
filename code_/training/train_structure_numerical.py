@@ -85,7 +85,6 @@ def main_structural_numerical(
     save_results(scores,
                 predictions=predictions,
                 imputer=imputer,
-                # df_shapes=data_shapes,
                 representation= representation,
                 pu_type= oligomer_representation,
                 target_features=target_features,
