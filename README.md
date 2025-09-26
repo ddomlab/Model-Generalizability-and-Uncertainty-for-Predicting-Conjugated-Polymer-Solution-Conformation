@@ -64,8 +64,5 @@ results/
 ├── OOD_target_log Rg (nm)                 # Out-of-distribution prediction results for log Rg
 └── target_log Rg (nm)                     # In-distribution prediction results for log Rg         
 
-env-pls-dataset.yml          
-LICENSE
-README.md
 ```
 ## How to cite 
