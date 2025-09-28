@@ -1,7 +1,7 @@
 import pandas as pd
 from pathlib import Path
 from training_utils import train_regressor
-from all_factories import radius_to_bits,cutoffs
+from all_factories import radius_to_bits, cutoffs
 from typing import Callable, Optional, Union, Dict, Tuple
 import numpy as np
 import sys
@@ -16,7 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
-TEST = False
+TEST = True
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -35,7 +35,7 @@ def main_numerical_only(
 ) -> None:
 
 
-    scores, predictions = train_regressor(
+    scores, predictions,data_shapes  = train_regressor(
                                             dataset=dataset,
                                             features_impute=columns_to_impute,
                                             special_impute=special_impute,
@@ -57,6 +57,7 @@ def main_numerical_only(
     
     save_results(scores,
                 predictions=predictions,
+                df_shapes=data_shapes,
                 imputer=imputer,
                 representation= None,
                 pu_type= None,

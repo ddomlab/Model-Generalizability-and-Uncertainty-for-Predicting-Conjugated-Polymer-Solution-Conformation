@@ -15,9 +15,9 @@ HERE: Path = Path(__file__).resolve().parent
 DATASETS: Path = HERE.parent.parent / "datasets"
 RESULTS = Path = HERE.parent.parent / "results"
 
-training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters aging added.pkl"
+training_df_dir: Path = DATASETS/ "training_dataset"/"Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
-
+print(w_data.shape)
 
 TEST=False
 
