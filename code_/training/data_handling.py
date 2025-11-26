@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from types import NoneType
 from typing import Dict, Optional,Tuple
+from filter_data import ensure_long_path
 
 import numpy as np
 import pandas as pd
@@ -56,6 +57,7 @@ class NumpyArrayEncoder(json.JSONEncoder):
             return list(obj)
         else:
             return super(NumpyArrayEncoder, self).default(obj)
+
 
 def get_cv_splits(score_for_indices):
     indices = {}
@@ -117,7 +119,7 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     if scores:
         # cv_indices = get_cv_splits(scores)
         # print("CV Indices:", cv_indices)
-        scores_file: Path = results_dir / f"{fname_root}_scores.json"
+        scores_file = ensure_long_path(results_dir / f"{fname_root}_scores.json")
         with open(scores_file, "w") as f:
             json.dump(scores, f, cls=NumpyArrayEncoder, indent=2)
         

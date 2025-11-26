@@ -20,7 +20,9 @@ from all_factories import (
                             # regressor_search_space,
                             transforms,
                             construct_kernel,
-                            get_regressor_search_space)
+                            get_regressor_search_space,
+                            optimized_models
+                            )
 
 from sklearn.preprocessing import StandardScaler
 
@@ -71,23 +73,23 @@ def train_regressor(
             #seed scores and seed prediction
         set_globals(Test)
         scores, predictions = _prepare_data(
-                                                    dataset=dataset,
-                                                    features_impute= features_impute,
-                                                    special_impute= special_impute,
-                                                    representation=representation,
-                                                    structural_features=structural_features,
-                                                    unroll=unroll,
-                                                    numerical_feats = numerical_feats,
-                                                    target_features=target_features,
-                                                    regressor_type=regressor_type,
-                                                    transform_type=transform_type,
-                                                    second_transformer=second_transformer,
-                                                    imputer=imputer,
-                                                    cutoff=cutoff,
-                                                    hyperparameter_optimization=hyperparameter_optimization,
-                                                    kernel=kernel,
-                                                    classification=classification,
-                                                    )
+                                            dataset=dataset,
+                                            features_impute= features_impute,
+                                            special_impute= special_impute,
+                                            representation=representation,
+                                            structural_features=structural_features,
+                                            unroll=unroll,
+                                            numerical_feats = numerical_feats,
+                                            target_features=target_features,
+                                            regressor_type=regressor_type,
+                                            transform_type=transform_type,
+                                            second_transformer=second_transformer,
+                                            imputer=imputer,
+                                            cutoff=cutoff,
+                                            hyperparameter_optimization=hyperparameter_optimization,
+                                            kernel=kernel,
+                                            classification=classification,
+                                            )
         scores = process_scores(scores,classification)
   
         return scores, predictions
@@ -177,6 +179,8 @@ def run(
     kernel = construct_kernel(regressor_type, kernel)
 
     for seed in SEEDS:
+      
+      print(f"Running seed: {seed}")
       cv_outer = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
     #   cv_outer = KFold(n_splits=N_FOLDS, shuffle=True, random_state=seed)
       y_transform = get_target_transformer(transform_type,second_transformer)
@@ -198,7 +202,8 @@ def run(
 
       else:
         skop_scoring = "neg_root_mean_squared_error"
-        if y.shape[1] > 1:
+        if y.ndim > 1 and y.shape[1] > 1:
+            
             y_transform_regressor = TransformedTargetRegressor(
             regressor = MultiOutputRegressor(
             estimator=regressor_factory[regressor_type](kernel=kernel) if kernel is not None
@@ -212,17 +217,22 @@ def run(
             for key, value in search_space.items()
                 }
         else:
+            model = optimized_models(regressor_type)
             y_transform_regressor = TransformedTargetRegressor(
-                    regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
-                            else regressor_factory[regressor_type],
-                    transformer=y_transform,
-            )
+                        regressor=model,
+                        transformer=y_transform,
+                        )
+            # y_transform_regressor = TransformedTargetRegressor(
+            #         regressor=regressor_factory[regressor_type](kernel=kernel) if kernel!=None
+            #                 else regressor_factory[regressor_type],
+            #         transformer=y_transform,
+            # )
       new_preprocessor = 'passthrough' if len(preprocessor.steps) == 0 else preprocessor
       regressor :Pipeline= Pipeline(steps=[
                     ("preprocessor", new_preprocessor),
                     ("regressor", y_transform_regressor),
                         ])
-
+      y = y.flatten()
       regressor.set_output(transform="pandas")
       if hyperparameter_optimization:
             cv_in = get_default_kfold_splitter(n_splits=N_FOLDS,classification=classification,random_state=seed)
@@ -246,7 +256,8 @@ def run(
 
 
       else:
-            scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer)
+            return_importance = False if "GP" in regressor_type else True
+            scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer, return_importance=return_importance, return_indices=False)
         
     #   wd_list = []
     #   for tr_dis, te_dis in cv_outer.split(X, y):

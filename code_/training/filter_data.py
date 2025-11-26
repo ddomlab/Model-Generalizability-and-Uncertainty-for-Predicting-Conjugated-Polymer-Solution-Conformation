@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 from typing import Optional, Union, Dict, Tuple
 
@@ -30,6 +31,13 @@ def apply_cutoff(data: pd.DataFrame, cutoffs: Dict[str, Tuple[Optional[float], O
         df = cutoff_filteration(data=df, lower_cutoff=lower_cutoff, upper_cutoff=upper_cutoff, target_feature=feature)
     return df
 
+
+def ensure_long_path(path: Path) -> Path:
+    """Ensures Windows handles long paths by adding '\\?\' if needed."""
+    path_str = str(path)
+    if os.name == 'nt' and len(path_str) > 250:
+        return Path(f"\\\\?\\{path_str}")
+    return path
 
 
 def sanitize_dataset(

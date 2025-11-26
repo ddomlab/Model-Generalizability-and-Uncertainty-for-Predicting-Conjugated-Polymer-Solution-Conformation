@@ -16,7 +16,7 @@ RESULTS = Path = HERE.parent.parent / "results"
 
 training_df_dir: Path = DATASETS/ "training_dataset"/ "Rg data with clusters aging imputed.pkl"
 w_data = pd.read_pickle(training_df_dir)
-TEST = True
+TEST = False
 
 def main_numerical_only(
     dataset: pd.DataFrame,
@@ -35,7 +35,7 @@ def main_numerical_only(
 ) -> None:
 
 
-    scores, predictions,data_shapes  = train_regressor(
+    scores, predictions  = train_regressor(
                                             dataset=dataset,
                                             features_impute=columns_to_impute,
                                             special_impute=special_impute,
@@ -57,7 +57,6 @@ def main_numerical_only(
     
     save_results(scores,
                 predictions=predictions,
-                df_shapes=data_shapes,
                 imputer=imputer,
                 representation= None,
                 pu_type= None,
@@ -72,7 +71,7 @@ def main_numerical_only(
                 second_transformer=second_transformer,
                 classification=classification,
                 # special_folder_name='hp_RF_differences'
-                # special_file_name='pfo_p3ht',
+                special_file_name='FeatImp',
                 )
 
 
@@ -86,25 +85,25 @@ def main_numerical_only(
 
 
 if __name__ == "__main__":
-    if TEST==False:
+    # if TEST==False:
 
-        args = parse_arguments()
-        main_numerical_only(
-            dataset=w_data,
-            regressor_type=args.regressor_type,
-            kernel=args.kernel,
-            target_features=[args.target_features],  
-            transform_type=args.transform_type,
-            hyperparameter_optimization=True,
-            columns_to_impute=args.columns_to_impute,  
-            special_impute=args.special_impute,
-            numerical_feats=args.numerical_feats,  
-            imputer=args.imputer,
-            cutoff=None,  
-            second_transformer=None,
-            classification=False
-        )
-    else:
+    #     args = parse_arguments()
+    #     main_numerical_only(
+    #         dataset=w_data,
+    #         regressor_type=args.regressor_type,
+    #         kernel=args.kernel,
+    #         target_features=[args.target_features],  
+    #         transform_type=args.transform_type,
+    #         hyperparameter_optimization=True,
+    #         columns_to_impute=args.columns_to_impute,  
+    #         special_impute=args.special_impute,
+    #         numerical_feats=args.numerical_feats,  
+    #         imputer=args.imputer,
+    #         cutoff=None,  
+    #         second_transformer=None,
+    #         classification=False
+    #     )
+    # else:
         main_numerical_only(
             dataset=w_data,
             regressor_type="RF",
@@ -114,7 +113,10 @@ if __name__ == "__main__":
             hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
-            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)", "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH'],
+            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)",
+                              "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
+                              "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
+                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"],
             imputer=None,
             classification=False,
             cutoff=None)

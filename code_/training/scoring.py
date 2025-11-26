@@ -23,6 +23,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.metrics._scorer import r2_scorer
 from sklearn.model_selection import cross_val_predict, cross_validate
 from sklearn.model_selection import learning_curve
+import shap
 from _validation import multioutput_cross_validate 
 
 
@@ -392,27 +393,51 @@ def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
     return score
 
 
+def get_feature_importances_from_cv(score: dict, X: np.ndarray | None = None) -> Dict[str, List[Dict[str, float]]]:
+    all_MDI_importances = []
+    all_shap_importances = []
+
+    first_est = score["estimator"][0]
+    preprocessor = first_est.named_steps["preprocessor"]
+    feature_names = preprocessor.get_feature_names_out()
+    for est in score["estimator"]:
+        model = est.named_steps["regressor"].regressor_
+
+        # --- Model-based importances ---
+        raw_fi = model.feature_importances_
+
+        fi_model = raw_fi[0] if model.__class__.__name__ == "NGBRegressor" else raw_fi
+        all_MDI_importances.append(dict(zip(feature_names, fi_model)))
+
+        # --- SHAP importances ---
+        if X is not None:
+            X_transformed = preprocessor.transform(X)
+            model_output = 0 if model.__class__.__name__ == "NGBRegressor" else "raw"
+            try:
+                explainer = shap.Explainer(model, X_transformed)
+            except Exception:
+                explainer = shap.TreeExplainer(model, model_output=model_output)
+            shap_values = explainer(X_transformed, check_additivity=False)
+            fi_shap = np.abs(shap_values.values).mean(axis=0)
+            all_shap_importances.append(dict(zip(feature_names, fi_shap)))
+
+    score["feature_importance_MDI"] = all_MDI_importances
+    if all_shap_importances:
+        score["feature_importance_SHAP"] = all_shap_importances
+
 
 def cross_validate_regressor(
-    regressor, X, y, cv,classification=False,
+    regressor, X, y, cv, return_importance: bool = False, return_indices: bool = False
     ) -> tuple[dict[str, float], np.ndarray]:
 
         # MULTIOUPUT 
-        if y.shape[1]>1:
-            if classification:
-                scorers= {
-                "accuracy": accuracy_scorer_multi,  
-                "f1": f1_scorer_multi,
-                "recall": recall_scorer_multi,
-                "precision": precision_scorer_multi,
-                "roc_auc": roc_auc_scorer_multi    
-                }
-            else:
-                scorers = {
-                        "r2": r2_scorer_multi,
-                        "rmse": rmse_scorer_multi,
-                        "mae": mae_scorer_multi
-                        }
+        if y.ndim > 1 and y.shape[1] > 1:
+  
+            scorers = {
+                    "r2": r2_scorer_multi,
+                    "rmse": rmse_scorer_multi,
+                    "mae": mae_scorer_multi
+                    }
         
 
             score =  multioutput_cross_validate(
@@ -427,37 +452,24 @@ def cross_validate_regressor(
 
         # SINGLE OUTPUT
         else:
-            if classification:
-                scorers= {
-                # "accuracy": accuracy_scorer_multi,  
-                "f1": f1_scorer,
-                "recall": recall_scorer,
-                "precision": precision_scorer,
-                "roc_auc": roc_auc_scorer    
-                }
-            else:
-                scorers = {
-                    "pearson_r": r_scorer,
-                    # "pearson_p": pearson_p_scorer,
-                    "spearman_r": spearman_scorer,
-                    # "spearman_p": spearman_p_scorer,
-                    # "kendall_r": kendall_scorer,
-                    # "kendall_p": kendall_p_scorer,
-                    "rmse": rmse_scorer,
-                    "mae": mae_scorer,
-                    "r2": r2_scorer,
-                }
+        
+            scorers = {
+                "spearman_r": spearman_scorer,
+                "rmse": rmse_scorer,
+                "mae": mae_scorer,
+                "r2": r2_scorer,
+            }
+
             score: dict[str, float] = cross_validate(
                 regressor,
                 X,
                 y,
                 cv=cv,
                 scoring=scorers,
-                # return_estimator=True,
+                return_estimator=True,
                 n_jobs=-1,
-                # return_indices=True,
+                return_indices=return_indices,
                 )
-
         predictions: np.ndarray = cross_val_predict(
             regressor,
             X,
@@ -465,7 +477,14 @@ def cross_validate_regressor(
             cv=cv,
             n_jobs=-1,
         )
+        if return_importance:
+            get_feature_importances_from_cv(score, X=X)
+
+        if return_indices:
+            indexes = score.pop("indices")
+            return score, predictions, indexes
         return score, predictions
+
 
 
 def get_incremental_split(
