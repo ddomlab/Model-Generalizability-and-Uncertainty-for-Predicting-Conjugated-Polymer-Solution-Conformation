@@ -393,37 +393,74 @@ def process_learning_score(score: dict[int, dict[str, np.ndarray]]):
     return score
 
 
-def get_feature_importances_from_cv(score: dict, X: np.ndarray | None = None) -> Dict[str, List[Dict[str, float]]]:
-    all_MDI_importances = []
-    all_shap_importances = []
+def get_feature_importances_from_cv(
+    score: dict,
+    X: np.ndarray | None = None
+) -> Dict[str, List[Dict[str, float]]]:
 
+    all_MDI_importances = []
+    all_shap_full = []
+
+    # Preprocessor and feature names
     first_est = score["estimator"][0]
     preprocessor = first_est.named_steps["preprocessor"]
     feature_names = preprocessor.get_feature_names_out()
+
+    # Loop over CV estimators
     for est in score["estimator"]:
+
         model = est.named_steps["regressor"].regressor_
 
-        # --- Model-based importances ---
+        # ---------------------------
+        # Model-based importances (MDI)
+        # ---------------------------
         raw_fi = model.feature_importances_
 
-        fi_model = raw_fi[0] if model.__class__.__name__ == "NGBRegressor" else raw_fi
-        all_MDI_importances.append(dict(zip(feature_names, fi_model)))
+        if model.__class__.__name__ == "NGBRegressor":
+            fi_model = raw_fi[0]
+        else:
+            fi_model = raw_fi
 
-        # --- SHAP importances ---
+        all_MDI_importances.append(
+            dict(zip(feature_names, fi_model))
+        )
+
+        # ---------------------------
+        # SHAP full matrix (no abs, no mean)
+        # ---------------------------
         if X is not None:
+
             X_transformed = preprocessor.transform(X)
-            model_output = 0 if model.__class__.__name__ == "NGBRegressor" else "raw"
+
+            model_output = (
+                0 if model.__class__.__name__ == "NGBRegressor" else "raw"
+            )
+
+            # Create SHAP explainer
             try:
                 explainer = shap.Explainer(model, X_transformed)
             except Exception:
                 explainer = shap.TreeExplainer(model, model_output=model_output)
-            shap_values = explainer(X_transformed, check_additivity=False)
-            fi_shap = np.abs(shap_values.values).mean(axis=0)
-            all_shap_importances.append(dict(zip(feature_names, fi_shap)))
 
+            shap_values = explainer(
+                X_transformed,
+                check_additivity=False
+            )
+
+            # Keep full SHAP matrix
+            shap_matrix = shap_values.values  # shape (n_samples, n_features)
+
+            # Store for later violinplots
+            all_shap_full.append({
+                "feature_names": feature_names,
+                "shap_values": shap_matrix,
+                "X_transformed": np.asarray(X_transformed).tolist()
+            })
+    # Save outputs into score
     score["feature_importance_MDI"] = all_MDI_importances
-    if all_shap_importances:
-        score["feature_importance_SHAP"] = all_shap_importances
+
+    if all_shap_full:
+        score["feature_importance_SHAP_FULL"] = all_shap_full
 
 
 def cross_validate_regressor(

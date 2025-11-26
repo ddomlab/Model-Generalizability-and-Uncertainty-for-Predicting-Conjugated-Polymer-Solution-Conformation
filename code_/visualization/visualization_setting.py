@@ -59,3 +59,11 @@ def save_img_path(folder_path:Union[str, Path], file_name:str)->None:
         save_path = Path(f"\\\\?\\{save_path.resolve()}")
 
     plt.savefig(save_path, dpi=800, bbox_inches='tight')
+
+
+def ensure_long_path(path: Path) -> Path:
+    """Ensures Windows handles long paths by adding '\\\\?\\' if needed."""
+    path_str = str(path)
+    if os.name == 'nt' and len(path_str) > 250 and not path_str.startswith('\\\\?\\'):
+        return Path(f"\\\\?\\{path_str}")
+    return path
