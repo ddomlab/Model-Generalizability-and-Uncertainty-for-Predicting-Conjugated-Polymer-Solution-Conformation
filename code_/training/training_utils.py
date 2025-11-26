@@ -270,7 +270,8 @@ def run(
 
     #   wasserstein_dis[seed] = {"mean": np.mean(wd_list),
     #                             "std": np.std(wd_list)}
-      seed_scores[seed] = scores
+      seed_scores[seed] = scores.copy()
+      seed_scores[seed].pop("estimator", None)
       seed_predictions[seed] = predictions.flatten()
 
     seed_predictions: pd.DataFrame = pd.DataFrame.from_dict(

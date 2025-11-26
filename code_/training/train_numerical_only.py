@@ -54,8 +54,9 @@ def main_numerical_only(
                                             Test=TEST,
                                             classification=classification,
                                             )
-    
-    save_results(scores,
+    print("Scores:", scores)
+    save_results(
+                scores=scores,
                 predictions=predictions,
                 imputer=imputer,
                 representation= None,
