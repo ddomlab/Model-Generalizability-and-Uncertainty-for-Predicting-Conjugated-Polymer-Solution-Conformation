@@ -65,26 +65,25 @@ def plot_feature_importances(
 
         sns.violinplot(
             data=df_long,
-            x="Feature",
-            y="Value",
+            x="Value",
+            y="Feature",
             inner=None,
             cut=0,
-            color="#1f77b4",
+            color="#298ed7",
         )
 
         sns.swarmplot(
             data=df_long,
-            x="Feature",
-            y="Value",
+            x="Value",
+            y="Feature",
             size=3,
-            color="black",
-            alpha=0.7
+            alpha=0.7,
+            color="#c64467",
         )
 
-        plt.xticks(rotation=75, ha="right")
-        plt.ylabel("Model importance (MDI)")
-        plt.xlabel("Top 15 features")
-        plt.grid(axis="y", linestyle="--", alpha=0.4)
+        plt.ylabel("Features")
+        plt.xlabel("Model importance (MDI)")
+        plt.grid(axis="x", linestyle="--", alpha=0.3)
         plt.tight_layout()
 
         save_img_path(save_loc / "feature importance", f"{importance_type}_feature_importance_top15_{file_extension}.png")
@@ -275,7 +274,7 @@ if __name__ == "__main__":
 
     for model in models:
         paper_loc: Path = Path(r"D:\PhD_Code\Model-Generalizability-and-Uncertainty-for-Predicting-Conjugated-Polymer-Solution-Conformation\results\target_log Rg (nm)\scaler")
-        file_name = f"(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_FeatImp_scores"
+        file_name = f"(Xn-Mw-PDI-concentration-temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time-model_fitting_encoded)_{model}_hypOFF_Standard_FeatImp_scores"
         score_path = ensure_long_path(paper_loc / f"{file_name}.json")
         with open(score_path, "r") as f:
             scores = json.load(f)
@@ -283,8 +282,8 @@ if __name__ == "__main__":
         MDI_imp, shap_imp = plot_feature_importances(scores_data=scores,
                                         save_loc=paper_loc.parent,
                                         figsize=(8,7.5),
-                                        importance_type="SHAP",
-                                        file_extension=file_name
+                                        importance_type="MDI",
+                                        file_extension=f"all_nums_fitting_models_included_{model}"
                                         )
     #             shap_feature_means = shap_imp.abs().mean()
     #             df_top15_shap_features = shap_imp[shap_feature_means.sort_values(ascending=False).head(15).index]

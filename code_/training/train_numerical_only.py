@@ -104,9 +104,12 @@ if __name__ == "__main__":
     #         classification=False
     #     )
     # else:
+        print(w_data['SANS/SAXS model'].isnull().sum())
+        w_data["model_fitting_encoded"]=w_data['SANS/SAXS model'].astype("category").cat.codes
+        # print(w_data["model_fitting_encoded"].isnull().sum())
         main_numerical_only(
             dataset=w_data,
-            regressor_type="RF",
+            regressor_type="XGBR",
             # kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
             transform_type='Standard',  
@@ -116,7 +119,9 @@ if __name__ == "__main__":
             numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)",
                               "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
                               "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
-                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"],
+                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)",
+                              "model_fitting_encoded"
+                              ],
             imputer=None,
             classification=False,
             cutoff=None)
