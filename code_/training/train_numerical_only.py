@@ -116,7 +116,7 @@ if __name__ == "__main__":
         # print(w_data["model_fitting_encoded"].isnull().sum())
         main_numerical_only(
             dataset=w_data,
-            regressor_type="XGBR",
+            regressor_type="RF",
             # kernel= "matern",
             target_features=['log Rg (nm)'],  # Can adjust based on actual usage
             transform_type='Standard',  
@@ -124,7 +124,7 @@ if __name__ == "__main__":
             columns_to_impute=None,
             special_impute=None,
             numerical_feats=['log Xn', 'log Mw', 'log PDI', "log concentration", "log Temperature",
-                              "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
+                              "Ra",
                               "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
                               "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)",
                             #   "model_fitting_encoded"

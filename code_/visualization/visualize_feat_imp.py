@@ -274,7 +274,7 @@ if __name__ == "__main__":
 
     for model in models:
         paper_loc: Path = Path(r"D:\PhD_Code\Model-Generalizability-and-Uncertainty-for-Predicting-Conjugated-Polymer-Solution-Conformation\results\target_log Rg (nm)\scaler")
-        file_name = f"(log Xn-log Mw-log PDI-log concentration-log Temperature-polymer dP-polymer dD-polymer dH-solvent dP-solvent dD-solvent dH-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_FeatImp_scores"
+        file_name = f"(log Xn-log Mw-log PDI-log concentration-log Temperature-Ra-light exposure-aging time-aging temperature-prep temperature-prep time)_{model}_hypOFF_Standard_FeatImp_scores"
         score_path = ensure_long_path(paper_loc / f"{file_name}.json")
         with open(score_path, "r") as f:
             scores = json.load(f)
@@ -283,7 +283,7 @@ if __name__ == "__main__":
                                         save_loc=paper_loc.parent,
                                         figsize=(8,7.5),
                                         importance_type="SHAP",
-                                        file_extension=f"all_nums_log_transformation_{model}"
+                                        file_extension=f"all_nums_log_transformation_Ra_{model}"
                                         )
     #             shap_feature_means = shap_imp.abs().mean()
     #             df_top15_shap_features = shap_imp[shap_feature_means.sort_values(ascending=False).head(15).index]
