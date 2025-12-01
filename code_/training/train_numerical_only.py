@@ -104,8 +104,15 @@ if __name__ == "__main__":
     #         classification=False
     #     )
     # else:
-        print(w_data['SANS/SAXS model'].isnull().sum())
-        w_data["model_fitting_encoded"]=w_data['SANS/SAXS model'].astype("category").cat.codes
+        # print(w_data['SANS/SAXS model'].isnull().sum())
+        # w_data = w_data[w_data["Concentration (mg/ml)"] < 30]
+        w_data["log concentration"] = np.log10(w_data["Concentration (mg/ml)"])
+        w_data["log Xn"] = np.log10(w_data["Xn"])
+        w_data["log Mw"] = np.log10(w_data["Mw (g/mol)"])
+        w_data["log PDI"] = np.log10(w_data["PDI"])
+        w_data["log Temperature"] = np.log10(w_data["Temperature SANS/SLS/DLS/SEC (K)"])
+
+        # w_data["model_fitting_encoded"]=w_data['SANS/SAXS model'].astype("category").cat.codes
         # print(w_data["model_fitting_encoded"].isnull().sum())
         main_numerical_only(
             dataset=w_data,
@@ -116,11 +123,11 @@ if __name__ == "__main__":
             hyperparameter_optimization=False,
             columns_to_impute=None,
             special_impute=None,
-            numerical_feats=['Xn', 'Mw (g/mol)', 'PDI', "Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)",
+            numerical_feats=['log Xn', 'log Mw', 'log PDI', "log concentration", "log Temperature",
                               "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
                               "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
                               "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)",
-                              "model_fitting_encoded"
+                            #   "model_fitting_encoded"
                               ],
             imputer=None,
             classification=False,
