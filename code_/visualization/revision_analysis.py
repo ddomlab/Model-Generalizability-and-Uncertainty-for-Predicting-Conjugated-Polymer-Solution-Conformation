@@ -62,7 +62,8 @@ print("Number of unique environmental condition pairs:", unique_pairs_count)
 # save_img_path(VISUALIZATION / "analysis and test", "range_distribution_log_Rg_across_Xn_groups.png")
 # plt.show()
 
-below_30 = w_data[w_data["Concentration (mg/ml)"] < 30]
-print(below_30)
-sns.histplot(np.log(below_30["Concentration (mg/ml)"]), bins=30, color="#7b1093")
-plt.show()
+# below_30 = w_data[w_data["Concentration (mg/ml)"] < 30]
+# print(below_30)
+# sns.histplot(np.log(below_30["Concentration (mg/ml)"]), bins=30, color="#7b1093")
+# plt.show()
+

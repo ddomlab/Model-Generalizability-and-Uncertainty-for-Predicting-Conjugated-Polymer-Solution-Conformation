@@ -56,8 +56,8 @@ def parse_property_string(prop_string):
 
     # Define the feature categories
     categories = {
-        'Xn': ['Xn'],
-        'polysize': ['Mw', 'PDI'],
+        # 'Xn': ['Xn'],
+        'polymer chain length': ['Xn', 'Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
         'solvent_HSPs': ['solvent dP', 'solvent dD', 'solvent dH'],
@@ -538,7 +538,7 @@ def creat_result_df(target_dir: Path,
                 models.add(model)
                 
                 if data_type == 'scaler':
-                    exclude_feats = ["unknown format", "polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Ra"]
+                    exclude_feats = ["unknown format", "polymer chain length + solvent_properties + polymer_HSPs + solvent_HSPs + Ra"]
                     if feats in exclude_feats:
                         continue
                 else:
@@ -805,7 +805,8 @@ def get_aging_comparison(target_folder: Path,
         score_files = list(Path(value_folder).rglob(pattern))
 
         for score_path in score_files:
-            if "generalizability" in score_path.name or "test" in score_path.name or 'lc_scores' in score_path.name:
+            if "generalizability" in score_path.name or "test" in score_path.name or 'lc_scores' in score_path.name or 'FeatImp' in score_path.name:
+                # print(f"Skipping file: {score_path.name}")
                 continue
             feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
 
@@ -831,6 +832,7 @@ def get_aging_comparison(target_folder: Path,
                 "annotations": anot
             })
     # print(scores_to_report)
+    print(pd.DataFrame(scores_to_report).to_string())
     return pd.DataFrame(scores_to_report) 
 
 
@@ -881,24 +883,24 @@ def creat_aging_comparison_heatmap(target_dir:Path,
 
 
 aging_features: List = [
-    'Xn + polysize',
-    'Xn + polysize + Mordred',
-    'Xn + polysize + MACCS',
-    'Xn + polysize + ECFP6.count.512',
-    'Xn + polysize + polymer_HSPs',
+    'polymer chain length',
+    'polymer chain length + Mordred',
+    'polymer chain length + MACCS',
+    'polymer chain length + ECFP6.count.512',
+    'polymer chain length + polymer_HSPs',
     # 'environmental.thermal history',
     'solvent_properties + solvent_HSPs',
     'solvent_properties + solvent_HSPs + environmental.thermal history',
-    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
-    'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
-    # 'Xn + polysize + solvent_properties + environmental.thermal history',
+    'polymer chain length + solvent_properties + polymer_HSPs + solvent_HSPs',
+    'polymer chain length + solvent_properties + polymer_HSPs + solvent_HSPs + environmental.thermal history',
+    # 'polymer chain length + solvent_properties + environmental.thermal history',
 
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs',
     # 'Xn + polysize + solvent_properties + polymer_HSPs + solvent_HSPs + Mordred',
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='mae',
+                                    score_metrics='r2',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','NGB','XGBR'},
