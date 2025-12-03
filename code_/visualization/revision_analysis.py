@@ -84,14 +84,35 @@ print(w_data[features].info())
 
 # Means
 mean_data = {
+    "mean":      [0.20, 0.19],
     "iterative": [0.25, 0.23],
-    "mean":      [0.20, 0.19]
+    "uniform KNN_3": [0.19, 0.17],
+    "uniform KNN_4": [0.20, 0.17],
+    "uniform KNN_5": [0.20, 0.17],
+    "uniform KNN_6": [0.20, 0.18],
+    "uniform KNN_7": [0.20, 0.18],
+    "distance KNN_3": [0.21, 0.18],
+    "distance KNN_4": [0.21, 0.18],
+    "distance KNN_5": [0.21, 0.19],
+    "distance KNN_6": [0.21, 0.20],
+    "distance KNN_7": [0.21, 0.20],
 }
 
 # STDs
 std_data = {
+    "mean":      [0.05, 0.05],
     "iterative": [0.04, 0.04],
-    "mean":      [0.05, 0.05]
+    "uniform KNN_3": [0.04, 0.07],
+    "uniform KNN_4": [0.06, 0.07],
+    "uniform KNN_5": [0.04, 0.06],
+    "uniform KNN_6": [0.04, 0.05],
+    "uniform KNN_7": [0.05, 0.06],
+    "distance KNN_3": [0.05, 0.07],
+    "distance KNN_4": [0.05, 0.06],
+    "distance KNN_5": [0.05, 0.06],
+    "distance KNN_6": [0.05, 0.07],
+    "distance KNN_7": [0.05, 0.07],
+
 }
 
 models = ["RF", "XGB"]
@@ -113,13 +134,13 @@ annot = (
 # 3. Plot Heatmap
 # ==========================
 
-plt.figure(figsize=(5, 3.5))
+plt.figure(figsize=(11, 4.5))
 heatmap = sns.heatmap(
     df_mean,
     annot=annot,
     fmt="",
     cmap="viridis",
-    annot_kws={"size": 16},
+    annot_kws={"size": 14},
     cbar_kws={"label": "Average RMSE ± Stdev"},
     vmax=.6, vmin=.1
 )
@@ -131,6 +152,7 @@ heatmap.collections[0].colorbar.ax.set_ylabel(
     labelpad=15,
     fontsize=14
 )
+plt.xticks(rotation=45)
 
 # plt.title("Model Score Heatmap (mean ± std)", fontsize=14)
 plt.xlabel("imputation Method")

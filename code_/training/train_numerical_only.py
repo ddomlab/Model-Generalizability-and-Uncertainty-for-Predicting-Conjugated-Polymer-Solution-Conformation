@@ -147,28 +147,28 @@ if __name__ == "__main__":
                 w_data[col] = w_data[col].apply(lambda val: convert_str_to_num(val, col))
                 print(f"{col}: {w_data[col].dtype}")
         w_data["Aging time (hour)"].fillna(w_data["Storage time (hour)"], inplace=True)
-
-        main_numerical_only(
-            dataset=w_data,
-            regressor_type="RF",
-            # kernel= "matern",
-            target_features=['log Rg (nm)'],  # Can adjust based on actual usage
-            transform_type='Standard',  
-            hyperparameter_optimization=False,
-            columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)",
-                               "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
-                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"
-                              ],
-            special_impute='Mw (g/mol)',
-            numerical_feats=['Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)',
-                             "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
-                              "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
-                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)",
-                            #   "model_fitting_encoded"
-                              ],
-            imputer="iterative",
-            classification=False,
-            cutoff=None)
+        for m in ["RF", "XGBR"]:
+            main_numerical_only(
+                dataset=w_data,
+                regressor_type=m,
+                # kernel= "matern",
+                target_features=['log Rg (nm)'],  # Can adjust based on actual usage
+                transform_type='Standard',  
+                hyperparameter_optimization=False,
+                columns_to_impute=["PDI", "Temperature SANS/SLS/DLS/SEC (K)", "Concentration (mg/ml)",
+                                "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
+                                "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"
+                                ],
+                special_impute='Mw (g/mol)',
+                numerical_feats=['Xn', 'Mn (g/mol)', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)',
+                                "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
+                                "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
+                                "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)",
+                                #   "model_fitting_encoded"
+                                ],
+                imputer="distance KNN_7",
+                classification=False,
+                cutoff=None)
 
 
             # pfo_pht_data = w_data[w_data['canonical_name'].isin(['rr-P3HT', 'PFO'])]

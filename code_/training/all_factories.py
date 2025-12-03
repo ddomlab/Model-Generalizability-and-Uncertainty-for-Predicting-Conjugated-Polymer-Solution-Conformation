@@ -58,8 +58,16 @@ imputer_factory: Dict[str, TransformerMixin] = {
     "mean": SimpleImputer(strategy="mean"),
     "median": SimpleImputer(strategy="median"),
     "most-frequent": SimpleImputer(strategy="most_frequent"),
-    "uniform KNN": KNNImputer(weights="uniform"),
-    "distance KNN": KNNImputer(weights="distance"),
+    "uniform KNN_3": KNNImputer(weights="uniform",n_neighbors=3),
+    "distance KNN_3": KNNImputer(weights="distance",n_neighbors=3),
+    "uniform KNN_4": KNNImputer(weights="uniform",n_neighbors=4),
+    "distance KNN_4": KNNImputer(weights="distance",n_neighbors=4),
+    "uniform KNN_5": KNNImputer(weights="uniform",n_neighbors=5),
+    "distance KNN_5": KNNImputer(weights="distance",n_neighbors=5),
+    "uniform KNN_6": KNNImputer(weights="uniform",n_neighbors=6),
+    "distance KNN_6": KNNImputer(weights="distance",n_neighbors=6),
+    "uniform KNN_7": KNNImputer(weights="uniform",n_neighbors=7),
+    "distance KNN_7": KNNImputer(weights="distance",n_neighbors=7),
     "iterative": IterativeImputer(sample_posterior=True),
 }
 
