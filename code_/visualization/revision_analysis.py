@@ -65,5 +65,76 @@ print("Number of unique environmental condition pairs:", unique_pairs_count)
 # below_30 = w_data[w_data["Concentration (mg/ml)"] < 30]
 # print(below_30)
 # sns.histplot(np.log(below_30["Concentration (mg/ml)"]), bins=30, color="#7b1093")
-# plt.show()
+# plt.show(
 
+features = ['Xn', 'Mw (g/mol)', 'PDI', 'Concentration (mg/ml)', 'Temperature SANS/SLS/DLS/SEC (K)',
+                             "polymer dP", "polymer dD", "polymer dH", 'solvent dP', 'solvent dD', 'solvent dH',
+                              "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
+                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"]
+
+print(w_data["Aging time (hour)"].isna().sum())
+print(w_data[features].info())
+
+
+
+
+# ==========================
+# 1. Your Data
+# ==========================
+
+# Means
+mean_data = {
+    "iterative": [0.25, 0.23],
+    "mean":      [0.20, 0.19]
+}
+
+# STDs
+std_data = {
+    "iterative": [0.04, 0.04],
+    "mean":      [0.05, 0.05]
+}
+
+models = ["RF", "XGB"]
+
+df_mean = pd.DataFrame(mean_data, index=models)
+df_std  = pd.DataFrame(std_data, index=models)
+
+# ==========================
+# 2. Annotation text: mean on first line, ±std on next line
+# ==========================
+
+annot = (
+    df_mean.round(2).astype(str)
+    + "\n± "
+    + df_std.round(2).astype(str)
+)
+
+# ==========================
+# 3. Plot Heatmap
+# ==========================
+
+plt.figure(figsize=(6, 4))
+heatmap = sns.heatmap(
+    df_mean,
+    annot=annot,
+    fmt="",
+    cmap="viridis",
+    cbar_kws={"label": "Average RMSE ± Stdev"},
+    vmax=.6, vmin=.1
+)
+
+# Rotate colorbar label vertically
+heatmap.collections[0].colorbar.ax.set_ylabel(
+    "Average RMSE ± Stdev",
+    rotation=270,     # text runs top → bottom
+    labelpad=15,
+    fontsize=14
+)
+
+# plt.title("Model Score Heatmap (mean ± std)", fontsize=14)
+plt.xlabel("imputation Method")
+plt.ylabel("Model")
+
+plt.tight_layout()
+save_img_path(VISUALIZATION / "analysis and test", "Model_performance_iterative_vs_mean_revision.png")
+plt.show()

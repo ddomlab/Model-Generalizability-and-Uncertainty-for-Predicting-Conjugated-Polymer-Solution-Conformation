@@ -54,7 +54,8 @@ def preprocessing_workflow(imputer: Optional[str]=None,
                     (f'calculator_{special_column}',
                      (FunctionTransformer(calculate_mw,
                                           kw_args={'mw': special_column, 'mn': 'Mn (g/mol)', 'pdi': 'PDI'},
-                                          validate=False)), ['Mn (g/mol)', special_column, 'PDI'])
+                                          validate=False,
+                                          feature_names_out="one-to-one")), ['Mn (g/mol)', special_column, 'PDI'])
                 ],
                 remainder="passthrough", verbose_feature_names_out=False
             )),
@@ -68,7 +69,9 @@ def preprocessing_workflow(imputer: Optional[str]=None,
             ("drop Mn", ColumnTransformer(
                 transformers=[
                     ("Drop Mn column",
-                     FunctionTransformer(drop_columns, kw_args={'columns_to_drop': ['Mn (g/mol)']}, validate=False),
+                     FunctionTransformer(drop_columns, kw_args={'columns_to_drop': ['Mn (g/mol)']},
+                                          validate=False,
+                                          ),
                      ['Mn (g/mol)'])
                 ], remainder="passthrough", verbose_feature_names_out=False))
 

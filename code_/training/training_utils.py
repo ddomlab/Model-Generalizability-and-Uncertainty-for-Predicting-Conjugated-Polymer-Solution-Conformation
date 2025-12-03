@@ -257,7 +257,7 @@ def run(
 
       else:
             return_importance = False if "GP" in regressor_type else True
-            scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer, return_importance=return_importance, return_indices=False)
+            scores, predictions = cross_validate_regressor(regressor, X, y, cv_outer, return_importance=False, return_indices=False)
         
     #   wd_list = []
     #   for tr_dis, te_dis in cv_outer.split(X, y):

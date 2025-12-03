@@ -87,6 +87,8 @@ def _save(scores: Optional[Dict[int, Dict[str, float]]],
     results_dir.mkdir(parents=True, exist_ok=True)
     
     # just scaler
+    numerical_feats = [x for x in numerical_feats if x != 'Mn (g/mol)']
+
     if numerical_feats and pu_type==None:
         short_num_feats = "-".join(feature_abbrev.get(key,key) for key in numerical_feats)
         fname_root = f"({short_num_feats})_{regressor_type}"
