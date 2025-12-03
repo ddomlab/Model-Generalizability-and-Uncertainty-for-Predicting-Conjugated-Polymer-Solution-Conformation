@@ -113,12 +113,13 @@ annot = (
 # 3. Plot Heatmap
 # ==========================
 
-plt.figure(figsize=(6, 4))
+plt.figure(figsize=(5, 3.5))
 heatmap = sns.heatmap(
     df_mean,
     annot=annot,
     fmt="",
     cmap="viridis",
+    annot_kws={"size": 16},
     cbar_kws={"label": "Average RMSE ± Stdev"},
     vmax=.6, vmin=.1
 )
