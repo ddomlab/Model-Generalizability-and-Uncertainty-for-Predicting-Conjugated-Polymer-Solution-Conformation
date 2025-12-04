@@ -47,10 +47,10 @@ group_stats["range"] = group_stats["max"] - group_stats["min"]
 plt.figure(figsize=(5,3.5))
 sns.histplot(group_stats['rsd (%)'], bins=30, color="#107b93")
 plt.xlabel("RSD (%)", fontsize=14)
-plt.ylabel("Count", fontsize=14)
+plt.ylabel("Occurrence", fontsize=14)
 # plt.title("Distribution of RSD of log Rg (nm) across Xn groups", fontsize=16)
 plt.tight_layout()
-plt.xlim(0, 13)
+plt.ylim(0, 15)
 save_img_path(VISUALIZATION / "analysis and test", "RSD_distribution_log_Rg_across_Xn_groups.png")
 plt.show()
 
