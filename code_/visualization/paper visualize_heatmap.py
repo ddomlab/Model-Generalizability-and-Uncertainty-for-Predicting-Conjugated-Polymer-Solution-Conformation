@@ -51,12 +51,11 @@ var_titles: dict[str, str] = {"stdev": "Standard Deviation", "stderr": "Standard
 
 
 
-def parse_property_string(prop_string):
+def parse_property_string(prop_string, return_num_features: bool = False) -> tuple[str, int]:
     import re
 
     # Define the feature categories
     categories = {
-        # 'Xn': ['Xn'],
         'polymer chain length': ['Xn', 'Mw', 'PDI'],
         'solvent_properties': ['concentration', 'temperature'],
         'polymer_HSPs': ['polymer dP', 'polymer dD', 'polymer dH'],
@@ -76,13 +75,13 @@ def parse_property_string(prop_string):
         'Mordred': ['Mordred'],
     }
 
-    # ✅ Step 1: Split by `)_` and remove leading `(` to isolate feature block
+    # --- Step 1: Extract feature block ---
     try:
         feature_block = prop_string.split(')_')[0][1:]
     except IndexError:
-        return 'unknown format'
+        return 'unknown format', 0
 
-    # ✅ Step 2: Tokenize into features while preserving abs(...) blocks
+    # --- Step 2: Tokenize into components ---
     components = []
     i = 0
     while i < len(feature_block):
@@ -106,19 +105,24 @@ def parse_property_string(prop_string):
                 components.append(token)
             i = j + 1
 
-    # ✅ Step 3: Match categories exactly
+    # --- Step 3: Match categories ---
     present_categories = []
+    matched_features = []    
+
     for cat_name, feat_list in categories.items():
         if all(f in components for f in feat_list):
             present_categories.append(cat_name)
+            matched_features.extend(feat_list)
 
-    return ' + '.join(present_categories) if present_categories else 'unknown format'
+    # short name
+    short_name = ' + '.join(present_categories) if present_categories else 'unknown format'
 
-    
-    
-    
+    # number of features actually matched
+    if return_num_features:
+        num_features = len(matched_features)
+        return short_name, num_features
+    return short_name
 
-    
 
 
 def get_total(prop_string: str) -> Optional[str]:
@@ -137,6 +141,7 @@ def get_total(prop_string: str) -> Optional[str]:
     return mapping.get(prop_string)
 
 
+
 def correct_ecfp_name(prop_string):
     if 'ECFP' in prop_string:
         parts = prop_string.split('.')
@@ -148,63 +153,84 @@ def correct_ecfp_name(prop_string):
     return prop_string
        
     
+def adjusted_r2(score, n, p):
+    return 1 - (1 - score) * (n - 1) / (n - p - 1)
+
+    
 def get_results_from_file(
     file_path: Path,
     score: str,
-    peak_number:int=None,
-    # impute: bool = False,
-) :
-    """
-    Args:
-        root_dir: Root directory containing all results
-        representation: Representation for which to get scores
-        model: Model for which to get scores.
-        score: Score to plot
-        var: Variance to plot
-
-    Returns:
-        Average and variance of score
-    """
+    peak_number: int = None,
+):
     file_path = ensure_long_path(file_path)
     if not file_path.exists():
-            print('not exists')
-            features, model = None, None
-            avg, std = np.nan, np.nan
-        
+        print("not exists")
+        features, model = None, None
+        return features, model, np.nan, np.nan
+
+    # --- Extract model and features ---
+    #scaler only
+    if "scaler" == file_path.parent.name:
+        model = file_path.name.split("_")[1]
+        features, num_feats = parse_property_string(file_path.name, return_num_features=True)
+
+    #structural + scaler
+    elif "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
+        model = file_path.name.split("_")[1]
+        features, num_feats = parse_property_string(file_path.name, return_num_features=True)
+        if "ECFP" in features:
+            num_feats = 512+num_feats-1
+        elif "Mordred" in features:
+            num_feats = 520+num_feats-1
+        elif "MACCS" in features:
+            num_feats = 167+num_feats-1
+    #structural only
     else:
-        # for just scaler features
-        if "scaler" == file_path.parent.name:
-            model:str = file_path.name.split("_")[1] 
-            # features:str = file_path.name.split("_")[0].replace("(", "", 1)[::-1].replace(")", "", 1)[::-1]
-            # print(file_path.name)
-            features = parse_property_string(file_path.name)
-            # print(features)
-        # for mixture of scaler and structural 
-        elif "scaler" in file_path.parent.name and file_path.parent.name != "scaler":
-            # features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
-            features = parse_property_string(file_path.name)
-            # print(features)
-            model:str = file_path.name.split("_")[1]
+        raw_feat = file_path.name.split("_")[0].replace("(", "").replace(")", "")
+        features = correct_ecfp_name(raw_feat)
+        model = file_path.name.split("_")[1]
 
-        # for structural only
-        else:
-            features:str = file_path.name.split("_")[0].replace("(", "").replace(")", "")
-            model:str = file_path.name.split("_")[1]
-            features=correct_ecfp_name(features)
+    # --- Load JSON ---
+    with open(file_path, "r") as f:
+        data = json.load(f)
 
-       
-        with open(file_path, "r") as f:
-            data = json.load(f)
-
+    # --- Case 1: Normal scores (r2, mae, rmse, etc.) ---
+    if score != "adjusted_r2":
         avg = data[f"{score}_avg"]
         std = data[f"{score}_stdev"]
-        
 
         avg = avg[peak_number] if isinstance(avg, list) else avg
         std = std[peak_number] if isinstance(std, list) else std
+
         if score in ["mae", "rmse"]:
             avg, std = abs(avg), abs(std)
+
         return features, model, avg, std
+
+    # --- Case 2: Adjusted R² requested ---
+    # We must compute adjusted_R2 from r2
+    r2_avg = data["r2_avg"]
+    r2_std = data["r2_stdev"]
+
+    r2_avg = r2_avg[peak_number] if isinstance(r2_avg, list) else r2_avg
+    r2_std = r2_std[peak_number] if isinstance(r2_std, list) else r2_std
+
+    # --- Determine n and p ---
+    # Determine n (FILL THIS PLACE)
+    # Example: if n is stored in the JSON:
+    # n = data["n_samples"]
+    # If not stored, you must pass n manually.
+    n = 51
+    if n is None:
+        raise ValueError("n_samples is not present in JSON; please add it or pass n externally.")
+
+    # --- Compute adjusted r2 ---
+    adj_r2 = adjusted_r2(r2_avg, n, num_feats)
+
+    # For std: keep std of r2 (cannot convert properly)
+    adj_std = r2_std
+
+    return features, model, adj_r2, adj_std, num_feats
 
 
 def generate_annotations(num: float) -> str:
@@ -409,7 +435,7 @@ def plot_manual_heatmap(
 
     fig, ax = plt.subplots(figsize=figsize)
 
-    palette = "viridis" if score in ["r", "r2"] else "viridis_r"
+    palette = "viridis" if score in ["r", "r2", "adjusted_r2"] else "viridis_r"
     custom_cmap = sns.color_palette(palette, as_cmap=True)
     custom_cmap.set_bad(color="lightgray")
 
@@ -803,13 +829,15 @@ def get_aging_comparison(target_folder: Path,
     for value in comparison_value:
         value_folder = os.path.join(target_folder, value)
         score_files = list(Path(value_folder).rglob(pattern))
-
+        skip_keywords = ("generalizability", "test", "lc_scores", "FeatImp", "Revision")
         for score_path in score_files:
-            if "generalizability" in score_path.name or "test" in score_path.name or 'lc_scores' in score_path.name or 'FeatImp' in score_path.name:
+            if any(keyword in score_path.name for keyword in skip_keywords):
                 # print(f"Skipping file: {score_path.name}")
                 continue
-            feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
-
+            if score != "adjusted_r2":
+                feats, model, av, std = get_results_from_file(file_path=score_path, score=score)
+            else:
+                feats, model, av, std, num_feats = get_results_from_file(file_path=score_path, score=score)
             # Only keep selected features
             # print(feats)
             if feats not in features_to_draw:
@@ -822,14 +850,17 @@ def get_aging_comparison(target_folder: Path,
                         feats = f'{feats} ({special_name})'
                     else:
                         feats = feats
-
-
-            anot = f"{np.round(av, 2)}\n±{np.round(std, 2)}"
+            rounded_score = np.round(av, 2)
+            if score != "adjusted_r2":
+                anot = f"{rounded_score}\n±{np.round(std, 2)}"
+            else:
+                anot = f"{rounded_score}"
             scores_to_report.append({
                 "features": feats,
                 "model": model,
-                "score": np.round(av, 2),
-                "annotations": anot
+                "score": rounded_score,
+                "annotations": anot,
+                "num_features": num_feats if score == "adjusted_r2" else None
             })
     # print(scores_to_report)
     print(pd.DataFrame(scores_to_report).to_string())
@@ -853,7 +884,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                                                         )
     # score_txt: str = "$R^2$" if score_metrics == "r2" else score_metrics.upper()
     fname= f"model vs features in {score_metrics} for separate comparison (three criteria)"
-    if score_metrics == "r2":
+    if score_metrics == "r2" or score_metrics == "adjusted_r2":
         vmax= .9
         vmin= .1
         n_cbar_tick = 9  
@@ -871,7 +902,7 @@ def creat_aging_comparison_heatmap(target_dir:Path,
                         figsize=(10,12),
                         fig_title=f" ",
                         x_title="Models",
-                        y_title="Features",
+                        y_title="",
                         fname=fname,
                         vmin=vmin,
                         vmax=vmax,
@@ -900,7 +931,7 @@ aging_features: List = [
 ]
 
 creat_aging_comparison_heatmap(target_dir=RESULTS/'target_log Rg (nm)',
-                                    score_metrics='r2',
+                                    score_metrics='adjusted_r2',
                                     comparison_value=['scaler', 'Trimer_scaler'],
                                     features_to_draw=aging_features,
                                     models_to_draw={'RF','NGB','XGBR'},

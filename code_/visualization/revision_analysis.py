@@ -9,6 +9,12 @@ import os
 import seaborn as sns
 set_plot_style()
 
+import sys
+
+sys.modules.setdefault("numpy._core",         np.core)
+sys.modules.setdefault("numpy._core.numeric", np.core.numeric)
+sys.modules.setdefault("numpy._core.multiarray", np.core.multiarray)
+sys.modules.setdefault("numpy._core.umath",   np.core.umath)
 
 HERE = Path(__file__).resolve().parent
 DATASETS = HERE.parent.parent/'datasets'
@@ -30,29 +36,30 @@ unique_pairs_count = w_data[["Concentration (mg/ml)", "Temperature SANS/SLS/DLS/
 print("Number of unique environmental condition pairs:", unique_pairs_count)
 
 
-
-
+print(len(w_data_imputed["Trimer_Mordred"].loc[0]))
+print(len(w_data_imputed["Trimer_MACCS"].loc[0]))
+# print(w_data_imputed["Trimer_ECFP"])
 # Group by Xn and compute mean, std, RSD for log Rg
-group_stats = (
-    w_data_imputed.groupby('Xn')['log Rg (nm)']
-    .agg(['mean', 'std', 'min', 'max'])
-    .rename(columns={'mean': 'mean_val', 'std': 'std_val'})
-)
+# group_stats = (
+#     w_data_imputed.groupby('Xn')['log Rg (nm)']
+#     .agg(['mean', 'std', 'min', 'max'])
+#     .rename(columns={'mean': 'mean_val', 'std': 'std_val'})
+# )
 
-# Compute RSD (%)
-group_stats['rsd (%)'] = (group_stats['std_val'] / group_stats['mean_val']) * 100
-group_stats["range"] = group_stats["max"] - group_stats["min"]
+# # Compute RSD (%)
+# group_stats['rsd (%)'] = (group_stats['std_val'] / group_stats['mean_val']) * 100
+# group_stats["range"] = group_stats["max"] - group_stats["min"]
 
 
-plt.figure(figsize=(5,3.5))
-sns.histplot(group_stats['rsd (%)'], bins=30, color="#107b93")
-plt.xlabel("RSD (%)", fontsize=14)
-plt.ylabel("Occurrence", fontsize=14)
-# plt.title("Distribution of RSD of log Rg (nm) across Xn groups", fontsize=16)
-plt.tight_layout()
-plt.ylim(0, 15)
-save_img_path(VISUALIZATION / "analysis and test", "RSD_distribution_log_Rg_across_Xn_groups.png")
-plt.show()
+# plt.figure(figsize=(5,3.5))
+# sns.histplot(group_stats['rsd (%)'], bins=30, color="#107b93")
+# plt.xlabel("RSD (%)", fontsize=14)
+# plt.ylabel("Occurrence", fontsize=14)
+# # plt.title("Distribution of RSD of log Rg (nm) across Xn groups", fontsize=16)
+# plt.tight_layout()
+# plt.ylim(0, 15)
+# save_img_path(VISUALIZATION / "analysis and test", "RSD_distribution_log_Rg_across_Xn_groups.png")
+# plt.show()
 
 
 # plt.figure(figsize=(5,3.5))
