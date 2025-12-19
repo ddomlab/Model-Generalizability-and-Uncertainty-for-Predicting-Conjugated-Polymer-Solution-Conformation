@@ -29,15 +29,40 @@ unique_pairs_count = w_data[['Xn']].drop_duplicates().shape[0]
 print("Number of unique (Xn) pairs:", unique_pairs_count)
 
 
-unique_pairs_count = w_data[["Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)",
-                             'solvent dP', 'solvent dD', 'solvent dH',
-                              "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
-                              "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"]].drop_duplicates().shape[0]
-print("Number of unique environmental condition pairs:", unique_pairs_count)
+# print(w_data_imputed["canonical_name"])
 
 
-print(len(w_data_imputed["Trimer_Mordred"].loc[0]))
-print(len(w_data_imputed["Trimer_MACCS"].loc[0]))
+import matplotlib.pyplot as plt
+
+pfo_data = w_data_imputed[w_data_imputed["canonical_name"] == "PFO"]
+
+plt.figure()
+sc = plt.scatter(
+    pfo_data["Concentration (mg/ml)"],
+    pfo_data["log Rg (nm)"],
+    c=pfo_data["Temperature SANS/SLS/DLS/SEC (K)"]
+)
+cbar = plt.colorbar(sc)
+cbar.set_label("Temperature (K)", fontsize=17) 
+plt.xlabel("Concentration (mg/ml)", fontsize=17)
+plt.ylabel("log Rg (nm)", fontsize=17)
+plt.tick_params(labelsize=17)
+plt.tight_layout()
+save_img_path(
+    VISUALIZATION / "analysis and test",
+    "PFO_log_Rg_vs_Concentration_temperature.png"
+)
+plt.show()
+
+# unique_pairs_count = w_data[["Concentration (mg/ml)", "Temperature SANS/SLS/DLS/SEC (K)",
+#                              'solvent dP', 'solvent dD', 'solvent dH',
+#                               "Dark/light", "Aging time (hour)", "To Aging Temperature (K)",
+#                               "Sonication/Stirring/heating Temperature (K)", "Merged Stirring /sonication/heating time(min)"]].drop_duplicates().shape[0]
+# print("Number of unique environmental condition pairs:", unique_pairs_count)
+
+
+# print(len(w_data_imputed["Trimer_Mordred"].loc[0]))
+# print(len(w_data_imputed["Trimer_MACCS"].loc[0]))
 # print(w_data_imputed["Trimer_ECFP"])
 # Group by Xn and compute mean, std, RSD for log Rg
 # group_stats = (
@@ -51,14 +76,22 @@ print(len(w_data_imputed["Trimer_MACCS"].loc[0]))
 # group_stats["range"] = group_stats["max"] - group_stats["min"]
 
 
-# plt.figure(figsize=(5,3.5))
-# sns.histplot(group_stats['rsd (%)'], bins=30, color="#107b93")
-# plt.xlabel("RSD (%)", fontsize=14)
-# plt.ylabel("Occurrence", fontsize=14)
-# # plt.title("Distribution of RSD of log Rg (nm) across Xn groups", fontsize=16)
+# plt.scatter(
+#     np.log10(group_stats.index), 
+#     group_stats['rsd (%)'],
+#     color="#107b93",
+#     s=40,
+#     alpha=0.8
+# )
+
+# plt.xlabel(r'$\log_{10}(X_n)$', fontsize=16)
+# plt.ylabel(r'$\mathrm{RSD}\;[\%]\;\mathrm{of}\;\log_{10}(R_g)$', fontsize=16)
+# plt.tick_params(axis='both',  labelsize=16)
 # plt.tight_layout()
-# plt.ylim(0, 15)
-# save_img_path(VISUALIZATION / "analysis and test", "RSD_distribution_log_Rg_across_Xn_groups.png")
+# save_img_path(
+#     VISUALIZATION / "analysis and test",
+#     "Xn_vs_RSD_log_Rg.png"
+# )
 # plt.show()
 
 
