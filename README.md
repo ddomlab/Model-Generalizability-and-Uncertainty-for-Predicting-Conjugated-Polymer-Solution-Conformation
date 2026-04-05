@@ -79,3 +79,6 @@ results/
 
 ```
 ## How to cite 
+
+If you liked, please cite the paper:
+https://doi.org/10.1063/5.0303721
